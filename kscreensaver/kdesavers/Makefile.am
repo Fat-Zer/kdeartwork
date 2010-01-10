@@ -92,10 +92,17 @@ noinst_HEADERS = banner.h polygon.h slideshow.h lines.h\
 pics_DATA = kscience.png particle.png image.png
 picsdir = $(kde_datadir)/kscreensaver
 
+if COMPILE_LIBART_KSAVERS
+desktop_DATA = KBanner.desktop KPolygon.desktop \
+               KSlideshow.desktop KLines-saver.desktop KLorenz.desktop \
+               KBlob.desktop KVm.desktop \
+               $(X11_DESKTOP_FILES) $(GL_DESKTOP_FILES) $(LIBART_DESKTOP_FILES) $(ARTS_GL_DESKTOP_FILES)
+else
 desktop_DATA = KBanner.desktop KPolygon.desktop \
                KSlideshow.desktop KLines-saver.desktop KLorenz.desktop \
                KBlob.desktop KVm.desktop \
                KClock.desktop $(X11_DESKTOP_FILES) $(GL_DESKTOP_FILES) $(LIBART_DESKTOP_FILES) $(ARTS_GL_DESKTOP_FILES)
+endif
 
 desktopdir = $(kde_appsdir)/System/ScreenSavers
 
