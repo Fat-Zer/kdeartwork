@@ -2,7 +2,7 @@
 Exec=flow
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=Setup;InWindow;Root;
 X-KDE-Category=Illusions of Depth
 Name=Flow

@@ -18,7 +18,7 @@ Name[sr]=Мебијусови зупчаници
 Name[sr@Latn]=Mebijusovi zupčanici
 Name[sv]=Möbiuskuggar
 Name[zh_TW]=莫比斯齒輪
-TryExec=xscreensaver
+
 X-KDE-Type=OpenGL
 X-KDE-Category=OpenGL Screen Savers
 

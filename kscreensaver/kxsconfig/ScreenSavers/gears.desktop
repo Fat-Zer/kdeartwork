@@ -2,7 +2,7 @@
 Exec=gears
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=Setup;InWindow;Root;
 X-KDE-Category=OpenGL Screen Savers
 X-KDE-Type=OpenGL

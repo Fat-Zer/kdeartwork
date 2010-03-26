@@ -2,7 +2,7 @@
 Exec=grav
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=Setup;InWindow;Root;
 X-KDE-Category=Gadgets & Simulations
 Name=Gravity

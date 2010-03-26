@@ -2,7 +2,7 @@
 Exec=klein
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=Klein
 Name[de]=Kleinsche Flasche

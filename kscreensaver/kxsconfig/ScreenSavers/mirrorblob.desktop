@@ -2,7 +2,7 @@
 Exec=mirrorblob
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=MirrorBlob
 Name[de]=Spiegelbild-Blob 

@@ -2,7 +2,7 @@
 Exec=drift
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow;Root;Setup;
 X-KDE-Category=Fractals
 Name=Drift

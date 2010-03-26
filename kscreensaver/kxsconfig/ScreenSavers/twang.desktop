@@ -2,7 +2,7 @@
 Exec=twang
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow;Root;Setup;
 X-KDE-Category=Desktop Distortions
 X-KDE-Type=ManipulateScreen

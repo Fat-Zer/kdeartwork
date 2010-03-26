@@ -2,7 +2,7 @@
 Exec=cubestorm
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=CubeStorm
 Name[ca]=TempestaCúbica

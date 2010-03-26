@@ -2,7 +2,7 @@
 Exec=antinspect
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=AntInspect
 Name[ca]=Formiga inspectora

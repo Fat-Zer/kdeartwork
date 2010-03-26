@@ -2,7 +2,7 @@
 Exec=galaxy
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow;Root;Setup;
 X-KDE-Category=Flying Things
 Name=Galaxy

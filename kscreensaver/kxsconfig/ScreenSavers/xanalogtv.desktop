@@ -2,7 +2,7 @@
 Exec=xanalogtv
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=XAnalogTV
 Name[de]=Analog-TV-Bildstörungen

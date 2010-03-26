@@ -2,7 +2,7 @@
 Exec=polyhedra
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=Polyhedra
 Name[de]=Vielflächer

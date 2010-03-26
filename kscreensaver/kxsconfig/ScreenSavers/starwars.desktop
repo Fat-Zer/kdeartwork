@@ -2,7 +2,7 @@
 Exec=starwars
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow;Root;Setup;
 X-KDE-Category=Banners & Pictures
 #it doesn't feel slow

@@ -2,7 +2,7 @@
 Exec=ripples
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow;Root;Setup;
 X-KDE-Type=ManipulateScreen
 X-KDE-Category=Gadgets & Simulations

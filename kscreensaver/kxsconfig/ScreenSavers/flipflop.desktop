@@ -2,7 +2,7 @@
 Exec=flipflop
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=FlipFlop
 Name[ca]=Biestable

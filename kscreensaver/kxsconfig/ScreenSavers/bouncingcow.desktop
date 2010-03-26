@@ -2,7 +2,7 @@
 Exec=bouncingcow
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 X-KDE-Category=OpenGL Screen Savers
 X-KDE-Type=OpenGL

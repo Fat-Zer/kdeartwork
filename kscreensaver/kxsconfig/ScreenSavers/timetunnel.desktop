@@ -38,7 +38,7 @@ Name[tr]=Zaman Tüneli
 Name[uk]=Часовий тунель
 Name[vi]=Đường hầm thời gian
 Name[zh_TW]=時光隧道
-TryExec=xscreensaver
+
 X-KDE-Type=OpenGL
 X-KDE-Category=OpenGL Screen Savers
 

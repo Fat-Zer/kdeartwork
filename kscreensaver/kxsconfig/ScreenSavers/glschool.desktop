@@ -15,7 +15,7 @@ Name[ru]=Рыбки
 Name[sr]=GL јато
 Name[sr@Latn]=GL jato
 Name[sv]=Stim GL
-TryExec=xscreensaver
+
 X-KDE-Type=OpenGL
 X-KDE-Category=OpenGL Screen Savers
 

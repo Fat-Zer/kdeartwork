@@ -2,7 +2,7 @@
 Exec=lissie
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=Setup;InWindow;Root;
 X-KDE-Category=Visit to Flatland
 Name=Lissie

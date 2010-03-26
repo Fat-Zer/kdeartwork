@@ -2,7 +2,7 @@
 Exec=blocktube
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=BlockTube
 Name[ca]=BlocTub

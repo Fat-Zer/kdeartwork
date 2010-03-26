@@ -2,7 +2,7 @@
 Exec=noseguy
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow;Root;Setup;
 X-KDE-Category=Miscellaneous
 X-KDE-Type=Fortune

@@ -5,7 +5,7 @@ Type=Application
 Actions=InWindow,Root,Setup
 Name=M6502
 Name[ru]=Микропроцессор M6502
-TryExec=xscreensaver
+
 X-KDE-Category=Gadgets & Simulations
 
 [Desktop Action Setup]

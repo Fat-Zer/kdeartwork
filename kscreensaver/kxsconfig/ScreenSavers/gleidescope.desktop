@@ -2,7 +2,7 @@
 Exec=gleidescope
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=Gleidescope
 Name[ca]=Gleidoscopi

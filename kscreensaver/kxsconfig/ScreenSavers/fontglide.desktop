@@ -2,7 +2,7 @@
 Exec=fontglide
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=FontGlide
 Name[de]=Gleitende Schriften

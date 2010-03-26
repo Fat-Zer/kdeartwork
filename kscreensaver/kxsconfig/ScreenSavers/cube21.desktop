@@ -35,7 +35,7 @@ Name[tr]=Küp 21
 Name[uk]=Куб 21
 Name[vi]=Lập phương 21
 Name[zh_TW]=立方體 21
-TryExec=xscreensaver
+
 X-KDE-Type=OpenGL
 X-KDE-Category=OpenGL Screen Savers
 

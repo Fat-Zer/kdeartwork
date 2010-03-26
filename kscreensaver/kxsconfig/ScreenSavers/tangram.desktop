@@ -14,7 +14,7 @@ Name[ru]=Китайская головоломка
 Name[sr]=Танграм
 Name[tr]=Çin Bulmacası
 Name[uk]=Танграма
-TryExec=xscreensaver
+
 X-KDE-Type=OpenGL
 X-KDE-Category=OpenGL Screen Savers
 

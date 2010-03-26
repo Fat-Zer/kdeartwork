@@ -33,7 +33,7 @@ Name[sr@Latn]=Mravlji lavirint
 Name[sv]=Myrornas labyrint
 Name[uk]=Мурашиний Лабіринт
 Name[vi]=Mê cung Kiến
-TryExec=xscreensaver
+
 X-KDE-Type=OpenGL
 X-KDE-Category=OpenGL Screen Savers
 

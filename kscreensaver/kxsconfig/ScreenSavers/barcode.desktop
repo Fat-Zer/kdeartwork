@@ -2,7 +2,7 @@
 Exec=barcode
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 X-KDE-Category=Gadgets & Simulations
 Name=Barcode

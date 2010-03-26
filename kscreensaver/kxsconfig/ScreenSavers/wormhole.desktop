@@ -2,7 +2,7 @@
 Exec=wormhole
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=Wormhole
 Name[bg]=Космически тунел

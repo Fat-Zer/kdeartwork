@@ -13,7 +13,7 @@ Name[ru]=Полярные координаты
 Name[sr]=Локворд
 Name[sr@Latn]=Lokvord
 Name[sv]=Låshållet
-TryExec=xscreensaver
+
 X-KDE-Type=OpenGL
 X-KDE-Category=OpenGL Screen Savers
 

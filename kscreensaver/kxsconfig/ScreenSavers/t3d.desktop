@@ -2,7 +2,7 @@
 Exec=t3d
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow;Root;Setup;
 X-KDE-Category=Gadgets & Simulations
 Name=Time 3D

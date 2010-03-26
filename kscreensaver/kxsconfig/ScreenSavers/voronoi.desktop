@@ -8,7 +8,7 @@ Name[nds]=Voronen
 Name[ru]=Поверхности
 Name[sr]=Вороној
 Name[sr@Latn]=Voronoj
-TryExec=xscreensaver
+
 X-KDE-Type=OpenGL
 X-KDE-Category=OpenGL Screen Savers
 

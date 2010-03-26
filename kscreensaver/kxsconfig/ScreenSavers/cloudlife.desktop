@@ -2,7 +2,7 @@
 Exec=cloudlife
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=CloudLife
 Name[br]=Koumoul pik

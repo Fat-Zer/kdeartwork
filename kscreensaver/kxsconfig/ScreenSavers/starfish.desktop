@@ -2,7 +2,7 @@
 Exec=starfish
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow;Root;Setup;
 X-KDE-Category=Visit to Flatland
 Name=Starfish

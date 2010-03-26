@@ -5,7 +5,6 @@ Icon=kscreensaver
 Type=Application
 Actions=InWindow,Root,Setup
 Name=@LABEL@
-TryExec=xscreensaver
 @GL1@
 @GL2@
 

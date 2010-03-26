@@ -14,7 +14,7 @@ Name[sk]=hornýBlok
 Name[sr]=Горњи блок
 Name[sr@Latn]=Gornji blok
 Name[sv]=Toppbitar
-TryExec=xscreensaver
+
 X-KDE-Type=OpenGL
 X-KDE-Category=OpenGL Screen Savers
 

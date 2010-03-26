@@ -2,7 +2,7 @@
 Exec=glknots
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=GLKnots
 Name[ca]=NusosGL

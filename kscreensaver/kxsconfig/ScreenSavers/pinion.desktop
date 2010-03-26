@@ -20,7 +20,7 @@ Name[ru]=Редуктор
 Name[sr]=Пинион
 Name[sv]=Vingspets
 Name[uk]=Шестірня
-TryExec=xscreensaver
+
 X-KDE-Type=OpenGL
 X-KDE-Category=OpenGL Screen Savers
 

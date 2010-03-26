@@ -2,7 +2,7 @@
 Exec=triangle
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow;Root;Setup;
 X-KDE-Category=Illusions of Depth
 Name=Triangle

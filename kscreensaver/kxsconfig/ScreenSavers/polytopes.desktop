@@ -2,7 +2,7 @@
 Exec=polytopes
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=Regular 4D Polytopes
 Name[ca]=Polítops Regulars 4D

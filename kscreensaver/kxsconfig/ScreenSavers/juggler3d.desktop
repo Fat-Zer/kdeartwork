@@ -33,7 +33,7 @@ Name[sv]=Jonglera 3D
 Name[uk]=Жонглювання3D
 Name[vi]=Tung hứng 3 chiều
 Name[zh_TW]=戲法3D
-TryExec=xscreensaver
+
 X-KDE-Type=OpenGL
 X-KDE-Category=OpenGL Screen Savers
 

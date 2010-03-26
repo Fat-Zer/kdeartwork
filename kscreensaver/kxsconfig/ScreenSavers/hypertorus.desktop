@@ -2,7 +2,7 @@
 Exec=hypertorus
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=4D Hypertorus
 Name[ca]=4D Hipertor

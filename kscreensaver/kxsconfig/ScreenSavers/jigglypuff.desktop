@@ -2,7 +2,7 @@
 Exec=jigglypuff
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=JigglyPuff
 Name[ca]=Vent Ondulat

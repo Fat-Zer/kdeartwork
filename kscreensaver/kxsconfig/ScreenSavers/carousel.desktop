@@ -38,7 +38,7 @@ Name[sv]=Karusell
 Name[uk]=Карусель
 Name[vi]=Nồi hầm
 Name[zh_TW]=旋轉木馬
-TryExec=xscreensaver
+
 X-KDE-Type=OpenGL
 X-KDE-Category=OpenGL Screen Savers
 

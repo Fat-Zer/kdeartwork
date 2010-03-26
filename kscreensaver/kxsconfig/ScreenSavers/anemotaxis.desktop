@@ -19,7 +19,7 @@ Name[ru]=Аромат
 Name[sr]=Анемотакса
 Name[sr@Latn]=Anemotaksa
 Name[ta]=அனிமோடாக்சிஸ்
-TryExec=xscreensaver
+
 
 [Desktop Action Setup]
 Exec=kxsconfig anemotaxis

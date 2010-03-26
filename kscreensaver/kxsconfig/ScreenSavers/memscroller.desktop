@@ -29,7 +29,7 @@ Name[sv]=Rullande minne
 Name[ta]=மெம் உருளி
 Name[uk]=Пам'ять
 Name[zh_TW]=記憶體捲動器
-TryExec=xscreensaver
+
 
 [Desktop Action Setup]
 Exec=kxsconfig memscroller

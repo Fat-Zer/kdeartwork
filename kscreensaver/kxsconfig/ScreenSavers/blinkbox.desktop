@@ -2,7 +2,7 @@
 Exec=blinkbox
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=BlinkBox
 Name[el]=Πλαίσιο αναλαμπών

@@ -35,7 +35,7 @@ Name[sr@Latn]=Okretanje teksta
 Name[sv]=Textvändning
 Name[uk]=Обертання Тексту
 Name[vi]=Văn bản lật
-TryExec=xscreensaver
+
 X-KDE-Type=OpenGL
 X-KDE-Category=OpenGL Screen Savers
 

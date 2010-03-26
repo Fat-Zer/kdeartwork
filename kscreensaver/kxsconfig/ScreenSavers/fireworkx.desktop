@@ -36,7 +36,7 @@ Name[uk]=Феєрверк Х
 Name[vi]=Pháo hoa
 Name[zh_CN]=烟花
 Name[zh_TW]=煙火
-TryExec=xscreensaver
+
 
 [Desktop Action Setup]
 Exec=kxsconfig fireworkx

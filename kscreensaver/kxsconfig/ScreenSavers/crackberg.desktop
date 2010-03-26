@@ -15,7 +15,7 @@ Name[sl]=Visoki otoki
 Name[sr]=Крекберг
 Name[sr@Latn]=Krekberg
 Name[sv]=Spräcka berg
-TryExec=xscreensaver
+
 X-KDE-Type=OpenGL
 X-KDE-Category=OpenGL Screen Savers
 

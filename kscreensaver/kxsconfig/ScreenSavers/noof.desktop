@@ -2,7 +2,7 @@
 Exec=noof
 Icon=kscreensaver
 Type=Application
-TryExec=xscreensaver
+
 Actions=InWindow,Root,Setup;
 Name=Noof
 Name[fr]=Noof (GL)
