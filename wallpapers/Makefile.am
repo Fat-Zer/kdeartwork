@@ -15,7 +15,21 @@ papers_DATA = \
      fulmine.jpg \
      fulmine.jpg.desktop \
      gear-flowers.svgz \
-     gear-flowers.svgz.desktop
+     gear-flowers.svgz.desktop \
+	golden_dome.jpg \
+	golden_dome.jpg.desktop \
+	kore.png \
+	kore.png.desktop \
+	landscape_keltern.jpg \
+	landscape_keltern.jpg.desktop \
+	sepia_mountain.jpg \
+	sepia_mountain.jpg.desktop \
+	storm_blue.jpg \
+	storm_blue.jpg.desktop \
+	storm_green.jpg \
+	storm_green.jpg.desktop \
+	the_bay.jpg \
+	the_bay.jpg.desktop     
 
 papersdir = $(kde_wallpaperdir)
 
