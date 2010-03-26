@@ -1,0 +1,25 @@
+[Desktop Entry]
+Encoding=UTF-8
+Exec=cubicgrid
+Icon=kscreensaver
+Type=Application
+Actions=InWindow,Root,Setup
+Name=CubicGrid
+TryExec=xscreensaver
+X-KDE-Category=OpenGL Screen Savers
+X-KDE-Type=OpenGL
+
+[Desktop Action Setup]
+Exec=kxsconfig cubicgrid
+Name=Setup...
+
+[Desktop Action InWindow]
+Exec=kxsrun cubicgrid -- -window-id %w
+Name=Display in Specified Window
+NoDisplay=true
+
+[Desktop Action Root]
+Exec=kxsrun cubicgrid -- -root
+Name=Display in Root Window
+NoDisplay=true
+

@@ -1,0 +1,25 @@
+[Desktop Entry]
+Encoding=UTF-8
+Exec=hypnowheel
+Icon=kscreensaver
+Type=Application
+Actions=InWindow,Root,Setup
+Name=Hypnowheel
+TryExec=xscreensaver
+X-KDE-Category=OpenGL Screen Savers
+X-KDE-Type=OpenGL
+
+[Desktop Action Setup]
+Exec=kxsconfig hypnowheel
+Name=Setup...
+
+[Desktop Action InWindow]
+Exec=kxsrun hypnowheel -- -window-id %w
+Name=Display in Specified Window
+NoDisplay=true
+
+[Desktop Action Root]
+Exec=kxsrun hypnowheel -- -root
+Name=Display in Root Window
+NoDisplay=true
+

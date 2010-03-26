@@ -1,0 +1,23 @@
+[Desktop Entry]
+Encoding=UTF-8
+Exec=lcdscrub
+Icon=kscreensaver
+Type=Application
+Actions=InWindow,Root,Setup
+Name=LCDscrub
+TryExec=xscreensaver
+
+[Desktop Action Setup]
+Exec=kxsconfig lcdscrub
+Name=Setup...
+
+[Desktop Action InWindow]
+Exec=kxsrun lcdscrub -- -window-id %w
+Name=Display in Specified Window
+NoDisplay=true
+
+[Desktop Action Root]
+Exec=kxsrun lcdscrub -- -root
+Name=Display in Root Window
+NoDisplay=true
+

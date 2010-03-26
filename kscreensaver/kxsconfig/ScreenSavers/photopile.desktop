@@ -1,0 +1,25 @@
+[Desktop Entry]
+Encoding=UTF-8
+Exec=photopile
+Icon=kscreensaver
+Type=Application
+Actions=InWindow,Root,Setup
+Name=Photopile
+TryExec=xscreensaver
+X-KDE-Category=OpenGL Screen Savers
+X-KDE-Type=OpenGL
+
+[Desktop Action Setup]
+Exec=kxsconfig photopile
+Name=Setup...
+
+[Desktop Action InWindow]
+Exec=kxsrun photopile -- -window-id %w
+Name=Display in Specified Window
+NoDisplay=true
+
+[Desktop Action Root]
+Exec=kxsrun photopile -- -root
+Name=Display in Root Window
+NoDisplay=true
+
