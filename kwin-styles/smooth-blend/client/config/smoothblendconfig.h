@@ -25,15 +25,15 @@
 #ifndef SMOOTHBLENDCONFIG_H
 #define SMOOTHBLENDCONFIG_H
 
-#include <qobject.h>
+#include <tqobject.h>
 
 class KConfig;
 class ConfigDialog;
 
-class smoothblendConfig : public QObject {
+class smoothblendConfig : public TQObject {
     Q_OBJECT
 public:
-    smoothblendConfig(KConfig* config, QWidget* parent);
+    smoothblendConfig(KConfig* config, TQWidget* parent);
     ~smoothblendConfig();
 
 signals:

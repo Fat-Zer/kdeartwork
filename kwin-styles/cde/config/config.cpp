@@ -2,11 +2,11 @@
 #include "config.h"
 #include <kapplication.h>
 #include <kglobal.h>
-#include <qwhatsthis.h>
-#include <qvbox.h>
+#include <tqwhatsthis.h>
+#include <tqvbox.h>
 #include <klocale.h>
 
-extern "C" KDE_EXPORT QObject* allocate_config( KConfig* conf, QWidget* parent )
+extern "C" KDE_EXPORT TQObject* allocate_config( KConfig* conf, TQWidget* parent )
 {
 	return new CdeConfig(conf, parent);
 }
@@ -16,36 +16,36 @@ extern "C" KDE_EXPORT QObject* allocate_config( KConfig* conf, QWidget* parent )
  * 'conf' 	is a pointer to the kwindecoration modules open kwin config,
  *			and is by default set to the "Style" group.
  *
- * 'parent'	is the parent of the QObject, which is a VBox inside the
+ * 'parent'	is the parent of the TQObject, which is a VBox inside the
  *			Configure tab in kwindecoration
  */
 
-CdeConfig::CdeConfig( KConfig* conf, QWidget* parent )
-	: QObject( parent )
+CdeConfig::CdeConfig( KConfig* conf, TQWidget* parent )
+	: TQObject( parent )
 {
 	cdeConfig = new KConfig("kwincderc");
 	KGlobal::locale()->insertCatalogue("kwin_art_clients");
 	
-	groupBox = new QVBox( parent );
+	groupBox = new TQVBox( parent );
 	
-	bgAlign = new QButtonGroup( 3, Qt::Horizontal, i18n("Text &Alignment"), groupBox );
+	bgAlign = new TQButtonGroup( 3, Qt::Horizontal, i18n("Text &Alignment"), groupBox );
 	bgAlign->setExclusive( true );
-	QWhatsThis::add( bgAlign, i18n("Use these buttons to set the alignment of the titlebar caption text.") );
-	new QRadioButton( i18n("Left"), bgAlign, "AlignLeft" );
-	QRadioButton *radio2 = new QRadioButton( i18n("Centered"), bgAlign, "AlignHCenter" );
+	TQWhatsThis::add( bgAlign, i18n("Use these buttons to set the alignment of the titlebar caption text.") );
+	new TQRadioButton( i18n("Left"), bgAlign, "AlignLeft" );
+	TQRadioButton *radio2 = new TQRadioButton( i18n("Centered"), bgAlign, "AlignHCenter" );
 	radio2->setChecked( true );
-	new QRadioButton( i18n("Right"), bgAlign, "AlignRight" );
+	new TQRadioButton( i18n("Right"), bgAlign, "AlignRight" );
 	
-	cbColorBorder = new QCheckBox( i18n("Draw window frames using &titlebar colors"), groupBox );
-	QWhatsThis::add( cbColorBorder, i18n("When selected, the window decoration borders "
+	cbColorBorder = new TQCheckBox( i18n("Draw window frames using &titlebar colors"), groupBox );
+	TQWhatsThis::add( cbColorBorder, i18n("When selected, the window decoration borders "
 					     "are drawn using the titlebar colors. Otherwise, they are "
 					     "drawn using normal border colors instead.") );
 	
-//	cbTitlebarButton = new QCheckBox( i18n("Titlebar acts like a &pushbutton when clicked"), groupBox );
-//	QWhatsThis::add( cbTitlebarButton, i18n("When selected, this option causes the window titlebar to behave "
+//	cbTitlebarButton = new TQCheckBox( i18n("Titlebar acts like a &pushbutton when clicked"), groupBox );
+//	TQWhatsThis::add( cbTitlebarButton, i18n("When selected, this option causes the window titlebar to behave "
 //						"as if it was a pushbutton when you click it to move the window.") );
 	
-	(void) new QLabel( i18n("Tip: If you want the look of the original Motif(tm) Window Manager,\n"
+	(void) new TQLabel( i18n("Tip: If you want the look of the original Motif(tm) Window Manager,\n"
 				"click the \"Buttons\" tab above and remove the help\n"
 				"and close buttons from the titlebar."), groupBox );
 	
@@ -53,9 +53,9 @@ CdeConfig::CdeConfig( KConfig* conf, QWidget* parent )
 	load( conf );
 
 	// Ensure we track user changes properly
-	connect( cbColorBorder, SIGNAL(clicked()), SLOT(slotSelectionChanged()) );
-//	connect( cbTitlebarButton, SIGNAL(clicked()), SLOT(slotSelectionChanged()) );
-	connect( bgAlign, SIGNAL(clicked(int)), SLOT(slotSelectionChanged(int)) );
+	connect( cbColorBorder, TQT_SIGNAL(clicked()), TQT_SLOT(slotSelectionChanged()) );
+//	connect( cbTitlebarButton, TQT_SIGNAL(clicked()), TQT_SLOT(slotSelectionChanged()) );
+	connect( bgAlign, TQT_SIGNAL(clicked(int)), TQT_SLOT(slotSelectionChanged(int)) );
 
 	// Make the widgets visible in kwindecoration
 	groupBox->show();
@@ -86,8 +86,8 @@ void CdeConfig::load( KConfig* /*conf*/ )
 {
 	cdeConfig->setGroup("General");
 
-	QString value = cdeConfig->readEntry( "TextAlignment", "AlignHCenter" );
-	QRadioButton *button = (QRadioButton*)bgAlign->child( (const char *)value.latin1() );
+	TQString value = cdeConfig->readEntry( "TextAlignment", "AlignHCenter" );
+	TQRadioButton *button = (TQRadioButton*)bgAlign->child( (const char *)value.latin1() );
 	if ( button )
 	    button->setChecked( true );
 
@@ -104,9 +104,9 @@ void CdeConfig::save( KConfig* /*conf*/ )
 {
 	cdeConfig->setGroup("General");
 
-	QRadioButton *button = (QRadioButton*)bgAlign->selected();
+	TQRadioButton *button = (TQRadioButton*)bgAlign->selected();
 	if ( button )
-	    cdeConfig->writeEntry( "TextAlignment", QString(button->name()) );
+	    cdeConfig->writeEntry( "TextAlignment", TQString(button->name()) );
 
 	cdeConfig->writeEntry( "UseTitleBarBorderColors", cbColorBorder->isChecked() );
 //	cdeConfig->writeEntry( "TitlebarButtonMode", cbTitlebarButton->isChecked() );
@@ -119,7 +119,7 @@ void CdeConfig::save( KConfig* /*conf*/ )
 // Sets UI widget defaults which must correspond to style defaults
 void CdeConfig::defaults()
 {
-	QRadioButton *button = (QRadioButton*)bgAlign->child( "AlignHCenter" );
+	TQRadioButton *button = (TQRadioButton*)bgAlign->child( "AlignHCenter" );
 	if ( button )
 	    button->setChecked( true );
 

@@ -14,8 +14,8 @@
 #ifndef __FOUNTAIN_H__
 #define __FOUNTAIN_H__
 
-#include <qdialog.h>
-#include <qgl.h>
+#include <tqdialog.h>
+#include <tqgl.h>
 #ifdef Q_WS_MACX
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
@@ -24,12 +24,12 @@
 #include <GL/gl.h>
 #endif
 #include <kscreensaver.h>
-#include <qtimer.h>
-#include <qimage.h>
+#include <tqtimer.h>
+#include <tqimage.h>
 #include "fountaincfg.h"
 #include <kinstance.h>
-#include <qfile.h>
-#include <qtextstream.h>
+#include <tqfile.h>
+#include <tqtextstream.h>
 
 #define	MAX_PARTICLES	1000
 
@@ -59,7 +59,7 @@ Q_OBJECT
 	};
 
 public:
-	Fountain( QWidget * parent=0, const char * name=0 );
+	Fountain( TQWidget * parent=0, const char * name=0 );
 	~Fountain();
 	void setSize( float newSize );
 	void setStars( bool doStars );
@@ -93,7 +93,7 @@ private:
 	GLuint	col;						// Current Color Selection
 	GLuint	delay;						// Rainbow Effect Delay
 	GLuint	texture[1];
-	QImage  tex;
+	TQImage  tex;
 	float	index;
 	float	transIndex;
 	GLfloat scale;
@@ -114,14 +114,14 @@ public slots:
 //	void loadTextures(bool textures);
 private:
 	Fountain *fountain;
-	QTimer  *timer;
+	TQTimer  *timer;
 };
 
 class KFountainSetup : public SetupUi
 {
 	Q_OBJECT
 public:
-	KFountainSetup( QWidget *parent = NULL, const char *name = NULL );
+	KFountainSetup( TQWidget *parent = NULL, const char *name = NULL );
 
 protected:
 	void readSettings();

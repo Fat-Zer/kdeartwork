@@ -8,8 +8,8 @@
 #ifndef __SCIENCE_H__
 #define __SCIENCE_H__
 
-#include <qrect.h>
-#include <qtimer.h>
+#include <tqrect.h>
+#include <tqtimer.h>
 #include <kdialogbase.h>
 #include <kscreensaver.h>
 
@@ -26,8 +26,8 @@ class KPreviewWidget : public QWidget
 {
 	Q_OBJECT
 public:
-	KPreviewWidget( QWidget *parent );
-	void paintEvent( QPaintEvent *event );
+	KPreviewWidget( TQWidget *parent );
+	void paintEvent( TQPaintEvent *event );
 	void notifySaver( KScienceSaver *s = 0 );
 private:
 	KScienceSaver *saver;
@@ -42,7 +42,7 @@ public:
 	KScienceSaver( WId id, bool setup=false, bool gP=false);
 	virtual ~KScienceSaver();
 
-	void do_refresh( const QRect & rect );
+	void do_refresh( const TQRect & rect );
 	void setMode        ( int mode );
 	void setMoveX       ( signed int s );
 	void setMoveY       ( signed int s );
@@ -80,7 +80,7 @@ protected:
 	void       applyLens16bpp(int xs, int ys, int xd, int yd, int w, int h);
 	void       applyLens24bpp(int xs, int ys, int xd, int yd, int w, int h);
 	void       applyLens32bpp(int xs, int ys, int xd, int yd, int w, int h);
-	QTimer     timer;
+	TQTimer     timer;
 	bool       moveOn;
 	bool       setup;
 	bool       grabPixmap;
@@ -107,7 +107,7 @@ class KScienceSetup : public KDialogBase
 {
 	Q_OBJECT
 public:
-	KScienceSetup(QWidget *parent=0, const char *name=0);
+	KScienceSetup(TQWidget *parent=0, const char *name=0);
 	~KScienceSetup();
 protected:
 	void updateSettings();
@@ -131,9 +131,9 @@ private slots:
 private:
 	KPreviewWidget *preview;
 	KScienceSaver *saver;
-	QSlider *slideSize, *slideSpeed, *slideIntensity;
-	QSlider *slideMoveX, *slideMoveY;
-	QCheckBox *checkInverse, *checkGravity, *checkHideBG;	
+	TQSlider *slideSize, *slideSpeed, *slideIntensity;
+	TQSlider *slideMoveX, *slideMoveY;
+	TQCheckBox *checkInverse, *checkGravity, *checkHideBG;	
 
 	int  mode;
 	bool inverse  [MAX_MODES];

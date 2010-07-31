@@ -30,11 +30,11 @@
 #define FIELDW_2 (FIELDWIDTH/2.0)
 #define FIELDW_4 (FIELDWIDTH/4.0)
 
-#include <qgl.h>
-#include <qptrlist.h>
-#include <qimage.h>
-#include <qstring.h>
-#include <qcolor.h>
+#include <tqgl.h>
+#include <tqptrlist.h>
+#include <tqimage.h>
+#include <tqstring.h>
+#include <tqcolor.h>
 
 #include <arts/kplayobject.h>
 #include <arts/kartsserver.h>
@@ -46,14 +46,14 @@ class Writer;
 class KFireSaver : public QGLWidget
 {
     public:
-	KFireSaver( QWidget *parent=0, const char *name=0 );
+	KFireSaver( TQWidget *parent=0, const char *name=0 );
 	~KFireSaver();
 
     protected:
 	void initializeGL();
 	void resizeGL( int, int );
 	void paintGL();
-	void timerEvent( class QTimerEvent * );
+	void timerEvent( class TQTimerEvent * );
 
     private:
 	enum enumFireworkType
@@ -72,19 +72,19 @@ class KFireSaver : public QGLWidget
 	inline enumFireworkType pickType();
 	inline int pickColour();
 	void explodeFirework(Particle* fireWorkLeaderParticle);
-	void burnLogo(QImage * image);
-	void playSound(QString file);
-	bool loadTexture(QString file, unsigned int & textureID);
+	void burnLogo(TQImage * image);
+	void playSound(TQString file);
+	bool loadTexture(TQString file, unsigned int & textureID);
 	void freeTexture(unsigned int & textureID);
 	void readConfig();
 
 	//list of particles and stars
-	QPtrList<Particle>
+	TQPtrList<Particle>
 		particleList,
 		starList;
 
 	//stuff for 'exploding' pixmaps (kde, tux, icons..)
-	QPtrList<QImage>
+	TQPtrList<TQImage>
 		imageList;
 
 	//texture stuff
@@ -98,7 +98,7 @@ class KFireSaver : public QGLWidget
 	//sound stuff
 	KArtsDispatcher artsDispatcher;
 	KArtsServer artsServer;
-	QPtrList<KPlayObject> playObjectList;
+	TQPtrList<KPlayObject> playObjectList;
 	QString	sound_explosion,
 		sound_debris;
 

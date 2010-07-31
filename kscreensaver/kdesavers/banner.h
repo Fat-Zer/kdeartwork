@@ -8,7 +8,7 @@
 #ifndef __BANNER_H__
 #define __BANNER_H__
 
-#include <qtimer.h>
+#include <tqtimer.h>
 
 #include <kscreensaver.h>
 #include <kdialogbase.h>
@@ -28,12 +28,12 @@ public:
     virtual ~KBannerSaver();
 
     void setSpeed( int spd );
-    void setFont( const QString &family, int size, const QColor &color,
+    void setFont( const TQString &family, int size, const TQColor &color,
 		    bool b, bool i );
-    void setMessage( const QString &msg );
+    void setMessage( const TQString &msg );
     void setTimeDisplay();
     void setCyclingColor(bool on);
-    void setColor( QColor &color);
+    void setColor( TQColor &color);
 
 private:
     void readSettings();
@@ -43,7 +43,7 @@ protected slots:
     void slotTimeout();
 
 protected:
-    QFont   font;
+    TQFont   font;
     QTimer	timer;
     QString	fontFamily;
     int		fontSize;
@@ -69,43 +69,43 @@ class KBannerSetup : public KDialogBase
 {
     Q_OBJECT
 public:
-    KBannerSetup( QWidget *parent = NULL, const char *name = NULL );
+    KBannerSetup( TQWidget *parent = NULL, const char *name = NULL );
 
 protected:
     void readSettings();
     void fillFontSizes();
 
 private slots:
-    void slotFamily( const QString & );
+    void slotFamily( const TQString & );
     void slotSize( int );
-    void slotSizeEdit(const QString &);
-    void slotColor(const QColor &);
+    void slotSizeEdit(const TQString &);
+    void slotColor(const TQColor &);
     void slotCyclingColor(bool on);
     void slotBold( bool );
     void slotItalic( bool );
     void slotSpeed( int );
-    void slotMessage( const QString & );
+    void slotMessage( const TQString & );
     void slotOk();
     void slotHelp();
     void slotTimeToggled(bool on);
 
 private:
-    QWidget *preview;
+    TQWidget *preview;
     KColorButton *colorPush;
     KBannerSaver *saver;
-    QLineEdit *ed;
-    QComboBox* comboSizes;
+    TQLineEdit *ed;
+    TQComboBox* comboSizes;
 
-    QString message;
+    TQString message;
     bool    showTime;
-    QString fontFamily;
+    TQString fontFamily;
     int	    fontSize;
-    QColor  fontColor;
+    TQColor  fontColor;
     bool    cyclingColor;
     bool    bold;
     bool    italic;
     int	    speed;
-    QValueList<int> sizes;
+    TQValueList<int> sizes;
 };
 
 #endif

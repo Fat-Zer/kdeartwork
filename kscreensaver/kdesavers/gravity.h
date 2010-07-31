@@ -14,8 +14,8 @@
 #ifndef __GRAVITY_H__
 #define __GRAVITY_H__
 
-#include <qdialog.h>
-#include <qgl.h>
+#include <tqdialog.h>
+#include <tqgl.h>
 #ifdef Q_WS_MACX
 #include <OpenGL/glu.h>
 #include <OpenGL/gl.h>
@@ -24,12 +24,12 @@
 #include <GL/gl.h>
 #endif
 #include <kscreensaver.h>
-#include <qtimer.h>
-#include <qimage.h>
+#include <tqtimer.h>
+#include <tqimage.h>
 #include "gravitycfg.h"
 #include <kinstance.h>
-#include <qfile.h>
-#include <qtextstream.h>
+#include <tqfile.h>
+#include <tqtextstream.h>
 
 #define	MAX_PARTICLES	100
 
@@ -58,7 +58,7 @@ Q_OBJECT
 	};
 
 public:
-	Gravity( QWidget * parent=0, const char * name=0 );
+	Gravity( TQWidget * parent=0, const char * name=0 );
 	~Gravity();
 	void setSize( float newSize );
 	void setStars( bool doStars );
@@ -91,7 +91,7 @@ private:
 	GLuint	col;						// Current Color Selection
 	GLuint	delay;						// Rainbow Effect Delay
 	GLuint	texture[1];
-	QImage  tex;
+	TQImage  tex;
 	float	index;
 	float	transIndex;
 	GLfloat scale;
@@ -112,14 +112,14 @@ public slots:
 //	void loadTextures(bool textures);
 private:
 	Gravity *gravity;
-	QTimer  *timer;
+	TQTimer  *timer;
 };
 
 class KGravitySetup : public SetupUi
 {
 	Q_OBJECT
 public:
-	KGravitySetup( QWidget *parent = NULL, const char *name = NULL );
+	KGravitySetup( TQWidget *parent = NULL, const char *name = NULL );
     ~KGravitySetup();
 
 protected:

@@ -4,18 +4,18 @@ kwin - the KDE window manager
 Copyright (C) 1999, 2000 Matthias Ettrich <ettrich@kde.org>
 ******************************************************************/
 #include "kde1client.h"
-#include <qcursor.h>
-#include <qlayout.h>
-#include <qtoolbutton.h>
-#include <qlabel.h>
-#include <qdrawutil.h>
-#include <qbitmap.h>
+#include <tqcursor.h>
+#include <tqlayout.h>
+#include <tqtoolbutton.h>
+#include <tqlabel.h>
+#include <tqdrawutil.h>
+#include <tqbitmap.h>
 #include <kdrawutil.h>
 #include <klocale.h>
 #include <kpixmap.h>
-#include <qdatetime.h>
-#include <qimage.h>
-#include <qtooltip.h>
+#include <tqdatetime.h>
+#include <tqimage.h>
+#include <tqtooltip.h>
 
 #include "kde1client_bitmaps.h"
 
@@ -26,25 +26,25 @@ const char default_right[] = "H_IAX";
 namespace KDE1
 {
 
-QPixmap* close_pix = 0;
-QPixmap* maximize_pix = 0;
-QPixmap* minimize_pix = 0;
-QPixmap* normalize_pix = 0;
-QPixmap* pinup_pix = 0;
-QPixmap* pindown_pix = 0;
-QPixmap* menu_pix = 0;
-QPixmap* question_mark_pix = 0;
+TQPixmap* close_pix = 0;
+TQPixmap* maximize_pix = 0;
+TQPixmap* minimize_pix = 0;
+TQPixmap* normalize_pix = 0;
+TQPixmap* pinup_pix = 0;
+TQPixmap* pindown_pix = 0;
+TQPixmap* menu_pix = 0;
+TQPixmap* question_mark_pix = 0;
 
-QPixmap* dis_close_pix = 0;
-QPixmap* dis_maximize_pix = 0;
-QPixmap* dis_minimize_pix = 0;
-QPixmap* dis_normalize_pix = 0;
-QPixmap* dis_pinup_pix = 0;
-QPixmap* dis_pindown_pix = 0;
-QPixmap* dis_menu_pix = 0;
-QPixmap* dis_question_mark_pix = 0;
+TQPixmap* dis_close_pix = 0;
+TQPixmap* dis_maximize_pix = 0;
+TQPixmap* dis_minimize_pix = 0;
+TQPixmap* dis_normalize_pix = 0;
+TQPixmap* dis_pinup_pix = 0;
+TQPixmap* dis_pindown_pix = 0;
+TQPixmap* dis_menu_pix = 0;
+TQPixmap* dis_question_mark_pix = 0;
 
-QPixmap* titleBuffer = 0;
+TQPixmap* titleBuffer = 0;
 
 bool pixmaps_created = FALSE;
 
@@ -55,96 +55,96 @@ void create_pixmaps()
     if ( pixmaps_created )
         return;
     pixmaps_created = true;
-    QColorGroup aGrp = options()->colorGroup(KDecorationOptions::ColorButtonBg, true);
-    QColorGroup iGrp = options()->colorGroup(KDecorationOptions::ColorButtonBg, false);
+    TQColorGroup aGrp = options()->colorGroup(KDecorationOptions::ColorButtonBg, true);
+    TQColorGroup iGrp = options()->colorGroup(KDecorationOptions::ColorButtonBg, false);
 
-    QPainter aPainter, iPainter;
-    close_pix = new QPixmap(16, 16);
-    dis_close_pix = new QPixmap(16, 16);
+    TQPainter aPainter, iPainter;
+    close_pix = new TQPixmap(16, 16);
+    dis_close_pix = new TQPixmap(16, 16);
     aPainter.begin(close_pix); iPainter.begin(dis_close_pix);
     kColorBitmaps(&aPainter, aGrp, 0, 0, 16, 16, true, close_white_bits,
                   NULL, NULL, close_dgray_bits, NULL, NULL);
     kColorBitmaps(&iPainter, iGrp, 0, 0, 16, 16, true, close_white_bits,
                   NULL, NULL, close_dgray_bits, NULL, NULL);
     aPainter.end(); iPainter.end();
-    close_pix->setMask(QBitmap(16, 16, close_mask_bits, true));
+    close_pix->setMask(TQBitmap(16, 16, close_mask_bits, true));
     dis_close_pix->setMask(*close_pix->mask());
 
-    minimize_pix = new QPixmap(16, 16);
-    dis_minimize_pix = new QPixmap(16, 16);
+    minimize_pix = new TQPixmap(16, 16);
+    dis_minimize_pix = new TQPixmap(16, 16);
     aPainter.begin(minimize_pix); iPainter.begin(dis_minimize_pix);
     kColorBitmaps(&aPainter, aGrp, 0, 0, 16, 16, true, iconify_white_bits,
                   NULL, NULL, iconify_dgray_bits, NULL, NULL);
     kColorBitmaps(&iPainter, iGrp, 0, 0, 16, 16, true, iconify_white_bits,
                   NULL, NULL, iconify_dgray_bits, NULL, NULL);
     aPainter.end(); iPainter.end();
-    minimize_pix->setMask(QBitmap(16, 16, iconify_mask_bits, true));
+    minimize_pix->setMask(TQBitmap(16, 16, iconify_mask_bits, true));
     dis_minimize_pix->setMask(*minimize_pix->mask());
 
-    maximize_pix = new QPixmap(16, 16);
-    dis_maximize_pix = new QPixmap(16, 16);
+    maximize_pix = new TQPixmap(16, 16);
+    dis_maximize_pix = new TQPixmap(16, 16);
     aPainter.begin(maximize_pix); iPainter.begin(dis_maximize_pix);
     kColorBitmaps(&aPainter, aGrp, 0, 0, 16, 16, true, maximize_white_bits,
                   NULL, NULL, maximize_dgray_bits, NULL, NULL);
     kColorBitmaps(&iPainter, iGrp, 0, 0, 16, 16, true, maximize_white_bits,
                   NULL, NULL, maximize_dgray_bits, NULL, NULL);
     aPainter.end(); iPainter.end();
-    maximize_pix->setMask(QBitmap(16, 16, maximize_mask_bits, true));
+    maximize_pix->setMask(TQBitmap(16, 16, maximize_mask_bits, true));
     dis_maximize_pix->setMask(*maximize_pix->mask());
 
-    normalize_pix = new QPixmap(16, 16);
-    dis_normalize_pix = new QPixmap(16, 16);
+    normalize_pix = new TQPixmap(16, 16);
+    dis_normalize_pix = new TQPixmap(16, 16);
     aPainter.begin(normalize_pix); iPainter.begin(dis_normalize_pix);
     kColorBitmaps(&aPainter, aGrp, 0, 0, 16, 16, true, maximizedown_white_bits,
                   NULL, NULL, maximizedown_dgray_bits, NULL, NULL);
     kColorBitmaps(&iPainter, iGrp, 0, 0, 16, 16, true, maximizedown_white_bits,
                   NULL, NULL, maximizedown_dgray_bits, NULL, NULL);
     aPainter.end(); iPainter.end();
-    normalize_pix->setMask(QBitmap(16, 16, maximizedown_mask_bits, true));
+    normalize_pix->setMask(TQBitmap(16, 16, maximizedown_mask_bits, true));
     dis_normalize_pix->setMask(*normalize_pix->mask());
 
-    menu_pix = new QPixmap(16, 16);
-    dis_menu_pix = new QPixmap(16, 16);
+    menu_pix = new TQPixmap(16, 16);
+    dis_menu_pix = new TQPixmap(16, 16);
     aPainter.begin(menu_pix); iPainter.begin(dis_menu_pix);
     kColorBitmaps(&aPainter, aGrp, 0, 0, 16, 16, true, menu_white_bits,
                   NULL, NULL, menu_dgray_bits, NULL, NULL);
     kColorBitmaps(&iPainter, iGrp, 0, 0, 16, 16, true, menu_white_bits,
                   NULL, NULL, menu_dgray_bits, NULL, NULL);
     aPainter.end(); iPainter.end();
-    menu_pix->setMask(QBitmap(16, 16, menu_mask_bits, true));
+    menu_pix->setMask(TQBitmap(16, 16, menu_mask_bits, true));
     dis_menu_pix->setMask(*menu_pix->mask());
 
-    pinup_pix = new QPixmap(16, 16);
-    dis_pinup_pix = new QPixmap(16, 16);
+    pinup_pix = new TQPixmap(16, 16);
+    dis_pinup_pix = new TQPixmap(16, 16);
     aPainter.begin(pinup_pix); iPainter.begin(dis_pinup_pix);
     kColorBitmaps(&aPainter, aGrp, 0, 0, 16, 16, true, pinup_white_bits,
                   pinup_gray_bits, NULL, pinup_dgray_bits, NULL, NULL);
     kColorBitmaps(&iPainter, iGrp, 0, 0, 16, 16, true, pinup_white_bits,
                   pinup_gray_bits, NULL, pinup_dgray_bits, NULL, NULL);
     aPainter.end(); iPainter.end();
-    pinup_pix->setMask(QBitmap(16, 16, pinup_mask_bits, true));
+    pinup_pix->setMask(TQBitmap(16, 16, pinup_mask_bits, true));
     dis_pinup_pix->setMask(*pinup_pix->mask());
 
-    pindown_pix = new QPixmap(16, 16);
-    dis_pindown_pix = new QPixmap(16, 16);
+    pindown_pix = new TQPixmap(16, 16);
+    dis_pindown_pix = new TQPixmap(16, 16);
     aPainter.begin(pindown_pix); iPainter.begin(dis_pindown_pix);
     kColorBitmaps(&aPainter, aGrp, 0, 0, 16, 16, true, pindown_white_bits,
                   pindown_gray_bits, NULL, pindown_dgray_bits, NULL, NULL);
     kColorBitmaps(&iPainter, iGrp, 0, 0, 16, 16, true, pindown_white_bits,
                   pindown_gray_bits, NULL, pindown_dgray_bits, NULL, NULL);
     aPainter.end(); iPainter.end();
-    pindown_pix->setMask(QBitmap(16, 16, pindown_mask_bits, true));
+    pindown_pix->setMask(TQBitmap(16, 16, pindown_mask_bits, true));
     dis_pindown_pix->setMask(*pindown_pix->mask());
 
-    question_mark_pix = new QPixmap(16, 16);
-    dis_question_mark_pix = new QPixmap(16, 16);
+    question_mark_pix = new TQPixmap(16, 16);
+    dis_question_mark_pix = new TQPixmap(16, 16);
     aPainter.begin(question_mark_pix); iPainter.begin(dis_question_mark_pix);
     kColorBitmaps(&aPainter, aGrp, 0, 0, 16, 16, true, help_light_bits,
                   NULL, NULL, help_dark_bits, NULL, NULL);
     kColorBitmaps(&iPainter, iGrp, 0, 0, 16, 16, true, help_light_bits,
                   NULL, NULL, help_dark_bits, NULL, NULL);
     aPainter.end(); iPainter.end();
-    question_mark_pix->setMask(QBitmap(16, 16, help_mask_bits, true));
+    question_mark_pix->setMask(TQBitmap(16, 16, help_mask_bits, true));
     dis_question_mark_pix->setMask(*question_mark_pix->mask());
 
     titleBuffer = new KPixmap;
@@ -174,15 +174,15 @@ void delete_pixmaps()
 
 void drawGradient
 (
-  QPainter & p,
-  const QRect & t,
-  const QColor & c1,
-  const QColor & c2
+  TQPainter & p,
+  const TQRect & t,
+  const TQColor & c1,
+  const TQColor & c2
 )
 {
   // Don't draw a million vertical lines if we don't need to.
 
-  if (c1 == c2  || QPixmap::defaultDepth() <= 8)
+  if (c1 == c2  || TQPixmap::defaultDepth() <= 8)
   {
     p.fillRect(t, c1);
     return;
@@ -212,7 +212,7 @@ void drawGradient
     gl += gcdelta;
     bl += bcdelta;
 
-    p.setPen(QColor(rl >> 16, gl >> 16, bl >> 16));
+    p.setPen(TQColor(rl >> 16, gl >> 16, bl >> 16));
 
     p.drawLine(t.x() + x, 0, t.x() + x, t.y() + t.height() - 1);
   }
@@ -221,7 +221,7 @@ void drawGradient
 
 void StdClient::reset( unsigned long )
 {
-    if (button[ButtonMenu] && (icon().pixmap( QIconSet::Small, QIconSet::Normal ).isNull()))
+    if (button[ButtonMenu] && (icon().pixmap( TQIconSet::Small, TQIconSet::Normal ).isNull()))
         button[ButtonMenu]->setIconSet(isActive() ? *menu_pix : *dis_menu_pix);
     if (button[ButtonSticky])
         button[ButtonSticky]->setIconSet(isOnAllDesktops() ? isActive() ? *pindown_pix : *dis_pindown_pix :
@@ -251,30 +251,30 @@ void StdClient::init()
 
     widget()->setFont(options()->font(isActive() ));
 
-    QGridLayout* g = new QGridLayout( widget(), 0, 0, 3, 2 );
+    TQGridLayout* g = new TQGridLayout( widget(), 0, 0, 3, 2 );
     g->setRowStretch( 1, 10 );
     if( isPreview())
-        g->addWidget( new QLabel( i18n( "<center><b>KDE 1 preview</b></center>" ), widget()), 1, 1 );
+        g->addWidget( new TQLabel( i18n( "<center><b>KDE 1 preview</b></center>" ), widget()), 1, 1 );
     else
-        g->addItem( new QSpacerItem( 0, 0 ), 1, 1 ); //no widget in the middle
-    g->addItem( new QSpacerItem( 0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding ) );
+        g->addItem( new TQSpacerItem( 0, 0 ), 1, 1 ); //no widget in the middle
+    g->addItem( new TQSpacerItem( 0, 0, TQSizePolicy::Fixed, TQSizePolicy::Expanding ) );
 
     g->addColSpacing(0, 1);
     g->addColSpacing(2, 1);
     g->addRowSpacing(2, 1);
 
     int fh = widget()->fontMetrics().lineSpacing();
-    titlebar = new QSpacerItem(10, fh, QSizePolicy::Expanding,
-			       QSizePolicy::Minimum );
+    titlebar = new TQSpacerItem(10, fh, TQSizePolicy::Expanding,
+			       TQSizePolicy::Minimum );
 
-    QBoxLayout* hb = new QBoxLayout(0, QBoxLayout::LeftToRight, 0, 0, 0);
+    TQBoxLayout* hb = new TQBoxLayout(0, TQBoxLayout::LeftToRight, 0, 0, 0);
     g->addLayout( hb, 0, 1 );
 
     // setup titlebar buttons
     for (int n=0; n<ButtonTypeCount; n++) button[n] = 0;
-    addButtons(hb, options()->customButtonPositions() ? options()->titleButtonsLeft() : QString(default_left));
+    addButtons(hb, options()->customButtonPositions() ? options()->titleButtonsLeft() : TQString(default_left));
     hb->addItem(titlebar);
-    addButtons(hb, options()->customButtonPositions() ? options()->titleButtonsRight() : QString(default_right));
+    addButtons(hb, options()->customButtonPositions() ? options()->titleButtonsRight() : TQString(default_right));
 
     for (int n=0; n<ButtonTypeCount; n++) {
 	if ( !button[n] )
@@ -282,7 +282,7 @@ void StdClient::init()
 	button[n]->setBackgroundMode( PaletteBackground );
 	button[n]->setMouseTracking( FALSE );
 	button[n]->setAutoRaise( TRUE );
-	button[n]->setFocusPolicy( QWidget::NoFocus );
+	button[n]->setFocusPolicy( TQWidget::NoFocus );
 	button[n]->setFixedSize( 20, 20 );
     }
 
@@ -297,44 +297,44 @@ void StdClient::init()
 #endif
 }
 
-void StdClient::addButtons(QBoxLayout *hb, const QString& s)
+void StdClient::addButtons(TQBoxLayout *hb, const TQString& s)
 {
     if (s.length() > 0) {
         for (unsigned n=0; n < s.length(); n++) {
             switch (s[n]) {
               case 'M': // Menu button
                   if (!button[ButtonMenu]) {
-                      button[ButtonMenu] = new QToolButton( widget(), 0 );
-                      QToolTip::add( button[ButtonMenu], i18n("Menu") );
+                      button[ButtonMenu] = new TQToolButton( widget(), 0 );
+                      TQToolTip::add( button[ButtonMenu], i18n("Menu") );
                       button[ButtonMenu]->setCursor(ArrowCursor);
-                      if( icon().pixmap( QIconSet::Small, QIconSet::Normal ).isNull())
+                      if( icon().pixmap( TQIconSet::Small, TQIconSet::Normal ).isNull())
                           button[ButtonMenu]->setIconSet(isActive() ? *menu_pix : *dis_menu_pix);
                       else
-                          button[ButtonMenu]->setIconSet( icon().pixmap( QIconSet::Small, QIconSet::Normal ));
-                      connect( button[0], SIGNAL( pressed() ), this, SLOT( menuButtonPressed() ) );
+                          button[ButtonMenu]->setIconSet( icon().pixmap( TQIconSet::Small, TQIconSet::Normal ));
+                      connect( button[0], TQT_SIGNAL( pressed() ), this, TQT_SLOT( menuButtonPressed() ) );
                       hb->addWidget(button[ButtonMenu]);
                   }
                   break;
 
               case 'S': // Sticky button
                   if (!button[ButtonSticky]) {
-                     button[ButtonSticky] = new QToolButton( widget(), 0 );
+                     button[ButtonSticky] = new TQToolButton( widget(), 0 );
                      button[ButtonSticky]->setIconSet( isOnAllDesktops()?*pindown_pix:*pinup_pix );
-                     QToolTip::add( button[ButtonSticky], isOnAllDesktops()?i18n("Not On All Desktops"):i18n("On All Desktops")  );
+                     TQToolTip::add( button[ButtonSticky], isOnAllDesktops()?i18n("Not On All Desktops"):i18n("On All Desktops")  );
                      button[ButtonSticky]->setCursor(ArrowCursor);
                      button[ButtonSticky]->setIconSet(isOnAllDesktops() ? isActive() ? *pindown_pix : *dis_pindown_pix :
                                                       isActive() ? *pinup_pix : *dis_pinup_pix );
-                     connect( button[ButtonSticky], SIGNAL( clicked() ), this, ( SLOT( toggleOnAllDesktops() ) ) );
+                     connect( button[ButtonSticky], TQT_SIGNAL( clicked() ), this, ( TQT_SLOT( toggleOnAllDesktops() ) ) );
                      hb->addWidget(button[ButtonSticky]);
                   }
                   break;
 
               case 'H': // Help button
                   if ((!button[ButtonHelp]) && providesContextHelp()) {
-                      button[ButtonHelp] = new QToolButton( widget(), 0 );
-                      QToolTip::add( button[ButtonHelp], i18n("Help") );
+                      button[ButtonHelp] = new TQToolButton( widget(), 0 );
+                      TQToolTip::add( button[ButtonHelp], i18n("Help") );
                       button[ButtonHelp]->setIconSet( isActive() ? *question_mark_pix : *dis_question_mark_pix);
-                      connect( button[ButtonHelp], SIGNAL( clicked() ), this, ( SLOT( showContextHelp() ) ) );
+                      connect( button[ButtonHelp], TQT_SIGNAL( clicked() ), this, ( TQT_SLOT( showContextHelp() ) ) );
                       button[ButtonHelp]->setCursor(ArrowCursor);
                       hb->addWidget(button[ButtonHelp]);
                   }
@@ -342,11 +342,11 @@ void StdClient::addButtons(QBoxLayout *hb, const QString& s)
 
               case 'I': // Minimize button
                   if ((!button[ButtonMinimize]) && isMinimizable())  {
-                      button[ButtonMinimize] = new QToolButton( widget(), 0 );
-                      QToolTip::add( button[ButtonMinimize], i18n("Minimize") );
+                      button[ButtonMinimize] = new TQToolButton( widget(), 0 );
+                      TQToolTip::add( button[ButtonMinimize], i18n("Minimize") );
                       button[ButtonMinimize]->setCursor(ArrowCursor);
                       button[ButtonMinimize]->setIconSet(isActive() ? *minimize_pix : *dis_minimize_pix);
-                      connect( button[ButtonMinimize], SIGNAL( clicked() ), this, ( SLOT( minimize() ) ) );
+                      connect( button[ButtonMinimize], TQT_SIGNAL( clicked() ), this, ( TQT_SLOT( minimize() ) ) );
                       hb->addWidget(button[ButtonMinimize]);
                   }
                   break;
@@ -355,28 +355,28 @@ void StdClient::addButtons(QBoxLayout *hb, const QString& s)
                   if ((!button[ButtonMaximize]) && isMaximizable()) {
                       const bool max = maximizeMode()!=MaximizeRestore;
                       button[ButtonMaximize] = new ThreeButtonButton( widget(), 0 );
-                      QToolTip::add( button[ButtonMaximize], max?i18n("Restore"):i18n("Maximize") );
+                      TQToolTip::add( button[ButtonMaximize], max?i18n("Restore"):i18n("Maximize") );
                       button[ButtonMaximize]->setCursor(ArrowCursor);
                       button[ButtonMaximize]->setIconSet( max?(isActive() ? *normalize_pix : *dis_normalize_pix):(isActive() ? *maximize_pix : *dis_maximize_pix) );
-                      connect( button[ButtonMaximize], SIGNAL( clicked(ButtonState) ),
-                               this, ( SLOT( maxButtonClicked(ButtonState) ) ) );
+                      connect( button[ButtonMaximize], TQT_SIGNAL( clicked(ButtonState) ),
+                               this, ( TQT_SLOT( maxButtonClicked(ButtonState) ) ) );
                       hb->addWidget(button[ButtonMaximize]);
                   }
                   break;
 
               case 'X': // Close button
                   if ((!button[ButtonClose]) && isCloseable()) {
-                      button[ButtonClose] = new QToolButton( widget(), 0 );
-                      QToolTip::add( button[ButtonClose], i18n("Close") );
+                      button[ButtonClose] = new TQToolButton( widget(), 0 );
+                      TQToolTip::add( button[ButtonClose], i18n("Close") );
                       button[ButtonClose]->setCursor(ArrowCursor);
                       button[ButtonClose]->setIconSet(isActive() ? *close_pix : *dis_close_pix);
-                      connect( button[ButtonClose], SIGNAL( clicked() ), this, ( SLOT( closeWindow() ) ) );
+                      connect( button[ButtonClose], TQT_SIGNAL( clicked() ), this, ( TQT_SLOT( closeWindow() ) ) );
                       hb->addWidget(button[ButtonClose]);
                   }
                   break;
 
               case '_': // Spacer item
-	          hb->addItem( new QSpacerItem( 5, 0, QSizePolicy::Fixed, QSizePolicy::Expanding ) );
+	          hb->addItem( new TQSpacerItem( 5, 0, TQSizePolicy::Fixed, TQSizePolicy::Expanding ) );
             }
         }
     }
@@ -385,7 +385,7 @@ void StdClient::addButtons(QBoxLayout *hb, const QString& s)
 void StdClient::activeChange()
 {
     bool on = isActive();
-    if (button[ButtonMenu] && (icon().pixmap( QIconSet::Small, QIconSet::Normal ).isNull()))
+    if (button[ButtonMenu] && (icon().pixmap( TQIconSet::Small, TQIconSet::Normal ).isNull()))
         button[ButtonMenu]->setIconSet(on ? *menu_pix : *dis_menu_pix);
     if (button[ButtonSticky])
         button[ButtonSticky]->setIconSet(isOnAllDesktops() ? on ? *pindown_pix : *dis_pindown_pix :
@@ -410,18 +410,18 @@ StdClient::~StdClient()
 }
 
 
-void StdClient::resizeEvent( QResizeEvent* )
+void StdClient::resizeEvent( TQResizeEvent* )
 {
-    QRegion rr = widget()->rect();
-    QRect t = titlebar->geometry();
+    TQRegion rr = widget()->rect();
+    TQRect t = titlebar->geometry();
 //     t.setTop( 0 );
-//     QRegion r = rr.subtract( QRect( t.x()+1, 0, t.width()-2, 1 ) );
+//     TQRegion r = rr.subtract( TQRect( t.x()+1, 0, t.width()-2, 1 ) );
 //     setMask( r );
 
     if ( widget()->isVisibleToTLW() && !widget()->testWFlags( WStaticContents )) {
 	// manual clearing without the titlebar (we selected WResizeNoErase )
-	QRect cr( 2, 2, width()-4, height()- 4 );
-	widget()->erase( QRegion( cr ).subtract( t ) );
+	TQRect cr( 2, 2, width()-4, height()- 4 );
+	widget()->erase( TQRegion( cr ).subtract( t ) );
     }
 }
 
@@ -440,8 +440,8 @@ void StdClient::maximizeChange()
     bool m = maximizeMode() == MaximizeFull;
     if (button[ButtonMaximize]) {
         button[ButtonMaximize]->setIconSet( m?*normalize_pix:*maximize_pix  );
-        QToolTip::remove( button[ButtonMaximize] );
-        QToolTip::add( button[ButtonMaximize], m ? i18n("Restore") : i18n("Maximize") );
+        TQToolTip::remove( button[ButtonMaximize] );
+        TQToolTip::add( button[ButtonMaximize], m ? i18n("Restore") : i18n("Maximize") );
     }
 }
 
@@ -453,16 +453,16 @@ void StdClient::desktopChange()
     bool s = isOnAllDesktops();
     if (button[ButtonSticky]) {
         button[ButtonSticky]->setIconSet( s?*pindown_pix:*pinup_pix );
-        QToolTip::remove( button[ButtonSticky] );
-        QToolTip::add( button[ButtonSticky], s ? i18n("Not On All Desktops") : i18n("On All Desktops") );
+        TQToolTip::remove( button[ButtonSticky] );
+        TQToolTip::add( button[ButtonSticky], s ? i18n("Not On All Desktops") : i18n("On All Desktops") );
     }
 }
 
-void StdClient::paintEvent( QPaintEvent* )
+void StdClient::paintEvent( TQPaintEvent* )
 {
-    QPainter p( widget() );
-    QRect t = titlebar->geometry();
-    QRegion r = widget()->rect();
+    TQPainter p( widget() );
+    TQRect t = titlebar->geometry();
+    TQRegion r = widget()->rect();
     r = r.subtract( t );
     p.setClipRegion( r );
     qDrawWinPanel( &p, widget()->rect(), widget()->colorGroup() );
@@ -470,9 +470,9 @@ void StdClient::paintEvent( QPaintEvent* )
 //     p.setClipRegion( t );
 //     t.setTop( 0 );
 
-    QRect titleRect( 0, 0, t.width(), t.height() );
+    TQRect titleRect( 0, 0, t.width(), t.height() );
     titleBuffer->resize( titleRect.width(), titleRect.height() );
-    QPainter p2( titleBuffer );
+    TQPainter p2( titleBuffer );
 
     drawGradient(p2, titleRect, options()->color(KDecorationOptions::ColorTitleBar, isActive()),
         options()->color(KDecorationOptions::ColorTitleBlend, isActive()));
@@ -492,16 +492,16 @@ void StdClient::paintEvent( QPaintEvent* )
 }
 
 
-void StdClient::mouseDoubleClickEvent( QMouseEvent * e )
+void StdClient::mouseDoubleClickEvent( TQMouseEvent * e )
 {
     if ( e->button() == LeftButton && titlebar->geometry().contains( e->pos() ) )
 	titlebarDblClickOperation();
 }
 
 
-void StdClient::wheelEvent( QWheelEvent * e )
+void StdClient::wheelEvent( TQWheelEvent * e )
 {
-    if (isSetShade() || QRect( 0, 0, width(), titlebar->geometry().height() ).contains( e->pos() ) )
+    if (isSetShade() || TQRect( 0, 0, width(), titlebar->geometry().height() ).contains( e->pos() ) )
         titlebarMouseWheelOperation( e->delta());
 }
 
@@ -509,10 +509,10 @@ void StdClient::wheelEvent( QWheelEvent * e )
 void StdClient::iconChange()
 {
     if (button[ButtonMenu]) {
-        if ( icon().pixmap( QIconSet::Small, QIconSet::Normal ).isNull())
+        if ( icon().pixmap( TQIconSet::Small, TQIconSet::Normal ).isNull())
             button[ButtonMenu]->setIconSet(isActive() ? *menu_pix : *dis_menu_pix);
         else
-            button[ButtonMenu]->setIconSet( icon().pixmap( QIconSet::Small, QIconSet::Normal ) );
+            button[ButtonMenu]->setIconSet( icon().pixmap( TQIconSet::Small, TQIconSet::Normal ) );
         button[ButtonMenu]->repaint( FALSE );
     }
 }
@@ -524,12 +524,12 @@ void StdClient::iconChange()
  */
 void StdClient::menuButtonPressed()
 {
-    QRect menuRect = button[ButtonMenu]->rect();
+    TQRect menuRect = button[ButtonMenu]->rect();
     menuRect.addCoords(-1, 0, +1, +2);
-    QPoint menuTop = button[ButtonMenu]->mapToGlobal(menuRect.topLeft());
-    QPoint menuBottom = button[ButtonMenu]->mapToGlobal(menuRect.bottomRight());
+    TQPoint menuTop = button[ButtonMenu]->mapToGlobal(menuRect.topLeft());
+    TQPoint menuBottom = button[ButtonMenu]->mapToGlobal(menuRect.bottomRight());
     KDecorationFactory* f = factory(); // needs to be saved before
-    showWindowMenu( QRect(menuTop, menuBottom) );
+    showWindowMenu( TQRect(menuTop, menuBottom) );
     if( !f->exists( this )) // destroyed, return immediately
         return;
     button[ButtonMenu]->setDown(false);
@@ -541,30 +541,30 @@ void StdClient::maxButtonClicked( ButtonState button )
     maximize( button );
 }
 
-bool StdClient::eventFilter( QObject* o, QEvent* e )
+bool StdClient::eventFilter( TQObject* o, TQEvent* e )
 {
     if ( o != widget() )
 	return false;
 
     switch ( e->type() ) {
-    case QEvent::Resize:
-	resizeEvent( static_cast< QResizeEvent* >( e ) );
+    case TQEvent::Resize:
+	resizeEvent( static_cast< TQResizeEvent* >( e ) );
 	return true;
 
-    case QEvent::Paint:
-	paintEvent( static_cast< QPaintEvent* >( e ) );
+    case TQEvent::Paint:
+	paintEvent( static_cast< TQPaintEvent* >( e ) );
 	return true;
 
-    case QEvent::MouseButtonDblClick:
-	mouseDoubleClickEvent( static_cast< QMouseEvent* >( e ) );
+    case TQEvent::MouseButtonDblClick:
+	mouseDoubleClickEvent( static_cast< TQMouseEvent* >( e ) );
 	return true;
 
-    case QEvent::MouseButtonPress:
-	processMousePressEvent( static_cast< QMouseEvent* >( e ) );
+    case TQEvent::MouseButtonPress:
+	processMousePressEvent( static_cast< TQMouseEvent* >( e ) );
 	return true;
 
-    case QEvent::Wheel:
-	wheelEvent( static_cast< QWheelEvent* >( e ));
+    case TQEvent::Wheel:
+	wheelEvent( static_cast< TQWheelEvent* >( e ));
 	return true;
 
     default:
@@ -572,9 +572,9 @@ bool StdClient::eventFilter( QObject* o, QEvent* e )
     }
 }
 
-QSize StdClient::minimumSize() const
+TQSize StdClient::minimumSize() const
 {
-    return widget()->minimumSize().expandedTo( QSize( 100, 50 ));
+    return widget()->minimumSize().expandedTo( TQSize( 100, 50 ));
 }
 
 void StdClient::borders( int& left, int& right, int& top, int& bottom ) const
@@ -583,7 +583,7 @@ void StdClient::borders( int& left, int& right, int& top, int& bottom ) const
     top = 6 + widget()->fontMetrics().lineSpacing()+2;
 }
 
-void StdClient::resize( const QSize& s )
+void StdClient::resize( const TQSize& s )
 {
     widget()->resize( s );
 }
@@ -600,31 +600,31 @@ void StdToolClient::init()
 
     widget()->setFont(options()->font(isActive(), true ));
 
-    QGridLayout* g = new QGridLayout( widget(), 0, 0, 2 );
+    TQGridLayout* g = new TQGridLayout( widget(), 0, 0, 2 );
     g->setRowStretch( 1, 10 );
     if( isPreview())
-        g->addWidget( new QLabel( i18n( "<center><b>KDE 1 decoration</b></center>" ), widget()), 1, 1 );
+        g->addWidget( new TQLabel( i18n( "<center><b>KDE 1 decoration</b></center>" ), widget()), 1, 1 );
     else
-        g->addItem( new QSpacerItem( 0, 0 ), 1, 1 ); //no widget in the middle
-    g->addItem( new QSpacerItem( 0, 0, QSizePolicy::Fixed, QSizePolicy::Expanding ) );
+        g->addItem( new TQSpacerItem( 0, 0 ), 1, 1 ); //no widget in the middle
+    g->addItem( new TQSpacerItem( 0, 0, TQSizePolicy::Fixed, TQSizePolicy::Expanding ) );
 
     g->addColSpacing(0, 1);
     g->addColSpacing(2, 1);
     g->addRowSpacing(2, 1);
 
-    closeBtn = new QToolButton( widget(), 0 );
-    QToolTip::add( closeBtn, i18n("Close") );
-    connect( closeBtn, SIGNAL( clicked() ), this, ( SLOT( closeWindow() ) ) );
+    closeBtn = new TQToolButton( widget(), 0 );
+    TQToolTip::add( closeBtn, i18n("Close") );
+    connect( closeBtn, TQT_SIGNAL( clicked() ), this, ( TQT_SLOT( closeWindow() ) ) );
     closeBtn->setFixedSize( 13, 13);
     reset( -1U );
 
-    QHBoxLayout* hb = new QHBoxLayout;
+    TQHBoxLayout* hb = new QHBoxLayout;
     g->addLayout( hb, 0, 1 );
 
     int fh = widget()->fontMetrics().lineSpacing()+2;
 
-    titlebar = new QSpacerItem(10, fh, QSizePolicy::Expanding,
-			       QSizePolicy::Minimum );
+    titlebar = new TQSpacerItem(10, fh, TQSizePolicy::Expanding,
+			       TQSizePolicy::Minimum );
     hb->addItem( titlebar );
     hb->addWidget( closeBtn );
 }
@@ -633,26 +633,26 @@ StdToolClient::~StdToolClient()
 {
 }
 
-void StdToolClient::resizeEvent( QResizeEvent* )
+void StdToolClient::resizeEvent( TQResizeEvent* )
 {
-//     QRegion r = rect();
-//     QRect t = titlebar->geometry();
+//     TQRegion r = rect();
+//     TQRect t = titlebar->geometry();
 //     t.setTop( 0 );
-//     r = r.subtract( QRect(0, 0, width(), 1) );
-//     r = r.subtract (QRect( 0, 0, 1, t.height() ) );
-//     r = r.subtract (QRect( width()-1, 0, 1, t.height() ) );
+//     r = r.subtract( TQRect(0, 0, width(), 1) );
+//     r = r.subtract (TQRect( 0, 0, 1, t.height() ) );
+//     r = r.subtract (TQRect( width()-1, 0, 1, t.height() ) );
 //     setMask( r );
 }
 
-void StdToolClient::paintEvent( QPaintEvent* )
+void StdToolClient::paintEvent( TQPaintEvent* )
 {
-    QPainter p( widget() );
-    QRect t = titlebar->geometry();
-    QRect r = widget()->rect();
+    TQPainter p( widget() );
+    TQRect t = titlebar->geometry();
+    TQRect r = widget()->rect();
     qDrawWinPanel( &p, r, widget()->colorGroup() );
     r.setTop( t.bottom()+1 );
     qDrawWinPanel( &p, r, widget()->colorGroup() );
-    p.fillRect( QRect( QPoint(t.topLeft() ), QPoint( width() - t.left(), t.bottom() ) ),
+    p.fillRect( TQRect( TQPoint(t.topLeft() ), TQPoint( width() - t.left(), t.bottom() ) ),
 		options()->color(KDecorationOptions::ColorTitleBar, isActive()));
     p.setPen( options()->color(KDecorationOptions::ColorTitleBar, isActive()).light() );
     t.setLeft( t.left() + 4 );
@@ -663,15 +663,15 @@ void StdToolClient::paintEvent( QPaintEvent* )
 }
 
 
-void StdToolClient::mouseDoubleClickEvent( QMouseEvent * e )
+void StdToolClient::mouseDoubleClickEvent( TQMouseEvent * e )
 {
     if ( e->button() == LeftButton && titlebar->geometry().contains( e->pos() ) )
         titlebarDblClickOperation();
 }
 
-void StdToolClient::wheelEvent( QWheelEvent * e )
+void StdToolClient::wheelEvent( TQWheelEvent * e )
 {
-    if (isSetShade() || QRect( 0, 0, width(), titlebar->geometry().height() ).contains( e->pos() ) )
+    if (isSetShade() || TQRect( 0, 0, width(), titlebar->geometry().height() ).contains( e->pos() ) )
         titlebarMouseWheelOperation( e->delta());
 }
 
@@ -682,38 +682,38 @@ void StdToolClient::captionChange()
 
 void StdToolClient::reset( unsigned long )
 {
-    QImage img = close_pix->convertToImage();
+    TQImage img = close_pix->convertToImage();
     img = img.smoothScale( 12, 12 );
-    QPixmap pm;
+    TQPixmap pm;
     pm.convertFromImage( img );
     closeBtn->setPixmap( pm );
     widget()->setFont(options()->font(isActive(), true ));
 }
 
-bool StdToolClient::eventFilter( QObject* o, QEvent* e )
+bool StdToolClient::eventFilter( TQObject* o, TQEvent* e )
 {
     if ( o != widget() )
 	return false;
 
     switch ( e->type() ) {
-    case QEvent::Resize:
-	resizeEvent( static_cast< QResizeEvent* >( e ) );
+    case TQEvent::Resize:
+	resizeEvent( static_cast< TQResizeEvent* >( e ) );
 	return true;
 
-    case QEvent::Paint:
-	paintEvent( static_cast< QPaintEvent* >( e ) );
+    case TQEvent::Paint:
+	paintEvent( static_cast< TQPaintEvent* >( e ) );
 	return true;
 
-    case QEvent::MouseButtonDblClick:
-	mouseDoubleClickEvent( static_cast< QMouseEvent* >( e ) );
+    case TQEvent::MouseButtonDblClick:
+	mouseDoubleClickEvent( static_cast< TQMouseEvent* >( e ) );
 	return true;
 
-    case QEvent::MouseButtonPress:
-	processMousePressEvent( static_cast< QMouseEvent* >( e ) );
+    case TQEvent::MouseButtonPress:
+	processMousePressEvent( static_cast< TQMouseEvent* >( e ) );
 	return true;
 
-    case QEvent::Wheel:
-	wheelEvent( static_cast< QWheelEvent* >( e ));
+    case TQEvent::Wheel:
+	wheelEvent( static_cast< TQWheelEvent* >( e ));
 	return true;
 
     default:
@@ -721,9 +721,9 @@ bool StdToolClient::eventFilter( QObject* o, QEvent* e )
     }
 }
 
-QSize StdToolClient::minimumSize() const
+TQSize StdToolClient::minimumSize() const
 {
-    return widget()->minimumSize().expandedTo( QSize( 100, 50 ));
+    return widget()->minimumSize().expandedTo( TQSize( 100, 50 ));
 }
 
 void StdToolClient::borders( int& left, int& right, int& top, int& bottom ) const
@@ -732,7 +732,7 @@ void StdToolClient::borders( int& left, int& right, int& top, int& bottom ) cons
     top = 6 + widget()->fontMetrics().lineSpacing();
 }
 
-void StdToolClient::resize( const QSize& s )
+void StdToolClient::resize( const TQSize& s )
 {
     widget()->resize( s );
 }

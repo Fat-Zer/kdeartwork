@@ -23,8 +23,8 @@
 #ifndef RISC_OS_BUTTON_H
 #define RISC_OS_BUTTON_H
 
-#include <qpixmap.h>
-#include <qwidget.h>
+#include <tqpixmap.h>
+#include <tqwidget.h>
 #include <klocale.h>
 #include <kdecoration.h>
 
@@ -41,7 +41,7 @@ class Button : public QWidget
 
       enum Alignment { Left, Right };
 
-      Button(QWidget *parent, const QString &tip,
+      Button(TQWidget *parent, const TQString &tip,
              const ButtonState realizeButton = LeftButton);
       virtual ~Button();
 
@@ -55,13 +55,13 @@ class Button : public QWidget
 
    protected:
 
-      void paintEvent(QPaintEvent *);
+      void paintEvent(TQPaintEvent *);
 
-      void mousePressEvent(QMouseEvent *);
-      void mouseReleaseEvent(QMouseEvent *);
-      void mouseMoveEvent(QMouseEvent *) { /* Empty. */ }
+      void mousePressEvent(TQMouseEvent *);
+      void mouseReleaseEvent(TQMouseEvent *);
+      void mouseMoveEvent(TQMouseEvent *) { /* Empty. */ }
 
-      void setPixmap(const QPixmap &);
+      void setPixmap(const TQPixmap &);
 
       ButtonState realizeButtons_;
       ButtonState lastButton_;
@@ -71,7 +71,7 @@ class Button : public QWidget
       Alignment   alignment_;
       bool        down_;
       bool        active_;
-      QPixmap     aPixmap_, iPixmap_;
+      TQPixmap     aPixmap_, iPixmap_;
 };
 
 } // End namespace

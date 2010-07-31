@@ -9,7 +9,7 @@
 #include "saver.moc"
 
 //-----------------------------------------------------------------------------
-kScreenSaver::kScreenSaver(Drawable drawable) : QObject()
+kScreenSaver::kScreenSaver(Drawable drawable) : TQObject()
 {
 	Window root;
 	int ai;

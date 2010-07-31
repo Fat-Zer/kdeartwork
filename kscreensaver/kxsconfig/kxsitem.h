@@ -29,31 +29,31 @@ class QXmlAttributes;
 class KXSConfigItem
 {
 public:
-  KXSConfigItem(const QString &name, KConfig &config);
-  KXSConfigItem(const QString &name, const QXmlAttributes &attr);
+  KXSConfigItem(const TQString &name, KConfig &config);
+  KXSConfigItem(const TQString &name, const TQXmlAttributes &attr);
   virtual ~KXSConfigItem() {}
 
-  virtual QString command() = 0;
+  virtual TQString command() = 0;
   virtual void save(KConfig &config) = 0;
   virtual void read(KConfig &config) = 0;
 
 protected:
-  QString mName;
-  QString mLabel;
+  TQString mName;
+  TQString mLabel;
 };
 
 class KXSRangeItem : public KXSConfigItem
 {
 public:
-  KXSRangeItem(const QString &name, KConfig &config);
-  KXSRangeItem(const QString &name, const QXmlAttributes &attr);
+  KXSRangeItem(const TQString &name, KConfig &config);
+  KXSRangeItem(const TQString &name, const TQXmlAttributes &attr);
 
-  virtual QString command();
+  virtual TQString command();
   virtual void save(KConfig &config);
   virtual void read(KConfig &config);
 
 protected:
-  QString mSwitch;
+  TQString mSwitch;
   int mMinimum;
   int mMaximum;
   int mValue;
@@ -63,15 +63,15 @@ protected:
 class KXSDoubleRangeItem : public KXSConfigItem
 {
 public:
-  KXSDoubleRangeItem(const QString &name, KConfig &config);
-  KXSDoubleRangeItem(const QString &name, const QXmlAttributes &attr);
+  KXSDoubleRangeItem(const TQString &name, KConfig &config);
+  KXSDoubleRangeItem(const TQString &name, const TQXmlAttributes &attr);
 
-  virtual QString command();
+  virtual TQString command();
   virtual void read(KConfig &config);
   virtual void save(KConfig &config);
 
 protected:
-  QString mSwitch;
+  TQString mSwitch;
   double mMinimum;
   double mMaximum;
   double mValue;
@@ -81,51 +81,51 @@ protected:
 class KXSBoolItem : public KXSConfigItem
 {
 public:
-  KXSBoolItem(const QString &name, KConfig &config);
-  KXSBoolItem(const QString &name, const QXmlAttributes &attr);
+  KXSBoolItem(const TQString &name, KConfig &config);
+  KXSBoolItem(const TQString &name, const TQXmlAttributes &attr);
 
-  virtual QString command();
+  virtual TQString command();
   virtual void read(KConfig &config);
   virtual void save(KConfig &config);
 
 protected:
-  QString mSwitchOn;
-  QString mSwitchOff;
+  TQString mSwitchOn;
+  TQString mSwitchOff;
   bool    mValue;
 };
 
 class KXSSelectItem : public KXSConfigItem
 {
 public:
-  KXSSelectItem(const QString &name, KConfig &config);
-  KXSSelectItem(const QString &name, const QXmlAttributes &attr);
+  KXSSelectItem(const TQString &name, KConfig &config);
+  KXSSelectItem(const TQString &name, const TQXmlAttributes &attr);
 
-  virtual void addOption(const QXmlAttributes &attr);
+  virtual void addOption(const TQXmlAttributes &attr);
 
-  virtual QString command();
+  virtual TQString command();
 
   virtual void read(KConfig &config);
   virtual void save(KConfig &config);
 
 protected:
-  QStringList mOptions;
-  QStringList mSwitches;
+  TQStringList mOptions;
+  TQStringList mSwitches;
   int         mValue;
 };
 
 class KXSStringItem : public KXSConfigItem
 {
 public:
-  KXSStringItem(const QString &name, KConfig &config);
-  KXSStringItem(const QString &name, const QXmlAttributes &attr);
+  KXSStringItem(const TQString &name, KConfig &config);
+  KXSStringItem(const TQString &name, const TQXmlAttributes &attr);
 
-  virtual QString command();
+  virtual TQString command();
   virtual void save(KConfig &config);
   virtual void read(KConfig &config);
 
 protected:
-  QString mSwitch;
-  QString mValue;
+  TQString mSwitch;
+  TQString mValue;
 };
 
 #endif

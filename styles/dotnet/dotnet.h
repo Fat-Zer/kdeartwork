@@ -23,7 +23,7 @@
 #define __DOTNET_H
 
 #include <kstyle.h>
-#include <qbitmap.h>
+#include <tqbitmap.h>
 
 #define u_arrow -4,1, 2,1, -3,0, 1,0, -2,-1, 0,-1, -1,-2
 #define d_arrow -4,-2, 2,-2, -3,-1, 1,-1, -2,0, 0,0, -1,1
@@ -40,90 +40,90 @@ public:
 	dotNETstyle();
 	virtual ~dotNETstyle();
 
-	bool inheritsKHTML( const QWidget* widget ) const;
-	void polish( QWidget* widget );
-	void unPolish( QWidget* widget );
+	bool inheritsKHTML( const TQWidget* widget ) const;
+	void polish( TQWidget* widget );
+	void unPolish( TQWidget* widget );
 
-	void renderMenuBlendPixmap( KPixmap&, const QColorGroup&, const QPopupMenu * ) const;
+	void renderMenuBlendPixmap( KPixmap&, const TQColorGroup&, const TQPopupMenu * ) const;
 
 	void drawKStylePrimitive( KStylePrimitive kpe,
-		QPainter* p,
-		const QWidget* widget,
-		const QRect &r,
-		const QColorGroup &cg,
+		TQPainter* p,
+		const TQWidget* widget,
+		const TQRect &r,
+		const TQColorGroup &cg,
 		SFlags flags = Style_Default,
-		const QStyleOption& = QStyleOption::Default ) const;
+		const TQStyleOption& = TQStyleOption::Default ) const;
 
 	void drawPrimitive( PrimitiveElement pe,
-		QPainter *p,
-		const QRect &r,
-		const QColorGroup &cg,
+		TQPainter *p,
+		const TQRect &r,
+		const TQColorGroup &cg,
 		SFlags flags = Style_Default,
-		const QStyleOption &opt = QStyleOption::Default ) const;
+		const TQStyleOption &opt = TQStyleOption::Default ) const;
 
 	void drawControl( ControlElement element,
-		QPainter *p,
-		const QWidget *widget,
-		const QRect &r,
-		const QColorGroup &cg,
+		TQPainter *p,
+		const TQWidget *widget,
+		const TQRect &r,
+		const TQColorGroup &cg,
 		SFlags flags = Style_Default,
-		const QStyleOption& = QStyleOption::Default ) const;
+		const TQStyleOption& = TQStyleOption::Default ) const;
 
-	void drawControlMask( ControlElement, QPainter *, const QWidget *, const QRect &, const QStyleOption &) const;
+	void drawControlMask( ControlElement, TQPainter *, const TQWidget *, const TQRect &, const TQStyleOption &) const;
 
 	void drawComplexControl( ComplexControl control,
-		QPainter *p,
-		const QWidget *widget,
-		const QRect &r,
-		const QColorGroup &cg,
+		TQPainter *p,
+		const TQWidget *widget,
+		const TQRect &r,
+		const TQColorGroup &cg,
 		SFlags flags = Style_Default,
 		SCFlags controls = SC_All,
 		SCFlags active = SC_None,
-		const QStyleOption& = QStyleOption::Default ) const;
+		const TQStyleOption& = TQStyleOption::Default ) const;
 
 	int pixelMetric( PixelMetric m,
-		const QWidget *widget = 0 ) const;
+		const TQWidget *widget = 0 ) const;
 
-	QRect subRect( SubRect r,
-		const QWidget *widget ) const;
+	TQRect subRect( SubRect r,
+		const TQWidget *widget ) const;
 
-	QRect querySubControlMetrics( ComplexControl control,
-		const QWidget *widget,
+	TQRect querySubControlMetrics( ComplexControl control,
+		const TQWidget *widget,
 		SubControl subcontrol,
-		const QStyleOption &opt = QStyleOption::Default ) const;
+		const TQStyleOption &opt = TQStyleOption::Default ) const;
 
-	void drawComplexControlMask(QStyle::ComplexControl c,
-	                            QPainter *p,
-	                            const QWidget *w,
-	                            const QRect &r,
-	                            const QStyleOption &o=QStyleOption::Default) const;
+	void drawComplexControlMask(TQStyle::ComplexControl c,
+	                            TQPainter *p,
+	                            const TQWidget *w,
+	                            const TQRect &r,
+	                            const TQStyleOption &o=TQStyleOption::Default) const;
 
-	QSize sizeFromContents(QStyle::ContentsType t,
-	                       const QWidget *w,
-	                       const QSize &s,
-	                       const QStyleOption &o) const;
+	TQSize sizeFromContents(TQStyle::ContentsType t,
+	                       const TQWidget *w,
+	                       const TQSize &s,
+	                       const TQStyleOption &o) const;
 
 protected:
-	void renderButton(QPainter *p,
-	                  const QRect &r,
-	                  const QColorGroup &g,
+	void renderButton(TQPainter *p,
+	                  const TQRect &r,
+	                  const TQColorGroup &g,
 	                  bool sunken = false,
 	                  bool corners = false) const;
 
-	void renderPanel(QPainter *p,
-	                 const QRect &r,
-	                 const QColorGroup &g,
+	void renderPanel(TQPainter *p,
+	                 const TQRect &r,
+	                 const TQColorGroup &g,
 	                 bool sunken = true,
 	                 bool thick = true) const;
 
-	void renderSlider(QPainter *p,
-	                  const QRect &r,
-	                  const QColorGroup &g) const;
-	bool eventFilter(QObject *, QEvent *);
+	void renderSlider(TQPainter *p,
+	                  const TQRect &r,
+	                  const TQColorGroup &g) const;
+	bool eventFilter(TQObject *, TQEvent *);
 
-	void updatePalette( QComboBox * );
-	void updatePalette( QToolBar * );
-	void updatePalette( QMenuBar * );
+	void updatePalette( TQComboBox * );
+	void updatePalette( TQToolBar * );
+	void updatePalette( TQMenuBar * );
 
 protected slots:
 	void slotDestroyed();
@@ -133,11 +133,11 @@ private:
 // Disable copy constructor and = operator
 	dotNETstyle( const dotNETstyle & );
 	dotNETstyle& operator=( const dotNETstyle & );
-	QStyle *winstyle;
+	TQStyle *winstyle;
 
 	bool pseudo3D, useTextShadows, roundedCorners, reverseLayout, kickerMode;
 
-	QValueList<QWidget*> m_widgets;
+	TQValueList<TQWidget*> m_widgets;
 };
 
 #endif

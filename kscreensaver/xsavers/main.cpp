@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <signal.h>
 
-#include <qcolor.h>
+#include <tqcolor.h>
 
 #include <klocale.h>
 #include <kconfig.h>
@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
 
     if (args->isSet("root"))
     {
-        saveWin = QApplication::desktop()->handle();
+        saveWin = TQApplication::desktop()->handle();
     }
 
     if (args->isSet("demo"))
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
     if (saveWin == 0)
     {
         demoWidget = new DemoWindow();
-        demoWidget->setBackgroundMode(QWidget::NoBackground);
+        demoWidget->setBackgroundMode(TQWidget::NoBackground);
 //        demoWidget->setBackgroundColor(Qt::black);
         demoWidget->show();
         saveWin = demoWidget->winId();

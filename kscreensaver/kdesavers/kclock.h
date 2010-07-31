@@ -10,7 +10,7 @@
 #ifndef __KCLOCK_H__
 #define __KCLOCK_H__
 
-#include <qtimer.h>
+#include <tqtimer.h>
 #include <kdialogbase.h>
 #include <kscreensaver.h>
 
@@ -28,16 +28,16 @@ class KClockPainter
 	KClockPainter(int width, int height);
 	~KClockPainter();
 	void copy(KClockPainter *p);
-	void drawToImage(QImage *q, int x, int y);
+	void drawToImage(TQImage *q, int x, int y);
 	inline int width() { return m_width; }
 	inline int height() { return m_height; }
 	inline void *image() { return (void *)m_buf; }
-	void setColor(const QColor &color);
-	void setShadowColor(const QColor &color);
-	void fill(const QColor &color);
+	void setColor(const TQColor &color);
+	void setShadowColor(const TQColor &color);
+	void fill(const TQColor &color);
 	void drawRadial(double alpha, double r0, double r1, double width);
 	void drawDisc(double radius);
-	void drawHand(const QColor &color, double angle, double length,
+	void drawHand(const TQColor &color, double angle, double length,
 			double width, bool disc);
 };
 
@@ -48,11 +48,11 @@ class KClockSaver : public KScreenSaver
     public:
 	KClockSaver(WId id);
 	virtual ~KClockSaver();
-	inline void setBgndColor(const QColor &c) { m_bgndColor = c; drawScale(); setBackgroundColor(c); };
-	inline void setScaleColor(const QColor &c) { m_scaleColor = c; drawScale(); };
-	inline void setHourColor(const QColor &c) { m_hourColor = c; forceRedraw(); };
-	inline void setMinColor(const QColor &c) { m_minColor = c; forceRedraw(); };
-	inline void setSecColor(const QColor &c) { m_secColor = c; forceRedraw(); };
+	inline void setBgndColor(const TQColor &c) { m_bgndColor = c; drawScale(); setBackgroundColor(c); };
+	inline void setScaleColor(const TQColor &c) { m_scaleColor = c; drawScale(); };
+	inline void setHourColor(const TQColor &c) { m_hourColor = c; forceRedraw(); };
+	inline void setMinColor(const TQColor &c) { m_minColor = c; forceRedraw(); };
+	inline void setSecColor(const TQColor &c) { m_secColor = c; forceRedraw(); };
 	void setKeepCentered(bool b);
 	void restart(int siz);
 	inline void forceRedraw() { m_second = -1; }
@@ -68,8 +68,8 @@ class KClockSaver : public KScreenSaver
 	void slotTimeout();
 
     protected:
-	QTimer m_timer;
-	QImage *m_image;
+	TQTimer m_timer;
+	TQImage *m_image;
 	KClockPainter *m_scale;
 	KClockPainter *m_clock;
 
@@ -83,11 +83,11 @@ class KClockSaver : public KScreenSaver
 	int m_minute;
 	int m_second;
 
-	QColor m_bgndColor;
-	QColor m_scaleColor;
-	QColor m_hourColor;
-	QColor m_minColor;
-	QColor m_secColor;
+	TQColor m_bgndColor;
+	TQColor m_scaleColor;
+	TQColor m_hourColor;
+	TQColor m_minColor;
+	TQColor m_secColor;
 };
 
 
@@ -95,7 +95,7 @@ class KClockSetup : public KDialogBase
 {
     Q_OBJECT
     public:
-	 KClockSetup(QWidget *parent = 0, const char *name = 0);
+	 KClockSetup(TQWidget *parent = 0, const char *name = 0);
     ~KClockSetup();
     protected:
 	void readSettings();
@@ -104,22 +104,22 @@ class KClockSetup : public KDialogBase
 	void slotOk();
 	void slotHelp();
 
-	void slotBgndColor(const QColor &);
-	void slotScaleColor(const QColor &);
-	void slotHourColor(const QColor &);
-	void slotMinColor(const QColor &);
-	void slotSecColor(const QColor &);
+	void slotBgndColor(const TQColor &);
+	void slotScaleColor(const TQColor &);
+	void slotHourColor(const TQColor &);
+	void slotMinColor(const TQColor &);
+	void slotSecColor(const TQColor &);
 	void slotSliderMoved(int);
 	void slotKeepCenteredChanged(int);
 
     private:
 	KClockSaver *m_saver;
 
-	QColor m_bgndColor;
-	QColor m_scaleColor;
-	QColor m_hourColor;
-	QColor m_minColor;
-	QColor m_secColor;
+	TQColor m_bgndColor;
+	TQColor m_scaleColor;
+	TQColor m_hourColor;
+	TQColor m_minColor;
+	TQColor m_secColor;
 
 	int m_size;
 	bool m_keepCentered;

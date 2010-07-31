@@ -32,10 +32,10 @@
 // STL
 #include <deque>
 // Qt headers
-#include <qcheckbox.h>
-#include <qlineedit.h>
-#include <qvalidator.h>
-#include <qtooltip.h>
+#include <tqcheckbox.h>
+#include <tqlineedit.h>
+#include <tqvalidator.h>
+#include <tqtooltip.h>
 // KDE headers
 #include <klocale.h>
 #include <kconfig.h>
@@ -68,7 +68,7 @@ extern "C"
    }
 
    /** function to create setup dialog for screen saver */
-   KDE_EXPORT QDialog* kss_setup()
+   KDE_EXPORT TQDialog* kss_setup()
    {
       return new KRotationSetup();
    }
@@ -137,13 +137,13 @@ std::valarray<double> EulerOdeSolver::f(
 //-----------------------------------------------------------------------------
 
 RotationGLWidget::RotationGLWidget(
-   QWidget* parent, const char* name,
+   TQWidget* parent, const char* name,
    const vec3<double>& _omega,
    const std::deque<vec3<double> >& e1_,
    const std::deque<vec3<double> >& e2_,
    const std::deque<vec3<double> >& e3_,
    const vec3<double>& J)
-   : QGLWidget(parent, name),
+   : TQGLWidget(parent, name),
      eyeR(25), eyeTheta(1), eyePhi(M_PI*0.25),
      boxSize(1,1,1),
      fixedAxses(0),
@@ -185,7 +185,7 @@ RotationGLWidget::RotationGLWidget(
 
 void RotationGLWidget::initializeGL(void)
 {
-   qglClearColor(QColor(black)); // set color to clear the background
+   qglClearColor(TQColor(black)); // set color to clear the background
 
    glClearDepth(1);             // depth buffer setup
    glEnable(GL_DEPTH_TEST);     // depth testing
@@ -221,17 +221,17 @@ void RotationGLWidget::initializeGL(void)
    glLoadIdentity();
 
    // z-axis, blue
-   qglColor(QColor(blue));
+   qglColor(TQColor(blue));
    myGlArrow(fixedAxsesLength, 0.5f, 0.03f, 0.1f);
 
    // x-axis, red
-   qglColor(QColor(red));
+   qglColor(TQColor(red));
    glRotatef(90, 0, 1, 0);
 
    myGlArrow(fixedAxsesLength, 0.5f, 0.03f, 0.1f);
 
    // y-axis, green
-   qglColor(QColor(green));
+   qglColor(TQColor(green));
    glLoadIdentity();
    glRotatef(-90, 1, 0, 0);
    myGlArrow(fixedAxsesLength, 0.5f, 0.03f, 0.1f);
@@ -247,18 +247,18 @@ void RotationGLWidget::initializeGL(void)
    glNewList(bodyAxses, GL_COMPILE);
 
    // z-axis, blue
-   qglColor(QColor(blue));
+   qglColor(TQColor(blue));
    myGlArrow(bodyAxsesLength, 0.5f, 0.03f, 0.1f);
 
    // x-axis, red
-   qglColor(QColor(red));
+   qglColor(TQColor(red));
    glPushMatrix();
    glRotatef(90, 0, 1, 0);
    myGlArrow(bodyAxsesLength, 0.5f, 0.03f, 0.1f);
    glPopMatrix();
 
    // y-axis, green
-   qglColor(QColor(green));
+   qglColor(TQColor(green));
    glPushMatrix();
    glRotatef(-90, 1, 0, 0);
    myGlArrow(bodyAxsesLength, 0.5f, 0.03f, 0.1f);
@@ -340,7 +340,7 @@ void RotationGLWidget::paintGL(void)
       180./M_PI * vec3<double>::angle(vec3<double>(0,0,1), omega);
    glPushMatrix();
    glRotatef(rotdeg, rotvec[0], rotvec[1], rotvec[2]);
-   qglColor(QColor(white));
+   qglColor(TQColor(white));
    myGlArrow(7, .5f, .1f, 0.2f);
    glPopMatrix();
 
@@ -374,7 +374,7 @@ void RotationGLWidget::paintGL(void)
    // paint box
    glBegin(GL_QUADS);
    // front (z)
-   qglColor(QColor(blue));
+   qglColor(TQColor(blue));
    glNormal3f( 0,0,1);
    glVertex3f( 1,  1,  1);
    glVertex3f(-1,  1,  1);
@@ -387,7 +387,7 @@ void RotationGLWidget::paintGL(void)
    glVertex3f(-1, -1, -1);
    glVertex3f( 1, -1, -1);
    // top (y)
-   qglColor(QColor(green));
+   qglColor(TQColor(green));
    glNormal3f( 0,1,0);
    glVertex3f( 1,  1,  1);
    glVertex3f( 1,  1, -1);
@@ -401,7 +401,7 @@ void RotationGLWidget::paintGL(void)
    glVertex3f(-1, -1, -1);
    glVertex3f(-1, -1,  1);
    // left (-x)
-   qglColor(QColor(red));
+   qglColor(TQColor(red));
    glNormal3f( -1,0,0);
    glVertex3f(-1,  1,  1);
    glVertex3f(-1,  1, -1);
@@ -489,9 +489,9 @@ KRotationSaver::KRotationSaver(WId id)
    embed(glArea);               // embed gl widget and resize it
    glArea->show();              // show gl widget
 
-   timer = new QTimer(this);
+   timer = new TQTimer(this);
    timer->start(deltaT, TRUE);
-   connect(timer, SIGNAL(timeout()), this, SLOT(doTimeStep()));
+   connect(timer, TQT_SIGNAL(timeout()), this, TQT_SLOT(doTimeStep()));
 }
 
 KRotationSaver::~KRotationSaver()
@@ -678,7 +678,7 @@ void KRotationSaver::doTimeStep()
 
 // public slot of KRotationSaver, forward resize event to public slot of glArea
 // to allow the resizing of the gl area withing the setup dialog
-void KRotationSaver::resizeGlArea(QResizeEvent* e)
+void KRotationSaver::resizeGlArea(TQResizeEvent* e)
 {
    glArea->resize(e->size());
 }
@@ -687,7 +687,7 @@ void KRotationSaver::resizeGlArea(QResizeEvent* e)
 // KRotationSetup: dialog to setup screen saver parameters
 //-----------------------------------------------------------------------------
 
-KRotationSetup::KRotationSetup(QWidget* parent, const char* name)
+KRotationSetup::KRotationSetup(TQWidget* parent, const char* name)
    : KRotationSetupUi(parent, name),
      // create ssaver and give it the WinID of the preview area
      saver(new KRotationSaver(preview->winId()))
@@ -697,33 +697,33 @@ KRotationSetup::KRotationSetup(QWidget* parent, const char* name)
    setModal(TRUE);
 
    lengthEdit->setValidator(
-      new QDoubleValidator(
+      new TQDoubleValidator(
          KRotationSaver::traceLengthSecondsLimitLower,
          KRotationSaver::traceLengthSecondsLimitUpper,
          3, lengthEdit));
    LzEdit->setValidator(
-      new QDoubleValidator(
+      new TQDoubleValidator(
          KRotationSaver::LzLimitLower,
          KRotationSaver::LzLimitUpper,
          3, LzEdit));
    thetaEdit->setValidator(
-      new QDoubleValidator(
+      new TQDoubleValidator(
          KRotationSaver::initEulerThetaLimitLower,
          KRotationSaver::initEulerThetaLimitUpper,
          3, thetaEdit));
 
    // set tool tips of editable fields
-   QToolTip::add(
+   TQToolTip::add(
       lengthEdit,
       i18n("Length of traces in seconds of visibility.\nValid values from %1 to %2.")
       .arg(KRotationSaver::traceLengthSecondsLimitLower, 0, 'f', 2)
       .arg(KRotationSaver::traceLengthSecondsLimitUpper, 0, 'f', 2));
-   QToolTip::add(
+   TQToolTip::add(
       LzEdit,
       i18n("Angular momentum in z direction in arbitrary units.\nValid values from %1 to %2.")
       .arg(KRotationSaver::LzLimitLower, 0, 'f', 2)
       .arg(KRotationSaver::LzLimitUpper, 0, 'f', 2));
-   QToolTip::add(
+   TQToolTip::add(
       thetaEdit,
       i18n("Gravitational constant in arbitrary units.\nValid values from %1 to %2.")
       .arg(KRotationSaver::initEulerThetaLimitLower, 0, 'f', 2)
@@ -741,7 +741,7 @@ KRotationSetup::KRotationSetup(QWidget* parent, const char* name)
    yTrace->setChecked(saver->traceFlag(1));
    zTrace->setChecked(saver->traceFlag(2));
    randTraces->setChecked(saver->randomTraces());
-   QString text;
+   TQString text;
    text.setNum(saver->traceLengthSeconds());
    lengthEdit->validateAndSet(text,0,0,0);
    text.setNum(saver->Lz());
@@ -752,8 +752,8 @@ KRotationSetup::KRotationSetup(QWidget* parent, const char* name)
    // if the preview area is resized it emmits the resized() event which is
    // caught by the saver.  The embedded GlArea is resized to fit into the
    // preview area.
-   connect(preview, SIGNAL(resized(QResizeEvent*)),
-           saver,   SLOT(resizeGlArea(QResizeEvent*)));
+   connect(preview, TQT_SIGNAL(resized(TQResizeEvent*)),
+           saver,   TQT_SLOT(resizeGlArea(TQResizeEvent*)));
 }
 
 KRotationSetup::~KRotationSetup()
@@ -809,16 +809,16 @@ void KRotationSetup::randomTracesToggled(bool state)
       saver->setTraceFlag(2, zTrace->isChecked());
    }
 }
-void KRotationSetup::lengthEnteredSlot(const QString& s)
+void KRotationSetup::lengthEnteredSlot(const TQString& s)
 {
    saver->setTraceLengthSeconds(s.toDouble());
 }
-void KRotationSetup::LzEnteredSlot(const QString& s)
+void KRotationSetup::LzEnteredSlot(const TQString& s)
 {
    saver->setLz(s.toDouble());
    if (saver!=0) saver->initData();
 }
-void KRotationSetup::thetaEnteredSlot(const QString& s)
+void KRotationSetup::thetaEnteredSlot(const TQString& s)
 {
    saver->setInitEulerTheta(s.toDouble());
    if (saver!=0) saver->initData();

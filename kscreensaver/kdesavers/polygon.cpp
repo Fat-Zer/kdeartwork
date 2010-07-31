@@ -10,17 +10,17 @@
 #include <config.h>
 #include <stdlib.h>
 #include <time.h>
-#include <qcolor.h>
-#include <qlabel.h>
-#include <qslider.h>
-#include <qlayout.h>
+#include <tqcolor.h>
+#include <tqlabel.h>
+#include <tqslider.h>
+#include <tqlayout.h>
 #include <klocale.h>
 #include <kconfig.h>
 #include <kglobal.h>
 #include <kmessagebox.h>
 
 #include "polygon.h"
-#include <qpainter.h>
+#include <tqpainter.h>
 
 #include "polygon.moc"
 
@@ -40,7 +40,7 @@ extern "C"
         return new kPolygonSaver( id );
     }
 
-    KDE_EXPORT QDialog *kss_setup()
+    KDE_EXPORT TQDialog *kss_setup()
     {
         return new kPolygonSetup();
     }
@@ -49,53 +49,53 @@ extern "C"
 //-----------------------------------------------------------------------------
 // dialog to setup screen saver parameters
 //
-kPolygonSetup::kPolygonSetup( QWidget *parent, const char *name )
+kPolygonSetup::kPolygonSetup( TQWidget *parent, const char *name )
 	: KDialogBase( parent, name, true, i18n( "Setup Polygon Screen Saver" ),
 	  Ok|Cancel|Help, Ok, true ), saver( 0 ), length( 10 ), vertices( 3 ),
 	  speed( 50 )
 {
 	readSettings();
 
-	QWidget *main = makeMainWidget();
+	TQWidget *main = makeMainWidget();
 	setButtonText( Help, i18n( "A&bout" ) );
 
-	QHBoxLayout *tl = new QHBoxLayout(main, 0, spacingHint());
-	QVBoxLayout *tl1 = new QVBoxLayout;
+	TQHBoxLayout *tl = new TQHBoxLayout(main, 0, spacingHint());
+	TQVBoxLayout *tl1 = new QVBoxLayout;
 	tl->addLayout(tl1);
 
-	QLabel *label = new QLabel( i18n("Length:"), main );
+	TQLabel *label = new TQLabel( i18n("Length:"), main );
 	tl1->addWidget(label);
 
-	QSlider *sb = new QSlider(1, MAXLENGTH, 10, length, QSlider::Horizontal,
+	TQSlider *sb = new TQSlider(1, MAXLENGTH, 10, length, TQSlider::Horizontal,
 		main );
 	sb->setMinimumSize( 90, 20 );
-    sb->setTickmarks(QSlider::Below);
+    sb->setTickmarks(TQSlider::Below);
     sb->setTickInterval(10);
-	connect( sb, SIGNAL( valueChanged( int ) ), SLOT( slotLength( int ) ) );
+	connect( sb, TQT_SIGNAL( valueChanged( int ) ), TQT_SLOT( slotLength( int ) ) );
 	tl1->addWidget(sb);
 
-	label = new QLabel( i18n("Vertices:"), main );
+	label = new TQLabel( i18n("Vertices:"), main );
 	tl1->addWidget(label);
 
-	sb = new QSlider(3, MAXVERTICES, 2, vertices, QSlider::Horizontal, main);
+	sb = new TQSlider(3, MAXVERTICES, 2, vertices, TQSlider::Horizontal, main);
 	sb->setMinimumSize( 90, 20 );
-    sb->setTickmarks(QSlider::Below);
+    sb->setTickmarks(TQSlider::Below);
     sb->setTickInterval(2);
-	connect( sb, SIGNAL( valueChanged( int ) ), SLOT( slotVertices( int ) ) );
+	connect( sb, TQT_SIGNAL( valueChanged( int ) ), TQT_SLOT( slotVertices( int ) ) );
 	tl1->addWidget(sb);
 
-	label = new QLabel( i18n("Speed:"), main );
+	label = new TQLabel( i18n("Speed:"), main );
 	tl1->addWidget(label);
 
-	sb = new QSlider(0, 100, 10, speed, QSlider::Horizontal, main);
+	sb = new TQSlider(0, 100, 10, speed, TQSlider::Horizontal, main);
 	sb->setMinimumSize( 90, 20 );
-    sb->setTickmarks(QSlider::Below);
+    sb->setTickmarks(TQSlider::Below);
     sb->setTickInterval(10);
-	connect( sb, SIGNAL( valueChanged( int ) ), SLOT( slotSpeed( int ) ) );
+	connect( sb, TQT_SIGNAL( valueChanged( int ) ), TQT_SLOT( slotSpeed( int ) ) );
 	tl1->addWidget(sb);
 	tl1->addStretch();
 
-	preview = new QWidget( main );
+	preview = new TQWidget( main );
 	preview->setFixedSize( 220, 170 );
 	preview->setBackgroundColor( black );
 	preview->show();    // otherwise saver does not get correct size
@@ -162,15 +162,15 @@ void kPolygonSetup::slotOk()
     KConfig *config = KGlobal::config();
     config->setGroup( "Settings" );
 
-    QString slength;
+    TQString slength;
     slength.setNum( length );
     config->writeEntry( "Length", slength );
 
-    QString svertices;
+    TQString svertices;
     svertices.setNum( vertices );
     config->writeEntry( "Vertices", svertices );
 
-    QString sspeed;
+    TQString sspeed;
     sspeed.setNum( speed );
     config->writeEntry( "Speed", sspeed );
 
@@ -197,7 +197,7 @@ kPolygonSaver::kPolygonSaver( WId id ) : KScreenSaver( id )
 	readSettings();
 
 	directions.resize( numVertices );
-	colorContext = QColor::enterAllocContext();
+	colorContext = TQColor::enterAllocContext();
 
 	blank();
 
@@ -205,14 +205,14 @@ kPolygonSaver::kPolygonSaver( WId id ) : KScreenSaver( id )
 	initialisePolygons();
 
 	timer.start( speed );
-	connect( &timer, SIGNAL( timeout() ), SLOT( slotTimeout() ) );
+	connect( &timer, TQT_SIGNAL( timeout() ), TQT_SLOT( slotTimeout() ) );
 }
 
 kPolygonSaver::~kPolygonSaver()
 {
 	timer.stop();
-	QColor::leaveAllocContext();
-	QColor::destroyAllocContext( colorContext );
+	TQColor::leaveAllocContext();
+	TQColor::destroyAllocContext( colorContext );
 }
 
 // set polygon properties
@@ -262,7 +262,7 @@ void kPolygonSaver::readSettings()
 // draw next polygon and erase tail
 void kPolygonSaver::slotTimeout()
 {
-    QPainter p( this );
+    TQPainter p( this );
 	if ( polygons.count() > numLines )
 	{
 		p.setPen( black );
@@ -276,7 +276,7 @@ void kPolygonSaver::slotTimeout()
 	if ( polygons.count() > numLines )
 		polygons.removeFirst();
 
-	polygons.append( new QPointArray( polygons.last()->copy() ) );
+	polygons.append( new TQPointArray( polygons.last()->copy() ) );
 	moveVertices();
 }
 
@@ -291,9 +291,9 @@ void kPolygonSaver::initialisePolygons()
 {
 	int i;
 
-	polygons.append( new QPointArray( numVertices + 1 ) );
+	polygons.append( new TQPointArray( numVertices + 1 ) );
 
-	QPointArray &poly = *polygons.last();
+	TQPointArray &poly = *polygons.last();
 
 	for ( i = 0; i < numVertices; i++ )
 	{
@@ -313,7 +313,7 @@ void kPolygonSaver::initialisePolygons()
 void kPolygonSaver::moveVertices()
 {
 	int i;
-	QPointArray &poly = *polygons.last();
+	TQPointArray &poly = *polygons.last();
 
 	for ( i = 0; i < numVertices; i++ )
 	{

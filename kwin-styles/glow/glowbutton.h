@@ -19,8 +19,8 @@
 #define GLOW_BUTTON_H
 
 #include <vector>
-#include <qmap.h>
-#include <qbutton.h>
+#include <tqmap.h>
+#include <tqbutton.h>
 
 class QPixmap;
 class QBitmap;
@@ -33,12 +33,12 @@ namespace Glow
 class PixmapCache
 {
 public:
-	static const QPixmap* find(const QString& key);
-	static void insert(const QString& key, const QPixmap *pixmap);
-	static void erase(const QString& key);
+	static const TQPixmap* find(const TQString& key);
+	static void insert(const TQString& key, const TQPixmap *pixmap);
+	static void erase(const TQString& key);
 	static void clear();
 private:
-	static QMap<QString, const QPixmap*> m_pixmapMap;
+	static TQMap<TQString, const TQPixmap*> m_pixmapMap;
 };
 
 
@@ -49,24 +49,24 @@ class GlowButton : public QButton
 	Q_OBJECT
 
 public:
-	GlowButton(QWidget *parent, const char* name, const QString& tip, const int realizeBtns);
+	GlowButton(TQWidget *parent, const char* name, const TQString& tip, const int realizeBtns);
 	~GlowButton();
 
-	void setTipText( const QString& tip );
+	void setTipText( const TQString& tip );
 
-	QString getPixmapName() const;
+	TQString getPixmapName() const;
 	ButtonState lastButton() const;
 
 	/** Sets the name of the pixmap in the pixmap cache.
-	 * If no background pixmap is wanted use QString::null as name. */
-	void setPixmapName(const QString& pixmapName);
+	 * If no background pixmap is wanted use TQString::null as name. */
+	void setPixmapName(const TQString& pixmapName);
 
 protected:
-	virtual void paintEvent( QPaintEvent * );
-	virtual void enterEvent( QEvent * );
-	virtual void leaveEvent( QEvent * );
-	virtual void mousePressEvent( QMouseEvent * );
-	virtual void mouseReleaseEvent( QMouseEvent * );
+	virtual void paintEvent( TQPaintEvent * );
+	virtual void enterEvent( TQEvent * );
+	virtual void leaveEvent( TQEvent * );
+	virtual void mousePressEvent( TQMouseEvent * );
+	virtual void mouseReleaseEvent( TQMouseEvent * );
 
 protected slots:
 	void slotTimeout();
@@ -76,9 +76,9 @@ private:
 
 	int m_updateTime;
 	int _steps;
-	QString m_pixmapName;
+	TQString m_pixmapName;
 
-	QTimer *m_timer;
+	TQTimer *m_timer;
 	int m_pos;
 	TimerStatus m_timerStatus;
 
@@ -108,16 +108,16 @@ public:
 	 * in succession to create the glow effect. The last sub pixmap is used
 	 * when the button is pressed.
 	 */
-	QPixmap * createGlowButtonPixmap(
-				const QImage & bg_image,
-//				const QImage & bg_alpha_image,
-				const QImage & fg_image,
-				const QImage & glow_image,
-				const QColor & color,
-				const QColor & glow_color);
+	TQPixmap * createGlowButtonPixmap(
+				const TQImage & bg_image,
+//				const TQImage & bg_alpha_image,
+				const TQImage & fg_image,
+				const TQImage & glow_image,
+				const TQColor & color,
+				const TQColor & glow_color);
 
 	GlowButton* createGlowButton(
-		QWidget *parent, const char* name, const QString& tip, const int realizeBtns = Qt::LeftButton);
+		TQWidget *parent, const char* name, const TQString& tip, const int realizeBtns = Qt::LeftButton);
 
 private:
 	int _steps;

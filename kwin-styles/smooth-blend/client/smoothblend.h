@@ -25,7 +25,7 @@
 #ifndef SMOOTHBLEND_H
 #define SMOOTHBLEND_H
 
-#include <qbutton.h>
+#include <tqbutton.h>
 #include <kdecoration.h>
 #include <kdecorationfactory.h>
 
@@ -71,7 +71,7 @@ public:
     static int buttonSize();
     static int frameSize();
     static int roundSize();
-    static QFont titleFontTool() { return m_titleFontTool; }
+    static TQFont titleFontTool() { return m_titleFontTool; }
     static bool titleShadow();
     static bool animateButtons() { return animatebuttons; }
     static int getBtnComboBox() { return btnComboBox; }
@@ -88,7 +88,7 @@ private:
     static int buttonsize_;
     static int framesize_;
     static int roundsize_;
-    static QFont m_titleFontTool;
+    static TQFont m_titleFontTool;
     static bool titleshadow_;
     static bool animatebuttons;
     static int btnComboBox;
@@ -122,11 +122,11 @@ inline bool smoothblendFactory::titleShadow() {
 
 // smoothblendButton //////////////////////////////////////////////////////////
 
-class smoothblendButton : public QButton {
+class smoothblendButton : public TQButton {
     Q_OBJECT
 public:
     smoothblendButton(smoothblendClient *parent=0, const char *name=0,
-                  const QString &tip=NULL,
+                  const TQString &tip=NULL,
                   ButtonType type=ButtonHelp,
                   int button_size=18,
                   bool toggle=false);
@@ -134,10 +134,10 @@ public:
     ~smoothblendButton();
 
     void setBitmap(const unsigned char *bitmap);
-    QSize sizeHint() const;
+    TQSize sizeHint() const;
     ButtonState lastMousePress() const;
     void reset();
-    QImage getButtonImage(ButtonType type);
+    TQImage getButtonImage(ButtonType type);
     virtual void setOn(bool on);
     virtual void setDown(bool on);
 
@@ -147,22 +147,22 @@ protected slots:
     void buttonReleased();
 
 private:
-    void enterEvent(QEvent *e);
-    void leaveEvent(QEvent *e);
-    void mousePressEvent(QMouseEvent *e);
-    void mouseReleaseEvent(QMouseEvent *e);
-    void drawButton(QPainter *painter);
+    void enterEvent(TQEvent *e);
+    void leaveEvent(TQEvent *e);
+    void mousePressEvent(TQMouseEvent *e);
+    void mouseReleaseEvent(TQMouseEvent *e);
+    void drawButton(TQPainter *painter);
 
 private:
     smoothblendClient *client_;
     ButtonType type_;
     int size_;
-    QBitmap *deco_;
-    QPixmap *pixmap[2][4];
+    TQBitmap *deco_;
+    TQPixmap *pixmap[2][4];
     ButtonState lastmouse_;
     bool hover_;
     bool m_clicked;
-    QTimer *animTmr;
+    TQTimer *animTmr;
     uint animProgress;
 };
 
@@ -192,34 +192,34 @@ public:
     
 
     virtual void borders(int &l, int &r, int &t, int &b) const;
-    virtual void resize(const QSize &size);
-    virtual QSize minimumSize() const;
-    virtual Position mousePosition(const QPoint &point) const;
+    virtual void resize(const TQSize &size);
+    virtual TQSize minimumSize() const;
+    virtual Position mousePosition(const TQPoint &point) const;
 
-    QPixmap getTitleBarTile(bool active) const
+    TQPixmap getTitleBarTile(bool active) const
     {
         return active ? *aTitleBarTile : *iTitleBarTile;
     }
 
 private:
-    void addButtons(QBoxLayout* layout, const QString& buttons, int buttonSize = 18);
-    bool eventFilter(QObject *obj, QEvent *e);
-    void mouseDoubleClickEvent(QMouseEvent *e);
-    void wheelEvent(QWheelEvent *e);
-    void paintEvent(QPaintEvent *e);
-    void resizeEvent(QResizeEvent *);
-    void showEvent(QShowEvent *);
+    void addButtons(TQBoxLayout* layout, const TQString& buttons, int buttonSize = 18);
+    bool eventFilter(TQObject *obj, TQEvent *e);
+    void mouseDoubleClickEvent(TQMouseEvent *e);
+    void wheelEvent(TQWheelEvent *e);
+    void paintEvent(TQPaintEvent *e);
+    void resizeEvent(TQResizeEvent *);
+    void showEvent(TQShowEvent *);
     void updateMask();
     void _resetLayout();
-    QVBoxLayout *mainLayout_;
-    QHBoxLayout *titleLayout_;
-    QSpacerItem *topSpacer_,
+    TQVBoxLayout *mainLayout_;
+    TQHBoxLayout *titleLayout_;
+    TQSpacerItem *topSpacer_,
                 *titleSpacer_,
                 *leftTitleSpacer_, *rightTitleSpacer_,
                 *decoSpacer_,
                 *leftSpacer_, *rightSpacer_,
                 *bottomSpacer_, *windowSpacer_;
-    QPixmap *aCaptionBuffer, *iCaptionBuffer;
+    TQPixmap *aCaptionBuffer, *iCaptionBuffer;
 
 private slots:
     void maxButtonPressed();
@@ -236,12 +236,12 @@ signals:
     void keepBelowChanged(bool);
 
 private:
-    QPixmap *aTitleBarTile, *iTitleBarTile, *aTitleBarTopTile, *iTitleBarTopTile;
+    TQPixmap *aTitleBarTile, *iTitleBarTile, *aTitleBarTopTile, *iTitleBarTopTile;
     smoothblendButton *button[ButtonTypeCount];
-    QSpacerItem *titlebar_;
+    TQSpacerItem *titlebar_;
     bool pixmaps_created;
     int s_titleHeight;
-    QFont s_titleFont;
+    TQFont s_titleFont;
     int handlebar;
     bool closing;
 

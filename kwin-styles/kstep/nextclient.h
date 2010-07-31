@@ -1,11 +1,11 @@
 #ifndef __NEXTCLIENT_H
 #define __NEXTCLIENT_H
 
-#include <qvariant.h>
-#include <qbitmap.h>
+#include <tqvariant.h>
+#include <tqbitmap.h>
 #include <kpixmap.h>
-#include <qlayout.h>
-#include <qbutton.h>
+#include <tqlayout.h>
+#include <tqbutton.h>
 #include <kdecoration.h>
 #include <kdecorationfactory.h>
 
@@ -21,19 +21,19 @@ class NextButton : public QButton
 public:
     NextButton(NextClient *parent=0, const char *name=0,
                const unsigned char *bitmap=NULL, int bw=0, int bh=0,
-               const QString& tip=NULL, const int realizeBtns = LeftButton);
+               const TQString& tip=NULL, const int realizeBtns = LeftButton);
     void setBitmap(const unsigned char *bitmap, int bw, int bh);
     void reset();
     ButtonState lastButton() { return last_button; }
 
 protected:
-    void mousePressEvent( QMouseEvent* e );
-    void mouseReleaseEvent( QMouseEvent* e );
-    virtual void drawButton(QPainter *p);
-    void drawButtonLabel(QPainter *){;}
+    void mousePressEvent( TQMouseEvent* e );
+    void mouseReleaseEvent( TQMouseEvent* e );
+    virtual void drawButton(TQPainter *p);
+    void drawButtonLabel(TQPainter *){;}
 
     KPixmap aBackground, iBackground;
-    QBitmap* deco;
+    TQBitmap* deco;
     NextClient *client;
     ButtonState last_button;
     int realizeButtons;
@@ -46,28 +46,28 @@ public:
     NextClient(KDecorationBridge *b, KDecorationFactory *f);
     ~NextClient() {;}
     void init();
-    virtual bool drawbound(const QRect& geom, bool clear);
+    virtual bool drawbound(const TQRect& geom, bool clear);
 protected:
-    bool eventFilter(QObject *o, QEvent *e);
-    void resizeEvent( QResizeEvent* );
-    void paintEvent( QPaintEvent* );
-    void showEvent( QShowEvent* );
+    bool eventFilter(TQObject *o, TQEvent *e);
+    void resizeEvent( TQResizeEvent* );
+    void paintEvent( TQPaintEvent* );
+    void showEvent( TQShowEvent* );
 
-    void mouseDoubleClickEvent( QMouseEvent * );
-    void wheelEvent( QWheelEvent * );
+    void mouseDoubleClickEvent( TQMouseEvent * );
+    void wheelEvent( TQWheelEvent * );
     void captionChange();
     void desktopChange();
     void activeChange();
     void shadeChange();
     void iconChange();
-    QSize minimumSize() const;
-    void resize(const QSize &size);
+    TQSize minimumSize() const;
+    void resize(const TQSize &size);
     void borders(int &left, int &right, int &top, int &bottom) const;
     void reset(unsigned long changed);
     void calcHiddenButtons();
     void updateActiveBuffer();
 
-    Position mousePosition(const QPoint &) const;
+    Position mousePosition(const TQPoint &) const;
     void maximizeChange();
 
 protected slots:
@@ -83,11 +83,11 @@ protected slots:
     void keepBelowChange(bool below);
 
 private:
-    void initializeButtonsAndTitlebar(QBoxLayout* titleLayout);
-    void addButtons(QBoxLayout* titleLayout, const QString& buttons);
+    void initializeButtonsAndTitlebar(TQBoxLayout* titleLayout);
+    void addButtons(TQBoxLayout* titleLayout, const TQString& buttons);
     bool mustDrawHandle() const;
 
-    QSpacerItem* titlebar;
+    TQSpacerItem* titlebar;
 
     // Helpful constants for buttons in array
     enum { CLOSE_IDX = 0,
@@ -107,7 +107,7 @@ private:
     NextButton* button[MAX_NUM_BUTTONS];
 };
 
-class NextClientFactory: public QObject, public KDecorationFactory
+class NextClientFactory: public TQObject, public KDecorationFactory
 {
 public:
     NextClientFactory();
@@ -116,7 +116,7 @@ public:
     virtual bool reset(unsigned long changed);
     virtual bool supports( Ability ability );
 
-    QValueList< NextClientFactory::BorderSize > borderSizes() const;
+    TQValueList< NextClientFactory::BorderSize > borderSizes() const;
 
 };
 

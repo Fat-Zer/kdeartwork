@@ -16,9 +16,9 @@
 // STL headers
 #include <valarray>
 // Qt headers
-#include <qwidget.h>
-#include <qtimer.h>
-#include <qgl.h>
+#include <tqwidget.h>
+#include <tqtimer.h>
+#include <tqgl.h>
 // GL headers
 #include <GL/glu.h>
 #include <GL/gl.h>
@@ -78,7 +78,7 @@ class PendulumOdeSolver : public RkOdeSolver<double>
 
 /** @brief GL widget class for the KPendulum screen saver
  *
- * Class implements QGLWidget to display the KPendulum screen saver. */
+ * Class implements TQGLWidget to display the KPendulum screen saver. */
 class PendulumGLWidget : public QGLWidget
 {
    Q_OBJECT
@@ -87,7 +87,7 @@ class PendulumGLWidget : public QGLWidget
    /** @brief Constructor of KPendulum's GL widget
     * @param parent parent widget, passed to QGLWidget's constructor
     * @param name name of widget, passed to QGLWidget's constructor */
-   PendulumGLWidget(QWidget* parent=0, const char* name=0);
+   PendulumGLWidget(TQWidget* parent=0, const char* name=0);
    /** @brief Destructor of KPendulum's GL widget */
    ~PendulumGLWidget(void);
 
@@ -111,22 +111,22 @@ class PendulumGLWidget : public QGLWidget
 
    /** @brief set color of the bars
     * @param c color */
-   void setBarColor(const QColor& c);
+   void setBarColor(const TQColor& c);
    /** @brief get color of the bars
     * @return color */
-   inline QColor barColor(void) const {return m_barColor;}
+   inline TQColor barColor(void) const {return m_barColor;}
    /** @brief set color of mass 1
     * @param c color */
-   void setM1Color(const QColor& c);
+   void setM1Color(const TQColor& c);
    /** @brief get color of mass 1
     * @return color */
-   inline QColor m1Color(void) const {return m_m1Color;}
+   inline TQColor m1Color(void) const {return m_m1Color;}
    /** @brief set color of mass 2
     * @param c color */
-   void setM2Color(const QColor& c);
+   void setM2Color(const TQColor& c);
    /** @brief get color of mass 2
     * @return color */
-   inline QColor m2Color(void) const {return m_m2Color;}
+   inline TQColor m2Color(void) const {return m_m2Color;}
 
   protected:
    /** paint the GL view */
@@ -169,11 +169,11 @@ class PendulumGLWidget : public QGLWidget
    GLUquadricObj* const quadM1;
 
    /** color of the pendulum bars */
-   QColor m_barColor;
+   TQColor m_barColor;
    /** color of the 1. mass */
-   QColor m_m1Color;
+   TQColor m_m1Color;
    /** color of the 2. mass */
-   QColor m_m2Color;
+   TQColor m_m2Color;
 };
 
 //--------------------------------------------------------------------
@@ -206,25 +206,25 @@ class KPendulumSaver : public KScreenSaver
    /* accessors for PendulumGLWidget member variables */
 
    /** Set the displayed bar color of the pendulum */
-   void setBarColor(const QColor& c);
+   void setBarColor(const TQColor& c);
    /** Get the displayed bar color of the pendulum */
-   QColor barColor(void) const;
+   TQColor barColor(void) const;
 
-   static const QColor barColorDefault;
+   static const TQColor barColorDefault;
 
    /** Set the displayed color of the 1. pendulum mass */
-   void setM1Color(const QColor& c);
+   void setM1Color(const TQColor& c);
    /** Get the displayed color of the 1. pendulum mass */
-   QColor m1Color(void) const;
+   TQColor m1Color(void) const;
 
-   static const QColor m1ColorDefault;
+   static const TQColor m1ColorDefault;
 
    /** Set the displayed color of the 2. pendulum mass */
-   void setM2Color(const QColor& c);
+   void setM2Color(const TQColor& c);
    /** Get the displayed color of the 2. pendulum mass */
-   QColor m2Color(void) const;
+   TQColor m2Color(void) const;
 
-   static const QColor m2ColorDefault;
+   static const TQColor m2ColorDefault;
 
    /* accessors for own member variables */
 
@@ -287,7 +287,7 @@ class KPendulumSaver : public KScreenSaver
    void doTimeStep();
    /** slot is called if setup dialog changes in size and the GL are should be
     * adjusted */
-   void resizeGlArea(QResizeEvent* e);
+   void resizeGlArea(TQResizeEvent* e);
 
   private:
    /** The ode solver which is used to integrate the equations of motion */
@@ -295,7 +295,7 @@ class KPendulumSaver : public KScreenSaver
    /** Gl widget of simulation */
    PendulumGLWidget*  glArea;
    /** Timer for the real time integration of the eqs. of motion */
-   QTimer*            timer;
+   TQTimer*            timer;
 
    /** Time step size for the integration in milliseconds.  20 ms corresponds to
     * a frame rate of 50 fps. */
@@ -340,7 +340,7 @@ class KPendulumSetup : public KPendulumSetupUi
     *
     * The dialog box is set up and the screen saver object KPendulumSetup::saver
     * is instantiated. */
-   KPendulumSetup(QWidget* parent = 0, const char* name = 0);
+   KPendulumSetup(TQWidget* parent = 0, const char* name = 0);
    /** @brief Destructor of the KPendulum screen saver setup dialog
     *
     * Only KPendulumSetup::saver is deleted. */

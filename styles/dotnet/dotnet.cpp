@@ -24,34 +24,34 @@
  *	the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *	Boston, MA 02110-1301, USA.
  */
-#include <qstyleplugin.h>
-#include <qstylefactory.h>
-#include <qpointarray.h>
-#include <qpainter.h>
-#include <qtabbar.h>
-#include <qtabwidget.h>
-#include <qprogressbar.h>
-#include <qcombobox.h>
-#include <qlistbox.h>
-#include <qscrollbar.h>
-#include <qpushbutton.h>
-#include <qtoolbutton.h>
-#include <qtoolbar.h>
-#include <qmenubar.h>
-#include <qpopupmenu.h>
-#include <qdrawutil.h>
-#include <qapplication.h>
-#include <qvariant.h>
-#include <qpixmapcache.h>
-#include <qslider.h>
-#include <qsettings.h>
+#include <tqstyleplugin.h>
+#include <tqstylefactory.h>
+#include <tqpointarray.h>
+#include <tqpainter.h>
+#include <tqtabbar.h>
+#include <tqtabwidget.h>
+#include <tqprogressbar.h>
+#include <tqcombobox.h>
+#include <tqlistbox.h>
+#include <tqscrollbar.h>
+#include <tqpushbutton.h>
+#include <tqtoolbutton.h>
+#include <tqtoolbar.h>
+#include <tqmenubar.h>
+#include <tqpopupmenu.h>
+#include <tqdrawutil.h>
+#include <tqapplication.h>
+#include <tqvariant.h>
+#include <tqpixmapcache.h>
+#include <tqslider.h>
+#include <tqsettings.h>
 #include <kpixmap.h>
 
 #include "dotnet.h"
 #include "dotnet.moc"
 
-/*	This code registers the style with QStyleFactory, which makes it possible
- *	for any code that uses QStyle to find out about it. */
+/*	This code registers the style with TQStyleFactory, which makes it possible
+ *	for any code that uses TQStyle to find out about it. */
 // -- Style Plugin Interface -------------------------
 class dotNETstylePlugin : public QStylePlugin
 {
@@ -59,11 +59,11 @@ class dotNETstylePlugin : public QStylePlugin
 		dotNETstylePlugin() {}
 		~dotNETstylePlugin() {}
 
-		QStringList keys() const {
-			return QStringList() << "dotNET";
+		TQStringList keys() const {
+			return TQStringList() << "dotNET";
 		}
 
-		QStyle* create( const QString& key ) {
+		TQStyle* create( const TQString& key ) {
 			if (key == "dotnet")
 				return new dotNETstyle;
 			return 0;
@@ -77,22 +77,22 @@ KDE_Q_EXPORT_PLUGIN( dotNETstylePlugin )
 dotNETstyle::dotNETstyle() : KStyle( AllowMenuTransparency ), kickerMode(false)
 {
 	winstyle = 0L;
-	winstyle = QStyleFactory::create("Windows");
+	winstyle = TQStyleFactory::create("Windows");
 	if (winstyle == 0L) {
 	//	We don't have the Windows style, neither builtin nor as a plugin.
 	//	Use any style rather than crashing.
-		winstyle = QStyleFactory::create("B3");
+		winstyle = TQStyleFactory::create("B3");
 	}
 
 	if (qApp->inherits("KApplication")) {
-		connect( qApp, SIGNAL( kdisplayPaletteChanged() ), SLOT( paletteChanged() ));
+		connect( qApp, TQT_SIGNAL( kdisplayPaletteChanged() ), TQT_SLOT( paletteChanged() ));
 	}
 
-	QSettings settings;
+	TQSettings settings;
 	pseudo3D = settings.readBoolEntry("/KStyle/Settings/Pseudo3D", true);
 	roundedCorners = settings.readBoolEntry("/KStyle/Settings/RoundedCorners", true);
 	useTextShadows = settings.readBoolEntry("/KStyle/Settings/UseTextShadows", false);
-	reverseLayout = QApplication::QApplication::reverseLayout();
+	reverseLayout = TQApplication::TQApplication::reverseLayout();
 }
 
 
@@ -100,7 +100,7 @@ dotNETstyle::~dotNETstyle()
 {
 }
 
-bool dotNETstyle::inheritsKHTML(const QWidget* w) const
+bool dotNETstyle::inheritsKHTML(const TQWidget* w) const
 {
 	if (w->parentWidget(true) && w->parentWidget(true)->parentWidget(true) && w->parentWidget(true)->parentWidget(true)->parentWidget(true) &&  w->parentWidget(true)->parentWidget(true)->parentWidget(true)->inherits("KHTMLView")) {
 		return true;
@@ -109,7 +109,7 @@ bool dotNETstyle::inheritsKHTML(const QWidget* w) const
 	}
 }
 
-void dotNETstyle::polish(QWidget* widget)
+void dotNETstyle::polish(TQWidget* widget)
 {
 	if (!qstrcmp(qApp->argv()[0], "kicker") || widget->inherits("Kicker"))
 		kickerMode = true;
@@ -121,9 +121,9 @@ void dotNETstyle::polish(QWidget* widget)
 // to update the palette again.
 	bool extraPalette = false;
 
-	if (widget->inherits("QComboBox") && !inheritsKHTML(widget)) {
+	if (widget->inherits("TQComboBox") && !inheritsKHTML(widget)) {
 		widget->installEventFilter (this);
-		updatePalette( (QComboBox*) widget );
+		updatePalette( (TQComboBox*) widget );
 		extraPalette = true;
 	} else {
 		winstyle->polish(widget);
@@ -134,32 +134,32 @@ void dotNETstyle::polish(QWidget* widget)
 //	other bad things (see bug #54569)
 /*
 	if (!widget->ownPalette()) {
-		if (widget->inherits("QToolBar")) {
-			updatePalette( (QToolBar*) widget );
+		if (widget->inherits("TQToolBar")) {
+			updatePalette( (TQToolBar*) widget );
 			extraPalette = true;
-		} else if (widget->inherits("QMenuBar")) {
-			updatePalette( (QMenuBar*) widget );
+		} else if (widget->inherits("TQMenuBar")) {
+			updatePalette( (TQMenuBar*) widget );
 			extraPalette = true;
 		}
 	}
 */
 }
 
-void dotNETstyle::unPolish(QWidget* widget)
+void dotNETstyle::unPolish(TQWidget* widget)
 {
 	winstyle->unPolish(widget);
 
-	if (widget->inherits("QComboBox") && !inheritsKHTML(widget)) {
+	if (widget->inherits("TQComboBox") && !inheritsKHTML(widget)) {
 		widget->removeEventFilter (this);
 	}
 }
 
 void dotNETstyle::renderMenuBlendPixmap(KPixmap &pix,
-                                        const QColorGroup &cg,
-                                        const QPopupMenu *popup) const
+                                        const TQColorGroup &cg,
+                                        const TQPopupMenu *popup) const
 {
-	QPainter p( &pix );
-	if (QApplication::reverseLayout()) {
+	TQPainter p( &pix );
+	if (TQApplication::reverseLayout()) {
 		p.fillRect( popup->frameRect().width()-22, 0, 22, pix.height(), cg.mid() );
 		p.fillRect( 0, 0, popup->frameRect().width()-22, pix.height(), cg.background().light() );
 	} else {
@@ -174,9 +174,9 @@ void dotNETstyle::renderMenuBlendPixmap(KPixmap &pix,
  *	Also, take a look at the sizeMetric function and play with the
  *	widths that things return for different Frame elements.
  */
-void dotNETstyle::renderButton(QPainter *p,
-                               const QRect &r,
-                               const QColorGroup &g,
+void dotNETstyle::renderButton(TQPainter *p,
+                               const TQRect &r,
+                               const TQColorGroup &g,
                                bool sunken,
                                bool corners) const
 {
@@ -193,11 +193,11 @@ void dotNETstyle::renderButton(QPainter *p,
 				const QCOORD iCorners[] = { x, y + h - 2, x, y + 1, x + 1, y, x + w - 2, y, x + w - 1, y + 1, x + w - 1, y + h - 2, x + w - 2, y + h - 1, x + 1, y + h - 1 };
 				p->fillRect(x+1, y+1, w-2, h-2, g.button());
 				p->setPen(g.button().dark());
-				p->drawLineSegments(QPointArray(8, iCorners));
+				p->drawLineSegments(TQPointArray(8, iCorners));
 				if (corners) {
 					const QCOORD cPixels[] = { x, y, x + w - 1, y, x + w - 1, y + h - 1, x, y + h - 1 };
 					p->setPen(g.button());
-					p->drawPoints(QPointArray(4, cPixels));
+					p->drawPoints(TQPointArray(4, cPixels));
 				}
 			} else {
 				p->setPen(g.button().dark());
@@ -206,9 +206,9 @@ void dotNETstyle::renderButton(QPainter *p,
 			}
 
 			const QCOORD oCorners[] = { x + 1, y + h - 2, x + 1, y + 1, x + w - 2, y + 1, x + w - 2, y + h - 2 };
-			const QPointArray outline(4, oCorners);
+			const TQPointArray outline(4, oCorners);
 			p->setPen(g.button().dark(115));
-			p->setBrush(QBrush::NoBrush);
+			p->setBrush(TQBrush::NoBrush);
 			p->drawConvexPolygon(outline);
 			p->setPen(g.button().light());
 			p->drawPolyline(outline, 0, 3);
@@ -227,9 +227,9 @@ void dotNETstyle::renderButton(QPainter *p,
  *	them just like normal buttons, by calling renderButton, but it also adds
  *	very subtle grips to the slider handle.
  */
-void dotNETstyle::renderSlider(QPainter *p,
-                               const QRect &r,
-                               const QColorGroup &g) const
+void dotNETstyle::renderSlider(TQPainter *p,
+                               const TQRect &r,
+                               const TQColorGroup &g) const
 {
 	int x, y, w, h;
 	int offset = 6;
@@ -293,9 +293,9 @@ void dotNETstyle::renderSlider(QPainter *p,
  *	Changing this function will have pretty widespread effects. Also a good
  *	place to start if you're looking to make your own style.
  */
-void dotNETstyle::renderPanel(QPainter *p,
-                              const QRect &r,
-                              const QColorGroup &g,
+void dotNETstyle::renderPanel(TQPainter *p,
+                              const TQRect &r,
+                              const TQColorGroup &g,
                               bool sunken,
                               bool thick) const
 {
@@ -309,11 +309,11 @@ void dotNETstyle::renderPanel(QPainter *p,
 		const QCOORD oCorners[] = { x, y2, x, y, x2, y, x2, y2 };
 		const QCOORD iCorners[] = { x+1, y2-1, x+1, y+1, x2-1, y+1, x2-1, y2-1 };
 		p->setPen(g.background().dark());
-		p->drawConvexPolygon(QPointArray(4, oCorners));
+		p->drawConvexPolygon(TQPointArray(4, oCorners));
 
 		if (thick) {
 			p->setPen(g.background().dark(115));
-			p->drawConvexPolygon(QPointArray(4, iCorners));
+			p->drawConvexPolygon(TQPointArray(4, iCorners));
 			p->setPen(g.background().light());
 
 			if (sunken) {
@@ -327,21 +327,21 @@ void dotNETstyle::renderPanel(QPainter *p,
 
 		if (roundedCorners) {
 			p->setPen(g.background());
-			p->drawPoints(QPointArray(4, oCorners));
+			p->drawPoints(TQPointArray(4, oCorners));
 		}
 	} else {
 		if (sunken) {
 			const QCOORD corners[] = { x2, y, x2, y2, x, y2, x, y };
 			p->setPen(g.background().dark());
-			p->drawConvexPolygon(QPointArray(4, corners));
+			p->drawConvexPolygon(TQPointArray(4, corners));
 			p->setPen(g.background().light());
-			p->drawPolyline(QPointArray(4, corners), 0, 3);
+			p->drawPolyline(TQPointArray(4, corners), 0, 3);
 		} else {
 			const QCOORD corners[] = { x, y2, x, y, x2, y, x2, y2 };
 			p->setPen(g.background().dark());
-			p->drawPolygon(QPointArray(4, corners));
+			p->drawPolygon(TQPointArray(4, corners));
 			p->setPen(g.background().light());
-			p->drawPolyline(QPointArray(4, corners), 0, 3);
+			p->drawPolyline(TQPointArray(4, corners), 0, 3);
 		}
 	}
 
@@ -351,15 +351,15 @@ void dotNETstyle::renderPanel(QPainter *p,
 			if (sunken) {
 				const QCOORD corners[] = { x2, y, x2, y2, x, y2, x, y };
 				p->setPen(g.background().dark());
-				p->drawConvexPolygon(QPointArray(4, corners));
+				p->drawConvexPolygon(TQPointArray(4, corners));
 				p->setPen(g.background().light());
-				p->drawPolyline(QPointArray(4, corners), 0, 3);
+				p->drawPolyline(TQPointArray(4, corners), 0, 3);
 			} else {
 				const QCOORD corners[] = { x, y2, x, y, x2, y, x2, y2 };
 				p->setPen(g.background().dark());
-				p->drawPolygon(QPointArray(4, corners));
+				p->drawPolygon(TQPointArray(4, corners));
 				p->setPen(g.background().light());
-				p->drawPolyline(QPointArray(4, corners), 0, 3);
+				p->drawPolyline(TQPointArray(4, corners), 0, 3);
 			}
 		}
 	}
@@ -369,18 +369,18 @@ void dotNETstyle::renderPanel(QPainter *p,
 
 
 void dotNETstyle::drawKStylePrimitive(KStylePrimitive kpe,
-                                      QPainter *p,
-                                      const QWidget* widget,
-                                      const QRect &r,
-                                      const QColorGroup &cg,
+                                      TQPainter *p,
+                                      const TQWidget* widget,
+                                      const TQRect &r,
+                                      const TQColorGroup &cg,
                                       SFlags flags,
-                                      const QStyleOption& opt) const
+                                      const TQStyleOption& opt) const
 {
 //  SLIDER
 //  ------
 	switch( kpe ) {
 		case KPE_SliderGroove: {
-			const QSlider* slider = (const QSlider*)widget;
+			const TQSlider* slider = (const TQSlider*)widget;
 			int x, y, w, h;
 			r.rect(&x, &y, &w, &h);
 			bool horizontal = slider->orientation() == Horizontal;
@@ -417,11 +417,11 @@ void dotNETstyle::drawKStylePrimitive(KStylePrimitive kpe,
 
 // This function draws primitive elements as well as their masks.
 void dotNETstyle::drawPrimitive(PrimitiveElement pe,
-                                QPainter *p,
-                                const QRect &r,
-                                const QColorGroup &cg,
+                                TQPainter *p,
+                                const TQRect &r,
+                                const TQColorGroup &cg,
                                 SFlags flags,
-                                const QStyleOption &opt ) const
+                                const TQStyleOption &opt ) const
 {
 	bool down   = flags & Style_Down;
 	bool on     = flags & Style_On;
@@ -452,8 +452,8 @@ void dotNETstyle::drawPrimitive(PrimitiveElement pe,
 		}
 
 		case PE_ButtonDefault: {
-			QRect sr = r;
-			p->setPen(QPen::NoPen);
+			TQRect sr = r;
+			p->setPen(TQPen::NoPen);
 			p->setBrush(cg.background().dark(105));
 			p->drawRoundRect(sr, 25, 25);
 			p->setBrush(cg.background().dark(110));
@@ -473,16 +473,16 @@ void dotNETstyle::drawPrimitive(PrimitiveElement pe,
 		case PE_ScrollBarAddPage:
 		case PE_ScrollBarSubPage: {
 			// draw double buffered to avoid flicker...
-			QPixmap buffer(2,2);
-			QRect br(buffer.rect() );
-			QPainter bp(&buffer);
+			TQPixmap buffer(2,2);
+			TQRect br(buffer.rect() );
+			TQPainter bp(&buffer);
 
 			if (on || down) {
-				bp.fillRect(br, QBrush(cg.mid().dark()));
+				bp.fillRect(br, TQBrush(cg.mid().dark()));
 			} else {
-				bp.fillRect(br, QBrush(cg.background()));
+				bp.fillRect(br, TQBrush(cg.background()));
 			}
-			bp.fillRect(br, QBrush(cg.background().light(), Dense4Pattern));
+			bp.fillRect(br, TQBrush(cg.background().light(), Dense4Pattern));
 
 			bp.end();
 			p->drawTiledPixmap(r, buffer);
@@ -519,7 +519,7 @@ void dotNETstyle::drawPrimitive(PrimitiveElement pe,
 			if (pseudo3D && roundedCorners) {
 				const QCOORD corners[] = { x, y, x, y2, x2, y, x2, y2 };
 				p->setPen(cg.background());
-				p->drawPoints(QPointArray(4, corners));
+				p->drawPoints(TQPointArray(4, corners));
 			}
 
 			break;
@@ -547,9 +547,9 @@ void dotNETstyle::drawPrimitive(PrimitiveElement pe,
 			p->fillRect(r, cg.background());
 			p->setPen(cg.background().dark());
 			p->setBrush(flags & Style_Enabled ? cg.light() : cg.background());
-			p->drawPolygon(QPointArray(28, outline));
+			p->drawPolygon(TQPointArray(28, outline));
 			p->setPen(cg.background().dark(115));
-			p->drawPoints(QPointArray(10, indark));
+			p->drawPoints(TQPointArray(10, indark));
 			break;
 		}
 
@@ -559,7 +559,7 @@ void dotNETstyle::drawPrimitive(PrimitiveElement pe,
 			p->setPen(color1);
 			p->setBrush(color1);
 			p->translate(r.x(), r.y());
-			p->drawPolygon(QPointArray(28, outline));
+			p->drawPolygon(TQPointArray(28, outline));
 			p->translate(-r.x(), -r.y());
 			break;
 		}
@@ -593,7 +593,7 @@ void dotNETstyle::drawPrimitive(PrimitiveElement pe,
 			if (pseudo3D && roundedCorners) {
 				const QCOORD corners[] = { x, y, x, y2, x2, y, x2, y2 };
 				p->setPen(cg.background());
-				p->drawPoints(QPointArray(4, corners));
+				p->drawPoints(TQPointArray(4, corners));
 			}
 			break;
 		}
@@ -670,7 +670,7 @@ void dotNETstyle::drawPrimitive(PrimitiveElement pe,
 		case PE_CheckMark: {
 			int x = r.center().x() - 3, y = r.center().y() - 3;
 			const QCOORD check[] = { x, y + 2, x, y + 4, x + 2, y + 6, x + 6, y + 2, x + 6, y, x + 2, y + 4 };
-			const QPointArray a(6, check);
+			const TQPointArray a(6, check);
 
 			p->setPen(flags & Style_Down ? cg.highlight() : p->pen());
 			p->setBrush(flags & Style_Down ? cg.highlight() : p->pen().color());
@@ -686,7 +686,7 @@ void dotNETstyle::drawPrimitive(PrimitiveElement pe,
 		case PE_ArrowDown:
 		case PE_ArrowLeft:
 		case PE_ArrowRight: {
-			QPointArray a;
+			TQPointArray a;
 
 			switch (pe) {
 				case PE_SpinWidgetUp:
@@ -725,21 +725,21 @@ void dotNETstyle::drawPrimitive(PrimitiveElement pe,
 
 			if (flags & Style_Enabled) {
 				a.translate((r.x() + r.width()/2), (r.y() + r.height()/2));
-				if (p->pen() == QPen::NoPen) {
+				if (p->pen() == TQPen::NoPen) {
 					p->setPen(cg.buttonText());
 				}
 				p->drawLineSegments(a, 0, 3);
 				p->drawPoint(a[6]);
 			} else {
 				a.translate((r.x() + r.width()/2)+1, (r.y() + r.height()/2)+1);
-				if (p->pen() == QPen::NoPen) {
+				if (p->pen() == TQPen::NoPen) {
 					p->setPen(cg.highlightedText());
 				}
 				p->drawLineSegments(a, 0, 3);
 				p->drawPoint(a[6]);
 
 				a.translate(-1,-1);
-				if (p->pen() == QPen::NoPen) {
+				if (p->pen() == TQPen::NoPen) {
 					p->setPen(cg.mid());
 				}
 				p->drawLineSegments(a, 0, 3);
@@ -758,12 +758,12 @@ void dotNETstyle::drawPrimitive(PrimitiveElement pe,
 
 
 void dotNETstyle::drawControl(ControlElement element,
-                              QPainter *p,
-                              const QWidget *widget,
-                              const QRect &r,
-                              const QColorGroup &cg,
+                              TQPainter *p,
+                              const TQWidget *widget,
+                              const TQRect &r,
+                              const TQColorGroup &cg,
                               SFlags flags,
-                              const QStyleOption& opt) const
+                              const TQStyleOption& opt) const
 {
 	switch (element) {
 	//	CHECKBOXES
@@ -785,7 +785,7 @@ void dotNETstyle::drawControl(ControlElement element,
 		}
 
 		case CE_ProgressBarContents: {
-			const QProgressBar *pb = (const QProgressBar *)widget;
+			const TQProgressBar *pb = (const TQProgressBar *)widget;
 
 			if (pb->totalSteps()) {
 				int x, y, w, h;
@@ -795,7 +795,7 @@ void dotNETstyle::drawControl(ControlElement element,
 
 				p->fillRect(x + 1, y + 1, w - 2, h - 2, cg.background().light());
 
-				if (QApplication::reverseLayout()) {
+				if (TQApplication::reverseLayout()) {
 					x += w - ((int)(w * percent));
 					y += 1; h -= 2;
 					w = ((int)(w * percent)) - 2;
@@ -808,7 +808,7 @@ void dotNETstyle::drawControl(ControlElement element,
 
 				if (pb->progress() < pb->totalSteps()) {
 					p->setPen(cg.background().dark(115));
-					if (QApplication::reverseLayout()) {
+					if (TQApplication::reverseLayout()) {
 						p->drawLine(x - 1, y, x - 1, h);
 					} else {
 						p->drawLine(x + w, y, x + w, h);
@@ -816,13 +816,13 @@ void dotNETstyle::drawControl(ControlElement element,
 				}
 
 				if (pseudo3D) {
-					QPointArray corners;
-					if (QApplication::reverseLayout()) {
+					TQPointArray corners;
+					if (TQApplication::reverseLayout()) {
 						const QCOORD c[] = { x, h, x, y, x + w, y, x + w, h };
-						corners = QPointArray(4, c);
+						corners = TQPointArray(4, c);
 					} else {
 						const QCOORD c[] = { x, h, x, y, w, y, w, h };
-						corners = QPointArray(4, c);
+						corners = TQPointArray(4, c);
 					}
 					p->setPen(cg.highlight().dark(120));
 					p->drawConvexPolygon(corners);
@@ -844,7 +844,7 @@ void dotNETstyle::drawControl(ControlElement element,
 
 			if (flags & Style_On || flags & Style_Down) {
 				QCOORD center[] = { 4, 5, 4, 7, 5, 8, 7, 8, 8, 7, 8, 5, 7, 4, 5, 4 };
-				QPointArray c(8, center);
+				TQPointArray c(8, center);
 				p->setPen(flags & Style_Down ? cg.highlight() : cg.text());
 				p->setBrush(flags & Style_Down ? cg.highlight() : cg.text());
 				p->drawPolygon(c);
@@ -855,34 +855,34 @@ void dotNETstyle::drawControl(ControlElement element,
 	//	TABS
 	//	----
 		case CE_TabBarTab: {
-			const QTabBar *tb = (const QTabBar *) widget;
+			const TQTabBar *tb = (const TQTabBar *) widget;
 			bool cornerWidget = false;
-			QTabBar::Shape tbs = tb->shape();
+			TQTabBar::Shape tbs = tb->shape();
 			bool selected = flags & Style_Selected;
 			int x, x2, y, y2, w, h;
 			r.rect(&x, &y, &w, &h);
 			r.coords(&x, &y, &x2, &y2);
 
-			if (tb->parent()->inherits("QTabWidget")) {
-				const QTabWidget *tw = (const QTabWidget *)tb->parent();
-				QWidget *cw = tw->cornerWidget(Qt::TopLeft);
+			if (tb->parent()->inherits("TQTabWidget")) {
+				const TQTabWidget *tw = (const TQTabWidget *)tb->parent();
+				TQWidget *cw = tw->cornerWidget(Qt::TopLeft);
 				if (cw) {
 					cornerWidget = true;
 				}
 			}
 
 			switch (tbs) {
-				case QTabBar::RoundedAbove: {
+				case TQTabBar::RoundedAbove: {
 					y2 -= 1;
 					if (pseudo3D) {
 						p->setPen(cg.background().dark());
 						if (selected) {
 							const QCOORD oCorners[] = { x, y2, x, y, x2, y, x2, y2 };
-							p->drawPolyline(QPointArray(4, oCorners));
+							p->drawPolyline(TQPointArray(4, oCorners));
 
 							if (roundedCorners) {
 								p->setPen(cg.background());
-								p->drawPoints(QPointArray(4, oCorners), 1, 2);
+								p->drawPoints(TQPointArray(4, oCorners), 1, 2);
 							}
 
 							p->setPen(cg.background().dark(115));
@@ -894,11 +894,11 @@ void dotNETstyle::drawControl(ControlElement element,
 						/* Left inner border */
 							p->drawLine(x + 1, y + 1, x + 1, y + h - 1);
 						} else {
-							QRect r2(x+1, y+3, w-2, h-5);
+							TQRect r2(x+1, y+3, w-2, h-5);
 							p->fillRect(r2, cg.mid().light(105));
 
 							const QCOORD oCorners[] = { x, y2, x, y + 2, x2, y + 2, x2, y2 };
-							p->drawPolyline(QPointArray(4, oCorners));
+							p->drawPolyline(TQPointArray(4, oCorners));
 
 							p->setPen(cg.background());
 
@@ -931,7 +931,7 @@ void dotNETstyle::drawControl(ControlElement element,
 							p->setPen(cg.background().dark(115));
 							p->drawLine(x + w - 2, y + 1, x + w - 2, y + h - 3);
 						} else {
-							QRect r2(x + 1, y + 3, w - 2, h - 4);
+							TQRect r2(x + 1, y + 3, w - 2, h - 4);
 							p->fillRect(r2, cg.mid());
 
 							p->setPen(cg.background().light());
@@ -947,12 +947,12 @@ void dotNETstyle::drawControl(ControlElement element,
 					break;
 				}
 
-				case QTabBar::RoundedBelow: {
+				case TQTabBar::RoundedBelow: {
 					if (pseudo3D) {
 						p->setPen(cg.background().dark());
 						if (selected) {
 							const QCOORD oCorners[] = { x, y + 1, x, y2, x2, y2, x2, y + 1 };
-							p->drawPolyline(QPointArray(4, oCorners));
+							p->drawPolyline(TQPointArray(4, oCorners));
 
 							p->setPen(cg.background().dark(115));
 							p->drawLine(x + 1, y + h - 2, x + w - 2, y + h - 2);
@@ -964,10 +964,10 @@ void dotNETstyle::drawControl(ControlElement element,
 						} else {
 							y2 -= 2;
 							const QCOORD oCorners[] = { x, y, x, y2, x2, y2, x2, y };
-							QRect r2(x + 1, y + 2, w - 2, h - 5);
+							TQRect r2(x + 1, y + 2, w - 2, h - 5);
 							p->fillRect(r2, cg.mid().light(105));
 
-							p->drawPolyline(QPointArray(4, oCorners));
+							p->drawPolyline(TQPointArray(4, oCorners));
 
 							p->setPen(cg.mid().dark(115));
 						/*	Inner right border */
@@ -1004,7 +1004,7 @@ void dotNETstyle::drawControl(ControlElement element,
 							p->drawLine(x + w - 1, y, x + w - 1, y + h - 1);
 							p->drawLine(x, y + h-1, x + w - 1, y + h - 1);
 						} else {
-							QRect r2(x, y + 1, w - 1, h - 4);
+							TQRect r2(x, y + 1, w - 1, h - 4);
 							p->fillRect(r2, cg.mid());
 
 							p->setPen(cg.background().dark());
@@ -1053,8 +1053,8 @@ void dotNETstyle::drawControl(ControlElement element,
 		}
 
 		case CE_PushButton: {
-			QPushButton *button = (QPushButton *)widget;
-			QRect br = r;
+			TQPushButton *button = (TQPushButton *)widget;
+			TQRect br = r;
 			bool btnDefault = button->isDefault();
 
 			static int di = pixelMetric(PM_ButtonDefaultIndicator);
@@ -1069,11 +1069,11 @@ void dotNETstyle::drawControl(ControlElement element,
 		}
 
 		case CE_PushButtonLabel: {
-			const QPushButton *pb = (const QPushButton *)widget;
+			const TQPushButton *pb = (const TQPushButton *)widget;
 			const bool enabled = flags & Style_Enabled;
 			const int text_flags = AlignVCenter | AlignHCenter | ShowPrefix |
 			                       DontClip | SingleLine;
-			QRect ur(r);
+			TQRect ur(r);
 
 			if (flags & Style_Down) {
 				p->translate(pixelMetric(PM_ButtonShiftHorizontal),
@@ -1081,12 +1081,12 @@ void dotNETstyle::drawControl(ControlElement element,
 			}
 
 			if (!pb->text().isEmpty() && (flags & Style_ButtonDefault)) {
-				p->setFont(QFont(p->font().family(), p->font().pointSize(), 75));
+				p->setFont(TQFont(p->font().family(), p->font().pointSize(), 75));
 			}
 
 			if (pb->iconSet() && !pb->iconSet()->isNull()) {
-				QIconSet::Mode mode = enabled ? QIconSet::Normal : QIconSet::Disabled;
-				QPixmap pixmap = pb->iconSet()->pixmap(QIconSet::Small, mode);
+				TQIconSet::Mode mode = enabled ? TQIconSet::Normal : TQIconSet::Disabled;
+				TQPixmap pixmap = pb->iconSet()->pixmap(TQIconSet::Small, mode);
 
 				if (!pb->text().isEmpty())
 				{
@@ -1109,7 +1109,7 @@ void dotNETstyle::drawControl(ControlElement element,
 			}
 
 			if (pb->pixmap() && !pb->text()) {
-				QRect pr(0, 0, pb->pixmap()->width(), pb->pixmap()->height());
+				TQRect pr(0, 0, pb->pixmap()->width(), pb->pixmap()->height());
 				pr.moveCenter(r.center());
 				p->drawPixmap(pr.topLeft(), *pb->pixmap());
 			}
@@ -1135,7 +1135,7 @@ void dotNETstyle::drawControl(ControlElement element,
 	//	MENUBAR ITEM (sunken panel on mouse over)
 	//	-----------------------------------------
 		case CE_MenuBarItem: {
-			QMenuItem *mi = opt.menuItem();
+			TQMenuItem *mi = opt.menuItem();
 			bool active  = flags & Style_Active;
 			bool focused = flags & Style_HasFocus;
 			bool down = flags & Style_Down;
@@ -1151,7 +1151,7 @@ void dotNETstyle::drawControl(ControlElement element,
 				if (pseudo3D && roundedCorners && !down) {
 					const QCOORD corners[] = { x, y2, x, y, x2, y, x2, y2 };
 					p->setPen(cg.background());
-					p->drawPoints(QPointArray(4, corners));
+					p->drawPoints(TQPointArray(4, corners));
 				}
 
 				if (down) {
@@ -1180,13 +1180,13 @@ void dotNETstyle::drawControl(ControlElement element,
 	//	POPUPMENU ITEM (highlighted on mouseover)
 	//	------------------------------------------
 		case CE_PopupMenuItem: {
-			QMenuItem *mi = opt.menuItem();
+			TQMenuItem *mi = opt.menuItem();
 
 			if (!mi) {
 				return;
 			}
 
-			const QPopupMenu *pum = (const QPopupMenu *) widget;
+			const TQPopupMenu *pum = (const TQPopupMenu *) widget;
 			static const int itemFrame = 2;
 			static const int itemHMargin = 3;
 			static const int itemVMargin = 3;
@@ -1209,7 +1209,7 @@ void dotNETstyle::drawControl(ControlElement element,
 			if (pum->erasePixmap() && !pum->erasePixmap()->isNull()) {
 				p->drawPixmap( x, y, *pum->erasePixmap(), x, y, w, h );
 			} else {
-				if (!QApplication::reverseLayout()) {
+				if (!TQApplication::reverseLayout()) {
 					p->fillRect( x, y, 22, h, cg.mid() );
 					p->fillRect( x + 22, y, w - 22, h, cg.background().light() );
 				} else { // i wonder why exactly +1 (diego)
@@ -1220,7 +1220,7 @@ void dotNETstyle::drawControl(ControlElement element,
 
 			if (mi->isSeparator()) {
 				p->setPen(cg.mid());
-				if (!QApplication::reverseLayout())
+				if (!TQApplication::reverseLayout())
 					p->drawLine(x + opt.maxIconWidth() + 6, y, x + w, y);
 				else
 					p->drawLine(w - (x + opt.maxIconWidth() + 6), y,
@@ -1235,28 +1235,28 @@ void dotNETstyle::drawControl(ControlElement element,
 				if (pseudo3D && roundedCorners) {
 					const QCOORD segments[] = { x+2, y+1, x2-2, y+1, x2-1, y+2, x2-1, y2-2, x2-2, y2-1, x+2, y2-1, x+1, y2-2, x+1, y+2 };
 					const QCOORD icorners[] = { x+2, y+2, x2-2, y+2, x2-2,y2-2, x+2, y2-2 };
-					p->drawLineSegments(QPointArray(8, segments));
-					p->drawPoints(QPointArray(4, icorners));
+					p->drawLineSegments(TQPointArray(8, segments));
+					p->drawPoints(TQPointArray(4, icorners));
 				} else {
 					const QCOORD corners[] = { x+1, y2-1, x+1, y+1, x2-1, y+1, x2-1, y2-1 };
-					p->drawConvexPolygon(QPointArray(4, corners));
+					p->drawConvexPolygon(TQPointArray(4, corners));
 				}
 				p->setPen(cg.highlightedText());
 			}
 
 			if (mi->iconSet()) {
 				p->save();
-				QIconSet::Mode mode =
-					disabled ? QIconSet::Disabled : QIconSet::Normal;
-				QPixmap pixmap = mi->iconSet()->pixmap(QIconSet::Small, mode);
+				TQIconSet::Mode mode =
+					disabled ? TQIconSet::Disabled : TQIconSet::Normal;
+				TQPixmap pixmap = mi->iconSet()->pixmap(TQIconSet::Small, mode);
 				int pixw = pixmap.width();
 				int pixh = pixmap.height();
 
-				QRect cr(xpos, y, opt.maxIconWidth(), h);
-				QRect pmr(0, 0, pixw, pixh);
+				TQRect cr(xpos, y, opt.maxIconWidth(), h);
+				TQRect pmr(0, 0, pixw, pixh);
 				pmr.moveCenter(cr.center());
 
-				if (QApplication::reverseLayout())
+				if (TQApplication::reverseLayout())
 					pmr = visualRect( pmr, r );
 
 				p->setPen(cg.highlightedText());
@@ -1274,7 +1274,7 @@ void dotNETstyle::drawControl(ControlElement element,
 				mi->custom()->paint(p, cg, active, !disabled, x+xm, y+m, w-xm-tab+1, h-2*m);
 				return;
 			} else {
-				QString s = mi->text();
+				TQString s = mi->text();
 				if(!s.isNull()) {
 					int t = s.find('\t');
 					int m = itemVMargin;
@@ -1293,12 +1293,12 @@ void dotNETstyle::drawControl(ControlElement element,
 						int xp;
 						xp = x + w - tab - rightBorder - itemHMargin - itemFrame + 1;
 
-						QRect rr = QRect(xp, y+m, tab, h-(2*m));
-						if (QApplication::reverseLayout())
+						TQRect rr = TQRect(xp, y+m, tab, h-(2*m));
+						if (TQApplication::reverseLayout())
 							rr = visualRect(rr, r);
 
 						if (useTextShadows) {
-							QPen op = p->pen();
+							TQPen op = p->pen();
 							p->setPen(active && !disabled ? cg.highlight().dark(130) : cg.background().dark(115));
 							p->drawText(rr.x() + 1, rr.y() + 1, rr.width(), rr.height(), text_flags, s.mid(t+1));
 							p->setPen(op);
@@ -1308,14 +1308,14 @@ void dotNETstyle::drawControl(ControlElement element,
 						s = s.left(t);
 					}
 
-					QRect rr = QRect(xpos, y+m, w-xm-tab+1, h-(2*m));
-					if (QApplication::reverseLayout()) {
+					TQRect rr = TQRect(xpos, y+m, w-xm-tab+1, h-(2*m));
+					if (TQApplication::reverseLayout()) {
 						rr = visualRect(rr, r);
 						text_flags |= AlignRight;
 					}
 
 					if (useTextShadows) {
-						QPen op = p->pen();
+						TQPen op = p->pen();
 						p->setPen(active && !disabled ? cg.highlight().dark(130) : cg.background().dark(115));
 						p->drawText(rr.x() + 1, rr.y() + 1, rr.width(), rr.height(), text_flags, s);
 						p->setPen(op);
@@ -1323,7 +1323,7 @@ void dotNETstyle::drawControl(ControlElement element,
 
 					p->drawText(rr, text_flags, s);
 				} else if (mi->pixmap()) {
-					QPixmap *pixmap = mi->pixmap();
+					TQPixmap *pixmap = mi->pixmap();
 					if (pixmap->depth() == 1) {
 						p->setBackgroundMode(OpaqueMode);
 					}
@@ -1345,10 +1345,10 @@ void dotNETstyle::drawControl(ControlElement element,
 					p->setPen(cg.text());
 
 
-				QRect rr = QRect(xpos, y + h/2 - dim/2, dim, dim);
-				if (QApplication::reverseLayout())
+				TQRect rr = TQRect(xpos, y + h/2 - dim/2, dim, dim);
+				if (TQApplication::reverseLayout())
 					rr = visualRect( rr, r );
-				drawPrimitive((QApplication::reverseLayout() ? PE_ArrowLeft : PE_ArrowRight), p, rr, cg, Style_Enabled);
+				drawPrimitive((TQApplication::reverseLayout() ? PE_ArrowLeft : PE_ArrowRight), p, rr, cg, Style_Enabled);
 			}
 
 			if (checkable) {
@@ -1362,8 +1362,8 @@ void dotNETstyle::drawControl(ControlElement element,
 					else
 						cflags |= Style_On;
 
-					QRect rr = QRect( xp + 6, y + 6, 16, h - 6 );
-					if (QApplication::reverseLayout())
+					TQRect rr = TQRect( xp + 6, y + 6, 16, h - 6 );
+					if (TQApplication::reverseLayout())
 						rr = visualRect( rr, r );
 
 					drawPrimitive(PE_CheckMark, p, rr, cg, cflags);
@@ -1385,10 +1385,10 @@ void dotNETstyle::drawControl(ControlElement element,
 }
 
 void dotNETstyle::drawControlMask(ControlElement element,
-                                  QPainter *p,
-                                  const QWidget *w,
-                                  const QRect &r,
-                                  const QStyleOption &opt) const
+                                  TQPainter *p,
+                                  const TQWidget *w,
+                                  const TQRect &r,
+                                  const TQStyleOption &opt) const
 {
 	switch (element) {
 		case CE_PushButton: {
@@ -1398,7 +1398,7 @@ void dotNETstyle::drawControlMask(ControlElement element,
 				QCOORD corners[] = { x1, y1, x2, y1, x1, y2, x2, y2 };
 				p->fillRect (r, color1);
 				p->setPen (color0);
-				p->drawPoints (QPointArray (4, corners));
+				p->drawPoints (TQPointArray (4, corners));
 			} else {
 			//	Just fill the entire thing
 				p->fillRect (r, color1);
@@ -1413,10 +1413,10 @@ void dotNETstyle::drawControlMask(ControlElement element,
 }
 
 void dotNETstyle::drawComplexControlMask(ComplexControl c,
-                                         QPainter *p,
-                                         const QWidget *w,
-                                         const QRect &r,
-                                         const QStyleOption &o) const
+                                         TQPainter *p,
+                                         const TQWidget *w,
+                                         const TQRect &r,
+                                         const TQStyleOption &o) const
 {
 	switch (c) {
 		case CC_ComboBox: {
@@ -1426,7 +1426,7 @@ void dotNETstyle::drawComplexControlMask(ComplexControl c,
 				QCOORD corners[] = { x1, y1, x2, y1, x1, y2, x2, y2 };
 				p->fillRect (r, color1);
 				p->setPen (color0);
-				p->drawPoints (QPointArray (4, corners));
+				p->drawPoints (TQPointArray (4, corners));
 			} else {
 			//	Just fill the entire thing
 				p->fillRect (r, color1);
@@ -1440,21 +1440,21 @@ void dotNETstyle::drawComplexControlMask(ComplexControl c,
 }
 
 void dotNETstyle::drawComplexControl(ComplexControl control,
-                                     QPainter *p,
-                                     const QWidget *widget,
-                                     const QRect &r,
-                                     const QColorGroup &cg,
+                                     TQPainter *p,
+                                     const TQWidget *widget,
+                                     const TQRect &r,
+                                     const TQColorGroup &cg,
                                      SFlags flags,
                                      SCFlags controls,
                                      SCFlags active,
-                                     const QStyleOption& opt) const
+                                     const TQStyleOption& opt) const
 {
 	switch(control) {
 	//	COMBOBOX
 	//	--------
 		case CC_ComboBox: {
 			int x, y, w, h;
-			const QComboBox *cb = (const QComboBox *)widget;
+			const TQComboBox *cb = (const TQComboBox *)widget;
 			r.rect(&x, &y, &w, &h);
 
 			if (active & Style_Sunken)
@@ -1468,7 +1468,7 @@ void dotNETstyle::drawComplexControl(ComplexControl control,
 			static const unsigned int handle_width = 15;
 			static const unsigned int handle_offset = handle_width + 1;
 
-			QBitmap downArrow = QBitmap(7, 4, downarrow_bits, true);
+			TQBitmap downArrow = TQBitmap(7, 4, downarrow_bits, true);
 			downArrow.setMask(downArrow);
 
 			cb->editable() ? p->fillRect(x + 1, y + 1, w - 2, h - 2, cg.base()) : p->fillRect(x + 1, y + 1, w - 2, h - 2, cg.light());
@@ -1488,14 +1488,14 @@ void dotNETstyle::drawComplexControl(ComplexControl control,
 				p->setBrush(cg.midlight());
 			}
 
-			QRect hr = (pseudo3D ? QRect(w - handle_offset - 1, y, handle_width + 2, h) : QRect(w - handle_offset - 1, y + 1, handle_width + 2, h - 1));
-			if (QApplication::reverseLayout()) { hr = visualRect(hr, r); }
+			TQRect hr = (pseudo3D ? TQRect(w - handle_offset - 1, y, handle_width + 2, h) : TQRect(w - handle_offset - 1, y + 1, handle_width + 2, h - 1));
+			if (TQApplication::reverseLayout()) { hr = visualRect(hr, r); }
 
 			p->drawRect(hr);
 			p->setBrush(NoBrush);
-			QRect rr = (pseudo3D ? QRect(x + 1, y + 1, w - 2, h - 2) : QRect(x + 1, y + 1, w - 1, h - 1));
+			TQRect rr = (pseudo3D ? TQRect(x + 1, y + 1, w - 2, h - 2) : TQRect(x + 1, y + 1, w - 1, h - 1));
 
-			if (QApplication::reverseLayout()) { rr = visualRect( rr, r ); }
+			if (TQApplication::reverseLayout()) { rr = visualRect( rr, r ); }
 
 			if (flags & Style_HasFocus || cg.highlight() == cg.midlight() ||
 			    (cb->listBox() && cb->listBox()->isVisible())) {
@@ -1506,12 +1506,12 @@ void dotNETstyle::drawComplexControl(ComplexControl control,
 			   (cb->listBox() && cb->listBox()->isVisible()))) {
 				p->save();
 				p->setBrush(NoBrush);
-				QColor test = ((flags & Style_HasFocus) ? cg.highlight() : cg.midlight());
+				TQColor test = ((flags & Style_HasFocus) ? cg.highlight() : cg.midlight());
 				p->setPen(test.dark());
 				p->drawRect(hr);
 				hr.moveBy(1,1);
-				hr.setSize(QSize(hr.width() -2, hr.height() -2));
-				QPointArray ca(3);
+				hr.setSize(TQSize(hr.width() -2, hr.height() -2));
+				TQPointArray ca(3);
 				ca.setPoint(0, hr.topRight());
 				ca.setPoint(1, hr.bottomRight());
 				ca.setPoint(2, hr.bottomLeft());
@@ -1529,7 +1529,7 @@ void dotNETstyle::drawComplexControl(ComplexControl control,
 				p->drawPoint(r.bottomRight());
 				p->setPen(cg.background().dark());
 				hr.moveBy(-1,-1);
-				hr.setSize(QSize(hr.width() + 2, hr.height() + 2));
+				hr.setSize(TQSize(hr.width() + 2, hr.height() + 2));
 				p->drawPoint(hr.topLeft());
 				p->drawPoint(hr.bottomLeft());
 			}
@@ -1540,10 +1540,10 @@ void dotNETstyle::drawComplexControl(ComplexControl control,
 				p->setPen(cg.text());
 			}
 
-			QRect cr(w - handle_offset, y, handle_width, h - 2);
-			QRect pmr(0, 0, 7, 4);
+			TQRect cr(w - handle_offset, y, handle_width, h - 2);
+			TQRect pmr(0, 0, 7, 4);
 			pmr.moveCenter(cr.center());
-			if (QApplication::reverseLayout()) {
+			if (TQApplication::reverseLayout()) {
 				pmr = visualRect( pmr, r );
 			}
 
@@ -1556,9 +1556,9 @@ void dotNETstyle::drawComplexControl(ComplexControl control,
 	//	TOOLBUTTON
 	//	----------
 		case CC_ToolButton: {
-			const QToolButton *tb = (const QToolButton *) widget;
+			const TQToolButton *tb = (const TQToolButton *) widget;
 
-			QRect button, menuarea;
+			TQRect button, menuarea;
 			button   = querySubControlMetrics(control, widget, SC_ToolButton, opt);
 			menuarea = querySubControlMetrics(control, widget, SC_ToolButtonMenu, opt);
 
@@ -1578,7 +1578,7 @@ void dotNETstyle::drawComplexControl(ComplexControl control,
 				} else if (tb->parentWidget() &&
 				           tb->parentWidget()->backgroundPixmap() &&
 				           !tb->parentWidget()->backgroundPixmap()->isNull()) {
-					QPixmap pixmap = *(tb->parentWidget()->backgroundPixmap());
+					TQPixmap pixmap = *(tb->parentWidget()->backgroundPixmap());
 					p->drawTiledPixmap( r, pixmap, tb->pos() );
 				}
 			}
@@ -1592,7 +1592,7 @@ void dotNETstyle::drawComplexControl(ComplexControl control,
 			}
 
 			if (tb->hasFocus() && !tb->focusProxy()) {
-				QRect fr = tb->rect();
+				TQRect fr = tb->rect();
 				fr.addCoords(2, 2, -2, -2);
 				drawPrimitive(PE_FocusRect, p, fr, cg);
 			}
@@ -1603,11 +1603,11 @@ void dotNETstyle::drawComplexControl(ComplexControl control,
 	//	SPINWIDGETS
 	//	-----------
 		case CC_SpinWidget: {
-			const QSpinWidget *sw = (const QSpinWidget *) widget;
+			const TQSpinWidget *sw = (const TQSpinWidget *) widget;
 			SFlags flags;
 			PrimitiveElement pe;
 
-			QRect swf = querySubControlMetrics(control, sw, SC_SpinWidgetFrame);
+			TQRect swf = querySubControlMetrics(control, sw, SC_SpinWidgetFrame);
 			swf = visualRect( swf, sw );
 
 			if (controls & SC_SpinWidgetFrame) {
@@ -1623,18 +1623,18 @@ void dotNETstyle::drawComplexControl(ComplexControl control,
 				} else
 					flags |= Style_Raised;
 
-				if (sw->buttonSymbols() == QSpinWidget::PlusMinus)
+				if (sw->buttonSymbols() == TQSpinWidget::PlusMinus)
 					pe = PE_SpinWidgetPlus;
 				else
 					pe = PE_SpinWidgetUp;
 
-				QRect re = sw->upRect();
-				QColorGroup ucg = sw->isUpEnabled() ? cg : sw->palette().disabled();
+				TQRect re = sw->upRect();
+				TQColorGroup ucg = sw->isUpEnabled() ? cg : sw->palette().disabled();
 				p->fillRect(re.x() + 1, re.y() + 1, re.width() - 2, re.height() - 1, flags & Style_Raised ? ucg.background() : ucg.highlight());
 				if (pseudo3D) {
 					const QCOORD corners[] = { re.x(), re.bottom(), re.x(), re.y() + 1, re.x() + 1, re.y(), re.right() - 1, re.y(), re.right(), re.y() + 1, re.right(), re.bottom() };
 					p->setPen(flags & Style_Raised ? ucg.background().dark() : ucg.highlight());
-					p->drawLineSegments(QPointArray(6, corners));
+					p->drawLineSegments(TQPointArray(6, corners));
 					p->setPen(flags & Style_Raised ? ucg.background().light() : ucg.highlight());
 					p->drawLine(re.x() + 1, re.y() + 1, re.x() + 1, re.bottom());
 					p->drawLine(re.x() + 1, re.y() + 1, re.right()-1, re.y() + 1);
@@ -1655,13 +1655,13 @@ void dotNETstyle::drawComplexControl(ComplexControl control,
 				} else
 					flags |= Style_Raised;
 
-				if (sw->buttonSymbols() == QSpinWidget::PlusMinus)
+				if (sw->buttonSymbols() == TQSpinWidget::PlusMinus)
 					pe = PE_SpinWidgetMinus;
 				else
 					pe = PE_SpinWidgetDown;
 
-				QRect re = sw->downRect();
-				QColorGroup dcg = sw->isDownEnabled() ? cg : sw->palette().disabled();
+				TQRect re = sw->downRect();
+				TQColorGroup dcg = sw->isDownEnabled() ? cg : sw->palette().disabled();
 				p->fillRect(re.x() + 1, re.y(), re.width() - 2, re.height() - 1, flags & Style_Raised ? dcg.background() : dcg.highlight());
 				if (pseudo3D) {
 					const QCOORD corners[] = {
@@ -1673,7 +1673,7 @@ void dotNETstyle::drawComplexControl(ComplexControl control,
 						re.right(), re.y()
 					};
 					p->setPen(flags & Style_Raised ? dcg.background().dark() : dcg.highlight());
-					p->drawLineSegments(QPointArray(6, corners));
+					p->drawLineSegments(TQPointArray(6, corners));
 					p->setPen(flags & Style_Raised ? dcg.background().light() : dcg.highlight());
 					p->drawLine(re.x() + 1, re.y(), re.x() + 1, re.bottom());
 					p->setPen(flags & Style_Raised ? dcg.background().dark(115) : dcg.highlight());
@@ -1698,7 +1698,7 @@ void dotNETstyle::drawComplexControl(ComplexControl control,
 }
 
 
-QRect dotNETstyle::subRect(SubRect r, const QWidget *widget) const
+TQRect dotNETstyle::subRect(SubRect r, const TQWidget *widget) const
 {
 // Don't use KStyles progressbar subrect
 	switch (r) {
@@ -1707,7 +1707,7 @@ QRect dotNETstyle::subRect(SubRect r, const QWidget *widget) const
 		}
 
 		case SR_PushButtonFocusRect: {
-			QRect rect = widget->rect();
+			TQRect rect = widget->rect();
 			int margin = pixelMetric(PM_ButtonDefaultIndicator, widget) + pixelMetric(PM_DefaultFrameWidth, widget) + 2;
 
 			rect.addCoords(margin, margin, -margin, -margin);
@@ -1725,21 +1725,21 @@ QRect dotNETstyle::subRect(SubRect r, const QWidget *widget) const
 	}
 }
 
-QRect dotNETstyle::querySubControlMetrics(ComplexControl control,
-                                          const QWidget *widget,
+TQRect dotNETstyle::querySubControlMetrics(ComplexControl control,
+                                          const TQWidget *widget,
                                           SubControl subcontrol,
-                                          const QStyleOption &opt) const
+                                          const TQStyleOption &opt) const
 {
 	if (!widget) {
-		return QRect();
+		return TQRect();
 	}
 
-	QRect r(widget->rect());
+	TQRect r(widget->rect());
 	switch (control) {
 		case CC_ComboBox: {
 			switch (subcontrol) {
 				case SC_ComboBoxEditField: {
-					return QRect(r.x() + 2, r.y() + 2, r.width() - 19, r.height() - 4);
+					return TQRect(r.x() + 2, r.y() + 2, r.width() - 19, r.height() - 4);
 				}
 				default: {
 					return KStyle::querySubControlMetrics(control, widget, subcontrol, opt);
@@ -1750,7 +1750,7 @@ QRect dotNETstyle::querySubControlMetrics(ComplexControl control,
 
 		case CC_SpinWidget: {
 			int fw = pixelMetric(PM_SpinBoxFrameWidth, widget);
-			QSize bs;
+			TQSize bs;
 			bs.setHeight(QMAX(8, widget->height()/2));
 			bs.setWidth(QMIN(bs.height() * 8 / 5, widget->width() / 4));
 
@@ -1762,19 +1762,19 @@ QRect dotNETstyle::querySubControlMetrics(ComplexControl control,
 
 			switch (subcontrol) {
 				case SC_SpinWidgetUp: {
-					return QRect(x, y-1, bs.width(), bs.height());
+					return TQRect(x, y-1, bs.width(), bs.height());
 				}
 				case SC_SpinWidgetDown: {
-					return QRect(x, y + bs.height()-1, bs.width(), bs.height());
+					return TQRect(x, y + bs.height()-1, bs.width(), bs.height());
 				}
 				case SC_SpinWidgetFrame: {
-					return QRect(0, 0, widget->width() - (bs.width() + 2), widget->height());
+					return TQRect(0, 0, widget->width() - (bs.width() + 2), widget->height());
 				}
 				case SC_SpinWidgetEditField: {
-					return QRect(lx, fw, widget->width() - (bs.width() + 4), widget->height() - 2 * fw);
+					return TQRect(lx, fw, widget->width() - (bs.width() + 4), widget->height() - 2 * fw);
 				}
 				case SC_SpinWidgetButtonField: {
-					return QRect(x, y, bs.width(), widget->height() - 2 * fw);
+					return TQRect(x, y, bs.width(), widget->height() - 2 * fw);
 				}
 				default: {
 				}
@@ -1787,24 +1787,24 @@ QRect dotNETstyle::querySubControlMetrics(ComplexControl control,
 	return KStyle::querySubControlMetrics(control, widget, subcontrol, opt);
 }
 
-int dotNETstyle::pixelMetric(PixelMetric m, const QWidget *widget) const
+int dotNETstyle::pixelMetric(PixelMetric m, const TQWidget *widget) const
 {
 	switch(m) {
 	//	TABS
 	//	----
 		case PM_TabBarTabVSpace: {
-			const QTabBar * tb = (const QTabBar *) widget;
-			if (tb->shape() == QTabBar::RoundedAbove ||
-			    tb->shape() == QTabBar::RoundedBelow)
+			const TQTabBar * tb = (const TQTabBar *) widget;
+			if (tb->shape() == TQTabBar::RoundedAbove ||
+			    tb->shape() == TQTabBar::RoundedBelow)
 				return 12;
 			else
 				return 0;
 		}
 
 		case PM_TabBarTabOverlap: {
-			const QTabBar* tb = (const QTabBar*)widget;
-			if (tb->shape() != QTabBar::RoundedAbove &&
-			    tb->shape() != QTabBar::RoundedBelow)
+			const TQTabBar* tb = (const TQTabBar*)widget;
+			if (tb->shape() != TQTabBar::RoundedAbove &&
+			    tb->shape() != TQTabBar::RoundedBelow)
 				return 3;                   // Leave standard size alone
 			else
 				return 1;                   // Change size for our tabs only
@@ -1857,10 +1857,10 @@ int dotNETstyle::pixelMetric(PixelMetric m, const QWidget *widget) const
 				return 1;
 			} else {
 				if (widget &&
-				   (widget->inherits("QPopupMenu") ||
-				    widget->inherits("QMenuBar") ||
-				    widget->inherits("QRangeControl") ||
-				    widget->inherits("QScrollView"))) {
+				   (widget->inherits("TQPopupMenu") ||
+				    widget->inherits("TQMenuBar") ||
+				    widget->inherits("TQRangeControl") ||
+				    widget->inherits("TQScrollView"))) {
 					return 1;
 				} else {
 					return 2;
@@ -1883,10 +1883,10 @@ int dotNETstyle::pixelMetric(PixelMetric m, const QWidget *widget) const
 }
 
 
-QSize dotNETstyle::sizeFromContents(ContentsType t,
-                                    const QWidget *widget,
-                                    const QSize &s,
-                                    const QStyleOption &opt) const
+TQSize dotNETstyle::sizeFromContents(ContentsType t,
+                                    const TQWidget *widget,
+                                    const TQSize &s,
+                                    const TQStyleOption &opt) const
 {
 	switch (t) {
 
@@ -1894,8 +1894,8 @@ QSize dotNETstyle::sizeFromContents(ContentsType t,
 			if (!widget || opt.isDefault())
 				break;
 
-			const QPopupMenu *popup = (const QPopupMenu *)widget;
-			QMenuItem *mi = opt.menuItem();
+			const TQPopupMenu *popup = (const TQPopupMenu *)widget;
+			TQMenuItem *mi = opt.menuItem();
 			int maxpmw = opt.maxIconWidth();
 			int w = s.width(), h = s.height();
 			bool checkable = popup->isCheckable();
@@ -1916,7 +1916,7 @@ QSize dotNETstyle::sizeFromContents(ContentsType t,
 				h = QMAX(h, widget->fontMetrics().height() + 10);
 
 				if (mi->iconSet()) {
-					h = QMAX(h, mi->iconSet()->pixmap(QIconSet::Small, QIconSet::Normal).height() + 8);
+					h = QMAX(h, mi->iconSet()->pixmap(TQIconSet::Small, TQIconSet::Normal).height() + 8);
 				}
 			}
 
@@ -1938,19 +1938,19 @@ QSize dotNETstyle::sizeFromContents(ContentsType t,
 
 			w += 20;
 
-			return QSize(w, h);
+			return TQSize(w, h);
 		}
 
 		case CT_PushButton: {
-			const QPushButton* button = (const QPushButton*) widget;
+			const TQPushButton* button = (const TQPushButton*) widget;
 			int w  = s.width();
 			int h  = s.height();
 			int bm = pixelMetric( PM_ButtonMargin, widget );
 			int fw = pixelMetric( PM_DefaultFrameWidth, widget ) * 2;
 
 			//We use bold font sometimes, so that make take more space than Qt allocated.
-			QFontMetrics origFM = button->fontMetrics();
-			QFontMetrics boldFM = QFontMetrics(QFont(button->font().family(), button->font().pointSize(), 75));
+			TQFontMetrics origFM = button->fontMetrics();
+			TQFontMetrics boldFM = TQFontMetrics(TQFont(button->font().family(), button->font().pointSize(), 75));
 			int origTextWidth = origFM.size(ShowPrefix, button->text()).width();
 			int boldTextWidth = boldFM.size(ShowPrefix, button->text()).width();
 
@@ -1974,12 +1974,12 @@ QSize dotNETstyle::sizeFromContents(ContentsType t,
 
 			if ( h < 22 )
 				h = 22;
-			return QSize( w, h );
+			return TQSize( w, h );
 		}
 
 		case CT_ComboBox: {
 			int arrow = 21;
-			return QSize(s.width() + arrow, QMAX(s.height() + 4, 16));
+			return TQSize(s.width() + arrow, QMAX(s.height() + 4, 16));
 		}
 
 		default:
@@ -1992,81 +1992,81 @@ QSize dotNETstyle::sizeFromContents(ContentsType t,
 
 void dotNETstyle::paletteChanged()
 {
-	QComboBox *combo  = 0L;
-	QMenuBar *menuBar = 0L;
-	QToolBar *toolBar = 0L;
-   QWidget  *widget  = 0L;
+	TQComboBox *combo  = 0L;
+	TQMenuBar *menuBar = 0L;
+	TQToolBar *toolBar = 0L;
+   TQWidget  *widget  = 0L;
 
-	QValueListIterator<QWidget*> it = m_widgets.begin();
+	TQValueListIterator<TQWidget*> it = m_widgets.begin();
 	for ( ; it != m_widgets.end(); ++it ) {
 		widget = *it;
-		if ((combo = dynamic_cast<QComboBox*>( widget )))
+		if ((combo = dynamic_cast<TQComboBox*>( widget )))
 			updatePalette( combo );
-		else if ((toolBar = dynamic_cast<QToolBar*>( widget )))
+		else if ((toolBar = dynamic_cast<TQToolBar*>( widget )))
 			updatePalette( toolBar );
-		else if ((menuBar = dynamic_cast<QMenuBar*>( widget )))
+		else if ((menuBar = dynamic_cast<TQMenuBar*>( widget )))
 			updatePalette( menuBar );
 	}
 }
 
-void dotNETstyle::updatePalette( QComboBox *combo )
+void dotNETstyle::updatePalette( TQComboBox *combo )
 {
-	QPalette pal = QApplication::palette();
-	pal.setColor(QColorGroup::Dark,
-	             pal.active().color(QColorGroup::Base));
-	pal.setColor(QColorGroup::Midlight,
-	             pal.active().color(QColorGroup::Background));
+	TQPalette pal = TQApplication::palette();
+	pal.setColor(TQColorGroup::Dark,
+	             pal.active().color(TQColorGroup::Base));
+	pal.setColor(TQColorGroup::Midlight,
+	             pal.active().color(TQColorGroup::Background));
 	combo->setPalette(pal);
 }
 
-void dotNETstyle::updatePalette( QToolBar *bar )
+void dotNETstyle::updatePalette( TQToolBar *bar )
 {
-	QPalette pal = QApplication::palette();
-	pal.setColor(QColorGroup::Button,
-	             pal.active().color(QColorGroup::Background));
+	TQPalette pal = TQApplication::palette();
+	pal.setColor(TQColorGroup::Button,
+	             pal.active().color(TQColorGroup::Background));
 	bar->setPalette(pal);
 }
 
-void dotNETstyle::updatePalette( QMenuBar *bar )
+void dotNETstyle::updatePalette( TQMenuBar *bar )
 {
-	QPalette pal = QApplication::palette();
-	pal.setColor(QColorGroup::Button,
-	             pal.active().color(QColorGroup::Background));
+	TQPalette pal = TQApplication::palette();
+	pal.setColor(TQColorGroup::Button,
+	             pal.active().color(TQColorGroup::Background));
 	bar->setPalette(pal);
 }
 
 void dotNETstyle::slotDestroyed()
 {
-	m_widgets.remove( (QWidget*) sender() );
+	m_widgets.remove( (TQWidget*) sender() );
 }
 
-bool dotNETstyle::eventFilter(QObject *obj, QEvent *ev)
+bool dotNETstyle::eventFilter(TQObject *obj, TQEvent *ev)
 {
-	if (obj->inherits("QComboBox")) {
-		if (ev->type() == QEvent::Enter) {
-			QWidget *btn = (QWidget *)obj;
+	if (obj->inherits("TQComboBox")) {
+		if (ev->type() == TQEvent::Enter) {
+			TQWidget *btn = (TQWidget *)obj;
 			if (btn->isEnabled()) {
-				QPalette pal = btn->palette();
-				pal.setColor(QColorGroup::Dark,
-				             pal.active().color(QColorGroup::Highlight).dark());
-				pal.setColor(QColorGroup::Midlight,
-				             pal.active().color(QColorGroup::Highlight));
+				TQPalette pal = btn->palette();
+				pal.setColor(TQColorGroup::Dark,
+				             pal.active().color(TQColorGroup::Highlight).dark());
+				pal.setColor(TQColorGroup::Midlight,
+				             pal.active().color(TQColorGroup::Highlight));
 				btn->setPalette(pal);
 			}
-		} else if (ev->type() == QEvent::Leave) {
-			QWidget *btn = (QWidget *)obj;
-			QPalette pal = btn->palette();
-			pal.setColor(QColorGroup::Dark,
-			             pal.active().color(QColorGroup::Base));
-			pal.setColor(QColorGroup::Midlight,
-			             pal.active().color(QColorGroup::Background));
+		} else if (ev->type() == TQEvent::Leave) {
+			TQWidget *btn = (TQWidget *)obj;
+			TQPalette pal = btn->palette();
+			pal.setColor(TQColorGroup::Dark,
+			             pal.active().color(TQColorGroup::Base));
+			pal.setColor(TQColorGroup::Midlight,
+			             pal.active().color(TQColorGroup::Background));
 			btn->setPalette(pal);
 		}
-	} else if (obj->inherits("QButton")) {
-		QWidget *btn = (QWidget *)obj;
-		QPalette pal = btn->palette();
-		pal.setColor(QColorGroup::Button,
-		             pal.active().color(QColorGroup::Background));
+	} else if (obj->inherits("TQButton")) {
+		TQWidget *btn = (TQWidget *)obj;
+		TQPalette pal = btn->palette();
+		pal.setColor(TQColorGroup::Button,
+		             pal.active().color(TQColorGroup::Background));
 		btn->setPalette(pal);
 	}
 

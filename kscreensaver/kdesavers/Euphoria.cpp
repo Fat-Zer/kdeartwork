@@ -28,7 +28,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
-#include <qtimer.h>
+#include <tqtimer.h>
 #include "Euphoria.h"
 #include "Euphoria.moc"
 #include "EuphoriaTexture.h"
@@ -457,15 +457,15 @@ void wisp::drawAsBackground()
 //----------------------------------------------------------------------------
 
 
-EuphoriaWidget::EuphoriaWidget( QWidget* parent, const char* name )
-              : QGLWidget(parent, name), texName(0), _wisps(0), _backwisps(0),
+EuphoriaWidget::EuphoriaWidget( TQWidget* parent, const char* name )
+              : TQGLWidget(parent, name), texName(0), _wisps(0), _backwisps(0),
 	      feedbackmap(0), feedbacktex(0)
 {
     setDefaults( Regular );
 
     _frameTime = 1000 / 60;
-    _timer = new QTimer( this );
-    connect( _timer, SIGNAL(timeout()), this, SLOT(nextFrame()) );
+    _timer = new TQTimer( this );
+    connect( _timer, TQT_SIGNAL(timeout()), this, TQT_SLOT(nextFrame()) );
 }
 
 
@@ -636,7 +636,7 @@ void EuphoriaWidget::initializeGL()
 
 
 #ifdef UNIT_TEST
-void EuphoriaWidget::keyPressEvent( QKeyEvent* e )
+void EuphoriaWidget::keyPressEvent( TQKeyEvent* e )
 {
     if( e->key() == Qt::Key_0 ) { setDefaults( 0 ); updateParameters(); }
     if( e->key() == Qt::Key_1 ) { setDefaults( 1 ); updateParameters(); }
@@ -905,7 +905,7 @@ extern "C"
         return new KEuphoriaScreenSaver( id );
     }
 
-    KDE_EXPORT QDialog* kss_setup()
+    KDE_EXPORT TQDialog* kss_setup()
     {
         return new KEuphoriaSetup;
     }
@@ -966,9 +966,9 @@ void KEuphoriaScreenSaver::setMode( int id )
 //----------------------------------------------------------------------------
 
 
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qcombobox.h>
+#include <tqlayout.h>
+#include <tqlabel.h>
+#include <tqcombobox.h>
 #include <kmessagebox.h>
 
 
@@ -988,22 +988,22 @@ static const char* defaultText[] =
 };
 
 
-KEuphoriaSetup::KEuphoriaSetup( QWidget* parent, const char* name )
+KEuphoriaSetup::KEuphoriaSetup( TQWidget* parent, const char* name )
         : KDialogBase( parent, name, true, i18n("Setup Euphoria Screen Saver"),
           Ok|Cancel|Help, Ok, true )
 {
     setButtonText( Help, i18n( "A&bout" ) );
 
-    QWidget *main = makeMainWidget();
+    TQWidget *main = makeMainWidget();
 
-    QHBoxLayout* top    = new QHBoxLayout(main, 0, spacingHint());
-    QVBoxLayout* leftCol = new QVBoxLayout;
+    TQHBoxLayout* top    = new TQHBoxLayout(main, 0, spacingHint());
+    TQVBoxLayout* leftCol = new QVBoxLayout;
     top->addLayout( leftCol );
 
-    QLabel* label = new QLabel( i18n("Mode:"), main );
+    TQLabel* label = new TQLabel( i18n("Mode:"), main );
     leftCol->addWidget( label );
 
-    modeW = new QComboBox( main );
+    modeW = new TQComboBox( main );
     int i = 0;
     while (defaultText[i])
         modeW->insertItem( i18n(defaultText[i++]) );
@@ -1012,8 +1012,8 @@ KEuphoriaSetup::KEuphoriaSetup( QWidget* parent, const char* name )
     leftCol->addStretch();
 
     // Preview
-    QWidget* preview;
-    preview = new QWidget( main );
+    TQWidget* preview;
+    preview = new TQWidget( main );
     preview->setFixedSize( 220, 170 );
     preview->setBackgroundColor( black );
     preview->show();    // otherwise saver does not get correct size
@@ -1022,7 +1022,7 @@ KEuphoriaSetup::KEuphoriaSetup( QWidget* parent, const char* name )
 
     // Now that we have _saver...
     modeW->setCurrentItem( _saver->mode() );    // set before we connect
-    connect( modeW, SIGNAL(activated(int)), _saver, SLOT(setMode(int)) );
+    connect( modeW, TQT_SIGNAL(activated(int)), _saver, TQT_SLOT(setMode(int)) );
 
     setMinimumSize( sizeHint() );
 }
@@ -1038,7 +1038,7 @@ void KEuphoriaSetup::slotHelp()
 {
     KMessageBox::about(this,
         i18n("<h3>Euphoria 1.0</h3>\n<p>Copyright (c) 2002 Terence M. Welsh<br>\n<a href=\"http://www.reallyslick.com/\">http://www.reallyslick.com/</a></p>\n\n<p>Ported to KDE by Karl Robillard</p>"),
-        QString::null, KMessageBox::AllowLink);
+        TQString::null, KMessageBox::AllowLink);
 }
 
 
@@ -1050,7 +1050,7 @@ void KEuphoriaSetup::slotOk()
     KConfig* config = KGlobal::config();
     config->setGroup("Settings");
 
-    QString val;
+    TQString val;
     val.setNum( modeW->currentItem() );
     config->writeEntry("Mode", val );
 
@@ -1065,11 +1065,11 @@ void KEuphoriaSetup::slotOk()
 // moc Euphoria.h -o Euphoria.moc
 // g++ -g -DUNIT_TEST Euphoria.cpp -I/usr/lib/qt3/include -lqt -L/usr/lib/qt3/lib -lGLU -lGL
 
-#include <qapplication.h>
+#include <tqapplication.h>
 
 int main( int argc, char** argv )
 {
-    QApplication app( argc, argv );
+    TQApplication app( argc, argv );
 
     EuphoriaWidget w;
     w.setDefaults( EuphoriaWidget::UHFTEM );

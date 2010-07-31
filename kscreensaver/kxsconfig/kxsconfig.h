@@ -32,11 +32,11 @@ class KXSConfigDialog : public KDialogBase
 {
   Q_OBJECT
 public:
-  KXSConfigDialog(const QString &file, const QString &name);
+  KXSConfigDialog(const TQString &file, const TQString &name);
   ~KXSConfigDialog();
 
   bool create();
-  QString command();
+  TQString command();
 
 protected slots:
   void slotPreviewExited(KProcess *);
@@ -46,13 +46,13 @@ protected slots:
   virtual void slotCancel();
 
 protected:
-  QString   mFilename;
-  QString   mExeName;
-  QString   mConfigFile;
+  TQString   mFilename;
+  TQString   mExeName;
+  TQString   mConfigFile;
   KProcess  *mPreviewProc;
-  QWidget   *mPreview;
-  QTimer    *mPreviewTimer;
-  QPtrList<KXSConfigItem> mConfigItemList;
+  TQWidget   *mPreview;
+  TQTimer    *mPreviewTimer;
+  TQPtrList<KXSConfigItem> mConfigItemList;
   bool      mKilled;
 };
 

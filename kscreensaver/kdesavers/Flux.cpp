@@ -36,7 +36,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
-#include <qtimer.h>
+#include <tqtimer.h>
 #include "Flux.h"
 #include "Flux.moc"
 
@@ -429,14 +429,14 @@ void flux::update()
 //----------------------------------------------------------------------------
 
 
-FluxWidget::FluxWidget( QWidget* parent, const char* name )
-                      : QGLWidget(parent, name), _fluxes(0)
+FluxWidget::FluxWidget( TQWidget* parent, const char* name )
+                      : TQGLWidget(parent, name), _fluxes(0)
 {
     setDefaults( Regular );
 
     _frameTime = 1000 / 60;
-    _timer = new QTimer( this );
-    connect( _timer, SIGNAL(timeout()), this, SLOT(nextFrame()) );
+    _timer = new TQTimer( this );
+    connect( _timer, TQT_SIGNAL(timeout()), this, TQT_SLOT(nextFrame()) );
 }
 
 
@@ -544,7 +544,7 @@ void FluxWidget::initializeGL()
 
 
 #ifdef UNIT_TEST
-void FluxWidget::keyPressEvent( QKeyEvent* e )
+void FluxWidget::keyPressEvent( TQKeyEvent* e )
 {
     if( e->key() == Qt::Key_0 ) { setDefaults( 0 ); updateParameters(); }
     if( e->key() == Qt::Key_1 ) { setDefaults( 1 ); updateParameters(); }
@@ -789,7 +789,7 @@ extern "C"
         return new KFluxScreenSaver( id );
     }
 
-    KDE_EXPORT QDialog* kss_setup()
+    KDE_EXPORT TQDialog* kss_setup()
     {
         return new KFluxSetup;
     }
@@ -850,10 +850,10 @@ void KFluxScreenSaver::setMode( int id )
 //----------------------------------------------------------------------------
 
 
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qlabel.h>
-#include <qcombobox.h>
+#include <tqlayout.h>
+#include <tqpushbutton.h>
+#include <tqlabel.h>
+#include <tqcombobox.h>
 #include <kbuttonbox.h>
 #include <kmessagebox.h>
 
@@ -871,22 +871,22 @@ static const char* defaultText[] =
 };
 
 
-KFluxSetup::KFluxSetup( QWidget* parent, const char* name )
+KFluxSetup::KFluxSetup( TQWidget* parent, const char* name )
     : KDialogBase( parent, name, true, i18n( "Setup Flux Screen Saver" ),
       Ok|Cancel|Help, Ok, true )
 {
     setButtonText( Help, i18n( "A&bout" ) );
-    QWidget *main = makeMainWidget();
+    TQWidget *main = makeMainWidget();
 
-    QHBoxLayout* top = new QHBoxLayout( main, 0, spacingHint() );
-    QVBoxLayout* leftCol = new QVBoxLayout;
+    TQHBoxLayout* top = new TQHBoxLayout( main, 0, spacingHint() );
+    TQVBoxLayout* leftCol = new QVBoxLayout;
     top->addLayout( leftCol );
 
     // Parameters
-    QLabel* label = new QLabel( i18n("Mode:"), main );
+    TQLabel* label = new TQLabel( i18n("Mode:"), main );
     leftCol->addWidget( label );
 
-    modeW = new QComboBox( main );
+    modeW = new TQComboBox( main );
     int i = 0;
     while (defaultText[i])
         modeW->insertItem( i18n(defaultText[i++]) );
@@ -895,8 +895,8 @@ KFluxSetup::KFluxSetup( QWidget* parent, const char* name )
     leftCol->addStretch();
 
     // Preview
-    QWidget* preview;
-    preview = new QWidget( main );
+    TQWidget* preview;
+    preview = new TQWidget( main );
     preview->setFixedSize( 220, 165 );
     preview->setBackgroundColor( black );
     preview->show();    // otherwise saver does not get correct size
@@ -905,7 +905,7 @@ KFluxSetup::KFluxSetup( QWidget* parent, const char* name )
 
     // Now that we have _saver...
     modeW->setCurrentItem( _saver->mode() );    // set before we connect
-    connect( modeW, SIGNAL(activated(int)), _saver, SLOT(setMode(int)) );
+    connect( modeW, TQT_SIGNAL(activated(int)), _saver, TQT_SLOT(setMode(int)) );
 }
 
 
@@ -919,7 +919,7 @@ void KFluxSetup::slotHelp()
 {
     KMessageBox::about(this,
         i18n("<h3>Flux 1.0</h3>\n<p>Copyright (c) 2002 Terence M. Welsh<br>\n<a href=\"http://www.reallyslick.com/\">http://www.reallyslick.com/</a></p>\n\n<p>Ported to KDE by Karl Robillard</p>"),
-        QString::null, KMessageBox::AllowLink);
+        TQString::null, KMessageBox::AllowLink);
 }
 
 
@@ -931,7 +931,7 @@ void KFluxSetup::slotOk()
     KConfig* config = KGlobal::config();
     config->setGroup("Settings");
 
-    QString val;
+    TQString val;
     val.setNum( modeW->currentItem() );
     config->writeEntry("Mode", val );
 
@@ -948,11 +948,11 @@ void KFluxSetup::slotOk()
 // moc Flux.h -o Flux.moc
 // g++ -g -DUNIT_TEST Flux.cpp -I/usr/lib/qt3/include -lqt -L/usr/lib/qt3/lib -lGLU -lGL
 
-#include <qapplication.h>
+#include <tqapplication.h>
 
 int main( int argc, char** argv )
 {
-    QApplication app( argc, argv );
+    TQApplication app( argc, argv );
 
     FluxWidget w;
     w.setDefaults( FluxWidget::Sparklers );

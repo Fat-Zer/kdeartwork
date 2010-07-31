@@ -23,10 +23,10 @@
 #ifndef RISC_OS_STATIC_H
 #define RISC_OS_STATIC_H
 
-#include <qimage.h>
-#include <qpixmap.h>
-#include <qpainter.h>
-#include <qstringlist.h>
+#include <tqimage.h>
+#include <tqpixmap.h>
+#include <tqpainter.h>
+#include <tqstringlist.h>
 
 #include "Palette.h"
 
@@ -54,14 +54,14 @@ class Static
       void reset();
       void updatePixmaps();
 
-      const QPixmap& titleTextLeft(bool active) const;
-      const QPixmap& titleTextRight(bool active) const;
-      const QPixmap& resizeMidLeft(bool active) const;
-      const QPixmap& resizeMidRight(bool active) const;
-      const QPixmap& titleTextMid(bool active) const;
-      const QPixmap& resizeMidMid(bool active) const;
-      const QPixmap& buttonBase(bool active, bool down) const;
-      const QPixmap& resize(bool active) const;
+      const TQPixmap& titleTextLeft(bool active) const;
+      const TQPixmap& titleTextRight(bool active) const;
+      const TQPixmap& resizeMidLeft(bool active) const;
+      const TQPixmap& resizeMidRight(bool active) const;
+      const TQPixmap& titleTextMid(bool active) const;
+      const TQPixmap& resizeMidMid(bool active) const;
+      const TQPixmap& buttonBase(bool active, bool down) const;
+      const TQPixmap& resize(bool active) const;
 
       int animationStyle() const;
       int titleHeight() const;
@@ -71,8 +71,8 @@ class Static
 
       void _init();
 
-      void _drawBorder(QPixmap&, int, int);
-      void _createTexture(QPixmap&, int, bool);
+      void _drawBorder(TQPixmap&, int, int);
+      void _createTexture(TQPixmap&, int, bool);
 
       void _initSizes();
 
@@ -111,9 +111,9 @@ class Static
          aResizeMidRight_,   iResizeMidRight_,
          aResizeMid_,        iResizeMid_;
 
-      QPixmap aTexture_, iTexture_, abTexture_, ibTexture_;
+      TQPixmap aTexture_, iTexture_, abTexture_, ibTexture_;
 
-      QPainter painter_;
+      TQPainter painter_;
       bool down_;
       Palette palette_;
       double transx, transy;

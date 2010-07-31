@@ -8,8 +8,8 @@
 #ifndef __BLOB_H__
 #define __BLOB_H__
 
-#include <qtimer.h>
-#include <qptrlist.h>
+#include <tqtimer.h>
+#include <tqptrlist.h>
 
 #include <kdialogbase.h>
 #include <kscreensaver.h>
@@ -47,7 +47,7 @@ public:
     typedef void (KBlobSaver::*AlgFunc)();
     struct KBSAlg
     {
-	QString Name;
+	TQString Name;
 	AlgFunc Init;
 	AlgFunc NextFrame;
     };
@@ -96,11 +96,11 @@ class KBlobSetup : public KDialogBase
 
     int showtime;
     int alg;
-    QListBox *algs;
+    TQListBox *algs;
     KIntNumInput *stime;
 
 public:
-    KBlobSetup( QWidget *parent = NULL, const char *name = NULL );
+    KBlobSetup( TQWidget *parent = NULL, const char *name = NULL );
 
 protected:
     void readSettings();

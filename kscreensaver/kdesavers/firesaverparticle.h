@@ -21,7 +21,7 @@
 #ifndef KFIRESAVER_PARTICLE_H
 #define KFIRESAVER_PARTICLE_H
 
-#include <qgl.h>
+#include <tqgl.h>
 
 #define FLICKER_FRAMES_DELAY 8
 #define DRAND ((float)rand() / (float)RAND_MAX)  /*random float between 0 and 1*/

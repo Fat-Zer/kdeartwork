@@ -6,7 +6,7 @@
 #ifndef __SWARM_H__
 #define __SWARM_H__
 
-#include <qtimer.h>
+#include <tqtimer.h>
 
 #include <kdialogbase.h>
 #include "saver.h"
@@ -30,7 +30,7 @@ protected slots:
 
 protected:
 	KRandomSequence rnd;
-	QTimer      timer;
+	TQTimer      timer;
 	int         colorContext;
 
 	int         speed;
@@ -41,7 +41,7 @@ class kSwarmSetup : public KDialogBase
 {
 	Q_OBJECT
 public:
-	kSwarmSetup( QWidget *parent = NULL, const char *name = NULL );
+	kSwarmSetup( TQWidget *parent = NULL, const char *name = NULL );
 
 protected:
 	void readSettings();
@@ -54,7 +54,7 @@ private slots:
 	void slotHelp();
 
 private:
-	QWidget *preview;
+	TQWidget *preview;
 	kSwarmSaver *saver;
 
 	int			speed;

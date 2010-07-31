@@ -44,13 +44,13 @@ static const char * const help_xpm[] = {
 "    + ++    ",
 "     ++     "};
 
-HelpButton::HelpButton(QWidget *parent)
+HelpButton::HelpButton(TQWidget *parent)
   : Button(parent, i18n("Help"))
 {
-   setPixmap(QPixmap((const char **)help_xpm));
+   setPixmap(TQPixmap((const char **)help_xpm));
 }
 
-void HelpButton::mouseReleaseEvent(QMouseEvent *e)
+void HelpButton::mouseReleaseEvent(TQMouseEvent *e)
 {
    Button::mouseReleaseEvent(e);
 

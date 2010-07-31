@@ -5,11 +5,11 @@ Copyright (C) 1999, 2000 Matthias Ettrich <ettrich@kde.org>
 ******************************************************************/
 #ifndef STDCLIENT_H
 #define STDCLIENT_H
-#include <qlayout.h>
-#include <qvariant.h>
+#include <tqlayout.h>
+#include <tqvariant.h>
 #include <kdecoration.h>
 #include <kdecorationfactory.h>
-#include <qtoolbutton.h>
+#include <tqtoolbutton.h>
 class QLabel;
 class QSpacerItem;
 
@@ -32,19 +32,19 @@ public:
     StdClient( KDecorationBridge* b, KDecorationFactory* f );
     ~StdClient();
     void init();
-    QSize minimumSize() const;
+    TQSize minimumSize() const;
     void borders( int& left, int& right, int& top, int& bottom ) const;
     void reset( unsigned long mask );
-    void resize( const QSize& s );
+    void resize( const TQSize& s );
     void shadeChange() {};
-    Position mousePosition( const QPoint& p ) const { return KDecoration::mousePosition( p ); }
+    Position mousePosition( const TQPoint& p ) const { return KDecoration::mousePosition( p ); }
 protected:
-    bool eventFilter( QObject* o, QEvent* e );
-    void resizeEvent( QResizeEvent* );
-    void paintEvent( QPaintEvent* );
+    bool eventFilter( TQObject* o, TQEvent* e );
+    void resizeEvent( TQResizeEvent* );
+    void paintEvent( TQPaintEvent* );
 
-    void mouseDoubleClickEvent( QMouseEvent * );
-    void wheelEvent( QWheelEvent * );
+    void mouseDoubleClickEvent( TQMouseEvent * );
+    void wheelEvent( TQWheelEvent * );
     void captionChange();
     void iconChange();
     void maximizeChange();
@@ -52,15 +52,15 @@ protected:
     void activeChange();
 
 private:
-    void addButtons(QBoxLayout* hb, const QString& buttons);
+    void addButtons(TQBoxLayout* hb, const TQString& buttons);
 
 private slots:
     void menuButtonPressed();
     void maxButtonClicked( ButtonState );
 
 private:
-    QToolButton* button[ButtonTypeCount];
-    QSpacerItem* titlebar;
+    TQToolButton* button[ButtonTypeCount];
+    TQSpacerItem* titlebar;
 };
 
 class StdToolClient : public KDecoration
@@ -70,44 +70,44 @@ public:
     StdToolClient( KDecorationBridge* b, KDecorationFactory* f );
     ~StdToolClient();
     void init();
-    QSize minimumSize() const;
+    TQSize minimumSize() const;
     void borders( int& left, int& right, int& top, int& bottom ) const;
     void reset( unsigned long mask );
-    void resize( const QSize& s );
+    void resize( const TQSize& s );
     void shadeChange() {};
     void activeChange() {};
     void iconChange() {};
     void maximizeChange() {};
     void desktopChange() {};
-    Position mousePosition( const QPoint& p ) const { return KDecoration::mousePosition( p ); }
+    Position mousePosition( const TQPoint& p ) const { return KDecoration::mousePosition( p ); }
 protected:
-    bool eventFilter( QObject* o, QEvent* e );
-    void resizeEvent( QResizeEvent* );
-    void paintEvent( QPaintEvent* );
+    bool eventFilter( TQObject* o, TQEvent* e );
+    void resizeEvent( TQResizeEvent* );
+    void paintEvent( TQPaintEvent* );
 
-    void mouseDoubleClickEvent( QMouseEvent * );
-    void wheelEvent( QWheelEvent * );
+    void mouseDoubleClickEvent( TQMouseEvent * );
+    void wheelEvent( TQWheelEvent * );
     void captionChange();
 
 private:
-    QToolButton* closeBtn;
-    QSpacerItem* titlebar;
+    TQToolButton* closeBtn;
+    TQSpacerItem* titlebar;
 };
 
 
 
 /*
-  Like QToolButton, but provides a clicked(ButtonState) signals that
+  Like TQToolButton, but provides a clicked(ButtonState) signals that
   has the last pressed mouse button as argument
  */
 class ThreeButtonButton: public QToolButton
 {
     Q_OBJECT
 public:
-  ThreeButtonButton ( QWidget *parent = 0, const char* name = 0 )
-      : QToolButton( parent, name )
+  ThreeButtonButton ( TQWidget *parent = 0, const char* name = 0 )
+      : TQToolButton( parent, name )
     {
-	connect( this, SIGNAL( clicked() ), this, SLOT( handleClicked() ) );
+	connect( this, TQT_SIGNAL( clicked() ), this, TQT_SLOT( handleClicked() ) );
         setCursor( arrowCursor );
     }
     ~ThreeButtonButton () {}
@@ -116,17 +116,17 @@ signals:
     void clicked( ButtonState );
 
 protected:
-    void mousePressEvent( QMouseEvent* e )
+    void mousePressEvent( TQMouseEvent* e )
     {
 	last_button = e->button();
-	QMouseEvent me ( e->type(), e->pos(), e->globalPos(), LeftButton, e->state() );
-	QToolButton::mousePressEvent( &me );
+	TQMouseEvent me ( e->type(), e->pos(), e->globalPos(), LeftButton, e->state() );
+	TQToolButton::mousePressEvent( &me );
     }
 
-    void mouseReleaseEvent( QMouseEvent* e )
+    void mouseReleaseEvent( TQMouseEvent* e )
     {
-	QMouseEvent me ( e->type(), e->pos(), e->globalPos(), LeftButton, e->state() );
-	QToolButton::mouseReleaseEvent( &me );
+	TQMouseEvent me ( e->type(), e->pos(), e->globalPos(), LeftButton, e->state() );
+	TQToolButton::mouseReleaseEvent( &me );
     }
 
 private slots:

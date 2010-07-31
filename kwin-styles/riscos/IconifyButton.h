@@ -34,7 +34,7 @@ class IconifyButton : public Button
 
    public:
 
-      IconifyButton(QWidget *parent);
+      IconifyButton(TQWidget *parent);
 
    signals:
 
@@ -42,7 +42,7 @@ class IconifyButton : public Button
   
    protected:
 
-      void mouseReleaseEvent(QMouseEvent *);
+      void mouseReleaseEvent(TQMouseEvent *);
 };
 
 } // End namespace;

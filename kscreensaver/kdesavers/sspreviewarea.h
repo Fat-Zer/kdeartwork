@@ -9,11 +9,11 @@
 #ifndef SSPREVIEWAREA_H
 #define SSPREVIEWAREA_H
 
-#include <qwidget.h>
+#include <tqwidget.h>
 
-/** @brief Reimplementation of QWidget emitting a signal if resized.
+/** @brief Reimplementation of TQWidget emitting a signal if resized.
  *
- * This class is equalt to QWidget except for the fact that the signal resized()
+ * This class is equalt to TQWidget except for the fact that the signal resized()
  * is emitted if the widget gets resized.  By this signaling mechanism it is
  * possible to resize the embedded GL area object within the screen saver setup
  * dialog.
@@ -22,7 +22,7 @@
  * KRotationSetup::KRotationSetup()) the signal SsPreviewArea::resized() is
  * connected with a slot of the screensaver class
  * (KPendulumSaver::resizeGlArea(), KRotationSaver::resizeGlArea()).  This slot
- * function calls the reimplemented QGLWidget::resizeGL() method of the GL
+ * function calls the reimplemented TQGLWidget::resizeGL() method of the GL
  * widgets (PendulumGLWidget::resizeGL(), RotationGLWidget::resizeGL()) which
  * really resizes the GL scenery. */
 class SsPreviewArea : public QWidget
@@ -33,25 +33,25 @@ class SsPreviewArea : public QWidget
    /** @brief Constructor for SsPreviewArea
     * @param parent Pointer tp parent widget, forwarded to the QWidget
     * constructor
-    * @param name Pointer to widget name, forwarded to the QWidget constructor
+    * @param name Pointer to widget name, forwarded to the TQWidget constructor
     *
-    * The constructor just calls QWidget::QWidget() with the given arguments.
+    * The constructor just calls TQWidget::TQWidget() with the given arguments.
     */
-   SsPreviewArea(QWidget* parent = NULL, const char* name = NULL);
+   SsPreviewArea(TQWidget* parent = NULL, const char* name = NULL);
 
   protected:
    /** @brief Called if widget gets resized.
-    * @param e Pointer to the corresponding QResizeEvent object containing the
+    * @param e Pointer to the corresponding TQResizeEvent object containing the
     * resize information
     *
-    * Reimplemented event handler from QWidget.  Only the signal resized() is
+    * Reimplemented event handler from TQWidget.  Only the signal resized() is
     * emitted. */
-   virtual void resizeEvent(QResizeEvent* e);
+   virtual void resizeEvent(TQResizeEvent* e);
 
   signals:
    /** @brief Signal which is emitted in the resizeEvent() method.
-    * @param e Pointer to the corresponding QResizeEvent object */
-   void resized(QResizeEvent* e);
+    * @param e Pointer to the corresponding TQResizeEvent object */
+   void resized(TQResizeEvent* e);
 };
 
 #endif

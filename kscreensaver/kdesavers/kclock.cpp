@@ -10,16 +10,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <qcheckbox.h>
-#include <qcolor.h>
-#include <qdatetime.h>
-#include <qgroupbox.h>
-#include <qhbox.h>
-#include <qimage.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qpainter.h>
-#include <qslider.h>
+#include <tqcheckbox.h>
+#include <tqcolor.h>
+#include <tqdatetime.h>
+#include <tqgroupbox.h>
+#include <tqhbox.h>
+#include <tqimage.h>
+#include <tqlabel.h>
+#include <tqlayout.h>
+#include <tqpainter.h>
+#include <tqslider.h>
 
 #include <kapplication.h>
 #include <kcolorbutton.h>
@@ -58,7 +58,7 @@ extern "C" {
 		return new KClockSaver(id);
 	}
 
-	KDE_EXPORT QDialog *kss_setup() {
+	KDE_EXPORT TQDialog *kss_setup() {
 		return new KClockSetup();
 	}
 }
@@ -68,7 +68,7 @@ extern "C" {
 
 //-----------------------------------------------------------------------------
 
-KClockSetup::KClockSetup(QWidget *parent, const char *name)
+KClockSetup::KClockSetup(TQWidget *parent, const char *name)
       : KDialogBase(parent, name, true, i18n( "Setup Clock Screen Saver" ),
 			Ok|Cancel|Help, Ok, true),
 	m_saver(0)
@@ -76,93 +76,93 @@ KClockSetup::KClockSetup(QWidget *parent, const char *name)
 	readSettings();
 
 	setButtonText( Help, i18n( "A&bout" ) );
-	QWidget *main = makeMainWidget();
+	TQWidget *main = makeMainWidget();
 
-	QVBoxLayout *top = new QVBoxLayout(main, 0, spacingHint());
+	TQVBoxLayout *top = new TQVBoxLayout(main, 0, spacingHint());
 
-	QHBoxLayout *hbox = new QHBoxLayout;
+	TQHBoxLayout *hbox = new QHBoxLayout;
 	top->addLayout( hbox );
 
-	QGroupBox *colgroup = new QGroupBox(i18n("Colors"), main);
+	TQGroupBox *colgroup = new TQGroupBox(i18n("Colors"), main);
 	colgroup->setColumnLayout( 0, Horizontal );
-	QGridLayout *grid = new QGridLayout( colgroup->layout(),
+	TQGridLayout *grid = new TQGridLayout( colgroup->layout(),
 		5, 2, spacingHint() );
 
-	QLabel *label = new QLabel(i18n("&Hour-hand:"), colgroup);
+	TQLabel *label = new TQLabel(i18n("&Hour-hand:"), colgroup);
 	KColorButton *colorButton = new KColorButton(m_hourColor, colgroup);
 	colorButton->setFixedWidth(COLOR_BUTTON_WIDTH);
 	label->setBuddy(colorButton);
-	connect(colorButton, SIGNAL(changed(const QColor &)),
-			SLOT(slotHourColor(const QColor &)));
+	connect(colorButton, TQT_SIGNAL(changed(const TQColor &)),
+			TQT_SLOT(slotHourColor(const TQColor &)));
 	grid->addWidget( label, 1, 1 );
 	grid->addWidget( colorButton, 1, 2 );
 
-	label = new QLabel(i18n("&Minute-hand:"), colgroup);
+	label = new TQLabel(i18n("&Minute-hand:"), colgroup);
 	colorButton = new KColorButton(m_minColor, colgroup);
 	colorButton->setFixedWidth(COLOR_BUTTON_WIDTH);
 	label->setBuddy(colorButton);
-	connect(colorButton, SIGNAL(changed(const QColor &)),
-			SLOT(slotMinColor(const QColor &)));
+	connect(colorButton, TQT_SIGNAL(changed(const TQColor &)),
+			TQT_SLOT(slotMinColor(const TQColor &)));
 	grid->addWidget( label, 2, 1 );
 	grid->addWidget( colorButton, 2, 2 );
 
-	label = new QLabel(i18n("&Second-hand:"), colgroup);
+	label = new TQLabel(i18n("&Second-hand:"), colgroup);
 	colorButton = new KColorButton(m_secColor, colgroup);
 	colorButton->setFixedWidth(COLOR_BUTTON_WIDTH);
 	label->setBuddy(colorButton);
-	connect(colorButton, SIGNAL(changed(const QColor &)),
-			SLOT(slotSecColor(const QColor &)));
+	connect(colorButton, TQT_SIGNAL(changed(const TQColor &)),
+			TQT_SLOT(slotSecColor(const TQColor &)));
 	grid->addWidget( label, 3, 1 );
 	grid->addWidget( colorButton, 3, 2 );
 
-	label = new QLabel(i18n("Scal&e:"), colgroup);
+	label = new TQLabel(i18n("Scal&e:"), colgroup);
 	colorButton = new KColorButton(m_scaleColor, colgroup);
 	colorButton->setFixedWidth(COLOR_BUTTON_WIDTH);
 	label->setBuddy(colorButton);
-	connect(colorButton, SIGNAL(changed(const QColor &)),
-			SLOT(slotScaleColor(const QColor &)));
+	connect(colorButton, TQT_SIGNAL(changed(const TQColor &)),
+			TQT_SLOT(slotScaleColor(const TQColor &)));
 	grid->addWidget( label, 4, 1 );
 	grid->addWidget( colorButton, 4, 2 );
 
-	label = new QLabel(i18n("&Background:"), colgroup);
+	label = new TQLabel(i18n("&Background:"), colgroup);
 	colorButton = new KColorButton(m_bgndColor, colgroup);
 	colorButton->setFixedWidth(COLOR_BUTTON_WIDTH);
 	label->setBuddy(colorButton);
-	connect(colorButton, SIGNAL(changed(const QColor &)),
-			SLOT(slotBgndColor(const QColor &)));
+	connect(colorButton, TQT_SIGNAL(changed(const TQColor &)),
+			TQT_SLOT(slotBgndColor(const TQColor &)));
 	grid->addWidget( label, 5, 1 );
 	grid->addWidget( colorButton, 5, 2 );
 
 	hbox->addWidget(colgroup);
 
-	QWidget *m_preview = new QWidget(main);
+	TQWidget *m_preview = new TQWidget(main);
 	m_preview->setFixedSize(220, 165);
 	m_preview->show();
 	m_saver = new KClockSaver(m_preview->winId());
 	hbox->addWidget(m_preview);
 
-	label = new QLabel( i18n( "Si&ze:" ), main );
+	label = new TQLabel( i18n( "Si&ze:" ), main );
 	top->addWidget( label );
-	QSlider *qs = new QSlider(0, MAX_CLOCK_SIZE, 1, m_size, Horizontal, main);
+	TQSlider *qs = new TQSlider(0, MAX_CLOCK_SIZE, 1, m_size, Horizontal, main);
 	label->setBuddy( qs );
 	qs->setTickInterval(1);
-	qs->setTickmarks(QSlider::Below);
-	connect(qs, SIGNAL(valueChanged(int)), this, SLOT(slotSliderMoved(int)));
+	qs->setTickmarks(TQSlider::Below);
+	connect(qs, TQT_SIGNAL(valueChanged(int)), this, TQT_SLOT(slotSliderMoved(int)));
 	top->addWidget( qs );
 
 	bool rtl = kapp->reverseLayout();
-	QHBox *qsscale = new QHBox(main);
-	label = new QLabel(i18n("Small"), qsscale);
+	TQHBox *qsscale = new TQHBox(main);
+	label = new TQLabel(i18n("Small"), qsscale);
 	label->setAlignment(rtl ? AlignRight : AlignLeft);
-	label = new QLabel(i18n("Medium"), qsscale);
+	label = new TQLabel(i18n("Medium"), qsscale);
 	label->setAlignment(AlignHCenter);
-	label = new QLabel(i18n("Big"), qsscale);
+	label = new TQLabel(i18n("Big"), qsscale);
 	label->setAlignment(rtl ? AlignLeft : AlignRight);
 	top->addWidget(qsscale);
 
-	QCheckBox *keepCentered = new QCheckBox(i18n("&Keep clock centered"), main);
+	TQCheckBox *keepCentered = new TQCheckBox(i18n("&Keep clock centered"), main);
 	keepCentered->setChecked(m_keepCentered);
-	connect(keepCentered, SIGNAL(stateChanged(int)), SLOT(slotKeepCenteredChanged(int)));
+	connect(keepCentered, TQT_SIGNAL(stateChanged(int)), TQT_SLOT(slotKeepCenteredChanged(int)));
 	top->addWidget(keepCentered);
 	top->addStretch();
 }
@@ -183,7 +183,7 @@ void KClockSetup::readSettings()
 		m_size = MAX_CLOCK_SIZE;
 
 	config->setGroup("Colors");
-	QColor c = Qt::black;
+	TQColor c = Qt::black;
 	m_bgndColor = config->readColorEntry("Background", &c);
 
 	c = Qt::white;
@@ -229,11 +229,11 @@ void KClockSetup::slotHelp()
 			"Version 1.0<br>"
 			"<nobr>Melchior FRANZ (c) 2003</nobr>") +
 			"<br><a href=\"mailto:mfranz@kde.org\">mfranz@kde.org</a>"
-			"</qt>", QString::null, KMessageBox::AllowLink);
+			"</qt>", TQString::null, KMessageBox::AllowLink);
 }
 
 
-void KClockSetup::slotBgndColor(const QColor &color)
+void KClockSetup::slotBgndColor(const TQColor &color)
 {
 	m_bgndColor = color;
 	if (m_saver)
@@ -241,7 +241,7 @@ void KClockSetup::slotBgndColor(const QColor &color)
 }
 
 
-void KClockSetup::slotScaleColor(const QColor &color)
+void KClockSetup::slotScaleColor(const TQColor &color)
 {
 	m_scaleColor = color;
 	if (m_saver)
@@ -249,7 +249,7 @@ void KClockSetup::slotScaleColor(const QColor &color)
 }
 
 
-void KClockSetup::slotHourColor(const QColor &color)
+void KClockSetup::slotHourColor(const TQColor &color)
 {
 	m_hourColor = color;
 	if (m_saver)
@@ -257,7 +257,7 @@ void KClockSetup::slotHourColor(const QColor &color)
 }
 
 
-void KClockSetup::slotMinColor(const QColor &color)
+void KClockSetup::slotMinColor(const TQColor &color)
 {
 	m_minColor = color;
 	if (m_saver)
@@ -265,7 +265,7 @@ void KClockSetup::slotMinColor(const QColor &color)
 }
 
 
-void KClockSetup::slotSecColor(const QColor &color)
+void KClockSetup::slotSecColor(const TQColor &color)
 {
 	m_secColor = color;
 	if (m_saver)
@@ -320,7 +320,7 @@ void KClockPainter::copy(KClockPainter *p)
 }
 
 
-void KClockPainter::drawToImage(QImage *q, int xoffs = 0, int yoffs = 0)
+void KClockPainter::drawToImage(TQImage *q, int xoffs = 0, int yoffs = 0)
 {
 	unsigned char *src = (unsigned char *)image();
 	for (int y = 0; y < m_height; y++) {
@@ -331,19 +331,19 @@ void KClockPainter::drawToImage(QImage *q, int xoffs = 0, int yoffs = 0)
 }
 
 
-void KClockPainter::setColor(const QColor &c)
+void KClockPainter::setColor(const TQColor &c)
 {
 	m_color = (c.red() << 24) | (c.green() << 16) | (c.blue() << 8) | 255;
 }
 
 
-void KClockPainter::setShadowColor(const QColor &c)
+void KClockPainter::setShadowColor(const TQColor &c)
 {
 	m_shadow = (c.red() << 24) | (c.green() << 16) | (c.blue() << 8) | 255;
 }
 
 
-void KClockPainter::fill(const QColor &c)
+void KClockPainter::fill(const TQColor &c)
 {
 	art_rgb_fill_run(m_buf, c.red(), c.green(), c.blue(), m_width * m_height);
 }
@@ -398,7 +398,7 @@ void KClockPainter::drawDisc(double r)
 }
 
 
-void KClockPainter::drawHand(const QColor &c, double angle, double length,
+void KClockPainter::drawHand(const TQColor &c, double angle, double length,
 	double width, bool disc = true)
 {
 	const double shadow_width = 1.0;
@@ -426,7 +426,7 @@ KClockSaver::KClockSaver(WId id)
 {
 	readSettings();
 	setBackgroundColor(m_bgndColor);
-	connect(&m_timer, SIGNAL(timeout()), SLOT(slotTimeout()));
+	connect(&m_timer, TQT_SIGNAL(timeout()), TQT_SLOT(slotTimeout()));
 	start(m_size);
 	m_timer.start(TIMER_INTERVALL);
 }
@@ -445,7 +445,7 @@ void KClockSaver::start(int size)
 	m_x = (width() - m_diameter) / 2;
 	m_y = (height() - m_diameter) / 2;
 
-	m_image = new QImage(m_diameter, m_diameter, 32);
+	m_image = new TQImage(m_diameter, m_diameter, 32);
 	m_scale = new KClockPainter(m_diameter, m_diameter);
 	m_clock = new KClockPainter(m_diameter, m_diameter);
 
@@ -497,7 +497,7 @@ void KClockSaver::readSettings()
 		m_size = MAX_CLOCK_SIZE;
 
 	config->setGroup("Colors");
-	QColor c = Qt::black;
+	TQColor c = Qt::black;
 	m_bgndColor = config->readColorEntry("Background", &c);
 
 	c = Qt::white;
@@ -542,7 +542,7 @@ void KClockSaver::drawClock()
 
 void KClockSaver::slotTimeout()
 {
-	QTime t = QTime::currentTime();
+	TQTime t = TQTime::currentTime();
 	int s = t.second();
 	if (s == m_second)
 		return;
@@ -552,11 +552,11 @@ void KClockSaver::slotTimeout()
 	m_minute = t.minute();
 
 	drawClock();
-	QPainter p(this);
+	TQPainter p(this);
 
 	if (width() < 256) {
 		// intended for the control module preview: always fill the whole area
-		QImage *img = new QImage(width(), height(), 32);
+		TQImage *img = new TQImage(width(), height(), 32);
 		img->fill(qRgb(m_bgndColor.red(), m_bgndColor.green(), m_bgndColor.blue()));
 		m_clock->drawToImage(img, m_x, m_y);
 		p.drawImage(0, 0, *img);

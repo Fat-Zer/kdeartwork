@@ -1,12 +1,12 @@
 #ifndef __KDE_CDECONFIG_H
 #define __KDE_CDECONFIG_H
 
-#include <qcheckbox.h>
-#include <qgroupbox.h>
-#include <qbuttongroup.h>
-#include <qlabel.h>
-#include <qradiobutton.h>
-#include <qhbox.h>
+#include <tqcheckbox.h>
+#include <tqgroupbox.h>
+#include <tqbuttongroup.h>
+#include <tqlabel.h>
+#include <tqradiobutton.h>
+#include <tqhbox.h>
 #include <kconfig.h>
 
 class QCheckBox;
@@ -20,7 +20,7 @@ class CdeConfig: public QObject
 	Q_OBJECT
 
 	public:
-		CdeConfig( KConfig* conf, QWidget* parent );
+		CdeConfig( KConfig* conf, TQWidget* parent );
 		~CdeConfig();
 
 	// These public signals/slots work similar to KCM modules
@@ -38,11 +38,11 @@ class CdeConfig: public QObject
 		
 	private:
 		KConfig*   	cdeConfig;
-		QCheckBox* 	cbColorBorder;
-//		QCheckBox* 	cbTitlebarButton;
-		QHBox* 	        groupBox;
-		QGroupBox* 	gbSlider;
-		QButtonGroup*	bgAlign;
+		TQCheckBox* 	cbColorBorder;
+//		TQCheckBox* 	cbTitlebarButton;
+		TQHBox* 	        groupBox;
+		TQGroupBox* 	gbSlider;
+		TQButtonGroup*	bgAlign;
 };
 
 

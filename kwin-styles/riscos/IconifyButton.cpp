@@ -44,13 +44,13 @@ static const char * const iconify_xpm[] = {
 "            ",
 "            "};
 
-IconifyButton::IconifyButton(QWidget *parent)
+IconifyButton::IconifyButton(TQWidget *parent)
   : Button(parent, i18n("Minimize"))
 {
-   setPixmap(QPixmap((const char **)iconify_xpm));
+   setPixmap(TQPixmap((const char **)iconify_xpm));
 }
 
-void IconifyButton::mouseReleaseEvent(QMouseEvent *e)
+void IconifyButton::mouseReleaseEvent(TQMouseEvent *e)
 {
    Button::mouseReleaseEvent(e);
 

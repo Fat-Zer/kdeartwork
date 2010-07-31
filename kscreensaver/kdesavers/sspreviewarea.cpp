@@ -9,12 +9,12 @@
 #include "sspreviewarea.h"
 #include "sspreviewarea.moc"
 
-SsPreviewArea::SsPreviewArea(QWidget* parent, const char* name)
-   : QWidget(parent, name)
+SsPreviewArea::SsPreviewArea(TQWidget* parent, const char* name)
+   : TQWidget(parent, name)
 {
 }
 
-void SsPreviewArea::resizeEvent(QResizeEvent* e)
+void SsPreviewArea::resizeEvent(TQResizeEvent* e)
 {
    emit resized(e);
 }

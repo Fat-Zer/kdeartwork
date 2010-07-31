@@ -18,14 +18,14 @@
 #include <math.h>
 #include <iostream>
 #include <vector>
-#include <qmap.h>
-#include <qpixmap.h>
-#include <qpixmapcache.h>
-#include <qbitmap.h>
-#include <qpainter.h>
-#include <qimage.h>
-#include <qtimer.h>
-#include <qtooltip.h>
+#include <tqmap.h>
+#include <tqpixmap.h>
+#include <tqpixmapcache.h>
+#include <tqbitmap.h>
+#include <tqpainter.h>
+#include <tqimage.h>
+#include <tqtimer.h>
+#include <tqtooltip.h>
 #include <kdecoration.h>
 #include <kiconeffect.h>
 #include "glowbutton.h"
@@ -37,11 +37,11 @@ namespace Glow
 // PixmapCache
 //-----------------------------------------------------------------------------
 
-QMap<QString, const QPixmap*> PixmapCache::m_pixmapMap;
+TQMap<TQString, const TQPixmap*> PixmapCache::m_pixmapMap;
 
-const QPixmap* PixmapCache::find(const QString& key)
+const TQPixmap* PixmapCache::find(const TQString& key)
 {
-	QMap<QString, const QPixmap*>::const_iterator it =
+	TQMap<TQString, const TQPixmap*>::const_iterator it =
 		m_pixmapMap.find(key);
 	if( it != m_pixmapMap.end() )
 		return *it;
@@ -49,14 +49,14 @@ const QPixmap* PixmapCache::find(const QString& key)
 		return 0;
 }
 
-void PixmapCache::insert(const QString& key, const QPixmap *pixmap)
+void PixmapCache::insert(const TQString& key, const TQPixmap *pixmap)
 {
 	m_pixmapMap[key] = pixmap;
 }
 
-void PixmapCache::erase(const QString& key)
+void PixmapCache::erase(const TQString& key)
 {
-	QMap<QString, const QPixmap*>::iterator it =
+	TQMap<TQString, const TQPixmap*>::iterator it =
 		m_pixmapMap.find(key);
 	if (it != m_pixmapMap.end())
 	{
@@ -68,7 +68,7 @@ void PixmapCache::erase(const QString& key)
 void PixmapCache::clear()
 {
 	// delete all pixmaps in the cache
-	QMap<QString, const QPixmap*>::const_iterator it
+	TQMap<TQString, const TQPixmap*>::const_iterator it
 		= m_pixmapMap.begin();
 	for(; it != m_pixmapMap.end(); ++it)
 		delete *it;
@@ -79,18 +79,18 @@ void PixmapCache::clear()
 // GlowButton
 //-----------------------------------------------------------------------------
 
-GlowButton::GlowButton(QWidget *parent, const char *name,
-	const QString& tip, const int realizeBtns)
-	: QButton(parent, name)
+GlowButton::GlowButton(TQWidget *parent, const char *name,
+	const TQString& tip, const int realizeBtns)
+	: TQButton(parent, name)
 {
 	m_realizeButtons = realizeBtns;
 
 	_steps = 0;
 	m_updateTime = 50;
-	m_pixmapName = QString::null;
+	m_pixmapName = TQString::null;
 
-	m_timer = new QTimer(this);
-	connect(m_timer, SIGNAL(timeout()), this, SLOT(slotTimeout()));
+	m_timer = new TQTimer(this);
+	connect(m_timer, TQT_SIGNAL(timeout()), this, TQT_SLOT(slotTimeout()));
 	m_pos = 0;
 	m_timerStatus = Stop;
 
@@ -102,16 +102,16 @@ GlowButton::~GlowButton()
 {
 }
 
-void GlowButton::setTipText( const QString& tip )
+void GlowButton::setTipText( const TQString& tip )
 {
 	if (KDecoration::options()->showTooltips())
 	{
-	    QToolTip::remove( this );
-	    QToolTip::add( this, tip );
+	    TQToolTip::remove( this );
+	    TQToolTip::add( this, tip );
 	}
 }
 
-QString GlowButton::getPixmapName() const
+TQString GlowButton::getPixmapName() const
 {
 	return m_pixmapName;
 }
@@ -121,11 +121,11 @@ Qt::ButtonState GlowButton::lastButton() const
 	return _last_button;
 }
 
-void GlowButton::setPixmapName(const QString& pixmapName)
+void GlowButton::setPixmapName(const TQString& pixmapName)
 {
 	m_pixmapName = pixmapName;
 
-	const QPixmap *pixmap = PixmapCache::find(pixmapName);
+	const TQPixmap *pixmap = PixmapCache::find(pixmapName);
 	if( ! pixmap )
 		return;
 
@@ -135,18 +135,18 @@ void GlowButton::setPixmapName(const QString& pixmapName)
 	repaint(false);
 }
 
-void GlowButton::paintEvent( QPaintEvent *e )
+void GlowButton::paintEvent( TQPaintEvent *e )
 {
- 	QWidget::paintEvent(e);
-	const QPixmap *pixmap = PixmapCache::find(m_pixmapName);
+ 	TQWidget::paintEvent(e);
+	const TQPixmap *pixmap = PixmapCache::find(m_pixmapName);
 	if( pixmap != 0 )
 	{
 		int pos = m_pos>=0?m_pos:-m_pos;
-		QPainter p;
-		QPixmap pm (pixmap->size());
+		TQPainter p;
+		TQPixmap pm (pixmap->size());
 		p.begin(&pm);
-		const QPixmap * bg_pixmap = PixmapCache::find(
-				QString::number(parentWidget()->winId()));
+		const TQPixmap * bg_pixmap = PixmapCache::find(
+				TQString::number(parentWidget()->winId()));
 		p.drawPixmap (0, 0, *bg_pixmap, x(), y(), width(), height());
 		p.drawPixmap (0, 0, *pixmap, 0, pos*height(), width(), height());
 		p.end();
@@ -156,25 +156,25 @@ void GlowButton::paintEvent( QPaintEvent *e )
 	}
 }
 
-void GlowButton::enterEvent( QEvent *e )
+void GlowButton::enterEvent( TQEvent *e )
 {
 	if( m_pos<0 )
 		m_pos=-m_pos;
 	m_timerStatus = Run;
 	if( ! m_timer->isActive() )
 		m_timer->start(m_updateTime);
-	QButton::enterEvent(e);
+	TQButton::enterEvent(e);
 }
 
-void GlowButton::leaveEvent( QEvent *e )
+void GlowButton::leaveEvent( TQEvent *e )
 {
 	m_timerStatus = Stop;
 	if( ! m_timer->isActive() )
 		m_timer->start(m_updateTime);
-	QButton::leaveEvent(e);
+	TQButton::leaveEvent(e);
 }
 
-void GlowButton::mousePressEvent( QMouseEvent *e )
+void GlowButton::mousePressEvent( TQMouseEvent *e )
 {
 	_last_button = e->button();
 	if( m_timer->isActive() )
@@ -183,24 +183,24 @@ void GlowButton::mousePressEvent( QMouseEvent *e )
 	repaint(false);
 	// without pretending LeftButton, clicking on the button with MidButton
 	// or RightButton would cause unwanted titlebar action
-	QMouseEvent me (e->type(), e->pos(), e->globalPos(),
+	TQMouseEvent me (e->type(), e->pos(), e->globalPos(),
 			(e->button()&m_realizeButtons)?LeftButton:NoButton, e->state());
-	QButton::mousePressEvent(&me);
+	TQButton::mousePressEvent(&me);
 }
 
-void GlowButton::mouseReleaseEvent( QMouseEvent *e )
+void GlowButton::mouseReleaseEvent( TQMouseEvent *e )
 {
 	_last_button = e->button();
-	QPoint p = mapToParent(mapFromGlobal(e->globalPos()));
+	TQPoint p = mapToParent(mapFromGlobal(e->globalPos()));
 	if( ! m_timer->isActive() ) {
 		m_timer->start(m_updateTime);
 	}
 	if( ! geometry().contains(p) ) {
 		m_timerStatus = Stop;
 	}
-	QMouseEvent me (e->type(), e->pos(), e->globalPos(),
+	TQMouseEvent me (e->type(), e->pos(), e->globalPos(),
 			(e->button()&m_realizeButtons)?LeftButton:NoButton, e->state());
-	QButton::mouseReleaseEvent(&me);
+	TQButton::mouseReleaseEvent(&me);
 }
 
 void GlowButton::slotTimeout()
@@ -241,26 +241,26 @@ void GlowButtonFactory::setSteps(int steps)
 	_steps = steps;
 }
 
-QPixmap * GlowButtonFactory::createGlowButtonPixmap(
-				const QImage & bg_image,
-				const QImage & fg_image,
-				const QImage & glow_image,
-				const QColor & color,
-				const QColor & glow_color)
+TQPixmap * GlowButtonFactory::createGlowButtonPixmap(
+				const TQImage & bg_image,
+				const TQImage & fg_image,
+				const TQImage & glow_image,
+				const TQColor & color,
+				const TQColor & glow_color)
 {
 		if (bg_image.size() != fg_image.size()
 			|| fg_image.size() != glow_image.size()) {
 				std::cerr << "Image size error" << std::endl;
-				return new QPixmap();
+				return new TQPixmap();
 		}
 
-		QImage colorized_bg_image = bg_image.copy();
+		TQImage colorized_bg_image = bg_image.copy();
 		KIconEffect::colorize (colorized_bg_image, color, 1.0);
 
 		int w = colorized_bg_image.width();
 		int h = colorized_bg_image.height();
 
-		QImage image (w, (_steps+1)*h, 32);
+		TQImage image (w, (_steps+1)*h, 32);
 		image.setAlphaBuffer (true);
 		for (int i=0; i<_steps+1; ++i) {
 			for (int y=0; y<h; ++y) {
@@ -276,11 +276,11 @@ QPixmap * GlowButtonFactory::createGlowButtonPixmap(
 				}
 			}
 		}
-		QPixmap * pixmap = new QPixmap (image);
-		QPainter painter (pixmap);
+		TQPixmap * pixmap = new TQPixmap (image);
+		TQPainter painter (pixmap);
 
 		bool dark = (qGray(color.rgb()) <= 127);
-		QImage fg_img (w, h, 32);
+		TQImage fg_img (w, h, 32);
 		fg_img.setAlphaBuffer (true);
 		for (int y=0; y<h; ++y) {
 			uint * src_line = (uint*) fg_image.scanLine (y);
@@ -297,7 +297,7 @@ QPixmap * GlowButtonFactory::createGlowButtonPixmap(
 		int r = glow_color.red();
 		int g = glow_color.green();
 		int b = glow_color.blue();
-		QImage glow_img (w, h, 32);
+		TQImage glow_img (w, h, 32);
 		glow_img.setAlphaBuffer (true);
 		for (int i=0; i<_steps; ++i) {
 			painter.drawImage (0, i*h, fg_img);
@@ -327,7 +327,7 @@ QPixmap * GlowButtonFactory::createGlowButtonPixmap(
 }
 
 GlowButton* GlowButtonFactory::createGlowButton(
-	QWidget *parent, const char* name, const QString& tip, const int realizeBtns)
+	TQWidget *parent, const char* name, const TQString& tip, const int realizeBtns)
 {
 	GlowButton *glowButton = new GlowButton(parent, name, tip, realizeBtns);
 	return glowButton;

@@ -37,11 +37,11 @@
 #include <config.h>
 
 #include <stdlib.h>
-#include <qlayout.h>
-#include <qtimer.h>
-#include <qvbox.h>
-#include <qlabel.h>
-#include <qfileinfo.h>
+#include <tqlayout.h>
+#include <tqtimer.h>
+#include <tqvbox.h>
+#include <tqlabel.h>
+#include <tqfileinfo.h>
 
 #include <kdebug.h>
 #include <kapplication.h>
@@ -57,7 +57,7 @@
 #include "kxscontrol.h"
 #include "kxsxml.h"
 
-template class QPtrList<KXSConfigItem>;
+template class TQPtrList<KXSConfigItem>;
 
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
@@ -75,7 +75,7 @@ const uint widgetEventMask =                 // X event mask
        StructureNotifyMask
       );
 
-KXSConfigDialog::KXSConfigDialog(const QString &filename, const QString &name)
+KXSConfigDialog::KXSConfigDialog(const TQString &filename, const TQString &name)
   : KDialogBase(Plain, name, Ok| Cancel, Ok, 0, 0, false),
     mFilename(filename), mPreviewProc(0), mKilled(true)
 {
@@ -91,33 +91,33 @@ KXSConfigDialog::KXSConfigDialog(const QString &filename, const QString &name)
 
 bool KXSConfigDialog::create()
 {
-    QVBoxLayout *topLayout = new QVBoxLayout(plainPage(), spacingHint());
-    QHBoxLayout *layout = new QHBoxLayout(topLayout, spacingHint());
-    QVBox *controlLayout = new QVBox(plainPage());
+    TQVBoxLayout *topLayout = new TQVBoxLayout(plainPage(), spacingHint());
+    TQHBoxLayout *layout = new TQHBoxLayout(topLayout, spacingHint());
+    TQVBox *controlLayout = new TQVBox(plainPage());
     controlLayout->setSpacing(spacingHint());
     layout->addWidget(controlLayout);
-    ((QBoxLayout*)controlLayout->layout())->addStrut(120);
+    ((TQBoxLayout*)controlLayout->layout())->addStrut(120);
 
     KConfig config(mConfigFile);
 
-    QString xmlFile = "/doesntexist";
+    TQString xmlFile = "/doesntexist";
 #ifdef XSCREENSAVER_CONFIG_DIR
     xmlFile = XSCREENSAVER_CONFIG_DIR;
 #endif
 
     xmlFile += "/" + mExeName + ".xml";
-    if ( QFile::exists( xmlFile ) ) {
+    if ( TQFile::exists( xmlFile ) ) {
 	// We can use the xscreensaver xml config files.
 	KXSXml xmlParser(controlLayout);
 	xmlParser.parse( xmlFile );
 	mConfigItemList = *xmlParser.items();
-	QWidget *spacer = new QWidget(controlLayout);
+	TQWidget *spacer = new TQWidget(controlLayout);
 	controlLayout->setStretchFactor(spacer, 1 );
-	QString descr = xmlParser.description();
+	TQString descr = xmlParser.description();
 	if ( !descr.isEmpty() ) {
 	    descr.replace('\n',' ');
 	    descr = descr.simplifyWhiteSpace();
-	    QLabel *l = new QLabel( i18n( descr.utf8() ), plainPage() );
+	    TQLabel *l = new TQLabel( i18n( descr.utf8() ), plainPage() );
 	    l->setAlignment ( WordBreak );
  	    topLayout->addWidget( l );
  	}
@@ -125,10 +125,10 @@ bool KXSConfigDialog::create()
         // fall back to KDE's old config files.
 	int idx = 0;
 	while (true) {
-	    QString group = QString("Arg%1").arg(idx);
+	    TQString group = TQString("Arg%1").arg(idx);
 	    if (config.hasGroup(group)) {
 		config.setGroup(group);
-		QString type = config.readEntry("Type");
+		TQString type = config.readEntry("Type");
 		if (type == "Range") {
 		    KXSRangeControl *rc = new KXSRangeControl(controlLayout, group, config);
 		    mConfigItemList.append(rc);
@@ -154,27 +154,27 @@ bool KXSConfigDialog::create()
 	    return false;
     }
 
-    QPtrListIterator<KXSConfigItem> it( mConfigItemList );
+    TQPtrListIterator<KXSConfigItem> it( mConfigItemList );
     KXSConfigItem *item;
     while ( (item = it.current()) != 0 ) {
 	++it;
 	item->read( config );
-        QWidget *i = dynamic_cast<QWidget*>(item);
+        TQWidget *i = dynamic_cast<TQWidget*>(item);
         if (i) {
-            connect( i, SIGNAL(changed()), SLOT(slotChanged()) );
+            connect( i, TQT_SIGNAL(changed()), TQT_SLOT(slotChanged()) );
         }
     }
 
     mPreviewProc = new KProcess;
-    connect(mPreviewProc, SIGNAL(processExited(KProcess *)),
-	    SLOT(slotPreviewExited(KProcess *)));
+    connect(mPreviewProc, TQT_SIGNAL(processExited(KProcess *)),
+	    TQT_SLOT(slotPreviewExited(KProcess *)));
 
-    mPreviewTimer = new QTimer(this);
-    connect(mPreviewTimer, SIGNAL(timeout()), SLOT(slotNewPreview()));
+    mPreviewTimer = new TQTimer(this);
+    connect(mPreviewTimer, TQT_SIGNAL(timeout()), TQT_SLOT(slotNewPreview()));
 
-    mPreview = new QWidget(plainPage());
+    mPreview = new TQWidget(plainPage());
     mPreview->setFixedSize(250, 200);
-    //  mPreview->setBackgroundMode(QWidget::NoBackground);
+    //  mPreview->setBackgroundMode(TQWidget::NoBackground);
     mPreview->setBackgroundColor(Qt::black);
 
     layout->add(mPreview);
@@ -199,9 +199,9 @@ KXSConfigDialog::~KXSConfigDialog()
 }
 
 //---------------------------------------------------------------------------
-QString KXSConfigDialog::command()
+TQString KXSConfigDialog::command()
 {
-  QString cmd;
+  TQString cmd;
   KXSConfigItem *item;
 
   for (item = mConfigItemList.first(); item != 0; item = mConfigItemList.next())
@@ -218,19 +218,19 @@ void KXSConfigDialog::slotPreviewExited(KProcess *)
     if ( mKilled ) {
 	mKilled = false;
 	mPreviewProc->clearArguments();
-	QString saver;
+	TQString saver;
 	saver.sprintf( "%s -window-id 0x%lX", mFilename.latin1(), long(mPreview->winId()) );
 	saver += command();
 	kdDebug() << "Command: " <<  saver << endl;
 
 	unsigned int i = 0;
-	QString word;
+	TQString word;
 	saver = saver.stripWhiteSpace();
 	while ( !saver[i].isSpace() ) word += saver[i++];
 	//work around a KStandarDirs::findExe() "feature" where it looks in $KDEDIR/bin first no matter what and sometimes finds the wrong executable
-	QFileInfo checkExe;
-	QString saverdir = QString("%1/%2").arg(XSCREENSAVER_HACKS_DIR).arg(word);
-	QString path;
+	TQFileInfo checkExe;
+	TQString saverdir = TQString("%1/%2").arg(XSCREENSAVER_HACKS_DIR).arg(word);
+	TQString path;
 	checkExe.setFile(saverdir);
 	if (checkExe.exists() && checkExe.isExecutable() && checkExe.isFile())
 	{
@@ -260,8 +260,8 @@ void KXSConfigDialog::slotPreviewExited(KProcess *)
 	}
     } else {
 	// stops us from spawning the hack really fast, but still not the best
-	QString path = KStandardDirs::findExe(mFilename, XSCREENSAVER_HACKS_DIR);
-	if ( QFile::exists(path) ) {
+	TQString path = KStandardDirs::findExe(mFilename, XSCREENSAVER_HACKS_DIR);
+	if ( TQFile::exists(path) ) {
 	    mKilled = true;
 	    slotChanged();
 	}
@@ -370,7 +370,7 @@ int main(int argc, char *argv[])
   XtGetApplicationNameAndClass (dpy, const_cast<char**>(&progname),
                                 const_cast<char**>(&progclass));
 
-  QString name = QString::fromLocal8Bit(args->arg(args->count() - 1));
+  TQString name = TQString::fromLocal8Bit(args->arg(args->count() - 1));
   KXSConfigDialog *dialog=new KXSConfigDialog(args->arg(0), name);
   if ( dialog->create() ) {
       dialog->show();

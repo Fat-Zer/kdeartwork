@@ -28,7 +28,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
-#include <qtimer.h>
+#include <tqtimer.h>
 #include "SolarWinds.h"
 #include "SolarWinds.moc"
 
@@ -310,14 +310,14 @@ void wind::update()
 //----------------------------------------------------------------------------
 
 
-SWindsWidget::SWindsWidget( QWidget* parent, const char* name )
-                      : QGLWidget(parent, name), _winds(0)
+SWindsWidget::SWindsWidget( TQWidget* parent, const char* name )
+                      : TQGLWidget(parent, name), _winds(0)
 {
     setDefaults( Regular );
 
     _frameTime = 1000 / 60;
-    _timer = new QTimer( this );
-    connect( _timer, SIGNAL(timeout()), this, SLOT(nextFrame()) );
+    _timer = new TQTimer( this );
+    connect( _timer, TQT_SIGNAL(timeout()), this, TQT_SLOT(nextFrame()) );
 }
 
 
@@ -397,7 +397,7 @@ void SWindsWidget::initializeGL()
 
 
 #ifdef UNIT_TEST
-void SWindsWidget::keyPressEvent( QKeyEvent* e )
+void SWindsWidget::keyPressEvent( TQKeyEvent* e )
 {
     if( e->key() == Qt::Key_0 ) { setDefaults( 0 ); updateParameters(); }
     if( e->key() == Qt::Key_1 ) { setDefaults( 1 ); updateParameters(); }
@@ -603,7 +603,7 @@ extern "C"
         return new KSWindsScreenSaver( id );
     }
 
-    KDE_EXPORT QDialog* kss_setup()
+    KDE_EXPORT TQDialog* kss_setup()
     {
         return new KSWindsSetup;
     }
@@ -664,9 +664,9 @@ void KSWindsScreenSaver::setMode( int id )
 //----------------------------------------------------------------------------
 
 
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qcombobox.h>
+#include <tqlayout.h>
+#include <tqlabel.h>
+#include <tqcombobox.h>
 #include <kmessagebox.h>
 
 
@@ -683,22 +683,22 @@ static const char* defaultText[] =
 };
 
 
-KSWindsSetup::KSWindsSetup( QWidget* parent, const char* name )
+KSWindsSetup::KSWindsSetup( TQWidget* parent, const char* name )
         : KDialogBase( parent, name, true, i18n( "Setup Solar Wind" ),
           Ok|Cancel|Help, Ok, true )
 {
     setButtonText( Help, i18n( "A&bout" ) );
-    QWidget *main = makeMainWidget();
+    TQWidget *main = makeMainWidget();
 
-    QHBoxLayout* top = new QHBoxLayout( main, 0, spacingHint() );
+    TQHBoxLayout* top = new TQHBoxLayout( main, 0, spacingHint() );
 
-    QVBoxLayout* leftCol = new QVBoxLayout;
+    TQVBoxLayout* leftCol = new QVBoxLayout;
     top->addLayout( leftCol );
 
-    QLabel* label = new QLabel( i18n("Mode:"), main );
+    TQLabel* label = new TQLabel( i18n("Mode:"), main );
     leftCol->addWidget( label );
 
-    modeW = new QComboBox( main );
+    modeW = new TQComboBox( main );
     int i = 0;
     while (defaultText[i])
         modeW->insertItem( i18n(defaultText[i++]) );
@@ -707,8 +707,8 @@ KSWindsSetup::KSWindsSetup( QWidget* parent, const char* name )
     leftCol->addStretch();
 
     // Preview
-    QWidget* preview;
-    preview = new QWidget( main );
+    TQWidget* preview;
+    preview = new TQWidget( main );
     preview->setFixedSize( 220, 165 );
     preview->setBackgroundColor( black );
     preview->show();    // otherwise saver does not get correct size
@@ -717,7 +717,7 @@ KSWindsSetup::KSWindsSetup( QWidget* parent, const char* name )
 
     // Now that we have _saver...
     modeW->setCurrentItem( _saver->mode() );    // set before we connect
-    connect( modeW, SIGNAL(activated(int)), _saver, SLOT(setMode(int)) );
+    connect( modeW, TQT_SIGNAL(activated(int)), _saver, TQT_SLOT(setMode(int)) );
 }
 
 
@@ -731,7 +731,7 @@ void KSWindsSetup::slotHelp()
 {
     KMessageBox::about(this,
         i18n("<h3>Solar Winds 1.0</h3>\n<p>Copyright (c) 2002 Terence M. Welsh<br>\n<a href=\"http://www.reallyslick.com/\">http://www.reallyslick.com/</a></p>\n\n<p>Ported to KDE by Karl Robillard</p>"),
-        QString::null, KMessageBox::AllowLink);
+        TQString::null, KMessageBox::AllowLink);
 }
 
 
@@ -743,7 +743,7 @@ void KSWindsSetup::slotOk()
     KConfig* config = KGlobal::config();
     config->setGroup("Settings");
 
-    QString val;
+    TQString val;
     val.setNum( modeW->currentItem() );
     config->writeEntry("Mode", val );
 
@@ -760,11 +760,11 @@ void KSWindsSetup::slotOk()
 // moc SolarWinds.h -o SolarWinds.moc
 // g++ -g -DUNIT_TEST SolarWinds.cpp -I/usr/lib/qt3/include -lqt -L/usr/lib/qt3/lib -lGLU -lGL
 
-#include <qapplication.h>
+#include <tqapplication.h>
 
 int main( int argc, char** argv )
 {
-    QApplication app( argc, argv );
+    TQApplication app( argc, argv );
 
     SWindsWidget w;
     app.setMainWidget( &w );

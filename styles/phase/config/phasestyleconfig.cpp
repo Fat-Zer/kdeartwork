@@ -7,10 +7,10 @@
 // Please see the header file for copyright and license information.
 //////////////////////////////////////////////////////////////////////////////
 
-#include <qsettings.h>
-#include <qcheckbox.h>
-#include <qgroupbox.h>
-#include <qwhatsthis.h>
+#include <tqsettings.h>
+#include <tqcheckbox.h>
+#include <tqgroupbox.h>
+#include <tqwhatsthis.h>
 #include <klocale.h>
 #include <kglobal.h>
 
@@ -26,11 +26,11 @@
 // ----------------
 // Constructor
 
-PhaseStyleConfig::PhaseStyleConfig(QWidget* parent) : StyleDialog(parent)
+PhaseStyleConfig::PhaseStyleConfig(TQWidget* parent) : StyleDialog(parent)
 {
     KGlobal::locale()->insertCatalogue("kstyle_phase_config");
 
-    QSettings settings;
+    TQSettings settings;
     oldgradients =
         settings.readBoolEntry("/phasestyle/Settings/gradients", true);
     gradients->setChecked(oldgradients);
@@ -39,10 +39,10 @@ PhaseStyleConfig::PhaseStyleConfig(QWidget* parent) : StyleDialog(parent)
     highlights->setChecked(oldhighlights);
 
     // connections
-    connect(gradients, SIGNAL(toggled(bool)),
-            this, SLOT(updateChanged()));
-    connect(highlights, SIGNAL(toggled(bool)),
-            this, SLOT(updateChanged()));
+    connect(gradients, TQT_SIGNAL(toggled(bool)),
+            this, TQT_SLOT(updateChanged()));
+    connect(highlights, TQT_SIGNAL(toggled(bool)),
+            this, TQT_SLOT(updateChanged()));
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -79,7 +79,7 @@ void PhaseStyleConfig::updateChanged()
 
 void PhaseStyleConfig::save()
 {
-    QSettings settings;
+    TQSettings settings;
     settings.writeEntry("/phasestyle/Settings/gradients",
                         gradients->isChecked());
     settings.writeEntry("/phasestyle/Settings/highlights",
@@ -103,7 +103,7 @@ void PhaseStyleConfig::defaults()
 
 extern "C"
 {
-    KDE_EXPORT QObject* allocate_kstyle_config(QWidget* parent) {
+    KDE_EXPORT TQObject* allocate_kstyle_config(TQWidget* parent) {
         return(new PhaseStyleConfig(parent));
     }
 }

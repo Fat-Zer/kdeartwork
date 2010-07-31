@@ -11,10 +11,10 @@
 
 #include <math.h>
 #include <stdlib.h>
-#include <qimage.h>
-#include <qgl.h>
-#include <qfile.h>
-#include <qstring.h>
+#include <tqimage.h>
+#include <tqgl.h>
+#include <tqfile.h>
+#include <tqstring.h>
 #include <kdebug.h>
 #include <kstandarddirs.h>
 #include <kdeversion.h>
@@ -24,7 +24,7 @@
 
 /* Word: SINGLE WORD */
 
-Word::Word( const char * _text, QMap<char, Symbol *> * sMap, float _scale )
+Word::Word( const char * _text, TQMap<char, Symbol *> * sMap, float _scale )
     : width(0), scale(_scale), cX(0), cY(0), vScale(0), vX(0), vY(0),
     activateTime(0.0), lifeTime(2), currentTime(0)
 {
@@ -86,7 +86,7 @@ inline bool Word::isDead()
 
 /* Writer: engine that spawns and manages words */
 
-Writer::Writer( QString descFileName )
+Writer::Writer( TQString descFileName )
     : numTextures(0)
 {
 	wordList.setAutoDelete( true );
@@ -94,7 +94,7 @@ Writer::Writer( QString descFileName )
 	if ( !loadMap( descFileName ) )
 		return;
 
-	QString welcomeString = i18n("Welcome to KDE %1.%2.%3")
+	TQString welcomeString = i18n("Welcome to KDE %1.%2.%3")
 	    .arg(KDE_VERSION_MAJOR)
 	    .arg(KDE_VERSION_MINOR)
 	    .arg(KDE_VERSION_RELEASE);
@@ -105,21 +105,21 @@ Writer::~ Writer()
 {
 	glDeleteTextures( numTextures, texArray );
 	wordList.clear();
-	QMap<char, Symbol *>::Iterator it = symbolMap.begin();
+	TQMap<char, Symbol *>::Iterator it = symbolMap.begin();
 	for ( ; it != symbolMap.end(); ++it )
 		delete (Symbol *)it.data();
 }
 
-void Writer::spawnWords( QString phrase, effectType fX )
+void Writer::spawnWords( TQString phrase, effectType fX )
 {
 	int wordCount = 0;
 	float xCenter = 0,
 	      yCenter = drand48()*40 - 20,
 	      wordsWidth = 0;
-	QPtrList<Word> localWords;
+	TQPtrList<Word> localWords;
 	while ( phrase.length() > 0 )
 	{
-		QString letters = phrase.section(" ",0,0);
+		TQString letters = phrase.section(" ",0,0);
 		Word * word = new Word( letters.latin1(), &symbolMap );
 		wordList.append( word );
 		localWords.append( word );
@@ -184,9 +184,9 @@ void Writer::render( double dT )
  *  parses the description file to create the internal symbols map.
  *  This map is then used when building words.
  **/
-bool Writer::loadMap( QString descFile )
+bool Writer::loadMap( TQString descFile )
 {
-    QFile desc( locate("data","kfiresaver/"+descFile) );
+    TQFile desc( locate("data","kfiresaver/"+descFile) );
     if ( !desc.open( IO_ReadOnly ) )
 	return false;
 
@@ -196,7 +196,7 @@ bool Writer::loadMap( QString descFile )
 
     while ( !desc.atEnd() )
     {
-	QString line;
+	TQString line;
 	int count = desc.readLine( line, 100 );
 	//skip comments / invalid lines
 	if ( count < 6 || line.at(0) == '#')
@@ -205,8 +205,8 @@ bool Writer::loadMap( QString descFile )
 	if ( line.at(0) == '"' && numTextures < 15 )
 	{
 	    //load and generate texture
-	    QString fileName = line.section("\"", 1,1 );
-	    QImage tmp;
+	    TQString fileName = line.section("\"", 1,1 );
+	    TQImage tmp;
 	    if ( !tmp.load( locate("data","kfiresaver/"+fileName) ) ) {
 		kdWarning() << "can't load filename:" << fileName << endl;
 		generatedFirst = false;
@@ -217,7 +217,7 @@ bool Writer::loadMap( QString descFile )
 	    glBindTexture(GL_TEXTURE_2D, currentNumber);
 	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 	    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-	    QImage texture = QGLWidget::convertToGLFormat( tmp );
+	    TQImage texture = TQGLWidget::convertToGLFormat( tmp );
 	    xres = (float)texture.width();
 	    yres = (float)texture.height();
 	    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (int)xres, (int)yres, 0,

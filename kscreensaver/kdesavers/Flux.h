@@ -10,7 +10,7 @@
 //============================================================================
 
 
-#include <qgl.h>
+#include <tqgl.h>
 
 
 #define LIGHTSIZE   64
@@ -37,7 +37,7 @@ public:
         DefaultModes
     };
 
-    FluxWidget( QWidget* parent=0, const char* name=0 );
+    FluxWidget( TQWidget* parent=0, const char* name=0 );
     ~FluxWidget();
 
     void setDefaults( int which );
@@ -49,7 +49,7 @@ protected:
     void resizeGL( int w, int h );
     void initializeGL();
 #ifdef UNIT_TEST
-    void keyPressEvent( QKeyEvent* );
+    void keyPressEvent( TQKeyEvent* );
 #endif
 
 private slots:
@@ -80,10 +80,10 @@ private:
 
     flux* _fluxes;
 
-    // Using QTimer rather than timerEvent() to avoid getting locked out of
-    // the QEvent loop on lower-end systems.  Ian Geiser <geiseri@kde.org>
+    // Using TQTimer rather than timerEvent() to avoid getting locked out of
+    // the TQEvent loop on lower-end systems.  Ian Geiser <geiseri@kde.org>
     // says this is the way to go.
-    QTimer* _timer;
+    TQTimer* _timer;
     int _frameTime;
 
     friend class flux;
@@ -128,7 +128,7 @@ class KFluxSetup : public KDialogBase
 
 public:
 
-    KFluxSetup( QWidget* parent = 0, const char* name = 0 );
+    KFluxSetup( TQWidget* parent = 0, const char* name = 0 );
     ~KFluxSetup();
 
 private slots:
@@ -138,7 +138,7 @@ private slots:
 
 private:
 
-    QComboBox* modeW;
+    TQComboBox* modeW;
     KFluxScreenSaver* _saver;
 };
 #endif

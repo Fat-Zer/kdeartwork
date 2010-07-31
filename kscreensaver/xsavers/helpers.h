@@ -1,15 +1,15 @@
 #ifndef __HELPERS__H__
 #define __HELPERS__H__
 
-#include <qwidget.h>
+#include <tqwidget.h>
 #include <kconfig.h>
 
-void min_width(QWidget *);
-void fixed_width(QWidget *);
-void min_height(QWidget *);
-void fixed_height(QWidget *);
-void min_size(QWidget *);
-void fixed_size(QWidget *);
+void min_width(TQWidget *);
+void fixed_width(TQWidget *);
+void min_height(TQWidget *);
+void fixed_height(TQWidget *);
+void min_size(TQWidget *);
+void fixed_size(TQWidget *);
 
 /*
  * Use this to get a KConfig object that uses a reasonable config filename.

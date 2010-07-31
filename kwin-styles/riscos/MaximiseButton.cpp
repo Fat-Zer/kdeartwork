@@ -22,7 +22,7 @@
 
 #include "MaximiseButton.h"
 
-#include <qtooltip.h>
+#include <tqtooltip.h>
 
 namespace RiscOS
 {
@@ -65,25 +65,25 @@ static const char * const unmaximise_xpm[] = {
 "            ",
 "            "};
 
-MaximiseButton::MaximiseButton(QWidget * parent)
+MaximiseButton::MaximiseButton(TQWidget * parent)
   : Button(parent, i18n("Maximize"),
            (ButtonState)(LeftButton|MidButton|RightButton)),
     on_(false)
 {
-   setPixmap(QPixmap((const char **)maximise_xpm));
+   setPixmap(TQPixmap((const char **)maximise_xpm));
 }
 
 void MaximiseButton::setOn(bool on)
 {
    on_ = on;
-   setPixmap(on_ ? QPixmap((const char **)unmaximise_xpm)
-                 : QPixmap((const char **)maximise_xpm));
+   setPixmap(on_ ? TQPixmap((const char **)unmaximise_xpm)
+                 : TQPixmap((const char **)maximise_xpm));
    repaint();
-   QToolTip::remove(this);
-   QToolTip::add(this, on_ ? i18n("Restore") : i18n("Maximize"));
+   TQToolTip::remove(this);
+   TQToolTip::add(this, on_ ? i18n("Restore") : i18n("Maximize"));
 }
 
-void MaximiseButton::mouseReleaseEvent(QMouseEvent *e)
+void MaximiseButton::mouseReleaseEvent(TQMouseEvent *e)
 {
    Button::mouseReleaseEvent(e);
 

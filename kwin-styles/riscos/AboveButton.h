@@ -34,7 +34,7 @@ class AboveButton : public Button
 
    public:
 
-      AboveButton(QWidget *parent);
+      AboveButton(TQWidget *parent);
 
    signals:
 
@@ -42,7 +42,7 @@ class AboveButton : public Button
 
    protected:
 
-      void mouseReleaseEvent(QMouseEvent*);
+      void mouseReleaseEvent(TQMouseEvent*);
 };
 
 } // End namespace

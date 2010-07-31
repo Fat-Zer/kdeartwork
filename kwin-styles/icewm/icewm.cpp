@@ -45,15 +45,15 @@
 #include <kglobal.h>
 #include <klocale.h>
 #include <kdrawutil.h>
-#include <qapplication.h>
-#include <qlabel.h>
-#include <qdrawutil.h>
-#include <qdatetime.h>
-#include <qbitmap.h>
-#include <qcursor.h>
-#include <qstring.h>
-#include <qtooltip.h>
-#include <qregexp.h>
+#include <tqapplication.h>
+#include <tqlabel.h>
+#include <tqdrawutil.h>
+#include <tqdatetime.h>
+#include <tqbitmap.h>
+#include <tqcursor.h>
+#include <tqstring.h>
+#include <tqtooltip.h>
+#include <tqregexp.h>
 #include "icewm.h"
 
 namespace IceWM {
@@ -63,52 +63,52 @@ namespace IceWM {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 // IceWM frame pixmaps
-QPixmap* frameTL[] = {NULL, NULL};
-QPixmap* frameT [] = {NULL, NULL};
-QPixmap* frameTR[] = {NULL, NULL};
-QPixmap* frameL [] = {NULL, NULL};
-QPixmap* frameR [] = {NULL, NULL};
-QPixmap* frameBL[] = {NULL, NULL};
-QPixmap* frameB [] = {NULL, NULL};
-QPixmap* frameBR[] = {NULL, NULL};
+TQPixmap* frameTL[] = {NULL, NULL};
+TQPixmap* frameT [] = {NULL, NULL};
+TQPixmap* frameTR[] = {NULL, NULL};
+TQPixmap* frameL [] = {NULL, NULL};
+TQPixmap* frameR [] = {NULL, NULL};
+TQPixmap* frameBL[] = {NULL, NULL};
+TQPixmap* frameB [] = {NULL, NULL};
+TQPixmap* frameBR[] = {NULL, NULL};
 
 // Button pixmaps
-QPixmap* closePix[]      = {NULL, NULL};
-QPixmap* depthPix[]      = {NULL, NULL};
-QPixmap* maximizePix[]   = {NULL, NULL};
-QPixmap* minimizePix[]   = {NULL, NULL};
-QPixmap* restorePix[]    = {NULL, NULL};
-QPixmap* hidePix[]       = {NULL, NULL};
-QPixmap* rollupPix[]     = {NULL, NULL};
-QPixmap* rolldownPix[]   = {NULL, NULL};
-QPixmap* menuButtonPix[] = {NULL, NULL};
+TQPixmap* closePix[]      = {NULL, NULL};
+TQPixmap* depthPix[]      = {NULL, NULL};
+TQPixmap* maximizePix[]   = {NULL, NULL};
+TQPixmap* minimizePix[]   = {NULL, NULL};
+TQPixmap* restorePix[]    = {NULL, NULL};
+TQPixmap* hidePix[]       = {NULL, NULL};
+TQPixmap* rollupPix[]     = {NULL, NULL};
+TQPixmap* rolldownPix[]   = {NULL, NULL};
+TQPixmap* menuButtonPix[] = {NULL, NULL};
 
 // Titlebar pixmaps
-QPixmap* titleJ[] = {NULL, NULL};
-QPixmap* titleL[] = {NULL, NULL};
-QPixmap* titleS[] = {NULL, NULL};
-QPixmap* titleP[] = {NULL, NULL};
-QPixmap* titleT[] = {NULL, NULL};
-QPixmap* titleM[] = {NULL, NULL};
-QPixmap* titleB[] = {NULL, NULL};
-QPixmap* titleR[] = {NULL, NULL};
-QPixmap* titleQ[] = {NULL, NULL};
+TQPixmap* titleJ[] = {NULL, NULL};
+TQPixmap* titleL[] = {NULL, NULL};
+TQPixmap* titleS[] = {NULL, NULL};
+TQPixmap* titleP[] = {NULL, NULL};
+TQPixmap* titleT[] = {NULL, NULL};
+TQPixmap* titleM[] = {NULL, NULL};
+TQPixmap* titleB[] = {NULL, NULL};
+TQPixmap* titleR[] = {NULL, NULL};
+TQPixmap* titleQ[] = {NULL, NULL};
 
 ThemeHandler* clientHandler;
 
-QString* titleButtonsLeft;
-QString* titleButtonsRight;
+TQString* titleButtonsLeft;
+TQString* titleButtonsRight;
 
-QColor* colorActiveBorder;
-QColor* colorInActiveBorder;
-QColor* colorActiveButton;
-QColor* colorInActiveButton;
-QColor* colorActiveTitleBarText;
-QColor* colorInActiveTitleBarText;
-QColor* colorActiveTitleBar;
-QColor* colorInActiveTitleBar;
-QColor* colorActiveTitleTextShadow;
-QColor* colorInActiveTitleTextShadow;
+TQColor* colorActiveBorder;
+TQColor* colorInActiveBorder;
+TQColor* colorActiveButton;
+TQColor* colorInActiveButton;
+TQColor* colorActiveTitleBarText;
+TQColor* colorInActiveTitleBarText;
+TQColor* colorActiveTitleBar;
+TQColor* colorInActiveTitleBar;
+TQColor* colorActiveTitleTextShadow;
+TQColor* colorInActiveTitleTextShadow;
 
 int  cornerSizeX;
 int  cornerSizeY;
@@ -136,7 +136,7 @@ enum styles {OTHER, WARP3, WARP4, MOTIF, WIN95, NICE} themeLook;
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 // Returns true if both active and inactive pixmaps are valid, and not null
-bool validPixmaps( QPixmap* p[] )
+bool validPixmaps( TQPixmap* p[] )
 {
 	return ( p[Active]   && ( !p[Active]->isNull()   ) &&
 			 p[InActive] && ( !p[InActive]->isNull() ) );
@@ -156,19 +156,19 @@ ThemeHandler::ThemeHandler()
 	initialized = false;
 
 	// Prevent having globals objects (use pointers to objects)
-	titleButtonsLeft 	= new QString();
-	titleButtonsRight 	= new QString();
+	titleButtonsLeft 	= new TQString();
+	titleButtonsRight 	= new TQString();
 
-	colorActiveBorder 			= new QColor();
-	colorInActiveBorder 		= new QColor();
-	colorActiveButton 	        = new QColor();
-	colorInActiveButton 		= new QColor();
-	colorActiveTitleBarText 	= new QColor();
-	colorInActiveTitleBarText	= new QColor();
-	colorActiveTitleBar 		= new QColor();
-	colorInActiveTitleBar 		= new QColor();
-	colorActiveTitleTextShadow	= new QColor();
-	colorInActiveTitleTextShadow = new QColor();
+	colorActiveBorder 			= new TQColor();
+	colorInActiveBorder 		= new TQColor();
+	colorActiveButton 	        = new TQColor();
+	colorInActiveButton 		= new TQColor();
+	colorActiveTitleBarText 	= new TQColor();
+	colorInActiveTitleBarText	= new TQColor();
+	colorActiveTitleBar 		= new TQColor();
+	colorInActiveTitleBar 		= new TQColor();
+	colorActiveTitleTextShadow	= new TQColor();
+	colorInActiveTitleTextShadow = new TQColor();
 
 	// Initialize
 	readConfig();
@@ -206,25 +206,25 @@ KDecoration* ThemeHandler::createDecoration( KDecorationBridge* bridge )
 
 
 // Converts KDE style button strings to icewm style button strings
-void ThemeHandler::convertButtons( QString& s )
+void ThemeHandler::convertButtons( TQString& s )
 {
-	s.replace( QRegExp("_"), "");	// Spacer	(ignored)
-	s.replace( QRegExp("H"), "");	// Help		(ignored)
-	s.replace( QRegExp("M"), "s");	// Sysmenu
-	s.replace( QRegExp("S"), "d");	// Sticky/OnAllDesktops
-	s.replace( QRegExp("I"), "i");	// Minimize
-	s.replace( QRegExp("A"), "m");	// Maximize
-	s.replace( QRegExp("X"), "x");	// Close
+	s.replace( TQRegExp("_"), "");	// Spacer	(ignored)
+	s.replace( TQRegExp("H"), "");	// Help		(ignored)
+	s.replace( TQRegExp("M"), "s");	// Sysmenu
+	s.replace( TQRegExp("S"), "d");	// Sticky/OnAllDesktops
+	s.replace( TQRegExp("I"), "i");	// Minimize
+	s.replace( TQRegExp("A"), "m");	// Maximize
+	s.replace( TQRegExp("X"), "x");	// Close
 }
 
 
 // Reverses all characters in a QString
-QString ThemeHandler::reverseString( QString s )
+TQString ThemeHandler::reverseString( TQString s )
 {
 	if (s.length() <= 1)
 		return s;
 
-	QString tmpStr;
+	TQString tmpStr;
 	for(int i = s.length()-1; i >= 0; i--)
 	{
 		tmpStr += s[(unsigned int)i];
@@ -271,8 +271,8 @@ void ThemeHandler::initTheme()
 
 	// We use kconfig to read icewm config files...
 	// this is easy since icewm uses key=value pairs!
-	KConfig config( locate("data", QString("kwin/icewm-themes/") +
-					themeName + QString("default.theme")) );
+	KConfig config( locate("data", TQString("kwin/icewm-themes/") +
+					themeName + TQString("default.theme")) );
 
 	// Load specifics, or use IceWM defaults instead.
 	borderSizeX = config.readNumEntry("BorderSizeX", 6);
@@ -292,9 +292,9 @@ void ThemeHandler::initTheme()
 		// Ignore on all desktops 'd' on the left buttons
 		// (some themes look bad with it on by default)
 		*titleButtonsLeft = config.readEntry("TitleButtonsLeft", "s");
-		*titleButtonsLeft = titleButtonsLeft->replace( QRegExp(QString("\"")), "");
+		*titleButtonsLeft = titleButtonsLeft->replace( TQRegExp(TQString("\"")), "");
 		*titleButtonsRight = config.readEntry("TitleButtonsRight", "xmir");
-		*titleButtonsRight = titleButtonsRight->replace( QRegExp(QString("\"")), "");
+		*titleButtonsRight = titleButtonsRight->replace( TQRegExp(TQString("\"")), "");
 
 		// I have no idea why the right side buttons in icewm are reversed
 		*titleButtonsRight = reverseString( *titleButtonsRight );
@@ -302,7 +302,7 @@ void ThemeHandler::initTheme()
 
 	// Read the default border and text colours from the config file
 	// And use IceWM defaults if not found
-	QString s;
+	TQString s;
 
 	s = config.readEntry("Look", "other");
 	if (s=="motif") themeLook = MOTIF;
@@ -433,16 +433,16 @@ void ThemeHandler::initTheme()
 }
 
 
-QPixmap* ThemeHandler::duplicateValidPixmap( bool act, int size )
+TQPixmap* ThemeHandler::duplicateValidPixmap( bool act, int size )
 {
-	QPixmap* p1 = NULL;
+	TQPixmap* p1 = NULL;
 	// Use the stretch or title pixmaps instead
 	if ( titleS[act] )
-		p1 = new QPixmap( *titleS[act] );
+		p1 = new TQPixmap( *titleS[act] );
 	else if ( titleB[act] )
-		p1 = new QPixmap( *titleB[act] );
+		p1 = new TQPixmap( *titleB[act] );
 	else if ( titleT[act] )
-		p1 = new QPixmap( *titleT[act] );
+		p1 = new TQPixmap( *titleT[act] );
 
 	// Stretch if required
 	if ( (size != -1) && p1 && (!p1->isNull()) )
@@ -487,7 +487,7 @@ void ThemeHandler::freePixmaps()
 
 
 // Frees a dynamic pixmap group from the heap.
-void ThemeHandler::freePixmapGroup( QPixmap* p[] )
+void ThemeHandler::freePixmapGroup( TQPixmap* p[] )
 {
 	if (p)
 	{
@@ -496,35 +496,35 @@ void ThemeHandler::freePixmapGroup( QPixmap* p[] )
 		p[Active] = NULL;
 		p[InActive] = NULL;
 	} else
-		qWarning("kwin-icewm: freePixmapGroup - invalid QPixmap** 'p'\n");
+		qWarning("kwin-icewm: freePixmapGroup - invalid TQPixmap** 'p'\n");
 }
 
 
 // Converts icewm colors #C0C0C0 or rgb:C0/C0/C0 to QColors
-QColor ThemeHandler::decodeColor( QString& s )
+TQColor ThemeHandler::decodeColor( TQString& s )
 {
 	// Make rgb:C0/C0/C0, or #C0/C0/C0  -> C0C0C0
-	s.replace( QRegExp("r"), "");
-	s.replace( QRegExp("g"), "");
-	s.replace( QRegExp("b"), "");
-	s.replace( QRegExp("#"), "");
-	s.replace( QRegExp("/"), "");
-	s.replace( QRegExp(":"), "");
-	s.replace( QRegExp("\\"), "");
-	s.replace( QRegExp("\""), "");
+	s.replace( TQRegExp("r"), "");
+	s.replace( TQRegExp("g"), "");
+	s.replace( TQRegExp("b"), "");
+	s.replace( TQRegExp("#"), "");
+	s.replace( TQRegExp("/"), "");
+	s.replace( TQRegExp(":"), "");
+	s.replace( TQRegExp("\\"), "");
+	s.replace( TQRegExp("\""), "");
 
 	// Wierd error - return grey
 	if (s.length() != 6)
-		return QColor( 0xC0, 0xC0, 0xC0 );
+		return TQColor( 0xC0, 0xC0, 0xC0 );
 
 	// Qt makes this conversion very easy
-	return QColor( QString("#") + s );
+	return TQColor( TQString("#") + s );
 }
 
 
 // Stretches tiny pixmaps vertically or horizontally, taking into account
 // repetition in patterns, so as not to make them mismatched
-QPixmap* ThemeHandler::stretchPixmap( QPixmap* src, bool stretchHoriz, int stretchSize )
+TQPixmap* ThemeHandler::stretchPixmap( TQPixmap* src, bool stretchHoriz, int stretchSize )
 {
 	if (!src) return NULL;
 	if (src->isNull()) return NULL;
@@ -549,13 +549,13 @@ QPixmap* ThemeHandler::stretchPixmap( QPixmap* src, bool stretchHoriz, int stret
 	} else
 		size = stretchSize;
 
-	QPixmap* p = new QPixmap();
+	TQPixmap* p = new TQPixmap();
 	if ( stretchHoriz )
 		p->resize( size, src->height() );
 	else
 		p->resize( src->width(), size );
 
-	QPainter pnt( p );
+	TQPainter pnt( p );
 	if ( stretchHoriz )
 		pnt.drawTiledPixmap( 0, 0, size, src->height(), *src);
 	else
@@ -566,9 +566,9 @@ QPixmap* ThemeHandler::stretchPixmap( QPixmap* src, bool stretchHoriz, int stret
 	return p;
 }
 
-static void draw3DRect(QPainter &pnt, QColor &col, int x, int y, int w, int h, bool up) {
-	QColor light = col.light(135);
-	QColor dark = col.dark(140);
+static void draw3DRect(TQPainter &pnt, TQColor &col, int x, int y, int w, int h, bool up) {
+	TQColor light = col.light(135);
+	TQColor dark = col.dark(140);
 	pnt.setPen(up ? light : dark);
 	pnt.drawLine(x, y, x+w, y);
 	pnt.drawLine(x, y, x, y+h);
@@ -580,30 +580,30 @@ static void draw3DRect(QPainter &pnt, QColor &col, int x, int y, int w, int h, b
 	pnt.drawPoint(x, y+h);
 }
 
-void ThemeHandler::setPixmapButton( QPixmap* p[], QString s1, QString s2)
+void ThemeHandler::setPixmapButton( TQPixmap* p[], TQString s1, TQString s2)
 {
 	if ( p[Active] )
 		qWarning("kwin-icewm: setPixmap - should be null (1)\n");
 	if ( p[InActive] )
 		qWarning("kwin-icewm: setPixmap - should be null (2)\n");
 
-	QString str = locate("appdata", QString("icewm-themes/")
+	TQString str = locate("appdata", TQString("icewm-themes/")
 				+ themeName + s1 + "A" + s2);
 	if (str.isEmpty())
-		str = locate("appdata", QString("icewm-themes/")
+		str = locate("appdata", TQString("icewm-themes/")
 				+ themeName + s1 + s2);
 
-        QPixmap *qp = new QPixmap(str);
-	QColor cActive = themeLook == WIN95 ? *colorActiveTitleBar : *colorActiveButton;
-	QColor cInActive = themeLook == WIN95 ? *colorInActiveTitleBar : *colorInActiveButton;
+        TQPixmap *qp = new TQPixmap(str);
+	TQColor cActive = themeLook == WIN95 ? *colorActiveTitleBar : *colorActiveButton;
+	TQColor cInActive = themeLook == WIN95 ? *colorInActiveTitleBar : *colorInActiveButton;
 
 	if (!qp->isNull() && themeLook > 0) {
 		int w = qp->width();
 		if (themeLook > 0 && titleBarHeight > w) w = titleBarHeight;
-		p[Active] = new QPixmap(w, 2*titleBarHeight );
+		p[Active] = new TQPixmap(w, 2*titleBarHeight );
 		p[Active] -> fill(cActive);
 
-		QPainter pnt( p[Active] );
+		TQPainter pnt( p[Active] );
 
 		int offX = (w - qp->width())/2;
 		int offY = (titleBarHeight - qp->height())/2;
@@ -631,20 +631,20 @@ void ThemeHandler::setPixmapButton( QPixmap* p[], QString s1, QString s2)
 		p[Active] = qp;
 	}
 
-	str = locate("appdata", QString("icewm-themes/")
+	str = locate("appdata", TQString("icewm-themes/")
 		     + themeName + s1 + "I" + s2);
 	if (str.isEmpty())
-		str = locate("appdata", QString("icewm-themes/")
+		str = locate("appdata", TQString("icewm-themes/")
 			     + themeName + s1 + s2);
 
-        qp = new QPixmap(str);
+        qp = new TQPixmap(str);
 	if (!qp->isNull() && themeLook > 0) {
 		int w = qp->width();
 		if (titleBarHeight > w) w = titleBarHeight;
-		p[InActive] = new QPixmap(w, 2*titleBarHeight );
+		p[InActive] = new TQPixmap(w, 2*titleBarHeight );
 		p[InActive] -> fill(cInActive);
 
-		QPainter pnt( p[InActive] );
+		TQPainter pnt( p[InActive] );
 
 		int offX = (w - qp->width())/2;
 		int offY = (titleBarHeight - qp->height())/2;
@@ -678,7 +678,7 @@ void ThemeHandler::setPixmapButton( QPixmap* p[], QString s1, QString s2)
 // Loads the specified Active/InActive files into the specific pixmaps, and
 // can perform horizontal / vertical stretching if required for speed.
 // Tries to implement some icewm specific pixmap handling for some dodgy themes
-void ThemeHandler::setPixmap( QPixmap* p[], QString s1, QString s2,
+void ThemeHandler::setPixmap( TQPixmap* p[], TQString s1, TQString s2,
 							  bool stretch, bool stretchHoriz )
 {
 	if ( p[Active] )
@@ -686,9 +686,9 @@ void ThemeHandler::setPixmap( QPixmap* p[], QString s1, QString s2,
 	if ( p[InActive] )
 		qWarning("kwin-icewm: setPixmap - should be null (2)\n");
 
-	p[Active]   = new QPixmap( locate("data", QString("kwin/icewm-themes/")
+	p[Active]   = new TQPixmap( locate("data", TQString("kwin/icewm-themes/")
 								+ themeName + s1 + "A" + s2) );
-	p[InActive] = new QPixmap( locate("data", QString("kwin/icewm-themes/")
+	p[InActive] = new TQPixmap( locate("data", TQString("kwin/icewm-themes/")
 								+ themeName + s1 + "I" + s2) );
 
 	// Stretch the pixmap if requested.
@@ -761,15 +761,15 @@ bool ThemeHandler::supports( Ability ability )
 // IceWM button class
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-IceWMButton::IceWMButton(IceWMClient *parent, const char *name, QPixmap* (*p)[2],
-	  bool isToggle, const QString& tip, const int realizeBtns )
-    : QButton(parent->widget(), name)
+IceWMButton::IceWMButton(IceWMClient *parent, const char *name, TQPixmap* (*p)[2],
+	  bool isToggle, const TQString& tip, const int realizeBtns )
+    : TQButton(parent->widget(), name)
 {
 	m_realizeButtons = realizeBtns;
 	setTipText(tip);
 	setCursor(ArrowCursor);
 	// Eliminate any possible background flicker
-	setBackgroundMode( QWidget::NoBackground );
+	setBackgroundMode( TQWidget::NoBackground );
 	client = parent;
 	usePixmap( p );
 	setFixedSize( sizeHint() );
@@ -777,27 +777,27 @@ IceWMButton::IceWMButton(IceWMClient *parent, const char *name, QPixmap* (*p)[2]
 }
 
 
-void IceWMButton::setTipText(const QString &tip) {
+void IceWMButton::setTipText(const TQString &tip) {
 	if(KDecoration::options()->showTooltips()) {
-		QToolTip::remove(this );
-		QToolTip::add(this, tip );
+		TQToolTip::remove(this );
+		TQToolTip::add(this, tip );
 	}
 }
 
 
-QSize IceWMButton::sizeHint() const
+TQSize IceWMButton::sizeHint() const
 {
 	// Check for invalid data
-	if ( validPixmaps( (QPixmap**) (*pix) ) )  // Cast to avoid dumb warning
+	if ( validPixmaps( (TQPixmap**) (*pix) ) )  // Cast to avoid dumb warning
 	{
-		QPixmap* p = (*pix)[ client->isActive() ? Active : InActive ];
-		return( QSize(p->width(), titleBarHeight) );
+		TQPixmap* p = (*pix)[ client->isActive() ? Active : InActive ];
+		return( TQSize(p->width(), titleBarHeight) );
 	} else
-		return( QSize(0, 0) );
+		return( TQSize(0, 0) );
 }
 
 
-void IceWMButton::usePixmap( QPixmap* (*p)[2] )
+void IceWMButton::usePixmap( TQPixmap* (*p)[2] )
 {
 	if (validPixmaps( *p )) {
 		pix = p;
@@ -808,11 +808,11 @@ void IceWMButton::usePixmap( QPixmap* (*p)[2] )
 }
 
 
-void IceWMButton::drawButton(QPainter *pnt)
+void IceWMButton::drawButton(TQPainter *pnt)
 {
 	if ( pix && validPixmaps(*pix) )
 	{
-		QPixmap* p = (*pix)[ client->isActive() ? Active : InActive ];
+		TQPixmap* p = (*pix)[ client->isActive() ? Active : InActive ];
 
 		if( p && (!p->isNull()) )
 		{
@@ -836,21 +836,21 @@ void IceWMButton::turnOn( bool isOn )
 }
 
 
-void IceWMButton::mousePressEvent( QMouseEvent* e )
+void IceWMButton::mousePressEvent( TQMouseEvent* e )
 {
 	last_button = e->button();
-	QMouseEvent me ( e->type(), e->pos(), e->globalPos(),
+	TQMouseEvent me ( e->type(), e->pos(), e->globalPos(),
 					 (e->button()&m_realizeButtons)?LeftButton:NoButton, e->state() );
-	QButton::mousePressEvent( &me );
+	TQButton::mousePressEvent( &me );
 }
 
 
-void IceWMButton::mouseReleaseEvent( QMouseEvent* e )
+void IceWMButton::mouseReleaseEvent( TQMouseEvent* e )
 {
 	last_button = e->button();
-	QMouseEvent me ( e->type(), e->pos(), e->globalPos(),
+	TQMouseEvent me ( e->type(), e->pos(), e->globalPos(),
 					 (e->button()&m_realizeButtons)?LeftButton:NoButton, e->state() );
-	QButton::mouseReleaseEvent( &me );
+	TQButton::mouseReleaseEvent( &me );
 }
 
 
@@ -893,26 +893,26 @@ void IceWMClient::init()
 	widget()->setBackgroundMode( NoBackground );
 
 	// Pack the windowWrapper() window within a grid layout
-	grid = new QGridLayout(widget(), 0, 0, 0);
-	grid->setResizeMode(QLayout::FreeResize);
+	grid = new TQGridLayout(widget(), 0, 0, 0);
+	grid->setResizeMode(TQLayout::FreeResize);
 	grid->addRowSpacing(0, borderSizeY);	// Top grab bar
 
 	// Do something IceWM can't do :)
 	if (titleBarOnTop) {
         	if( isPreview())
-			grid->addWidget( new QLabel( i18n( "<center><b>IceWM preview</b></center>" ), widget() ), 2, 1);
+			grid->addWidget( new TQLabel( i18n( "<center><b>IceWM preview</b></center>" ), widget() ), 2, 1);
                 else
-			grid->addItem( new QSpacerItem( 0, 0 ), 2, 1);
+			grid->addItem( new TQSpacerItem( 0, 0 ), 2, 1);
 		// no shade flicker
-    	grid->addItem( new QSpacerItem( 0, 0, QSizePolicy::Fixed,									   QSizePolicy::Expanding ) );
+    	grid->addItem( new TQSpacerItem( 0, 0, TQSizePolicy::Fixed,									   TQSizePolicy::Expanding ) );
     }
 	else {
 		// no shade flicker
-    	grid->addItem( new QSpacerItem( 0, 0, QSizePolicy::Fixed,									   QSizePolicy::Expanding ) );
+    	grid->addItem( new TQSpacerItem( 0, 0, TQSizePolicy::Fixed,									   TQSizePolicy::Expanding ) );
         	if( isPreview())
-			grid->addWidget( new QLabel( i18n( "<center><b>IceWM preview</b></center>" ), widget() ), 1, 1);
+			grid->addWidget( new TQLabel( i18n( "<center><b>IceWM preview</b></center>" ), widget() ), 1, 1);
                 else
-			grid->addItem( new QSpacerItem( 0, 0 ), 1, 1);
+			grid->addItem( new TQSpacerItem( 0, 0 ), 1, 1);
     }
 
 	grid->setRowStretch(1, 10);
@@ -923,8 +923,8 @@ void IceWMClient::init()
 	grid->addColSpacing(2, borderSizeX);
 
 	// Pack the titlebar with spacers and buttons
-	hb = new QBoxLayout(0, QBoxLayout::LeftToRight, 0, 0, 0);
-	hb->setResizeMode( QLayout::FreeResize );
+	hb = new TQBoxLayout(0, TQBoxLayout::LeftToRight, 0, 0, 0);
+	hb->setResizeMode( TQLayout::FreeResize );
 
 	titleSpacerJ = addPixmapSpacer( titleJ );
 
@@ -932,17 +932,17 @@ void IceWMClient::init()
 	titleSpacerL = addPixmapSpacer( titleL );
 
 	// Centre titlebar if required.
-	QSizePolicy::SizeType spTitleBar;
-	spTitleBar = titleBarCentered ? QSizePolicy::Expanding : QSizePolicy::Maximum;
+	TQSizePolicy::SizeType spTitleBar;
+	spTitleBar = titleBarCentered ? TQSizePolicy::Expanding : TQSizePolicy::Maximum;
 	titleSpacerS = addPixmapSpacer( titleS, spTitleBar, 1 );
 	titleSpacerP = addPixmapSpacer( titleP );
 
-	titlebar = new QSpacerItem( titleTextWidth(caption()), titleBarHeight,
-								QSizePolicy::Preferred, QSizePolicy::Fixed );
+	titlebar = new TQSpacerItem( titleTextWidth(caption()), titleBarHeight,
+								TQSizePolicy::Preferred, TQSizePolicy::Fixed );
 	hb->addItem(titlebar);
 
 	titleSpacerM = addPixmapSpacer( titleM );
-	titleSpacerB = addPixmapSpacer( titleB, QSizePolicy::Expanding, 1 );
+	titleSpacerB = addPixmapSpacer( titleB, TQSizePolicy::Expanding, 1 );
 	titleSpacerR = addPixmapSpacer( titleR );
 
 	addClientButtons( *titleButtonsRight );
@@ -958,7 +958,7 @@ void IceWMClient::init()
 
 // Adds the buttons to the hbox layout as per the buttons specified
 // in the button string 's'
-void IceWMClient::addClientButtons( const QString& s )
+void IceWMClient::addClientButtons( const TQString& s )
 {
 	if (!s.isEmpty())
 		for(unsigned int i = 0; i < s.length(); i++)
@@ -979,10 +979,10 @@ void IceWMClient::addClientButtons( const QString& s )
 							button[BtnSysMenu] = new IceWMButton(this, "menu",
 								&menuButtonPix, false, i18n("Menu"));
 
-						connect( button[BtnSysMenu], SIGNAL(pressed()),
-								 this, SLOT(menuButtonPressed()));
-						connect( button[BtnSysMenu], SIGNAL(released()),
-								 this, SLOT(menuButtonReleased()));
+						connect( button[BtnSysMenu], TQT_SIGNAL(pressed()),
+								 this, TQT_SLOT(menuButtonPressed()));
+						connect( button[BtnSysMenu], TQT_SIGNAL(released()),
+								 this, TQT_SLOT(menuButtonReleased()));
 						hb->addWidget( button[BtnSysMenu] );
 					}
 					break;
@@ -993,8 +993,8 @@ void IceWMClient::addClientButtons( const QString& s )
 						button[BtnClose] = new IceWMButton(this, "close",
 								&closePix, false, i18n("Close"));
 						hb->addWidget( button[BtnClose] );
-						connect( button[BtnClose], SIGNAL(clicked()),
-								 this, SLOT(closeWindow()));
+						connect( button[BtnClose], TQT_SIGNAL(clicked()),
+								 this, TQT_SLOT(closeWindow()));
 					}
 					break;
 
@@ -1004,8 +1004,8 @@ void IceWMClient::addClientButtons( const QString& s )
 						button[BtnMaximize] = new IceWMButton(this, "maximize",
 								&maximizePix, false, i18n("Maximize"), LeftButton|MidButton|RightButton);
 						hb->addWidget( button[BtnMaximize] );
-						connect( button[BtnMaximize], SIGNAL(clicked()),
-								 this, SLOT(slotMaximize()));
+						connect( button[BtnMaximize], TQT_SIGNAL(clicked()),
+								 this, TQT_SLOT(slotMaximize()));
 					}
 					break;
 
@@ -1016,8 +1016,8 @@ void IceWMClient::addClientButtons( const QString& s )
 						button[BtnMinimize] = new IceWMButton(this, "minimize",
 								&minimizePix, false, i18n("Minimize"));
 						hb->addWidget( button[BtnMinimize] );
-						connect( button[BtnMinimize], SIGNAL(clicked()),
-								 this, SLOT(minimize()));
+						connect( button[BtnMinimize], TQT_SIGNAL(clicked()),
+								 this, TQT_SLOT(minimize()));
 					}
 					break;
 
@@ -1035,8 +1035,8 @@ void IceWMClient::addClientButtons( const QString& s )
 							isSetShade() ? &rolldownPix : &rollupPix,
 										    false, i18n("Rollup"));
 						hb->addWidget( button[BtnRollup] );
-						connect( button[BtnRollup], SIGNAL(clicked()),
-								 this, SLOT(toggleShade()));
+						connect( button[BtnRollup], TQT_SIGNAL(clicked()),
+								 this, TQT_SLOT(toggleShade()));
 					}
 					break;
 
@@ -1048,8 +1048,8 @@ void IceWMClient::addClientButtons( const QString& s )
 								&depthPix, true, isOnAllDesktops()?i18n("Not on all desktops"):i18n("On all desktops"));
 						button[BtnDepth]->turnOn( isOnAllDesktops() );
 						hb->addWidget( button[BtnDepth] );
-						connect( button[BtnDepth], SIGNAL(clicked()),
-								 this, SLOT(toggleOnAllDesktops()));
+						connect( button[BtnDepth], TQT_SIGNAL(clicked()),
+								 this, TQT_SLOT(toggleOnAllDesktops()));
 					}
 					break;
 			}
@@ -1058,18 +1058,18 @@ void IceWMClient::addClientButtons( const QString& s )
 
 
 // Adds a pixmap to the titlebar layout via the use of a nice QSpacerItem
-QSpacerItem* IceWMClient::addPixmapSpacer( QPixmap* p[], QSizePolicy::SizeType s, int hsize )
+TQSpacerItem* IceWMClient::addPixmapSpacer( TQPixmap* p[], TQSizePolicy::SizeType s, int hsize )
 {
-	QSpacerItem* sp;
+	TQSpacerItem* sp;
 
 	// Add a null spacer for zero image
 	if ( p && p[Active] )
 	{
 		int w = (hsize == -1) ? p[Active]->width(): hsize;
-		sp = new QSpacerItem( w, titleBarHeight, s, QSizePolicy::Fixed );
+		sp = new TQSpacerItem( w, titleBarHeight, s, TQSizePolicy::Fixed );
 	}
 	else
-		sp = new QSpacerItem(0, 0, QSizePolicy::Maximum, QSizePolicy::Fixed );
+		sp = new TQSpacerItem(0, 0, TQSizePolicy::Maximum, TQSizePolicy::Fixed );
 
 	hb->addItem( sp );
 	return sp;
@@ -1078,7 +1078,7 @@ QSpacerItem* IceWMClient::addPixmapSpacer( QPixmap* p[], QSizePolicy::SizeType s
 
 void IceWMClient::renderMenuIcons()
 {
-	QPixmap miniIcon( icon().pixmap( QIconSet::Small, QIconSet::Normal) );
+	TQPixmap miniIcon( icon().pixmap( TQIconSet::Small, TQIconSet::Normal) );
 
 	if (!miniIcon.isNull())
 	         for(int i = 0; i < 2; i++) {
@@ -1090,12 +1090,12 @@ void IceWMClient::renderMenuIcons()
                        int w = titleBarHeight;
                        if (validPixmaps(menuButtonPix) && menuButtonPix[i]->width() > w)
                                w = menuButtonPix[i]->width();
-                       menuButtonWithIconPix[i] = new QPixmap(w, 2*titleBarHeight );
+                       menuButtonWithIconPix[i] = new TQPixmap(w, 2*titleBarHeight );
                        if (themeLook != WIN95)
                                menuButtonWithIconPix[i] -> fill((i==0) ? *colorInActiveButton : *colorActiveButton);
                        else
                                menuButtonWithIconPix[i] -> fill((i==0) ? *colorInActiveTitleBar : *colorActiveTitleBar);
-                       QPainter pnt( menuButtonWithIconPix[i] );
+                       TQPainter pnt( menuButtonWithIconPix[i] );
 
                        if (themeLook > 0 && themeLook != WIN95 && themeLook != WARP4) {
                                draw3DRect(pnt, *colorActiveButton, 0, 0,
@@ -1127,11 +1127,11 @@ void IceWMClient::toggleShade()
         setShade(!isSetShade());
 }
 
-int IceWMClient::titleTextWidth( const QString& s )
+int IceWMClient::titleTextWidth( const TQString& s )
 {
 	// Obtains the actual width of the text, using the titlebar font
-	QSize size;
-	QFontMetrics fm( options()->font(true) );
+	TQSize size;
+	TQFontMetrics fm( options()->font(true) );
 	size = fm.size( 0, s );
 	return size.width();
 }
@@ -1151,20 +1151,20 @@ void IceWMClient::borders(int& left, int& right, int& top, int& bottom) const
 }
 
 
-void IceWMClient::resize( const QSize& s )
+void IceWMClient::resize( const TQSize& s )
 {
 	widget()->resize( s );
 }
 
 
-QSize IceWMClient::minimumSize() const
+TQSize IceWMClient::minimumSize() const
 {
 	return widget()->minimumSize();
 }
 
 
 // Repaint nicely upon resize to minimise flicker.
-void IceWMClient::resizeEvent( QResizeEvent* e )
+void IceWMClient::resizeEvent( TQResizeEvent* e )
 {
 	calcHiddenButtons();
 
@@ -1186,8 +1186,8 @@ void IceWMClient::resizeEvent( QResizeEvent* e )
 		if ( dx )
 		{
 			widget()->update( width() - dx + 1, 0, dx, height() );
-			widget()->update( QRect( QPoint(4,4), titlebar->geometry().bottomLeft() - QPoint(1,0) ) );
-			widget()->update( QRect( titlebar->geometry().topRight(), QPoint( width() - 4, titlebar->geometry().bottom() ) ) );
+			widget()->update( TQRect( TQPoint(4,4), titlebar->geometry().bottomLeft() - TQPoint(1,0) ) );
+			widget()->update( TQRect( titlebar->geometry().topRight(), TQPoint( width() - 4, titlebar->geometry().bottom() ) ) );
 			widget()->repaint(titlebar->geometry(), false);
 		}
 	}
@@ -1195,14 +1195,14 @@ void IceWMClient::resizeEvent( QResizeEvent* e )
 
 
 // IceWM Paint magic goes here.
-void IceWMClient::paintEvent( QPaintEvent* )
+void IceWMClient::paintEvent( TQPaintEvent* )
 {
-	QColor colorTitleShadow;
-	QColor colorTitle;
-	QColor c1;
+	TQColor colorTitleShadow;
+	TQColor colorTitle;
+	TQColor c1;
 	int rx, rw;
 
-	QPainter p( widget() );
+	TQPainter p( widget() );
 	int act = isActive() ? Active: InActive;
 
 	// Determine titlebar shadow colors
@@ -1216,7 +1216,7 @@ void IceWMClient::paintEvent( QPaintEvent* )
 		colorTitle = options()->color(ColorFont, isActive());
 
 	// Obtain widget bounds.
-	QRect r;
+	TQRect r;
 	r = widget()->rect();
 	int fillWidth  = r.width()  - 2*borderSizeX;
 	int y = r.y();
@@ -1373,8 +1373,8 @@ void IceWMClient::paintEvent( QPaintEvent* )
 	// Draw the title elements, if we need to draw a titlebar.
 	if (titleBarHeight > 0)
 	{
-		QPixmap* titleBuffer = new QPixmap( width()-(2*borderSizeX), titleBarHeight );
-		QPainter p2( titleBuffer, this );
+		TQPixmap* titleBuffer = new TQPixmap( width()-(2*borderSizeX), titleBarHeight );
+		TQPainter p2( titleBuffer, this );
 		titleBuffer->fill( act ? *colorActiveTitleBar : *colorInActiveTitleBar );
 
 		r = titleSpacerJ->geometry();
@@ -1439,24 +1439,24 @@ void IceWMClient::paintEvent( QPaintEvent* )
 }
 
 
-void IceWMClient::showEvent(QShowEvent *ev)
+void IceWMClient::showEvent(TQShowEvent *ev)
 {
 	calcHiddenButtons();
 
 	titlebar->changeSize( titleTextWidth(caption()), titleBarHeight,
-						  QSizePolicy::Preferred, QSizePolicy::Fixed );
+						  TQSizePolicy::Preferred, TQSizePolicy::Fixed );
 	grid->activate();
 	widget()->show();
 	IceWMClient::showEvent(ev);
 }
 
 
-void IceWMClient::mouseDoubleClickEvent( QMouseEvent * e )
+void IceWMClient::mouseDoubleClickEvent( TQMouseEvent * e )
 {
 	if( e->button() != LeftButton )
 		return;
 
-	QRect r;
+	TQRect r;
 	if (titleBarOnTop)
 		r.setRect( borderSizeX, borderSizeY, width()-(2*borderSizeX), titleBarHeight);
 	else
@@ -1469,9 +1469,9 @@ void IceWMClient::mouseDoubleClickEvent( QMouseEvent * e )
 }
 
 
-void IceWMClient::wheelEvent(QWheelEvent *e)
+void IceWMClient::wheelEvent(TQWheelEvent *e)
 {
-	if (isSetShade() || QRect( 0, 0, width(), titleBarHeight ).contains( e->pos() ) )
+	if (isSetShade() || TQRect( 0, 0, width(), titleBarHeight ).contains( e->pos() ) )
 		titlebarMouseWheelOperation( e->delta());
 }
 
@@ -1506,10 +1506,10 @@ void IceWMClient::desktopChange()
 // Please don't modify the following unless you want layout problems
 void IceWMClient::captionChange()
 {
-	QRect r( 0, borderSizeY, geometry().width(), titleBarHeight);
+	TQRect r( 0, borderSizeY, geometry().width(), titleBarHeight);
 
 	titlebar->changeSize( titleTextWidth( caption() ), titleBarHeight,
-						  QSizePolicy::Preferred, QSizePolicy::Fixed );
+						  TQSizePolicy::Preferred, TQSizePolicy::Fixed );
 	titlebar->invalidate();
     grid->activate();
     widget()->repaint( r, false );
@@ -1592,7 +1592,7 @@ void IceWMClient::calcHiddenButtons()
 
 
 // Mouse position code modified from that in workspace.cpp
-IceWMClient::Position IceWMClient::mousePosition( const QPoint& p ) const
+IceWMClient::Position IceWMClient::mousePosition( const TQPoint& p ) const
 {
     int rangeX = cornerSizeX;
     int rangeY = cornerSizeY;
@@ -1629,9 +1629,9 @@ IceWMClient::Position IceWMClient::mousePosition( const QPoint& p ) const
 
 void IceWMClient::menuButtonPressed()
 {
-	static QTime t;
+	static TQTime t;
 	static IceWMClient* lastClient = NULL;
-	bool dbl = ( lastClient == this && t.elapsed() <= QApplication::doubleClickInterval());
+	bool dbl = ( lastClient == this && t.elapsed() <= TQApplication::doubleClickInterval());
 	lastClient = this;
 	t.start();
 
@@ -1641,7 +1641,7 @@ void IceWMClient::menuButtonPressed()
 		return;
     }
 
-	QPoint menuPoint ( button[BtnSysMenu]->rect().bottomLeft() );
+	TQPoint menuPoint ( button[BtnSysMenu]->rect().bottomLeft() );
 
 	// Move to right if menu on rhs, otherwise on left
 	// and make this depend on windowWrapper(), not button.
@@ -1659,26 +1659,26 @@ void IceWMClient::menuButtonReleased()
 		closeWindow();
 }
 
-bool IceWMClient::eventFilter( QObject* o, QEvent* e )
+bool IceWMClient::eventFilter( TQObject* o, TQEvent* e )
 {
 	if( o != widget())
 	return false;
 	switch( e->type())
 	{
-	case QEvent::Resize:
-		resizeEvent(static_cast< QResizeEvent* >( e ) );
+	case TQEvent::Resize:
+		resizeEvent(static_cast< TQResizeEvent* >( e ) );
 		return true;
-	case QEvent::Paint:
-		paintEvent(static_cast< QPaintEvent* >( e ) );
+	case TQEvent::Paint:
+		paintEvent(static_cast< TQPaintEvent* >( e ) );
 		return true;
-	case QEvent::MouseButtonDblClick:
-		mouseDoubleClickEvent(static_cast< QMouseEvent* >( e ) );
+	case TQEvent::MouseButtonDblClick:
+		mouseDoubleClickEvent(static_cast< TQMouseEvent* >( e ) );
 		return true;
-	case QEvent::MouseButtonPress:
-		processMousePressEvent(static_cast< QMouseEvent* >( e ) );
+	case TQEvent::MouseButtonPress:
+		processMousePressEvent(static_cast< TQMouseEvent* >( e ) );
 		return true;
-	case QEvent::Wheel:
-		wheelEvent( static_cast< QWheelEvent* >( e ));
+	case TQEvent::Wheel:
+		wheelEvent( static_cast< TQWheelEvent* >( e ));
 		return true;
 	default:
 		break;

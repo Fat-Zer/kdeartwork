@@ -11,9 +11,9 @@
 #include <config.h>
 #include <stdlib.h>
 #include <time.h>
-#include <qcolor.h>
-#include <qlabel.h>
-#include <qslider.h>
+#include <tqcolor.h>
+#include <tqlabel.h>
+#include <tqslider.h>
 #include <kconfig.h>
 #include <kapplication.h>
 #include <kmessagebox.h>
@@ -23,10 +23,10 @@
 #include "lines.h"
 #include "lines.moc"
 
-#include <qlayout.h>
+#include <tqlayout.h>
 #include <klocale.h>
 #include <kglobal.h>
-#include <qpainter.h>
+#include <tqpainter.h>
 
 #define MAXLENGTH	256
 
@@ -42,7 +42,7 @@ extern "C"
         return new kLinesSaver( id );
     }
 
-    KDE_EXPORT QDialog *kss_setup()
+    KDE_EXPORT TQDialog *kss_setup()
     {
         return new kLinesSetup();
     }
@@ -112,66 +112,66 @@ void Lines::turn(const int& w, const int& h){
 //-----------------------------------------------------------------------------
 // dialog to setup screen saver parameters
 //
-kLinesSetup::kLinesSetup(QWidget *parent, const char *name)
+kLinesSetup::kLinesSetup(TQWidget *parent, const char *name)
 	: KDialogBase(parent, name, true, i18n( "Setup Lines Screen Saver" ),
 	  Ok|Cancel|Help, Ok, true ), saver( 0 ), length( 10 ), speed( 50 )
 {
 	readSettings();
 
 	setButtonText( Help, i18n( "A&bout" ) );
-	QWidget *main = makeMainWidget();
+	TQWidget *main = makeMainWidget();
 
-	QHBoxLayout *tl = new QHBoxLayout(main, 0, spacingHint());
-	QVBoxLayout *tl1 = new QVBoxLayout;
+	TQHBoxLayout *tl = new TQHBoxLayout(main, 0, spacingHint());
+	TQVBoxLayout *tl1 = new QVBoxLayout;
 	tl->addLayout(tl1);
 
-	QLabel *label=new QLabel(i18n("Length:"), main);
+	TQLabel *label=new TQLabel(i18n("Length:"), main);
 	tl1->addWidget(label);
 
-	QSlider *sb= new QSlider(1, MAXLENGTH+1, 16, length, QSlider::Horizontal,
+	TQSlider *sb= new TQSlider(1, MAXLENGTH+1, 16, length, TQSlider::Horizontal,
 		main);
 	sb->setMinimumSize(120, 20);
-	sb->setTickmarks(QSlider::Below);
+	sb->setTickmarks(TQSlider::Below);
 	sb->setTickInterval(32);
-	connect(sb, SIGNAL(valueChanged(int)), SLOT(slotLength(int)));
+	connect(sb, TQT_SIGNAL(valueChanged(int)), TQT_SLOT(slotLength(int)));
 	tl1->addWidget(sb);
 
-	label=new QLabel(i18n("Speed:"), main);
+	label=new TQLabel(i18n("Speed:"), main);
 	tl1->addWidget(label);
 
-	sb = new QSlider(0, 100, 10, speed, QSlider::Horizontal, main);
+	sb = new TQSlider(0, 100, 10, speed, TQSlider::Horizontal, main);
 	sb->setMinimumSize(120, 20);
-	sb->setTickmarks(QSlider::Below);
+	sb->setTickmarks(TQSlider::Below);
 	sb->setTickInterval(10);
-	connect( sb, SIGNAL( valueChanged( int ) ), SLOT( slotSpeed( int ) ) );
+	connect( sb, TQT_SIGNAL( valueChanged( int ) ), TQT_SLOT( slotSpeed( int ) ) );
 	tl1->addWidget(sb);
 
-	label=new QLabel(i18n("Beginning:"), main);
+	label=new TQLabel(i18n("Beginning:"), main);
 	tl1->addWidget(label);
 
 	colorPush0=new KColorButton(colstart, main);
-	connect(colorPush0, SIGNAL(changed(const QColor &)),
-		SLOT(slotColstart(const QColor &)));
+	connect(colorPush0, TQT_SIGNAL(changed(const TQColor &)),
+		TQT_SLOT(slotColstart(const TQColor &)));
 	tl1->addWidget(colorPush0);
 
-	label=new QLabel(i18n("Middle:"), main);
+	label=new TQLabel(i18n("Middle:"), main);
 	tl1->addWidget(label);
 
 	colorPush1=new KColorButton(colmid, main);
-	connect(colorPush1, SIGNAL(changed(const QColor &)),
-		SLOT(slotColmid(const QColor &)));
+	connect(colorPush1, TQT_SIGNAL(changed(const TQColor &)),
+		TQT_SLOT(slotColmid(const TQColor &)));
 	tl1->addWidget(colorPush1);
 
-	label=new QLabel(i18n("End:"), main);
+	label=new TQLabel(i18n("End:"), main);
 	tl1->addWidget(label);
 
 	colorPush2=new KColorButton(colend, main);
-	connect(colorPush2, SIGNAL(changed(const QColor &)),
-		SLOT(slotColend(const QColor &)));
+	connect(colorPush2, TQT_SIGNAL(changed(const TQColor &)),
+		TQT_SLOT(slotColend(const TQColor &)));
 	tl1->addWidget(colorPush2);
 	tl1->addStretch();
 
-	preview = new QWidget( main );
+	preview = new TQWidget( main );
 	preview->setFixedSize( 220, 170 );
 	preview->setBackgroundColor( black );
 	preview->show();    // otherwise saver does not get correct size
@@ -189,7 +189,7 @@ void kLinesSetup::readSettings(){
     KConfig *config = KGlobal::config();
     config->setGroup( "Settings" );
 
-    QString str;
+    TQString str;
 
     length = config->readNumEntry("Length", length);
     if(length>MAXLENGTH) length=MAXLENGTH;
@@ -220,17 +220,17 @@ void kLinesSetup::slotSpeed(int num){
 	if(saver) saver->setSpeed(speed);
 }
 
-void kLinesSetup::slotColstart(const QColor &col){
+void kLinesSetup::slotColstart(const TQColor &col){
     colstart = col;
     if(saver) saver->setColor(colstart, colmid, colend);
 }
 
-void kLinesSetup::slotColmid(const QColor &col){
+void kLinesSetup::slotColmid(const TQColor &col){
     colmid = col;
     if(saver) saver->setColor(colstart, colmid, colend);
 }
 
-void kLinesSetup::slotColend(const QColor &col){
+void kLinesSetup::slotColend(const TQColor &col){
     colend = col;
     if(saver) saver->setColor(colstart, colmid, colend);
 }
@@ -247,15 +247,15 @@ void kLinesSetup::slotOk(){
     KConfig *config = KGlobal::config();
     config->setGroup("Settings");
 
-    QString slength;
+    TQString slength;
     slength.setNum(length);
     config->writeEntry("Length", slength);
 
-    QString sspeed;
+    TQString sspeed;
     sspeed.setNum( speed );
     config->writeEntry( "Speed", sspeed );
 
-    QString colName0, colName1, colName2;
+    TQString colName0, colName1, colName2;
     colName0.sprintf("#%02x%02x%02x", colstart.red(),
 		     colstart.green(), colstart.blue() );
     config->writeEntry( "StartColor", colName0 );
@@ -278,18 +278,18 @@ void kLinesSetup::slotOk(){
 kLinesSaver::kLinesSaver( WId id ) : KScreenSaver( id ){
 	readSettings();
 	lines=new Lines(numLines);
-	colorContext=QColor::enterAllocContext();
+	colorContext=TQColor::enterAllocContext();
 	blank();
 	initialiseColor();
 	initialiseLines();
 	timer.start(speed);
-	connect(&timer, SIGNAL(timeout()), SLOT(slotTimeout()));
+	connect(&timer, TQT_SIGNAL(timeout()), TQT_SLOT(slotTimeout()));
 }
 
 kLinesSaver::~kLinesSaver(){
 	timer.stop();
-	QColor::leaveAllocContext();
-	QColor::destroyAllocContext(colorContext);
+	TQColor::leaveAllocContext();
+	TQColor::destroyAllocContext(colorContext);
 	delete lines;
 }
 
@@ -310,7 +310,7 @@ void kLinesSaver::setSpeed(int spd){
 	timer.start(speed);
 }
 
-void kLinesSaver::setColor(const QColor& cs, const QColor& cm, const QColor& ce){
+void kLinesSaver::setColor(const TQColor& cs, const TQColor& cm, const TQColor& ce){
 	colstart=cs;
 	colmid=cm;
 	colend=ce;
@@ -339,7 +339,7 @@ void kLinesSaver::slotTimeout(){
 	int col=0;
 
 	lines->reset();
-    QPainter p( this );
+    TQPainter p( this );
     p.setPen( black );
 
 	for(i=0; i<numLines; i++){

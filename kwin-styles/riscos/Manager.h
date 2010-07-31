@@ -23,7 +23,7 @@
 #ifndef RISC_OS_MANAGER_H
 #define RISC_OS_MANAGER_H
 
-#include <qdict.h>
+#include <tqdict.h>
 #include <kdecoration.h>
 #include <kdecorationfactory.h>
 
@@ -51,11 +51,11 @@ class Manager : public KDecoration
       Manager(KDecorationBridge*, KDecorationFactory*);
       ~Manager();
       void init();
-      bool eventFilter(QObject*, QEvent*);
+      bool eventFilter(TQObject*, TQEvent*);
       void reset(unsigned long changed);
       void borders(int&, int&, int&, int&) const;
-      void resize(const QSize&);
-      QSize minimumSize() const;
+      void resize(const TQSize&);
+      TQSize minimumSize() const;
       void activeChange();
       void captionChange();
       void iconChange();
@@ -78,14 +78,14 @@ class Manager : public KDecoration
 
    protected:
 
-      KDecoration::Position mousePosition(const QPoint &) const;
-      void paletteChange(const QPalette &);
+      KDecoration::Position mousePosition(const TQPoint &) const;
+      void paletteChange(const TQPalette &);
       void activeChange(bool);
       void stickyChange(bool);
-      void paintEvent(QPaintEvent *);
-      void resizeEvent(QResizeEvent *);
-      void mouseDoubleClickEvent(QMouseEvent *);
-      void wheelEvent(QWheelEvent *e);
+      void paintEvent(TQPaintEvent *);
+      void resizeEvent(TQResizeEvent *);
+      void mouseDoubleClickEvent(TQMouseEvent *);
+      void wheelEvent(TQWheelEvent *e);
       bool animateMinimize(bool);
       void updateButtonVisibility();
       void updateTitleBuffer();
@@ -95,16 +95,16 @@ class Manager : public KDecoration
 
    private:
 
-      QVBoxLayout       *topLayout_;
-      QBoxLayout        *titleLayout_;
-      QSpacerItem       *titleSpacer_;
+      TQVBoxLayout       *topLayout_;
+      TQBoxLayout        *titleLayout_;
+      TQSpacerItem       *titleSpacer_;
 
-      QPixmap           titleBuf_;
-      QPtrList<Button>  leftButtonList_;
-      QPtrList<Button>  rightButtonList_;
+      TQPixmap           titleBuf_;
+      TQPtrList<Button>  leftButtonList_;
+      TQPtrList<Button>  rightButtonList_;
 };
 
-class Factory : public QObject, public KDecorationFactory
+class Factory : public TQObject, public KDecorationFactory
 {
    Q_OBJECT
 

@@ -33,12 +33,12 @@
 /* for AIX at least */
 #include <time.h>
 
-#include <qcolor.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qslider.h>
-#include <qpainter.h>
-#include <qbitmap.h>
+#include <tqcolor.h>
+#include <tqlabel.h>
+#include <tqlayout.h>
+#include <tqslider.h>
+#include <tqpainter.h>
+#include <tqbitmap.h>
 
 #include <kapplication.h>
 #include <kconfig.h>
@@ -70,7 +70,7 @@ extern "C"
         return new kVmSaver( id );
     }
 
-    KDE_EXPORT QDialog *kss_setup()
+    KDE_EXPORT TQDialog *kss_setup()
     {
         return new kVmSetup();
     }
@@ -81,13 +81,13 @@ extern "C"
 static void
 load_images (m_state *state)
 {
-  if ( QPixmap::defaultDepth() > 1 )
+  if ( TQPixmap::defaultDepth() > 1 )
     {
-      state->images = QPixmap( vm );
+      state->images = TQPixmap( vm );
     }
   else
     {
-      state->images = QBitmap( vm_width, vm_height, vm_bits );
+      state->images = TQBitmap( vm_width, vm_height, vm_bits );
     }
   state->image_width = state->images.width();
   state->image_height = state->images.height();
@@ -96,7 +96,7 @@ load_images (m_state *state)
 
 
 static m_state *
-init_pool ( QWidget *w )
+init_pool ( TQWidget *w )
 {
   m_state *state = new m_state;
   state->w = w;
@@ -165,7 +165,7 @@ draw_pool (m_state *state)
         if( state->show_threads )
          if( state->modified[index] == 1 )
           pos_x += 2;
-          QPainter p(state->w);
+          TQPainter p(state->w);
           p.setPen( Qt::green );
           p.setBrush( Qt::black );
           p.drawPixmap( state->grid_margin_x + x*state->char_width,
@@ -184,7 +184,7 @@ kVmSaver::kVmSaver( WId id ) : KScreenSaver( id )
 {
 	readSettings();
 
-    colorContext = QColor::enterAllocContext();
+    colorContext = TQColor::enterAllocContext();
 
 	blank();
         setSpeed( speed );
@@ -194,7 +194,7 @@ kVmSaver::kVmSaver( WId id ) : KScreenSaver( id )
 
         pool_state = init_pool( this );
         vm_default_initstate( time(0), &(pool_state->pool->vm_random_data) );
-	connect( &timer, SIGNAL( timeout() ), SLOT( slotTimeout() ) );
+	connect( &timer, TQT_SIGNAL( timeout() ), TQT_SLOT( slotTimeout() ) );
         timer.start( 100 - speed );
 }
 
@@ -203,8 +203,8 @@ kVmSaver::~kVmSaver()
 	timer.stop();
         vm_done_pool( pool_state->pool );
         delete[] pool_state->modified;
-	QColor::leaveAllocContext();
-	QColor::destroyAllocContext( colorContext );
+	TQColor::leaveAllocContext();
+	TQColor::destroyAllocContext( colorContext );
 }
 
 void kVmSaver::blank()
@@ -273,49 +273,49 @@ void kVmSaver::slotTimeout()
 
 //-----------------------------------------------------------------------------
 
-kVmSetup::kVmSetup( QWidget *parent, const char *name )
+kVmSetup::kVmSetup( TQWidget *parent, const char *name )
 	: KDialogBase( parent, name, true, i18n( "Setup Virtual Machine" ),
 	  Ok|Cancel|Help, Ok, true )
 {
 	readSettings();
 
 	setButtonText( Help, i18n( "A&bout" ) );
-	QWidget *main = makeMainWidget();
+	TQWidget *main = makeMainWidget();
 
-	QHBoxLayout *tl = new QHBoxLayout( main, 0, spacingHint() );
-	QVBoxLayout *tl1 = new QVBoxLayout();
+	TQHBoxLayout *tl = new TQHBoxLayout( main, 0, spacingHint() );
+	TQVBoxLayout *tl1 = new TQVBoxLayout();
 	tl->addLayout(tl1);
 
-	QLabel *label = new QLabel( i18n("Virtual machine speed:"), main );
+	TQLabel *label = new TQLabel( i18n("Virtual machine speed:"), main );
 	tl1->addWidget(label);
 
-	QSlider *slider = new QSlider( QSlider::Horizontal, main );
+	TQSlider *slider = new TQSlider( TQSlider::Horizontal, main );
 	slider->setMinimumSize( 120, 20 );
 	slider->setRange( 0, 100 );
 	slider->setSteps( 10, 20 );
-	slider->setTickmarks( QSlider::Below );
+	slider->setTickmarks( TQSlider::Below );
 	slider->setTickInterval( 10 );
 	slider->setValue( speed );
-	connect( slider, SIGNAL( valueChanged( int ) ),
-		 SLOT( slotSpeed( int ) ) );
+	connect( slider, TQT_SIGNAL( valueChanged( int ) ),
+		 TQT_SLOT( slotSpeed( int ) ) );
 	tl1->addWidget(slider);
 
-	label = new QLabel( i18n("Display update speed:"), main );
+	label = new TQLabel( i18n("Display update speed:"), main );
 	tl1->addWidget(label);
 
-	slider = new QSlider( QSlider::Horizontal, main );
+	slider = new TQSlider( TQSlider::Horizontal, main );
 	slider->setMinimumSize( 120, 20 );
 	slider->setRange( 0, MAX_REFRESH_TIMEOUT );
 	slider->setSteps( MAX_REFRESH_TIMEOUT/10, MAX_REFRESH_TIMEOUT/5 );
-	slider->setTickmarks( QSlider::Below );
+	slider->setTickmarks( TQSlider::Below );
 	slider->setTickInterval( MAX_REFRESH_TIMEOUT/10 );
 	slider->setValue( MAX_REFRESH_TIMEOUT - refreshTimeout );
-	connect( slider, SIGNAL( valueChanged( int ) ),
-		 SLOT( slotRefreshTimeout( int ) ) );
+	connect( slider, TQT_SIGNAL( valueChanged( int ) ),
+		 TQT_SLOT( slotRefreshTimeout( int ) ) );
 	tl1->addWidget(slider);
 	tl1->addStretch();
 
-	preview = new QWidget( main );
+	preview = new TQWidget( main );
 	preview->setFixedSize( 220, 165 );
 	preview->show();    // otherwise saver does not get correct size
 	saver = new kVmSaver( preview->winId() );
@@ -362,7 +362,7 @@ void kVmSetup::slotOk()
 	KConfig *config = KGlobal::config();
 	config->setGroup( "Settings" );
 
-	QString sspeed;
+	TQString sspeed;
 	sspeed.setNum( speed );
 	config->writeEntry( "Speed", sspeed );
 	sspeed.setNum( refreshTimeout );

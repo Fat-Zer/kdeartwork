@@ -19,63 +19,63 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#include <qlabel.h>
-#include <qslider.h>
-#include <qlayout.h>
-#include <qcombobox.h>
-#include <qlineedit.h>
-#include <qspinbox.h>
-#include <qpushbutton.h>
-#include <qxml.h>
+#include <tqlabel.h>
+#include <tqslider.h>
+#include <tqlayout.h>
+#include <tqcombobox.h>
+#include <tqlineedit.h>
+#include <tqspinbox.h>
+#include <tqpushbutton.h>
+#include <tqxml.h>
 #include <klocale.h>
 #include <kfiledialog.h>
 #include "kxscontrol.h"
 
 //===========================================================================
-KXSRangeControl::KXSRangeControl(QWidget *parent, const QString &name,
+KXSRangeControl::KXSRangeControl(TQWidget *parent, const TQString &name,
                                   KConfig &config)
-  : QWidget(parent), KXSRangeItem(name, config), mSlider(0), mSpinBox(0)
+  : TQWidget(parent), KXSRangeItem(name, config), mSlider(0), mSpinBox(0)
 {
-  QVBoxLayout *l = new QVBoxLayout(this);
-  QLabel *label = new QLabel(mLabel, this);
+  TQVBoxLayout *l = new TQVBoxLayout(this);
+  TQLabel *label = new TQLabel(mLabel, this);
   l->add(label);
-  mSlider = new QSlider(mMinimum, mMaximum, 10, mValue, Qt::Horizontal, this);
-  connect(mSlider, SIGNAL(valueChanged(int)), SLOT(slotValueChanged(int)));
+  mSlider = new TQSlider(mMinimum, mMaximum, 10, mValue, Qt::Horizontal, this);
+  connect(mSlider, TQT_SIGNAL(valueChanged(int)), TQT_SLOT(slotValueChanged(int)));
   l->add(mSlider);
 }
 
-KXSRangeControl::KXSRangeControl(QWidget *parent, const QString &name,
-                                  const QXmlAttributes &attr )
-  : QWidget(parent), KXSRangeItem(name, attr), mSlider(0), mSpinBox(0)
+KXSRangeControl::KXSRangeControl(TQWidget *parent, const TQString &name,
+                                  const TQXmlAttributes &attr )
+  : TQWidget(parent), KXSRangeItem(name, attr), mSlider(0), mSpinBox(0)
 {
     if (attr.value("type") == "spinbutton" ) {
-	QHBoxLayout *hb = new QHBoxLayout(this);
+	TQHBoxLayout *hb = new TQHBoxLayout(this);
 	if (!mLabel.isEmpty()) {
-            QLabel *l = new QLabel(i18n(mLabel.utf8()), this);
+            TQLabel *l = new TQLabel(i18n(mLabel.utf8()), this);
 	    hb->add(l);
 	}
-	mSpinBox = new QSpinBox(mMinimum, mMaximum, 1, this);
+	mSpinBox = new TQSpinBox(mMinimum, mMaximum, 1, this);
 	mSpinBox->setValue(mValue);
-	connect(mSpinBox, SIGNAL(valueChanged(int)), SLOT(slotValueChanged(int)));
+	connect(mSpinBox, TQT_SIGNAL(valueChanged(int)), TQT_SLOT(slotValueChanged(int)));
 	hb->add(mSpinBox);
     } else {
-	QString lowLabel = attr.value("_low-label");
-	QString highLabel = attr.value("_high-label");
-	QVBoxLayout *vb = new QVBoxLayout(this);
+	TQString lowLabel = attr.value("_low-label");
+	TQString highLabel = attr.value("_high-label");
+	TQVBoxLayout *vb = new TQVBoxLayout(this);
 	if (!mLabel.isEmpty()) {
-            QLabel *l = new QLabel(i18n(mLabel.utf8()), this);
+            TQLabel *l = new TQLabel(i18n(mLabel.utf8()), this);
 	    vb->add(l);
 	}
-	QHBoxLayout *hb = new QHBoxLayout(vb);
+	TQHBoxLayout *hb = new TQHBoxLayout(vb);
 	if (!lowLabel.isEmpty()) {
-            QLabel *l = new QLabel(i18n(lowLabel.utf8()), this);
+            TQLabel *l = new TQLabel(i18n(lowLabel.utf8()), this);
 	    hb->addWidget(l);
 	}
-	mSlider = new QSlider(mMinimum, mMaximum, 10, mValue, Qt::Horizontal, this);
-	connect(mSlider, SIGNAL(valueChanged(int)), SLOT(slotValueChanged(int)));
+	mSlider = new TQSlider(mMinimum, mMaximum, 10, mValue, Qt::Horizontal, this);
+	connect(mSlider, TQT_SIGNAL(valueChanged(int)), TQT_SLOT(slotValueChanged(int)));
 	hb->add(mSlider);
 	if (!highLabel.isEmpty()){
-            QLabel *l = new QLabel(i18n(highLabel.utf8()), this);
+            TQLabel *l = new TQLabel(i18n(highLabel.utf8()), this);
 	    hb->addWidget(l);
 	}
     }
@@ -97,43 +97,43 @@ void KXSRangeControl::read(KConfig &config)
 }
 
 //===========================================================================
-KXSDoubleRangeControl::KXSDoubleRangeControl(QWidget *parent,
-                                  const QString &name, KConfig &config)
-  : QWidget(parent), KXSDoubleRangeItem(name, config)
+KXSDoubleRangeControl::KXSDoubleRangeControl(TQWidget *parent,
+                                  const TQString &name, KConfig &config)
+  : TQWidget(parent), KXSDoubleRangeItem(name, config)
 {
-  QVBoxLayout *l = new QVBoxLayout(this);
-  QLabel *label = new QLabel(mLabel, this);
+  TQVBoxLayout *l = new TQVBoxLayout(this);
+  TQLabel *label = new TQLabel(mLabel, this);
   l->add(label);
 
   int value = int((mValue - mMinimum) * 100 / (mMaximum - mMinimum));
 
-  mSlider = new QSlider(0, 100, 10, value, Qt::Horizontal, this);
-  connect(mSlider, SIGNAL(valueChanged(int)), SLOT(slotValueChanged(int)));
+  mSlider = new TQSlider(0, 100, 10, value, Qt::Horizontal, this);
+  connect(mSlider, TQT_SIGNAL(valueChanged(int)), TQT_SLOT(slotValueChanged(int)));
   l->add(mSlider);
 }
 
-KXSDoubleRangeControl::KXSDoubleRangeControl(QWidget *parent,
-                                  const QString &name, const QXmlAttributes &attr)
-  : QWidget(parent), KXSDoubleRangeItem(name, attr)
+KXSDoubleRangeControl::KXSDoubleRangeControl(TQWidget *parent,
+                                  const TQString &name, const TQXmlAttributes &attr)
+  : TQWidget(parent), KXSDoubleRangeItem(name, attr)
 {
-    QString lowLabel = attr.value("_low-label");
-    QString highLabel = attr.value("_high-label");
-    QVBoxLayout *vb = new QVBoxLayout(this);
+    TQString lowLabel = attr.value("_low-label");
+    TQString highLabel = attr.value("_high-label");
+    TQVBoxLayout *vb = new TQVBoxLayout(this);
     if (!mLabel.isEmpty()) {
-        QLabel *l = new QLabel(i18n(mLabel.utf8()), this);
+        TQLabel *l = new TQLabel(i18n(mLabel.utf8()), this);
 	vb->add(l);
     }
-    QHBoxLayout *hb = new QHBoxLayout(vb);
+    TQHBoxLayout *hb = new TQHBoxLayout(vb);
     if (!lowLabel.isEmpty()) {
-        QLabel *l = new QLabel(i18n(lowLabel.utf8()), this);
+        TQLabel *l = new TQLabel(i18n(lowLabel.utf8()), this);
 	hb->addWidget(l);
     }
     int value = int((mValue - mMinimum) * 100 / (mMaximum - mMinimum));
-    mSlider = new QSlider(0, 100, 10, value, Qt::Horizontal, this);
-    connect(mSlider, SIGNAL(valueChanged(int)), SLOT(slotValueChanged(int)));
+    mSlider = new TQSlider(0, 100, 10, value, Qt::Horizontal, this);
+    connect(mSlider, TQT_SIGNAL(valueChanged(int)), TQT_SLOT(slotValueChanged(int)));
     hb->add(mSlider);
     if (!highLabel.isEmpty()){
-        QLabel *l = new QLabel(i18n(highLabel.utf8()), this);
+        TQLabel *l = new TQLabel(i18n(highLabel.utf8()), this);
 	hb->addWidget(l);
     }
 }
@@ -152,22 +152,22 @@ void KXSDoubleRangeControl::read(KConfig &config)
 }
 
 //===========================================================================
-KXSCheckBoxControl::KXSCheckBoxControl(QWidget *parent, const QString &name,
+KXSCheckBoxControl::KXSCheckBoxControl(TQWidget *parent, const TQString &name,
                                       KConfig &config)
-  : QCheckBox(parent), KXSBoolItem(name, config)
+  : TQCheckBox(parent), KXSBoolItem(name, config)
 {
   setText(mLabel);
   setChecked(mValue);
-  connect(this, SIGNAL(toggled(bool)), SLOT(slotToggled(bool)));
+  connect(this, TQT_SIGNAL(toggled(bool)), TQT_SLOT(slotToggled(bool)));
 }
 
-KXSCheckBoxControl::KXSCheckBoxControl(QWidget *parent, const QString &name,
-                                      const QXmlAttributes &attr)
-  : QCheckBox(parent), KXSBoolItem(name, attr)
+KXSCheckBoxControl::KXSCheckBoxControl(TQWidget *parent, const TQString &name,
+                                      const TQXmlAttributes &attr)
+  : TQCheckBox(parent), KXSBoolItem(name, attr)
 {
   setText(i18n(mLabel.utf8()));
   setChecked(mValue);
-  connect(this, SIGNAL(toggled(bool)), SLOT(slotToggled(bool)));
+  connect(this, TQT_SIGNAL(toggled(bool)), TQT_SLOT(slotToggled(bool)));
 }
 
 void KXSCheckBoxControl::slotToggled(bool state)
@@ -183,34 +183,34 @@ void KXSCheckBoxControl::read(KConfig &config)
 }
 
 //===========================================================================
-KXSDropListControl::KXSDropListControl(QWidget *parent, const QString &name,
+KXSDropListControl::KXSDropListControl(TQWidget *parent, const TQString &name,
                                       KConfig &config)
-  : QWidget(parent), KXSSelectItem(name, config)
+  : TQWidget(parent), KXSSelectItem(name, config)
 {
-  QVBoxLayout *l = new QVBoxLayout(this);
-  QLabel *label = new QLabel(mLabel, this);
+  TQVBoxLayout *l = new TQVBoxLayout(this);
+  TQLabel *label = new TQLabel(mLabel, this);
   l->add(label);
-  mCombo = new QComboBox(this);
+  mCombo = new TQComboBox(this);
   for(uint i=0; i < mOptions.count(); i++)
       mCombo->insertItem( i18n(mOptions[i].utf8()) );
   mCombo->setCurrentItem(mValue);
-  connect(mCombo, SIGNAL(activated(int)), SLOT(slotActivated(int)));
+  connect(mCombo, TQT_SIGNAL(activated(int)), TQT_SLOT(slotActivated(int)));
   l->add(mCombo);
 }
 
-KXSDropListControl::KXSDropListControl(QWidget *parent, const QString &name,
-                                      const QXmlAttributes &attr)
-  : QWidget(parent), KXSSelectItem(name, attr)
+KXSDropListControl::KXSDropListControl(TQWidget *parent, const TQString &name,
+                                      const TQXmlAttributes &attr)
+  : TQWidget(parent), KXSSelectItem(name, attr)
 {
-  QVBoxLayout *l = new QVBoxLayout(this);
-  QLabel *label = new QLabel(i18n(mLabel.utf8()), this);
+  TQVBoxLayout *l = new TQVBoxLayout(this);
+  TQLabel *label = new TQLabel(i18n(mLabel.utf8()), this);
   l->add(label);
-  mCombo = new QComboBox(this);
-  connect(mCombo, SIGNAL(activated(int)), SLOT(slotActivated(int)));
+  mCombo = new TQComboBox(this);
+  connect(mCombo, TQT_SIGNAL(activated(int)), TQT_SLOT(slotActivated(int)));
   l->add(mCombo);
 }
 
-void KXSDropListControl::addOption(const QXmlAttributes &attr)
+void KXSDropListControl::addOption(const TQXmlAttributes &attr)
 {
     KXSSelectItem::addOption( attr );
     mCombo->insertItem( i18n(mOptions[mOptions.count()-1].utf8()) );
@@ -231,31 +231,31 @@ void KXSDropListControl::read(KConfig &config)
 }
 
 //===========================================================================
-KXSLineEditControl::KXSLineEditControl(QWidget *parent, const QString &name,
+KXSLineEditControl::KXSLineEditControl(TQWidget *parent, const TQString &name,
                                   KConfig &config)
-  : QWidget(parent), KXSStringItem(name, config)
+  : TQWidget(parent), KXSStringItem(name, config)
 {
-  QVBoxLayout *l = new QVBoxLayout(this);
-  QLabel *label = new QLabel(mLabel, this);
+  TQVBoxLayout *l = new TQVBoxLayout(this);
+  TQLabel *label = new TQLabel(mLabel, this);
   l->add(label);
-  mEdit = new QLineEdit(this);
-  connect(mEdit, SIGNAL(textChanged(const QString &)), SLOT(textChanged(const QString &)));
+  mEdit = new TQLineEdit(this);
+  connect(mEdit, TQT_SIGNAL(textChanged(const TQString &)), TQT_SLOT(textChanged(const TQString &)));
   l->add(mEdit);
 }
 
-KXSLineEditControl::KXSLineEditControl(QWidget *parent, const QString &name,
-                                  const QXmlAttributes &attr )
-  : QWidget(parent), KXSStringItem(name, attr)
+KXSLineEditControl::KXSLineEditControl(TQWidget *parent, const TQString &name,
+                                  const TQXmlAttributes &attr )
+  : TQWidget(parent), KXSStringItem(name, attr)
 {
-  QVBoxLayout *l = new QVBoxLayout(this);
-  QLabel *label = new QLabel(i18n(mLabel.utf8()), this);
+  TQVBoxLayout *l = new TQVBoxLayout(this);
+  TQLabel *label = new TQLabel(i18n(mLabel.utf8()), this);
   l->add(label);
-  mEdit = new QLineEdit(this);
-  connect(mEdit, SIGNAL(textChanged(const QString &)), SLOT(textChanged(const QString &)));
+  mEdit = new TQLineEdit(this);
+  connect(mEdit, TQT_SIGNAL(textChanged(const TQString &)), TQT_SLOT(textChanged(const TQString &)));
   l->add(mEdit);
 }
 
-void KXSLineEditControl::textChanged( const QString &text )
+void KXSLineEditControl::textChanged( const TQString &text )
 {
   mValue = text;
   emit changed();
@@ -268,35 +268,35 @@ void KXSLineEditControl::read(KConfig &config)
 }
 
 //===========================================================================
-KXSFileControl::KXSFileControl(QWidget *parent, const QString &name,
+KXSFileControl::KXSFileControl(TQWidget *parent, const TQString &name,
                                   KConfig &config)
-  : QWidget(parent), KXSStringItem(name, config)
+  : TQWidget(parent), KXSStringItem(name, config)
 {
-  QVBoxLayout *l = new QVBoxLayout(this);
-  QLabel *label = new QLabel(mLabel, this);
+  TQVBoxLayout *l = new TQVBoxLayout(this);
+  TQLabel *label = new TQLabel(mLabel, this);
   l->add(label);
-  mEdit = new QLineEdit(this);
-  connect(mEdit, SIGNAL(textChanged(const QString &)), SLOT(textChanged(const QString &)));
+  mEdit = new TQLineEdit(this);
+  connect(mEdit, TQT_SIGNAL(textChanged(const TQString &)), TQT_SLOT(textChanged(const TQString &)));
   l->add(mEdit);
 }
 
-KXSFileControl::KXSFileControl(QWidget *parent, const QString &name,
-                                  const QXmlAttributes &attr )
-  : QWidget(parent), KXSStringItem(name, attr)
+KXSFileControl::KXSFileControl(TQWidget *parent, const TQString &name,
+                                  const TQXmlAttributes &attr )
+  : TQWidget(parent), KXSStringItem(name, attr)
 {
-  QVBoxLayout *l = new QVBoxLayout(this);
-  QLabel *label = new QLabel(i18n(mLabel.utf8()), this);
+  TQVBoxLayout *l = new TQVBoxLayout(this);
+  TQLabel *label = new TQLabel(i18n(mLabel.utf8()), this);
   l->add(label);
-  QHBoxLayout *hb = new QHBoxLayout(l);
-  mEdit = new QLineEdit(this);
-  connect(mEdit, SIGNAL(textChanged(const QString &)), SLOT(textChanged(const QString &)));
+  TQHBoxLayout *hb = new TQHBoxLayout(l);
+  mEdit = new TQLineEdit(this);
+  connect(mEdit, TQT_SIGNAL(textChanged(const TQString &)), TQT_SLOT(textChanged(const TQString &)));
   hb->add(mEdit);
-  QPushButton *pb = new QPushButton( "...", this );
-  connect( pb, SIGNAL(clicked()), this, SLOT(selectFile()) );
+  TQPushButton *pb = new TQPushButton( "...", this );
+  connect( pb, TQT_SIGNAL(clicked()), this, TQT_SLOT(selectFile()) );
   hb->addWidget(pb);
 }
 
-void KXSFileControl::textChanged( const QString &text )
+void KXSFileControl::textChanged( const TQString &text )
 {
   mValue = text;
   emit changed();
@@ -304,7 +304,7 @@ void KXSFileControl::textChanged( const QString &text )
 
 void KXSFileControl::selectFile()
 {
-    QString f = KFileDialog::getOpenFileName();
+    TQString f = KFileDialog::getOpenFileName();
     if ( !f.isEmpty() ) {
 	mValue = f;
 	mEdit->setText(mValue);

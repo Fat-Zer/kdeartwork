@@ -13,9 +13,9 @@
 // STL headers
 #include <valarray>
 // Qt headers
-#include <qwidget.h>
-#include <qtimer.h>
-#include <qgl.h>
+#include <tqwidget.h>
+#include <tqtimer.h>
+#include <tqgl.h>
 // GL headers
 #include <GL/glu.h>
 #include <GL/gl.h>
@@ -78,7 +78,7 @@ class EulerOdeSolver : public RkOdeSolver<double>
 
 /** @brief GL widget class for the KRotation screen saver
  *
- * Class implements QGLWidget to display the KRotation screen saver. */
+ * Class implements TQGLWidget to display the KRotation screen saver. */
 class RotationGLWidget : public QGLWidget
 {
    Q_OBJECT
@@ -93,7 +93,7 @@ class RotationGLWidget : public QGLWidget
     * @param e3 z trace data
     * @param J 3 vector with momenta of inertia with respect to the 3 figure
     * axes. */
-   RotationGLWidget(QWidget* parent, const char* name,
+   RotationGLWidget(TQWidget* parent, const char* name,
                     const vec3<double>& omega,
                     const std::deque<vec3<double> >& e1,
                     const std::deque<vec3<double> >& e2,
@@ -144,7 +144,7 @@ class RotationGLWidget : public QGLWidget
    GLfloat lightPhi;
 
    /** stores position where the mouse button was pressed down */
-   QPoint mouse_press_pos;
+   TQPoint mouse_press_pos;
 
    /** Length of the rotating coordinate system axses */
    GLfloat bodyAxsesLength;
@@ -245,7 +245,7 @@ class KRotationSaver : public KScreenSaver
    void doTimeStep();
    /** slot is called if setup dialog changes in size and the GL area should be
     * adjusted */
-   void resizeGlArea(QResizeEvent* e);
+   void resizeGlArea(TQResizeEvent* e);
 
   private:
    /** Momentum of inertia along figure axes */
@@ -260,7 +260,7 @@ class KRotationSaver : public KScreenSaver
    /** Gl widget of simulation */
    RotationGLWidget* glArea;
    /** Timer for the real time integration of the Euler equations */
-   QTimer*           timer;
+   TQTimer*           timer;
 
    /** current rotation vector */
    vec3<double> omega;
@@ -301,7 +301,7 @@ class KRotationSetup : public KRotationSetupUi
    Q_OBJECT
 
   public:
-   KRotationSetup(QWidget* parent = NULL, const char* name = NULL);
+   KRotationSetup(TQWidget* parent = NULL, const char* name = NULL);
    ~KRotationSetup();
 
   public slots:
@@ -313,9 +313,9 @@ class KRotationSetup : public KRotationSetupUi
    void xTraceToggled(bool state);
    void yTraceToggled(bool state);
    void zTraceToggled(bool state);
-   void lengthEnteredSlot(const QString& s);
-   void LzEnteredSlot(const QString& s);
-   void thetaEnteredSlot(const QString& s);
+   void lengthEnteredSlot(const TQString& s);
+   void LzEnteredSlot(const TQString& s);
+   void thetaEnteredSlot(const TQString& s);
 
   private:
    /// the screen saver widget which is displayed in the preview area

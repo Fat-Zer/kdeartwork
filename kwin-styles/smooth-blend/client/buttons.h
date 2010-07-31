@@ -24,10 +24,10 @@
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
 
-#include <qimage.h>
-#include <qdict.h>
-#include <qmime.h>
-#include <qdragobject.h>
+#include <tqimage.h>
+#include <tqdict.h>
+#include <tqmime.h>
+#include <tqdragobject.h>
 
 // circle.png
 static const unsigned char image_0_data[] = {
@@ -1726,20 +1726,20 @@ static struct EmbedImage {
     { 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 };
 
-static QImage uic_findImage( const QString& name )
+static TQImage uic_findImage( const TQString& name )
 {
     for ( int i=0; embed_image_vec[i].data; i++ ) {
-	if ( QString::fromUtf8(embed_image_vec[i].name) == name ) {
-	    QByteArray baunzip;
+	if ( TQString::fromUtf8(embed_image_vec[i].name) == name ) {
+	    TQByteArray baunzip;
 	    baunzip = qUncompress( embed_image_vec[i].data, 
 		embed_image_vec[i].compressed );
-	    QImage img((uchar*)baunzip.data(),
+	    TQImage img((uchar*)baunzip.data(),
 			embed_image_vec[i].width,
 			embed_image_vec[i].height,
 			embed_image_vec[i].depth,
 			(QRgb*)embed_image_vec[i].colorTable,
 			embed_image_vec[i].numColors,
-			QImage::BigEndian
+			TQImage::BigEndian
 		);
 	    img = img.copy();
 	    if ( embed_image_vec[i].alpha )
@@ -1747,7 +1747,7 @@ static QImage uic_findImage( const QString& name )
 	    return img;
         }
     }
-    return QImage();
+    return TQImage();
 }
 
 class MimeSourceFactory_smoothblend : public QMimeSourceFactory
@@ -1755,30 +1755,30 @@ class MimeSourceFactory_smoothblend : public QMimeSourceFactory
 public:
     MimeSourceFactory_smoothblend() {}
     ~MimeSourceFactory_smoothblend() {}
-    const QMimeSource* data( const QString& abs_name ) const {
-	const QMimeSource* d = QMimeSourceFactory::data( abs_name );
+    const TQMimeSource* data( const TQString& abs_name ) const {
+	const TQMimeSource* d = TQMimeSourceFactory::data( abs_name );
 	if ( d || abs_name.isNull() ) return d;
-	QImage img = uic_findImage( abs_name );
+	TQImage img = uic_findImage( abs_name );
 	if ( !img.isNull() )
-	    ((QMimeSourceFactory*)this)->setImage( abs_name, img );
-	return QMimeSourceFactory::data( abs_name );
+	    ((TQMimeSourceFactory*)this)->setImage( abs_name, img );
+	return TQMimeSourceFactory::data( abs_name );
     };
 };
 
-static QMimeSourceFactory* bfactory = 0;
+static TQMimeSourceFactory* bfactory = 0;
 
 void qInitImages_smoothblend()
 {
     if ( !bfactory ) {
 	bfactory = new MimeSourceFactory_smoothblend;
-	QMimeSourceFactory::defaultFactory()->addFactory( bfactory );
+	TQMimeSourceFactory::defaultFactory()->addFactory( bfactory );
     }
 }
 
 void qCleanupImages_smoothblend()
 {
     if ( bfactory ) {
-	QMimeSourceFactory::defaultFactory()->removeFactory( bfactory );
+	TQMimeSourceFactory::defaultFactory()->removeFactory( bfactory );
 	delete bfactory;
 	bfactory = 0;
     }

@@ -8,8 +8,8 @@
 #ifndef __POLYGON_H__
 #define __POLYGON_H__
 
-#include <qtimer.h>
-#include <qptrlist.h>
+#include <tqtimer.h>
+#include <tqptrlist.h>
 
 #include <kdialogbase.h>
 #include <kscreensaver.h>
@@ -44,8 +44,8 @@ protected:
 	int			speed;
 	QColor		colors[64];
     int         currentColor;
-	QPtrList<QPointArray> polygons;
-	QMemArray<QPoint> directions;
+	TQPtrList<TQPointArray> polygons;
+	TQMemArray<TQPoint> directions;
 	KRandomSequence rnd;
 };
 
@@ -53,7 +53,7 @@ class kPolygonSetup : public KDialogBase
 {
 	Q_OBJECT
 public:
-	kPolygonSetup( QWidget *parent = 0, const char *name = 0 );
+	kPolygonSetup( TQWidget *parent = 0, const char *name = 0 );
     ~kPolygonSetup();
 
 protected:
@@ -67,7 +67,7 @@ private slots:
 	void slotHelp();
 
 private:
-	QWidget *preview;
+	TQWidget *preview;
 	kPolygonSaver *saver;
 
 	int length;

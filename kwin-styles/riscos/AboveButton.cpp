@@ -44,13 +44,13 @@ static const char * const above_xpm[] = {
 "      ..... ",
 "            "};
 
-AboveButton::AboveButton(QWidget *parent)
+AboveButton::AboveButton(TQWidget *parent)
    : Button(parent, i18n("Keep above others"))
 {
-   setPixmap(QPixmap((const char **)above_xpm));
+   setPixmap(TQPixmap((const char **)above_xpm));
 }
 
-void AboveButton::mouseReleaseEvent(QMouseEvent *e)
+void AboveButton::mouseReleaseEvent(TQMouseEvent *e)
 {
    Button::mouseReleaseEvent(e);
 

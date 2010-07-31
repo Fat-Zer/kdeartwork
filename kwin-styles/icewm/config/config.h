@@ -27,11 +27,11 @@
 #ifndef _ICEWMCONFIG_H
 #define _ICEWMCONFIG_H
 
-#include <qwidget.h>
-#include <qcheckbox.h>
-#include <qgroupbox.h>
-#include <qlistbox.h>
-#include <qlabel.h>
+#include <tqwidget.h>
+#include <tqcheckbox.h>
+#include <tqgroupbox.h>
+#include <tqlistbox.h>
+#include <tqlabel.h>
 #include <kurllabel.h>
 #include <kconfig.h>
 
@@ -42,7 +42,7 @@ class IceWMConfig: public QObject
 	Q_OBJECT
 
 	public:
-		IceWMConfig( KConfig* conf, QWidget* parent );
+		IceWMConfig( KConfig* conf, TQWidget* parent );
 		~IceWMConfig();
 
 	// These public signals/slots work similar to KCM modules
@@ -56,19 +56,19 @@ class IceWMConfig: public QObject
 
 	protected slots:
 		void slotSelectionChanged();	// Internal use
-		void callURL( const QString& s );
+		void callURL( const TQString& s );
 		void findIceWMThemes();
 
 	private:
 		KConfig*   icewmConfig;
-		QCheckBox* cbThemeTitleTextColors;
-		QCheckBox* cbTitleBarOnTop;
-		QCheckBox* cbShowMenuButtonIcon;
-		QListBox*  themeListBox;
-		QLabel*	   themeLabel;
+		TQCheckBox* cbThemeTitleTextColors;
+		TQCheckBox* cbTitleBarOnTop;
+		TQCheckBox* cbShowMenuButtonIcon;
+		TQListBox*  themeListBox;
+		TQLabel*	   themeLabel;
 		KURLLabel* urlLabel;
-		QString    localThemeString;
-		QVBox*     mainWidget;
+		TQString    localThemeString;
+		TQVBox*     mainWidget;
 };
 
 

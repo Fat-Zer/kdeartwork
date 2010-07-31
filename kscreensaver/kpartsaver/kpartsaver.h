@@ -20,16 +20,16 @@
 #define KPARTSAVER_H_INCLUDED
 
 
-#include <qwidget.h>
-#include <qtimer.h>
-#include <qstring.h>
-#include <qvaluelist.h>
-#include <qdialog.h>
-#include <qpushbutton.h>
-#include <qradiobutton.h>
-#include <qspinbox.h>
-#include <qcheckbox.h>
-#include <qlabel.h>
+#include <tqwidget.h>
+#include <tqtimer.h>
+#include <tqstring.h>
+#include <tqvaluelist.h>
+#include <tqdialog.h>
+#include <tqpushbutton.h>
+#include <tqradiobutton.h>
+#include <tqspinbox.h>
+#include <tqcheckbox.h>
+#include <tqlabel.h>
 
 #include <klocale.h>
 #include <kapplication.h>
@@ -52,7 +52,7 @@ class SaverConfig : public ConfigWidget {
 Q_OBJECT
 
  public:
-    SaverConfig( QWidget* parent = 0, const char* name = 0 );
+    SaverConfig( TQWidget* parent = 0, const char* name = 0 );
     ~SaverConfig(); 
 
  protected slots:
@@ -86,16 +86,16 @@ Q_OBJECT
 
     bool openURL(  KURL url );    
 
-    QValueList<Medium> m_media;
-    QTimer *m_timer;
+    TQValueList<Medium> m_media;
+    TQTimer *m_timer;
     KParts::ReadOnlyPart *m_part;
     int m_current; 
     
     bool m_single;
     bool m_random;
     int m_delay;
-    QStringList m_files;
-    QLabel *m_back;
+    TQStringList m_files;
+    TQLabel *m_back;
 };
 
 #endif

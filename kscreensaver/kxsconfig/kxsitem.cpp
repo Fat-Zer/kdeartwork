@@ -21,24 +21,24 @@
 
 #include "kxsconfig.h"
 #include <klocale.h>
-#include <qxml.h>
+#include <tqxml.h>
 
 //===========================================================================
-KXSConfigItem::KXSConfigItem(const QString &name, KConfig &config)
+KXSConfigItem::KXSConfigItem(const TQString &name, KConfig &config)
   : mName(name)
 {
   config.setGroup(name);
   mLabel = i18n(config.readEntry("Label").utf8());
 }
 
-KXSConfigItem::KXSConfigItem(const QString &name, const QXmlAttributes &attr )
+KXSConfigItem::KXSConfigItem(const TQString &name, const TQXmlAttributes &attr )
   : mName(name)
 {
   mLabel = attr.value("_label");
 }
 
 //===========================================================================
-KXSRangeItem::KXSRangeItem(const QString &name, KConfig &config)
+KXSRangeItem::KXSRangeItem(const TQString &name, KConfig &config)
   : KXSConfigItem(name, config), mInvert(false)
 {
   mMinimum = config.readNumEntry("Minimum");
@@ -47,7 +47,7 @@ KXSRangeItem::KXSRangeItem(const QString &name, KConfig &config)
   mSwitch  = config.readEntry("Switch");
 }
 
-KXSRangeItem::KXSRangeItem(const QString &name, const QXmlAttributes &attr )
+KXSRangeItem::KXSRangeItem(const TQString &name, const TQXmlAttributes &attr )
   : KXSConfigItem(name, attr), mInvert(false)
 {
   mMinimum = attr.value("low").toInt();
@@ -63,7 +63,7 @@ KXSRangeItem::KXSRangeItem(const QString &name, const QXmlAttributes &attr )
     mValue = mMaximum-(mValue-mMinimum);
 }
 
-QString KXSRangeItem::command()
+TQString KXSRangeItem::command()
 {
   return mSwitch.arg(mInvert?mMaximum-(mValue-mMinimum):mValue);
 }
@@ -82,7 +82,7 @@ void KXSRangeItem::save(KConfig &config)
 }
 
 //===========================================================================
-KXSDoubleRangeItem::KXSDoubleRangeItem(const QString &name, KConfig &config)
+KXSDoubleRangeItem::KXSDoubleRangeItem(const TQString &name, KConfig &config)
   : KXSConfigItem(name, config), mInvert(false)
 {
   mMinimum = config.readDoubleNumEntry("Minimum");
@@ -91,7 +91,7 @@ KXSDoubleRangeItem::KXSDoubleRangeItem(const QString &name, KConfig &config)
   mSwitch  = config.readEntry("Switch");
 }
 
-KXSDoubleRangeItem::KXSDoubleRangeItem(const QString &name, const QXmlAttributes &attr)
+KXSDoubleRangeItem::KXSDoubleRangeItem(const TQString &name, const TQXmlAttributes &attr)
   : KXSConfigItem(name, attr), mInvert(false)
 {
   mMinimum = attr.value("low").toDouble();
@@ -107,7 +107,7 @@ KXSDoubleRangeItem::KXSDoubleRangeItem(const QString &name, const QXmlAttributes
     mValue = mMaximum-(mValue-mMinimum);
 }
 
-QString KXSDoubleRangeItem::command()
+TQString KXSDoubleRangeItem::command()
 {
   return mSwitch.arg(mInvert?mMaximum-(mValue-mMinimum):mValue);
 }
@@ -127,7 +127,7 @@ void KXSDoubleRangeItem::save(KConfig &config)
 
 
 //===========================================================================
-KXSBoolItem::KXSBoolItem(const QString &name, KConfig &config)
+KXSBoolItem::KXSBoolItem(const TQString &name, KConfig &config)
   : KXSConfigItem(name, config)
 {
   mValue = config.readBoolEntry("Value");
@@ -135,7 +135,7 @@ KXSBoolItem::KXSBoolItem(const QString &name, KConfig &config)
   mSwitchOff = config.readEntry("SwitchOff");
 }
 
-KXSBoolItem::KXSBoolItem(const QString &name, const QXmlAttributes &attr )
+KXSBoolItem::KXSBoolItem(const TQString &name, const TQXmlAttributes &attr )
   : KXSConfigItem(name, attr)
 {
   mSwitchOn  = attr.value("arg-set");
@@ -143,7 +143,7 @@ KXSBoolItem::KXSBoolItem(const QString &name, const QXmlAttributes &attr )
   mValue = mSwitchOn.isEmpty() ? true : false;
 }
 
-QString KXSBoolItem::command()
+TQString KXSBoolItem::command()
 {
   return mValue ? mSwitchOn : mSwitchOff;
 }
@@ -162,7 +162,7 @@ void KXSBoolItem::save(KConfig &config)
 }
 
 //===========================================================================
-KXSSelectItem::KXSSelectItem(const QString &name, KConfig &config)
+KXSSelectItem::KXSSelectItem(const TQString &name, KConfig &config)
   : KXSConfigItem(name, config)
 {
   mOptions = config.readListEntry("Options");
@@ -170,24 +170,24 @@ KXSSelectItem::KXSSelectItem(const QString &name, KConfig &config)
   mValue = config.readNumEntry("Value");
 }
 
-KXSSelectItem::KXSSelectItem(const QString &name, const QXmlAttributes &attr )
+KXSSelectItem::KXSSelectItem(const TQString &name, const TQXmlAttributes &attr )
   : KXSConfigItem(name, attr), mValue(0)
 {
 }
 
-void KXSSelectItem::addOption( const QXmlAttributes &attr )
+void KXSSelectItem::addOption( const TQXmlAttributes &attr )
 {
-    QString opt = attr.value("_label");
-    QString arg = attr.value("arg-set");
+    TQString opt = attr.value("_label");
+    TQString arg = attr.value("arg-set");
     if ( arg.isEmpty() )
 	mValue = mSwitches.count();
     mOptions += opt;
     mSwitches += arg;
 }
 
-QString KXSSelectItem::command()
+TQString KXSSelectItem::command()
 {
-  QStringList::Iterator it = mSwitches.at(mValue);
+  TQStringList::Iterator it = mSwitches.at(mValue);
   return (*it);
 }
 
@@ -206,7 +206,7 @@ void KXSSelectItem::save(KConfig &config)
 
 
 //===========================================================================
-KXSStringItem::KXSStringItem(const QString &name, KConfig &config)
+KXSStringItem::KXSStringItem(const TQString &name, KConfig &config)
   : KXSConfigItem(name, config)
 {
   mValue = config.readEntry("Value");
@@ -218,7 +218,7 @@ KXSStringItem::KXSStringItem(const QString &name, KConfig &config)
   }
 }
 
-KXSStringItem::KXSStringItem(const QString &name, const QXmlAttributes &attr )
+KXSStringItem::KXSStringItem(const TQString &name, const TQXmlAttributes &attr )
   : KXSConfigItem(name, attr)
 {
   mSwitch = attr.value("arg");
@@ -229,7 +229,7 @@ KXSStringItem::KXSStringItem(const QString &name, const QXmlAttributes &attr )
   }
 }
 
-QString KXSStringItem::command()
+TQString KXSStringItem::command()
 {
   if (!mValue.isEmpty())
       return mSwitch.arg(mValue);

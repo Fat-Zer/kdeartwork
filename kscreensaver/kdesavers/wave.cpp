@@ -5,8 +5,8 @@
 // Copyright (c)  Ian Reinhart Geiser 2001
 //
 #include <stdlib.h>
-#include <qlabel.h>
-#include <qlayout.h>
+#include <tqlabel.h>
+#include <tqlayout.h>
 #include <kapplication.h>
 #include <klocale.h>
 #include <kconfig.h>
@@ -23,11 +23,11 @@
 #include <GL/glu.h>
 #include <GL/gl.h>
 #endif
-#include <qimage.h>
+#include <tqimage.h>
 #include <kdebug.h>
-#include <qpainter.h>
-#include <qradiobutton.h>
-#include <qspinbox.h>
+#include <tqpainter.h>
+#include <tqradiobutton.h>
+#include <tqspinbox.h>
 #include <kstandarddirs.h>
 #include <math.h>
 #include <kmessagebox.h>
@@ -47,7 +47,7 @@ extern "C"
 		return new KWaveSaver( id );
 	}
 
-	KDE_EXPORT QDialog *kss_setup()
+	KDE_EXPORT TQDialog *kss_setup()
 	{
 		return new KWaveSetup();
 	}
@@ -56,7 +56,7 @@ extern "C"
 //-----------------------------------------------------------------------------
 // dialog to setup screen saver parameters
 //
-KWaveSetup::KWaveSetup( QWidget *parent, const char *name )
+KWaveSetup::KWaveSetup( TQWidget *parent, const char *name )
 	: SetupUi( parent, name, TRUE )
 {
 	readSettings();
@@ -66,11 +66,11 @@ KWaveSetup::KWaveSetup( QWidget *parent, const char *name )
 	preview->show();    // otherwise saver does not get correct size
 	saver = new KWaveSaver( preview->winId() );
 
-	connect( PushButton1, SIGNAL( clicked() ), SLOT( slotOkPressed() ) );
-	connect( PushButton2, SIGNAL( clicked() ), SLOT( reject() ) );
-	connect( PushButton3, SIGNAL( clicked() ), SLOT( aboutPressed() ) );
-	connect(  SpinBox1, SIGNAL( valueChanged(int)), saver, SLOT( updateSize(int)));
-	connect( RadioButton1, SIGNAL( toggled(bool)), saver, SLOT( doStars(bool)));
+	connect( PushButton1, TQT_SIGNAL( clicked() ), TQT_SLOT( slotOkPressed() ) );
+	connect( PushButton2, TQT_SIGNAL( clicked() ), TQT_SLOT( reject() ) );
+	connect( PushButton3, TQT_SIGNAL( clicked() ), TQT_SLOT( aboutPressed() ) );
+	connect(  SpinBox1, TQT_SIGNAL( valueChanged(int)), saver, TQT_SLOT( updateSize(int)));
+	connect( RadioButton1, TQT_SIGNAL( toggled(bool)), saver, TQT_SLOT( doStars(bool)));
 
 }
 
@@ -115,14 +115,14 @@ KWaveSaver::KWaveSaver( WId id ) : KScreenSaver( id )
 	kdDebug() << "Blank" << endl;
 	readSettings();
 
-	timer = new QTimer( this );
+	timer = new TQTimer( this );
     	timer->start( 50, TRUE );
 	setBackgroundColor( black );
         erase();
 	wave = new Wave();
 	embed(wave);
 	wave->show();
-	connect( timer, SIGNAL(timeout()), this, SLOT(blank()) );;
+	connect( timer, TQT_SIGNAL(timeout()), this, TQT_SLOT(blank()) );;
 }
 
 KWaveSaver::~KWaveSaver()
@@ -147,7 +147,7 @@ void KWaveSaver::blank()
 	timer->start( 100, TRUE );
 
 }
-Wave::Wave( QWidget * parent, const char * name) : QGLWidget (parent,name)
+Wave::Wave( TQWidget * parent, const char * name) : TQGLWidget (parent,name)
 {
 	pNurb = 0;
 
@@ -291,7 +291,7 @@ bool Wave::LoadGLTextures()
     /* Status indicator */
     bool Status = TRUE;
 
-	QImage buf; // = QPixmap::grabWindow ( 0 ).convertToImage();
+	TQImage buf; // = TQPixmap::grabWindow ( 0 ).convertToImage();
    kdDebug() << "Loading: " << locate("data", "kscreensaver/image.png") << endl;
  if (buf.load( locate("data", "kscreensaver/image.png") ) )
 
@@ -301,7 +301,7 @@ bool Wave::LoadGLTextures()
         }
         else
         {
-                QImage dummy( 64, 64, 64 );
+                TQImage dummy( 64, 64, 64 );
                 dummy.fill( Qt::white.rgb() );
                 buf = dummy;
                 tex = convertToGLFormat( buf );

@@ -25,10 +25,10 @@
 #undef Bool
 #endif
 
-#include <qimage.h>
-#include <qpixmap.h>
-#include <qpainter.h>
-#include <qptrlist.h>
+#include <tqimage.h>
+#include <tqpixmap.h>
+#include <tqpainter.h>
+#include <tqptrlist.h>
 
 #include <kdecoration.h>
 
@@ -71,37 +71,37 @@ Static::~Static()
    instance_ = NULL;
 }
 
-const QPixmap& Static::titleTextLeft(bool active) const
+const TQPixmap& Static::titleTextLeft(bool active) const
 {
    return active ? aTitleTextLeft_ : iTitleTextLeft_;
 }
 
-const QPixmap& Static::titleTextRight(bool active) const
+const TQPixmap& Static::titleTextRight(bool active) const
 {
    return active ? aTitleTextRight_ : iTitleTextRight_;
 }
 
-const QPixmap& Static::resizeMidLeft(bool active) const
+const TQPixmap& Static::resizeMidLeft(bool active) const
 {
    return active ? aResizeMidLeft_ : iResizeMidLeft_;
 }
 
-const QPixmap& Static::resizeMidRight(bool active) const
+const TQPixmap& Static::resizeMidRight(bool active) const
 {
    return active ? aResizeMidRight_ : iResizeMidRight_;
 }
 
-const QPixmap& Static::titleTextMid(bool active) const
+const TQPixmap& Static::titleTextMid(bool active) const
 {
    return active ? aTitleTextMid_ : iTitleTextMid_;
 }
 
-const QPixmap& Static::resizeMidMid(bool active) const
+const TQPixmap& Static::resizeMidMid(bool active) const
 {
    return active ? aResizeMid_ : iResizeMid_;
 }
 
-const QPixmap& Static::resize(bool active) const
+const TQPixmap& Static::resize(bool active) const
 {
    return active ? aResize_ : iResize_;
 }
@@ -121,7 +121,7 @@ int Static::resizeHeight() const
    return resizeHeight_;
 }
 
-void Static::_drawBorder(QPixmap &pix, int w, int h)
+void Static::_drawBorder(TQPixmap &pix, int w, int h)
 {
    // 0111111113
    // 1122222235
@@ -134,14 +134,14 @@ void Static::_drawBorder(QPixmap &pix, int w, int h)
    painter_.begin(&pix);
    painter_.translate(transx, transy);
 
-   QColor c0 = down_ ? palette_[7] : palette_[0];
-   QColor c1 = down_ ? palette_[6] : palette_[1];
-   QColor c2 = down_ ? palette_[5] : palette_[2];
-   QColor c3 = down_ ? palette_[4] : palette_[3];
-   QColor c4 = down_ ? palette_[3] : palette_[4];
-   QColor c5 = down_ ? palette_[2] : palette_[5];
-   QColor c6 = down_ ? palette_[2] : palette_[6];
-   QColor c7 = down_ ? palette_[1] : palette_[7];
+   TQColor c0 = down_ ? palette_[7] : palette_[0];
+   TQColor c1 = down_ ? palette_[6] : palette_[1];
+   TQColor c2 = down_ ? palette_[5] : palette_[2];
+   TQColor c3 = down_ ? palette_[4] : palette_[3];
+   TQColor c4 = down_ ? palette_[3] : palette_[4];
+   TQColor c5 = down_ ? palette_[2] : palette_[5];
+   TQColor c6 = down_ ? palette_[2] : palette_[6];
+   TQColor c7 = down_ ? palette_[1] : palette_[7];
 
    painter_.setPen(c0);
    painter_.drawPoint(0, 0);
@@ -183,7 +183,7 @@ void Static::_drawBorder(QPixmap &pix, int w, int h)
    painter_.resetXForm();
 }
 
-void setPalette(Palette &pal, QColor c)
+void setPalette(Palette &pal, TQColor c)
 {
    pal[3] = c.rgb();
 
@@ -204,7 +204,7 @@ void setPalette(Palette &pal, QColor c)
 
 void Static::_init()
 {
-   hicolour_ = QPixmap::defaultDepth() > 8;
+   hicolour_ = TQPixmap::defaultDepth() > 8;
    animationStyle_ = 0;
    updatePixmaps();
 }
@@ -242,13 +242,13 @@ void Static::updatePixmaps()
    _drawButtonBackgrounds();
 }
 
-void Static::_createTexture(QPixmap &px, int t, bool active)
+void Static::_createTexture(TQPixmap &px, int t, bool active)
 {
-   const QImage texture(QPixmap((const char **)texture_xpm).convertToImage());
+   const TQImage texture(TQPixmap((const char **)texture_xpm).convertToImage());
    const QRgb w(qRgb(255, 255, 255));
    const QRgb b(qRgb(0, 0, 0));
 
-   QColor c(KDecoration::options()->color(KDecoration::ColorType(t), active));
+   TQColor c(KDecoration::options()->color(KDecoration::ColorType(t), active));
 
    QRgb mid    (c.rgb());
    QRgb light  (c.light(110).rgb());
@@ -267,7 +267,7 @@ void Static::_createTexture(QPixmap &px, int t, bool active)
    px.convertFromImage(texture);
 }
 
-const QPixmap& Static::buttonBase(bool active, bool down) const
+const TQPixmap& Static::buttonBase(bool active, bool down) const
 {
    if (active)
       return down ? aButtonDown_ : aButtonUp_;
@@ -277,9 +277,9 @@ const QPixmap& Static::buttonBase(bool active, bool down) const
 
 void Static::_initSizes()
 {
-   QFont f(KDecoration::options()->font(true)); // XXX false doesn't work right at the moment
+   TQFont f(KDecoration::options()->font(true)); // XXX false doesn't work right at the moment
 
-   QFontMetrics fm(f);
+   TQFontMetrics fm(f);
 
    int h = fm.height();
 
@@ -361,7 +361,7 @@ void Static::_initTextures()
 
 void Static::_drawTitleTextAreaSides()
 {
-   QPixmap temp(4, titleHeight_);
+   TQPixmap temp(4, titleHeight_);
    temp.fill(Qt::black);
 
    transx = transy = 0.0;
@@ -393,7 +393,7 @@ void Static::_drawTitleTextAreaSides()
 
 void Static::_drawResizeCentralAreaSides()
 {
-   QPixmap temp(4, resizeHeight_);
+   TQPixmap temp(4, resizeHeight_);
    temp.fill(Qt::black);
 
    transy = 1.0;
@@ -424,7 +424,7 @@ void Static::_drawResizeCentralAreaSides()
 
 void Static::_drawTitleTextAreaBackground()
 {
-   QPixmap temp(70, titleHeight_);
+   TQPixmap temp(70, titleHeight_);
    temp.fill(Qt::black);
 
    transx = transy = 0.0;
@@ -450,7 +450,7 @@ void Static::_drawTitleTextAreaBackground()
 
 void Static::_drawResizeCentralAreaBackground()
 {
-   QPixmap temp(70, titleHeight_);
+   TQPixmap temp(70, titleHeight_);
    temp.fill(Qt::black);
 
    transy = 1.0;

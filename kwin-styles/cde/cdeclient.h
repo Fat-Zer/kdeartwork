@@ -18,8 +18,8 @@
 #ifndef __CDECLIENT_H
 #define __CDECLIENT_H
 
-#include <qbutton.h>
-#include <qbitmap.h>
+#include <tqbutton.h>
+#include <tqbitmap.h>
 #include <kpixmap.h>
 #include <kdecoration.h>
 #include <kdecorationfactory.h>
@@ -39,14 +39,14 @@ class CdeButton : public QButton
 {
 public:
     CdeButton( CdeClient* parent=0, const char* name=0, int btnType=0,
-               const QString& tip=NULL, int realize_btns = LeftButton );
+               const TQString& tip=NULL, int realize_btns = LeftButton );
     void reset();
     ButtonState lastButton() { return last_button; }
 
 protected:
-    void mousePressEvent(QMouseEvent *e);
-    void mouseReleaseEvent(QMouseEvent *e);
-    virtual void drawButton(QPainter *p);
+    void mousePressEvent(TQMouseEvent *e);
+    void mouseReleaseEvent(TQMouseEvent *e);
+    virtual void drawButton(TQPainter *p);
 
 private:
     CdeClient *m_parent;
@@ -64,26 +64,26 @@ public:
     void init();
 
 protected:
-    bool eventFilter(QObject *o, QEvent *e);
-    void resizeEvent( QResizeEvent* );
-    void paintEvent( QPaintEvent* );
+    bool eventFilter(TQObject *o, TQEvent *e);
+    void resizeEvent( TQResizeEvent* );
+    void paintEvent( TQPaintEvent* );
 
-    void showEvent(QShowEvent *);
-    void addClientButtons( const QString& );
-    void mouseDoubleClickEvent( QMouseEvent* );
-    void wheelEvent( QWheelEvent * );
+    void showEvent(TQShowEvent *);
+    void addClientButtons( const TQString& );
+    void mouseDoubleClickEvent( TQMouseEvent* );
+    void wheelEvent( TQWheelEvent * );
     void captionChange();
     void desktopChange();
     void activeChange();
     void shadeChange();
     void iconChange();
-    QSize minimumSize() const;
-    void resize(const QSize &size);
+    TQSize minimumSize() const;
+    void resize(const TQSize &size);
     void borders(int &left, int &right, int &top, int &bottom) const;
-    void mousePressEvent( QMouseEvent* );
-    void mouseReleaseEvent( QMouseEvent* );
+    void mousePressEvent( TQMouseEvent* );
+    void mouseReleaseEvent( TQMouseEvent* );
     void maximizeChange();
-    Position mousePosition( const QPoint& p ) const;
+    Position mousePosition( const TQPoint& p ) const;
 
 protected slots:
     void menuButtonPressed();
@@ -92,14 +92,14 @@ protected slots:
 
 private:
     CdeButton* button[BtnCount];
-    QVBoxLayout* mainLayout;
-    QBoxLayout*  titleLayout;
-    QSpacerItem* titlebar;
+    TQVBoxLayout* mainLayout;
+    TQBoxLayout*  titleLayout;
+    TQSpacerItem* titlebar;
     bool titlebarPressed;
     bool closing;
 };
 
-class CdeClientFactory: public QObject, public KDecorationFactory
+class CdeClientFactory: public TQObject, public KDecorationFactory
 {
 public:
     CdeClientFactory();
@@ -108,7 +108,7 @@ public:
     virtual bool supports( Ability ability );
     virtual bool reset(unsigned long changed);
 
-    QValueList< CdeClientFactory::BorderSize > borderSizes() const;
+    TQValueList< CdeClientFactory::BorderSize > borderSizes() const;
 
 };
 

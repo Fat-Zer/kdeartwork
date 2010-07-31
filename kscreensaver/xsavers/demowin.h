@@ -25,13 +25,13 @@ class DemoWindow : public QWidget
 {
     Q_OBJECT
 public:
-    DemoWindow() : QWidget()
+    DemoWindow() : TQWidget()
     {
         setFixedSize(600, 420);
     }
 
 protected:
-    virtual void keyPressEvent(QKeyEvent *e)
+    virtual void keyPressEvent(TQKeyEvent *e)
     {
         if (e->ascii() == 'q')
         {

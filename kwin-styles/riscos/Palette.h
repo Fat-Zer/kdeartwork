@@ -23,8 +23,8 @@
 #ifndef RISC_OS_PALETTE_H
 #define RISC_OS_PALETTE_H
 
-#include <qmemarray.h>
-#include <qglobal.h>
+#include <tqmemarray.h>
+#include <tqglobal.h>
 
 namespace RiscOS
 {
@@ -59,7 +59,7 @@ class Palette
 
    private:
 
-      QMemArray<QRgb> data_;
+      TQMemArray<QRgb> data_;
 };
 
 } // End namespace

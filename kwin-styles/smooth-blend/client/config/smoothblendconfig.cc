@@ -10,13 +10,13 @@
 #include <kconfig.h>
 #include <klocale.h>
 #include <kglobal.h>
-#include <qbuttongroup.h>
-#include <qgroupbox.h>
-#include <qradiobutton.h>
-#include <qcheckbox.h>
-#include <qspinbox.h>
-#include <qwhatsthis.h>
-#include <qcombobox.h>
+#include <tqbuttongroup.h>
+#include <tqgroupbox.h>
+#include <tqradiobutton.h>
+#include <tqcheckbox.h>
+#include <tqspinbox.h>
+#include <tqwhatsthis.h>
+#include <tqcombobox.h>
 
 #include "smoothblendconfig.h"
 #include "configdialog.h"
@@ -26,8 +26,8 @@
 // -------------
 // Constructor
 
-smoothblendConfig::smoothblendConfig(KConfig* config, QWidget* parent)
-        : QObject(parent), config_(0), dialog_(0) {
+smoothblendConfig::smoothblendConfig(KConfig* config, TQWidget* parent)
+        : TQObject(parent), config_(0), dialog_(0) {
     // create the configuration object
     config_ = new KConfig("kwinsmoothblendrc");
     KGlobal::locale()->insertCatalogue("kwin_smoothblend_config");
@@ -40,20 +40,20 @@ smoothblendConfig::smoothblendConfig(KConfig* config, QWidget* parent)
     load(config_);
 
     // setup the connections for title align
-    connect(dialog_->titlealign, SIGNAL(clicked(int)),this, SLOT(selectionChanged(int)));
+    connect(dialog_->titlealign, TQT_SIGNAL(clicked(int)),this, TQT_SLOT(selectionChanged(int)));
     // setup the connections for corner rounding
-    connect(dialog_->roundCorners, SIGNAL(stateChanged(int)),this,SLOT(selectionChanged(int)));
+    connect(dialog_->roundCorners, TQT_SIGNAL(stateChanged(int)),this,TQT_SLOT(selectionChanged(int)));
     // setup title shadow
-    connect(dialog_->titleshadow, SIGNAL(stateChanged(int)),this,SLOT(selectionChanged(int)));
+    connect(dialog_->titleshadow, TQT_SIGNAL(stateChanged(int)),this,TQT_SLOT(selectionChanged(int)));
     // setup button actions
-    connect(dialog_->animatebuttons, SIGNAL(stateChanged(int)),this,SLOT(selectionChanged(int)));
-    connect(dialog_->btnComboBox, SIGNAL(activated(int)),this,SLOT(selectionChanged(int)));
+    connect(dialog_->animatebuttons, TQT_SIGNAL(stateChanged(int)),this,TQT_SLOT(selectionChanged(int)));
+    connect(dialog_->btnComboBox, TQT_SIGNAL(activated(int)),this,TQT_SLOT(selectionChanged(int)));
     // setup the connections for spin boxes
-    connect(dialog_->titlesize, SIGNAL(valueChanged(int)),this,SLOT(selectionChanged(int)));
-    connect(dialog_->buttonsize, SIGNAL(valueChanged(int)),this,SLOT(selectionChanged(int)));
-    connect(dialog_->framesize, SIGNAL(valueChanged(int)),this,SLOT(selectionChanged(int)));
+    connect(dialog_->titlesize, TQT_SIGNAL(valueChanged(int)),this,TQT_SLOT(selectionChanged(int)));
+    connect(dialog_->buttonsize, TQT_SIGNAL(valueChanged(int)),this,TQT_SLOT(selectionChanged(int)));
+    connect(dialog_->framesize, TQT_SIGNAL(valueChanged(int)),this,TQT_SLOT(selectionChanged(int)));
     // double click the menu 
-    connect(dialog_->menuClose, SIGNAL(stateChanged(int)),this, SLOT(selectionChanged(int)));
+    connect(dialog_->menuClose, TQT_SIGNAL(stateChanged(int)),this, TQT_SLOT(selectionChanged(int)));
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -99,8 +99,8 @@ void smoothblendConfig::selectionChanged(int) {
 void smoothblendConfig::load(KConfig*) {
     config_->setGroup("General");
 
-    QString value = config_->readEntry("TitleAlignment", "AlignHCenter");
-    QRadioButton *button = (QRadioButton*)dialog_->titlealign->child(value.latin1());
+    TQString value = config_->readEntry("TitleAlignment", "AlignHCenter");
+    TQRadioButton *button = (TQRadioButton*)dialog_->titlealign->child(value.latin1());
     if (button)
     {
         button->setChecked(true);
@@ -129,10 +129,10 @@ void smoothblendConfig::load(KConfig*) {
 void smoothblendConfig::save(KConfig*) {
     config_->setGroup("General");
 
-    QRadioButton *button = (QRadioButton*)dialog_->titlealign->selected();
+    TQRadioButton *button = (TQRadioButton*)dialog_->titlealign->selected();
     if (button)
     {
-        config_->writeEntry("TitleAlignment", QString(button->name()));
+        config_->writeEntry("TitleAlignment", TQString(button->name()));
     }
     config_->writeEntry("RoundCorners", dialog_->roundCorners->isChecked() );
     config_->writeEntry("TitleSize", dialog_->titlesize->value() );
@@ -152,7 +152,7 @@ void smoothblendConfig::save(KConfig*) {
 // Set configuration defaults
 
 void smoothblendConfig::defaults() {
-    QRadioButton *button = (QRadioButton*)dialog_->titlealign->child("AlignHCenter");
+    TQRadioButton *button = (TQRadioButton*)dialog_->titlealign->child("AlignHCenter");
     if (button)
     {
         button->setChecked(true);
@@ -172,7 +172,7 @@ void smoothblendConfig::defaults() {
 //////////////////////////////////////////////////////////////////////////////
 
 extern "C" {
-    QObject* allocate_config(KConfig* config, QWidget* parent) {
+    TQObject* allocate_config(KConfig* config, TQWidget* parent) {
         return (new smoothblendConfig(config, parent));
     }
 }

@@ -12,10 +12,10 @@
 #ifndef FIRESAVER_WRITER_H
 #define FIRESAVER_WRITER_H
 
-#include <qgl.h>
-#include <qptrlist.h>
-#include <qmap.h>
-#include <qstring.h>
+#include <tqgl.h>
+#include <tqptrlist.h>
+#include <tqmap.h>
+#include <tqstring.h>
 
 class Symbol
 {
@@ -60,7 +60,7 @@ class Word
 {
     friend class Writer;
     public:
-	Word( const char * text, QMap<char, Symbol *> * map, float scale = 1.0 );
+	Word( const char * text, TQMap<char, Symbol *> * map, float scale = 1.0 );
 
 	inline void renderWord( double dT );
 	inline bool isDead();
@@ -70,7 +70,7 @@ class Word
 	float vScale, vX, vY;
 	float activateTime, lifeTime, currentTime;
 	float color[4];
-	QPtrList<Symbol> symbolList;
+	TQPtrList<Symbol> symbolList;
 };
 
 
@@ -80,14 +80,14 @@ class Word
 class Writer
 {
     public:
-	Writer( QString descFileName );
+	Writer( TQString descFileName );
 	~Writer();
 
 	//types of effects implemented
 	enum effectType { NoEffect = 0, Sequence, Fun1, Fun2 };
 
 	//call this function to add a sentence to the renderer
-	void spawnWords( QString phrase, effectType fx = NoEffect );
+	void spawnWords( TQString phrase, effectType fx = NoEffect );
 
 	//called to get the words on screen using OpenGL
 	//Note: the context must be set up. Words are drawn on XY plane
@@ -96,15 +96,15 @@ class Writer
 
     private:
 	//misc utility functions
-	bool loadMap( QString );
+	bool loadMap( TQString );
 
 	//texture 'references' used by GL to delete allocated textures
 	int numTextures;
 	unsigned int texArray[16];
 
 	//list of words and map of symbols
-	QPtrList<Word> wordList;
-	QMap<char, Symbol *> symbolMap;
+	TQPtrList<Word> wordList;
+	TQMap<char, Symbol *> symbolMap;
 
 	//disables standard constructor
 	Writer();

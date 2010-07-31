@@ -10,7 +10,7 @@
 //============================================================================
 
 
-#include <qgl.h>
+#include <tqgl.h>
 
 #include <kdialogbase.h>
 
@@ -37,7 +37,7 @@ public:
         DefaultModes
     };
 
-    EuphoriaWidget( QWidget* parent=0, const char* name=0 );
+    EuphoriaWidget( TQWidget* parent=0, const char* name=0 );
     ~EuphoriaWidget();
 
     void updateParameters();
@@ -49,7 +49,7 @@ protected:
     void resizeGL( int w, int h );
     void initializeGL();
 #ifdef UNIT_TEST
-    void keyPressEvent( QKeyEvent* );
+    void keyPressEvent( TQKeyEvent* );
 #endif
 
 private slots:
@@ -93,10 +93,10 @@ private:
     int dPriority;
 
 
-    // Using QTimer rather than timerEvent() to avoid getting locked out of
-    // the QEvent loop on lower-end systems.  Ian Geiser <geiseri@kde.org>
+    // Using TQTimer rather than timerEvent() to avoid getting locked out of
+    // the TQEvent loop on lower-end systems.  Ian Geiser <geiseri@kde.org>
     // says this is the way to go.
-    QTimer* _timer;
+    TQTimer* _timer;
     int _frameTime;
 
     friend class wisp;
@@ -104,7 +104,7 @@ private:
 
 
 #ifndef UNIT_TEST
-#include <qdialog.h>
+#include <tqdialog.h>
 #include <kscreensaver.h>
 
 
@@ -139,7 +139,7 @@ class KEuphoriaSetup : public KDialogBase
     Q_OBJECT
 
 public:
-    KEuphoriaSetup( QWidget* parent = 0, const char* name = 0 );
+    KEuphoriaSetup( TQWidget* parent = 0, const char* name = 0 );
     ~KEuphoriaSetup();
 
 private slots:
@@ -147,7 +147,7 @@ private slots:
     void slotOk();
 
 private:
-    QComboBox* modeW;
+    TQComboBox* modeW;
     KEuphoriaScreenSaver* _saver;
 };
 #endif

@@ -14,8 +14,8 @@
 #ifndef __WAVE_H__
 #define __WAVE_H__
 
-#include <qdialog.h>
-#include <qgl.h>
+#include <tqdialog.h>
+#include <tqgl.h>
 #ifdef Q_WS_MACX
 #include <OpenGL/glu.h>
 #include <OpenGL/gl.h>
@@ -24,8 +24,8 @@
 #include <GL/gl.h>
 #endif
 #include <kscreensaver.h>
-#include <qtimer.h>
-#include <qimage.h>
+#include <tqtimer.h>
+#include <tqimage.h>
 #include "wavecfg.h"
 
 
@@ -34,7 +34,7 @@ class Wave : public QGLWidget
 Q_OBJECT
 
 public:
-	Wave( QWidget * parent=0, const char * name=0 );
+	Wave( TQWidget * parent=0, const char * name=0 );
 	~Wave();
 
 protected:
@@ -55,7 +55,7 @@ private:
 	int index;
 	bool LoadGLTextures();
 	GLuint  texture[1];
-	QImage  tex;
+	TQImage  tex;
 
 };
 
@@ -71,14 +71,14 @@ public slots:
 
 private:
 	Wave *wave;
-	QTimer  *timer;
+	TQTimer  *timer;
 };
 
 class KWaveSetup : public SetupUi
 {
 	Q_OBJECT
 public:
-	KWaveSetup( QWidget *parent = NULL, const char *name = NULL );
+	KWaveSetup( TQWidget *parent = NULL, const char *name = NULL );
     ~KWaveSetup( );
 protected:
 	void readSettings();

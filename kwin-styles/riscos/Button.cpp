@@ -20,23 +20,23 @@
   Boston, MA 02110-1301, USA.
 */
 
-#include <qtooltip.h>
+#include <tqtooltip.h>
 #include "Button.h"
 #include "Static.h"
 
 namespace RiscOS
 {
 
-Button::Button(QWidget *parent, const QString& tip,
+Button::Button(TQWidget *parent, const TQString& tip,
                const ButtonState realizeButtons)
-  : QWidget(parent, "Button", 0),
+  : TQWidget(parent, "Button", 0),
     realizeButtons_(realizeButtons),
     lastButton_(NoButton),
     alignment_(Left),
     down_     (false),
     active_   (false)
 {
-   QToolTip::add(this, tip);
+   TQToolTip::add(this, tip);
    setBackgroundColor(Qt::black);
 
    setFixedSize(Static::instance()->titleHeight() - 1,
@@ -65,32 +65,32 @@ Button::Alignment Button::alignment() const
    return alignment_;
 }
 
-void Button::mousePressEvent(QMouseEvent *e)
+void Button::mousePressEvent(TQMouseEvent *e)
 {
    down_ = true;
    lastButton_ = e->button();
    repaint();
 
-   QMouseEvent me(e->type(), e->pos(), e->globalPos(),
+   TQMouseEvent me(e->type(), e->pos(), e->globalPos(),
                   (e->button()&realizeButtons_) ? LeftButton : NoButton,
                   e->state());
-   QWidget::mousePressEvent(&me);
+   TQWidget::mousePressEvent(&me);
 }
 
-void Button::mouseReleaseEvent(QMouseEvent *e)
+void Button::mouseReleaseEvent(TQMouseEvent *e)
 {
    down_ = false;
    lastButton_ = e->button();
    repaint();
-   QMouseEvent me(e->type(), e->pos(), e->globalPos(),
+   TQMouseEvent me(e->type(), e->pos(), e->globalPos(),
                   (e->button()&realizeButtons_) ? LeftButton : NoButton,
                   e->state());
-   QWidget::mouseReleaseEvent(&me);
+   TQWidget::mouseReleaseEvent(&me);
 }
 
-void Button::setPixmap(const QPixmap &p)
+void Button::setPixmap(const TQPixmap &p)
 {
-   if (QPixmap::defaultDepth() <= 8)
+   if (TQPixmap::defaultDepth() <= 8)
       aPixmap_ = iPixmap_ = p;
    else
    {
@@ -98,8 +98,8 @@ void Button::setPixmap(const QPixmap &p)
       QRgb* data = NULL;
       QRgb w = qRgb(255, 255, 255);
 
-      QImage aTx(p.convertToImage());
-      QImage iTx(aTx.copy());
+      TQImage aTx(p.convertToImage());
+      TQImage iTx(aTx.copy());
 
       const KDecorationOptions* options = KDecoration::options();
       light = options->color(KDecoration::ColorButtonBg, true).light(150).rgb();
@@ -136,7 +136,7 @@ void Button::setPixmap(const QPixmap &p)
    repaint();
 }
 
-void Button::paintEvent(QPaintEvent *)
+void Button::paintEvent(TQPaintEvent *)
 {
    bitBlt(this, alignment_ == Left ? 1 : 0, 0,
           &Static::instance()->buttonBase(active_, down_));

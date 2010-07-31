@@ -34,7 +34,7 @@ class LowerButton : public Button
 
    public:
 
-      LowerButton(QWidget *parent);
+      LowerButton(TQWidget *parent);
 
    signals:
 
@@ -42,7 +42,7 @@ class LowerButton : public Button
 
    protected:
 
-      void mouseReleaseEvent(QMouseEvent *);
+      void mouseReleaseEvent(TQMouseEvent *);
 };
 
 } // End namespace;

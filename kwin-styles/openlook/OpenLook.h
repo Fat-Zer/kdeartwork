@@ -25,8 +25,8 @@
 #ifndef KWIN_WEB_H
 #define KWIN_WEB_H
 
-#include <qptrlist.h>
-#include <qbutton.h>
+#include <tqptrlist.h>
+#include <tqbutton.h>
 
 #include <kdecoration.h>
 #include <kdecorationfactory.h>
@@ -47,10 +47,10 @@ namespace OpenLook
       void init();
 
     protected:
-      bool eventFilter(QObject *o, QEvent *e);
-      void resizeEvent(QResizeEvent *e);
-      void paintEvent(QPaintEvent *e);
-      void showEvent(QShowEvent *e);
+      bool eventFilter(TQObject *o, TQEvent *e);
+      void resizeEvent(TQResizeEvent *e);
+      void paintEvent(TQPaintEvent *e);
+      void showEvent(TQShowEvent *e);
 
       virtual void captionChange();
       void desktopChange();
@@ -59,47 +59,47 @@ namespace OpenLook
       void iconChange();
       void maximizeChange();
       void borders(int &left, int &right, int &top, int &bottom) const;
-      QSize minimumSize() const;
-      void resize( const QSize& );
-      virtual void mouseDoubleClickEvent(QMouseEvent *);
-      virtual void wheelEvent(QWheelEvent *e);
+      TQSize minimumSize() const;
+      void resize( const TQSize& );
+      virtual void mouseDoubleClickEvent(TQMouseEvent *);
+      virtual void wheelEvent(TQWheelEvent *e);
 
-      virtual Position mousePosition(const QPoint &) const;
+      virtual Position mousePosition(const TQPoint &) const;
       virtual bool animateMinimize(bool);
 
     private:
 
       void doLayout();
 
-      QRect titleRect() const;
+      TQRect titleRect() const;
 
-      QRect topLeftRect() const;
-      QRect topRightRect() const;
-      QRect bottomLeftRect() const;
-      QRect bottomRightRect() const;
+      TQRect topLeftRect() const;
+      TQRect topRightRect() const;
+      TQRect bottomLeftRect() const;
+      TQRect bottomRightRect() const;
 
-      QRect buttonRect() const;
+      TQRect buttonRect() const;
 
-      void paintBorder(QPainter &) const;
+      void paintBorder(TQPainter &) const;
 
-      void paintTopLeftRect(QPainter &) const;
-      void paintTopRightRect(QPainter &) const;
-      void paintBottomLeftRect(QPainter &) const;
-      void paintBottomRightRect(QPainter &) const;
+      void paintTopLeftRect(TQPainter &) const;
+      void paintTopRightRect(TQPainter &) const;
+      void paintBottomLeftRect(TQPainter &) const;
+      void paintBottomRightRect(TQPainter &) const;
 
-      void paintButton(QPainter &) const;
-      void paintArrow(QPainter &) const;
+      void paintButton(TQPainter &) const;
+      void paintArrow(TQPainter &) const;
 
-      bool isButtonPress(QMouseEvent *);
-      bool isButtonRelease(QMouseEvent *);
+      bool isButtonPress(TQMouseEvent *);
+      bool isButtonRelease(TQMouseEvent *);
 
-      QSpacerItem   * titleSpacer_;
-      QPoint          mousePressPoint_;
+      TQSpacerItem   * titleSpacer_;
+      TQPoint          mousePressPoint_;
       bool            tool_;
       bool            buttonDown_;
   };
   
-  class DecorationFactory: public QObject, public KDecorationFactory
+  class DecorationFactory: public TQObject, public KDecorationFactory
   {
   public:
     DecorationFactory();
@@ -107,7 +107,7 @@ namespace OpenLook
     virtual KDecoration *createDecoration(KDecorationBridge *);
     virtual bool reset(unsigned long changed);
     virtual bool supports( Ability ability );
-    QValueList< DecorationFactory::BorderSize > borderSizes() const;
+    TQValueList< DecorationFactory::BorderSize > borderSizes() const;
   };
 }
 

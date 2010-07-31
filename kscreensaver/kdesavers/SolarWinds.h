@@ -10,7 +10,7 @@
 //============================================================================
 
 
-#include <qgl.h>
+#include <tqgl.h>
 
 
 #define LIGHTSIZE   64
@@ -37,7 +37,7 @@ public:
         DefaultModes
     };
 
-    SWindsWidget( QWidget* parent=0, const char* name=0 );
+    SWindsWidget( TQWidget* parent=0, const char* name=0 );
     ~SWindsWidget();
 
     void updateParameters();
@@ -49,7 +49,7 @@ protected:
     void resizeGL( int w, int h );
     void initializeGL();
 #ifdef UNIT_TEST
-    void keyPressEvent( QKeyEvent* );
+    void keyPressEvent( TQKeyEvent* );
 #endif
 
 private slots:
@@ -72,10 +72,10 @@ private:
     int dBlur;
 
 
-    // Using QTimer rather than timerEvent() to avoid getting locked out of
-    // the QEvent loop on lower-end systems.  Ian Geiser <geiseri@kde.org>
+    // Using TQTimer rather than timerEvent() to avoid getting locked out of
+    // the TQEvent loop on lower-end systems.  Ian Geiser <geiseri@kde.org>
     // says this is the way to go.
-    QTimer* _timer;
+    TQTimer* _timer;
     int _frameTime;
 
     friend class wind;
@@ -119,7 +119,7 @@ class KSWindsSetup : public KDialogBase
 
 public:
 
-    KSWindsSetup( QWidget* parent = 0, const char* name = 0 );
+    KSWindsSetup( TQWidget* parent = 0, const char* name = 0 );
     ~KSWindsSetup();
 
 private slots:
@@ -129,7 +129,7 @@ private slots:
 
 private:
 
-    QComboBox* modeW;
+    TQComboBox* modeW;
     KSWindsScreenSaver* _saver;
 };
 #endif

@@ -25,9 +25,9 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include <qptrlist.h>
-#include <qfile.h>
-#include <qfileinfo.h>
+#include <tqptrlist.h>
+#include <tqfile.h>
+#include <tqfileinfo.h>
 
 #include <kdebug.h>
 #include <kapplication.h>
@@ -41,7 +41,7 @@
 
 #define MAX_ARGS  30
 
-template class QPtrList<KXSConfigItem>;
+template class TQPtrList<KXSConfigItem>;
 
 //===========================================================================
 static const char appName[] = "kxsrun";
@@ -71,33 +71,33 @@ int main(int argc, char *argv[])
     if ( !args->count() )
 	exit( 1 );
 
-    QString filename = args->arg(0);
-    QString configFile(filename);
+    TQString filename = args->arg(0);
+    TQString configFile(filename);
 
     // Get the config filename
     int slash = filename.findRev('/');
     if (slash >= 0)
 	configFile = filename.mid(slash+1);
 
-    QString exeName = configFile;
+    TQString exeName = configFile;
     configFile += "rc";
 
     // read configuration args
     KConfig config(configFile);
 
-    QPtrList<KXSConfigItem> configItemList;
+    TQPtrList<KXSConfigItem> configItemList;
 
-    QString xmlFile = "/doesntexist";
+    TQString xmlFile = "/doesntexist";
 #ifdef XSCREENSAVER_CONFIG_DIR
     xmlFile = XSCREENSAVER_CONFIG_DIR;
 #endif
     xmlFile += "/" + exeName + ".xml";
-    if ( QFile::exists( xmlFile ) ) {
+    if ( TQFile::exists( xmlFile ) ) {
 	// We can use the xscreensaver xml config files.
 	KXSXml xmlParser(0);
 	xmlParser.parse(xmlFile);
 	configItemList = *xmlParser.items();
-	QPtrListIterator<KXSConfigItem> it( configItemList );
+	TQPtrListIterator<KXSConfigItem> it( configItemList );
 	KXSConfigItem *item;
 	while ( (item = it.current()) != 0 ) {
 	    ++it;
@@ -108,10 +108,10 @@ int main(int argc, char *argv[])
 	int idx = 0;
 	while (true)
 	{
-	    QString group = QString("Arg%1").arg(idx);
+	    TQString group = TQString("Arg%1").arg(idx);
 	    if (config.hasGroup(group)) {
 		config.setGroup(group);
-		QString type = config.readEntry("Type");
+		TQString type = config.readEntry("Type");
 		if (type == "Range") {
 		    KXSRangeItem *rc = new KXSRangeItem(group, config);
 		    configItemList.append(rc);
@@ -134,10 +134,10 @@ int main(int argc, char *argv[])
 
     // find the xscreensaver executable
     //work around a KStandarDirs::findExe() "feature" where it looks in $KDEDIR/bin first no matter what and sometimes finds the wrong executable
-    QFileInfo checkExe;
-    QString saverdir = QString("%1/%2").arg(XSCREENSAVER_HACKS_DIR).arg(filename);
+    TQFileInfo checkExe;
+    TQString saverdir = TQString("%1/%2").arg(XSCREENSAVER_HACKS_DIR).arg(filename);
     kdDebug() << "saverdir is" << saverdir << endl;
-    QString exeFile;
+    TQString exeFile;
     checkExe.setFile(saverdir);
     if (checkExe.exists() && checkExe.isExecutable() && checkExe.isFile())
     {
@@ -151,10 +151,10 @@ int main(int argc, char *argv[])
 	strcpy(sargs[0], filename.ascii());
 
 	// add the command line options
-	QString cmd;
+	TQString cmd;
 	unsigned int i;
 	for (i = 1; i < (unsigned)args->count(); i++)
-	    cmd += " " + QString(args->arg(i));
+	    cmd += " " + TQString(args->arg(i));
 
 	// add the config options
 	KXSConfigItem *item;
@@ -163,7 +163,7 @@ int main(int argc, char *argv[])
 	}
 
 	// put into char * array for execv
-	QString word;
+	TQString word;
 	int si = 1;
 	i = 0;
 	bool inQuotes = false;

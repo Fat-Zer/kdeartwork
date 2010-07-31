@@ -22,7 +22,7 @@
 
 #include "StickyButton.h"
 
-#include <qtooltip.h>
+#include <tqtooltip.h>
 
 namespace RiscOS
 {
@@ -66,24 +66,24 @@ static const char * const sticky_xpm[] = {
 "..          "};
 
 
-StickyButton::StickyButton(QWidget *parent)
+StickyButton::StickyButton(TQWidget *parent)
   : Button(parent, i18n("On all desktops")), on_(false)
 {
-   setPixmap(QPixmap((const char **)sticky_xpm));
+   setPixmap(TQPixmap((const char **)sticky_xpm));
 }
 
 void StickyButton::setOn(bool on)
 {
    on_ = on;
-   setPixmap(on_ ? QPixmap((const char **)unsticky_xpm) :
-                   QPixmap((const char **)sticky_xpm));
+   setPixmap(on_ ? TQPixmap((const char **)unsticky_xpm) :
+                   TQPixmap((const char **)sticky_xpm));
    repaint();
-   QToolTip::remove(this);
-   QToolTip::add(this, on_ ? i18n("Not on all desktops")
+   TQToolTip::remove(this);
+   TQToolTip::add(this, on_ ? i18n("Not on all desktops")
                            : i18n("On all desktops"));
 }
 
-void StickyButton::mouseReleaseEvent(QMouseEvent *e)
+void StickyButton::mouseReleaseEvent(TQMouseEvent *e)
 {
    Button::mouseReleaseEvent(e);
 

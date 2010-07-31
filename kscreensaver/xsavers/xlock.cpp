@@ -4,7 +4,7 @@
 //
 
 #include <time.h>
-#include <qapplication.h>
+#include <tqapplication.h>
 #include "xlock.h"
 
 
@@ -75,7 +75,7 @@ void initXLock( GC gc )
 	Scr[0].bgcol = allocpixel(cmap, "background", "White");
 	Scr[0].bgcol = allocpixel(cmap, "foreground", "Black");
 
-	QColor color;
+	TQColor color;
 
 	for ( int i = 0; i < NUMCOLORS; i++ )
 	{

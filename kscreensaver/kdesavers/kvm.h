@@ -6,8 +6,8 @@
 #ifndef __KVM_H__
 #define __KVM_H__
 
-#include <qtimer.h>
-#include <qptrlist.h>
+#include <tqtimer.h>
+#include <tqptrlist.h>
 
 #include <kdialogbase.h>
 #include <kscreensaver.h>
@@ -23,7 +23,7 @@ extern "C" {
 #define	MAX_REFRESH_TIMEOUT	40
 
 typedef struct {
-  QWidget *w;
+  TQWidget *w;
   int grid_width, grid_height;
   int grid_margin_x;
   int grid_margin_y;
@@ -34,7 +34,7 @@ typedef struct {
   char*	modified;
   int	show_threads;
 
-  QPixmap images;
+  TQPixmap images;
   int image_width, image_height;
   int nglyphs;
 
@@ -61,7 +61,7 @@ protected slots:
 	void slotTimeout();
 
 protected:
-	QTimer      timer;
+	TQTimer      timer;
 	int         colorContext;
 
 	int         speed;
@@ -75,7 +75,7 @@ class kVmSetup : public KDialogBase
 {
 	Q_OBJECT
 public:
-	kVmSetup( QWidget *parent = NULL, const char *name = NULL );
+	kVmSetup( TQWidget *parent = NULL, const char *name = NULL );
     ~kVmSetup();
 protected:
 	void readSettings();
@@ -87,7 +87,7 @@ private slots:
 	void slotHelp();
 
 private:
-	QWidget *preview;
+	TQWidget *preview;
 	kVmSaver *saver;
 
 	int speed;

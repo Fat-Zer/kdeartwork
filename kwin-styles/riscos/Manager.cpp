@@ -24,11 +24,11 @@
 #include <config.h> // for usleep on non-linux platforms
 #include <math.h> // for sin and cos
 
-#include <qapplication.h>
-#include <qimage.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qpainter.h>
+#include <tqapplication.h>
+#include <tqimage.h>
+#include <tqlabel.h>
+#include <tqlayout.h>
+#include <tqpainter.h>
 
 #include <netwm.h>
 
@@ -80,37 +80,37 @@ void Manager::init()
    resetLayout();
 }
 
-bool Manager::eventFilter(QObject *o, QEvent *e)
+bool Manager::eventFilter(TQObject *o, TQEvent *e)
 {
    if (o != widget()) return false;
    switch (e->type())
    {
-      case QEvent::Resize:
-         resizeEvent(static_cast<QResizeEvent*>(e));
+      case TQEvent::Resize:
+         resizeEvent(static_cast<TQResizeEvent*>(e));
          return true;
-      case QEvent::Paint:
-         paintEvent(static_cast<QPaintEvent*>(e));
+      case TQEvent::Paint:
+         paintEvent(static_cast<TQPaintEvent*>(e));
          return true;
-      case QEvent::MouseButtonDblClick:
-         mouseDoubleClickEvent(static_cast<QMouseEvent*>(e));
+      case TQEvent::MouseButtonDblClick:
+         mouseDoubleClickEvent(static_cast<TQMouseEvent*>(e));
          return true;
-      case QEvent::MouseButtonPress:
-         processMousePressEvent(static_cast<QMouseEvent*>(e));
+      case TQEvent::MouseButtonPress:
+         processMousePressEvent(static_cast<TQMouseEvent*>(e));
          return true;
-      case QEvent::Wheel:
-         wheelEvent( static_cast< QWheelEvent* >( e ));
+      case TQEvent::Wheel:
+         wheelEvent( static_cast< TQWheelEvent* >( e ));
          return true;
-      case QEvent::MouseButtonRelease:
+      case TQEvent::MouseButtonRelease:
          return false;
-      case QEvent::Show:
+      case TQEvent::Show:
          return false;
-      case QEvent::MouseMove:
+      case TQEvent::MouseMove:
          return false;
-      case QEvent::Enter:
+      case TQEvent::Enter:
          return false;
-      case QEvent::Leave:
+      case TQEvent::Leave:
          return false;
-      case QEvent::Move:
+      case TQEvent::Move:
          return false;
       default:
          return false;
@@ -129,12 +129,12 @@ void Manager::borders(int &left, int &right, int &top, int &bottom) const
    bottom = isResizable() ? Static::instance()->resizeHeight() : 1;
 }
 
-void Manager::resize(const QSize &s)
+void Manager::resize(const TQSize &s)
 {
    widget()->resize(s);
 }
 
-QSize Manager::minimumSize() const
+TQSize Manager::minimumSize() const
 {
    return widget()->minimumSize();
 }
@@ -169,16 +169,16 @@ void Manager::shadeChange()
 {
 }
 
-void Manager::paintEvent(QPaintEvent *e)
+void Manager::paintEvent(TQPaintEvent *e)
 {
-   QPainter p(widget());
+   TQPainter p(widget());
 
-   QRect r(e->rect());
+   TQRect r(e->rect());
 
-   bool intersectsLeft = r.intersects(QRect(0, 0, 1, height()));
+   bool intersectsLeft = r.intersects(TQRect(0, 0, 1, height()));
 
    bool intersectsRight =
-      r.intersects(QRect(width() - 1, 0, width(), height()));
+      r.intersects(TQRect(width() - 1, 0, width(), height()));
 
    if (intersectsLeft || intersectsRight)
    {
@@ -197,7 +197,7 @@ void Manager::paintEvent(QPaintEvent *e)
 
    // Title bar.
 
-   QRect tr = titleSpacer_->geometry();
+   TQRect tr = titleSpacer_->geometry();
    bitBlt(widget(), tr.topLeft(), &titleBuf_);
 
    // Resize bar.
@@ -220,7 +220,7 @@ void Manager::paintEvent(QPaintEvent *e)
       p.drawLine(1, height() - 1, width() - 2, height() - 1);
 }
 
-void Manager::resizeEvent(QResizeEvent*)
+void Manager::resizeEvent(TQResizeEvent*)
 {
    updateButtonVisibility();
    updateTitleBuffer();
@@ -292,14 +292,14 @@ void Manager::updateTitleBuffer()
 
    Static * s = Static::instance();
 
-   QRect tr = titleSpacer_->geometry();
+   TQRect tr = titleSpacer_->geometry();
 
    if (tr.width() == 0 || tr.height() == 0)
       titleBuf_.resize(8, 8);
    else
       titleBuf_.resize(tr.size());
 
-   QPainter p(&titleBuf_);
+   TQPainter p(&titleBuf_);
 
    p.drawPixmap(0, 0, s->titleTextLeft(active));
 
@@ -316,7 +316,7 @@ void Manager::updateTitleBuffer()
    p.drawPixmap(tr.width() - 3, 0, s->titleTextRight(active));
 }
 
-KDecoration::Position Manager::mousePosition(const QPoint& p) const
+KDecoration::Position Manager::mousePosition(const TQPoint& p) const
 {
    Position m = PositionCenter;
 
@@ -350,19 +350,19 @@ KDecoration::Position Manager::mousePosition(const QPoint& p) const
    return m;
 }
 
-void Manager::mouseDoubleClickEvent(QMouseEvent *e)
+void Manager::mouseDoubleClickEvent(TQMouseEvent *e)
 {
    if (e->button() == LeftButton && titleSpacer_->geometry().contains(e->pos()))
       titlebarDblClickOperation();
 }
 
-void Manager::wheelEvent(QWheelEvent *e)
+void Manager::wheelEvent(TQWheelEvent *e)
 {
     if (isSetShade() || titleLayout_->geometry().contains(e->pos()) )
         titlebarMouseWheelOperation( e->delta());
 }
 
-void Manager::paletteChange(const QPalette &)
+void Manager::paletteChange(const TQPalette &)
 {
    resetLayout();
 }
@@ -430,7 +430,7 @@ bool Manager::animateMinimize(bool iconify)
          helperShowHide(false);
          qApp->syncX();
 
-         QRect r = iconGeometry();
+         TQRect r = iconGeometry();
 
          if (!r.isValid())
             return true;
@@ -462,7 +462,7 @@ bool Manager::animateMinimize(bool iconify)
 
          double delta  = finalAngle / steps;
 
-         QPainter p(workspaceWidget());
+         TQPainter p(workspaceWidget());
          p.setRasterOp(Qt::NotROP);
 
          for (double angle = 0; ; angle += delta)
@@ -474,10 +474,10 @@ bool Manager::animateMinimize(bool iconify)
             double dch = (ch / 2) * cos(angle);
             double midy = cy + (ch / 2);
 
-            QPoint p1(int(cx + dx), int(midy - dch));
-            QPoint p2(int(cx + cw - dx), p1.y());
-            QPoint p3(int(cx + dw + dx), int(midy + dch));
-            QPoint p4(int(cx - dx), p3.y());
+            TQPoint p1(int(cx + dx), int(midy - dch));
+            TQPoint p2(int(cx + cw - dx), p1.y());
+            TQPoint p3(int(cx + dw + dx), int(midy + dch));
+            TQPoint p4(int(cx - dx), p3.y());
 
             grabXServer();
 
@@ -521,12 +521,12 @@ bool Manager::animateMinimize(bool iconify)
 
          int stepCount = 12;
 
-         QRect r(geometry());
+         TQRect r(geometry());
 
          int dx = r.width() / (stepCount * 2);
          int dy = r.height() / (stepCount * 2);
 
-         QPainter p(workspaceWidget());
+         TQPainter p(workspaceWidget());
          p.setRasterOp(Qt::NotROP);
 
          for (int step = 0; step < stepCount; step++)
@@ -550,19 +550,19 @@ bool Manager::animateMinimize(bool iconify)
 
       default:
       {
-         QRect icongeom = iconGeometry();
+         TQRect icongeom = iconGeometry();
 
          if (!icongeom.isValid())
             return true;
 
-         QRect wingeom = geometry();
+         TQRect wingeom = geometry();
 
-         QPainter p(workspaceWidget());
+         TQPainter p(workspaceWidget());
 
          p.setRasterOp(Qt::NotROP);
 #if 0
          if (iconify)
-            p.setClipRegion(QRegion(workspaceWidget()->rect()) - wingeom);
+            p.setClipRegion(TQRegion(workspaceWidget()->rect()) - wingeom);
 #endif
          grabXServer();
 
@@ -594,7 +594,7 @@ void Manager::createTitle()
    leftButtonList_.clear();
    rightButtonList_.clear();
 
-   QString buttons;
+   TQString buttons;
 
    if (options()->customButtonPositions())
       buttons = options()->titleButtonsLeft() + "|" +
@@ -602,7 +602,7 @@ void Manager::createTitle()
    else
       buttons = "XSH|IA";
 
-   QPtrList<Button> *buttonList = &leftButtonList_;
+   TQPtrList<Button> *buttonList = &leftButtonList_;
 
    for (unsigned int i = 0; i < buttons.length(); ++i)
    {
@@ -612,9 +612,9 @@ void Manager::createTitle()
       {
          case 'S': // Sticky
             tb = new StickyButton(widget());
-            connect(this, SIGNAL(stickyChanged(bool)),
-                    tb, SLOT(setOn(bool)));
-            connect(tb, SIGNAL(toggleSticky()), this, SLOT(slotToggleSticky()));
+            connect(this, TQT_SIGNAL(stickyChanged(bool)),
+                    tb, TQT_SLOT(setOn(bool)));
+            connect(tb, TQT_SIGNAL(toggleSticky()), this, TQT_SLOT(slotToggleSticky()));
             emit(stickyChanged(isOnAllDesktops()));
             break;
 
@@ -622,7 +622,7 @@ void Manager::createTitle()
             if (providesContextHelp())
             {
                tb = new HelpButton(widget());
-               connect(tb, SIGNAL(help()), this, SLOT(showContextHelp()));
+               connect(tb, TQT_SIGNAL(help()), this, TQT_SLOT(showContextHelp()));
             }
             break;
 
@@ -630,7 +630,7 @@ void Manager::createTitle()
             if (isMinimizable())
             {
                tb = new IconifyButton(widget());
-               connect(tb, SIGNAL(iconify()), this, SLOT(minimize()));
+               connect(tb, TQT_SIGNAL(iconify()), this, TQT_SLOT(minimize()));
             }
             break;
 
@@ -638,29 +638,29 @@ void Manager::createTitle()
             if (isMaximizable())
             {
                tb = new MaximiseButton(widget());
-               connect(tb, SIGNAL(maximizeClicked(ButtonState)),
-                       this, SLOT(slotMaximizeClicked(ButtonState)));
-               connect(this, SIGNAL(maximizeChanged(bool)),
-                       tb, SLOT(setOn(bool)));
+               connect(tb, TQT_SIGNAL(maximizeClicked(ButtonState)),
+                       this, TQT_SLOT(slotMaximizeClicked(ButtonState)));
+               connect(this, TQT_SIGNAL(maximizeChanged(bool)),
+                       tb, TQT_SLOT(setOn(bool)));
                emit(maximizeChanged(maximizeMode() == MaximizeFull));
             }
             break;
 
          case 'F': // Above
             tb = new AboveButton(widget());
-            connect(tb, SIGNAL(above()), this, SLOT(slotAbove()));
+            connect(tb, TQT_SIGNAL(above()), this, TQT_SLOT(slotAbove()));
             break;
 
          case 'B': // Lower
             tb = new LowerButton(widget());
-            connect(tb, SIGNAL(lower()), this, SLOT(slotLower()));
+            connect(tb, TQT_SIGNAL(lower()), this, TQT_SLOT(slotLower()));
             break;
 
          case 'X': // Close
             if (isCloseable())
             {
                tb = new CloseButton(widget());
-               connect(tb, SIGNAL(closeWindow()), this, SLOT(closeWindow()));
+               connect(tb, TQT_SIGNAL(closeWindow()), this, TQT_SLOT(closeWindow()));
             }
             break;
 
@@ -671,23 +671,23 @@ void Manager::createTitle()
 
       if (tb != NULL)
       {
-         connect(this, SIGNAL(activeChanged(bool)), tb, SLOT(setActive(bool)));
+         connect(this, TQT_SIGNAL(activeChanged(bool)), tb, TQT_SLOT(setActive(bool)));
          buttonList->append(tb);
       }
    }
 
-   for (QPtrListIterator<Button> it(leftButtonList_); it.current(); ++it)
+   for (TQPtrListIterator<Button> it(leftButtonList_); it.current(); ++it)
    {
       it.current()->setAlignment(Button::Left);
       titleLayout_->addWidget(it.current());
    }
 
-   titleSpacer_ = new QSpacerItem(0, Static::instance()->titleHeight(),
-                                  QSizePolicy::Expanding, QSizePolicy::Fixed);
+   titleSpacer_ = new TQSpacerItem(0, Static::instance()->titleHeight(),
+                                  TQSizePolicy::Expanding, TQSizePolicy::Fixed);
 
    titleLayout_->addItem(titleSpacer_);
 
-   for (QPtrListIterator<Button> it(rightButtonList_); it.current(); ++it)
+   for (TQPtrListIterator<Button> it(rightButtonList_); it.current(); ++it)
    {
       it.current()->setAlignment(Button::Right);
       titleLayout_->addWidget(it.current());
@@ -697,21 +697,21 @@ void Manager::createTitle()
 void Manager::resetLayout()
 {
    delete topLayout_;
-   topLayout_ = new QVBoxLayout(widget(), 0, 0);
-   topLayout_->setResizeMode(QLayout::FreeResize);
+   topLayout_ = new TQVBoxLayout(widget(), 0, 0);
+   topLayout_->setResizeMode(TQLayout::FreeResize);
 
-   titleLayout_ = new QBoxLayout(topLayout_, QBoxLayout::LeftToRight, 0, 0);
-   titleLayout_->setResizeMode(QLayout::FreeResize);
+   titleLayout_ = new TQBoxLayout(topLayout_, TQBoxLayout::LeftToRight, 0, 0);
+   titleLayout_->setResizeMode(TQLayout::FreeResize);
 
    createTitle();
 
-   QBoxLayout *midLayout = new QBoxLayout(topLayout_, QBoxLayout::LeftToRight,
+   TQBoxLayout *midLayout = new TQBoxLayout(topLayout_, TQBoxLayout::LeftToRight,
                                           0, 0);
-   midLayout->setResizeMode(QLayout::FreeResize);
+   midLayout->setResizeMode(TQLayout::FreeResize);
    midLayout->addSpacing(1);
    if (isPreview())
       midLayout->addWidget(
-         new QLabel(i18n("<center><b>RiscOS preview</b></center>"), widget()));
+         new TQLabel(i18n("<center><b>RiscOS preview</b></center>"), widget()));
    midLayout->addSpacing(1);
 
    if (isResizable())

@@ -18,15 +18,15 @@
  */
 
 #include "cdeclient.h"
-#include <qdatetime.h>
-#include <qlayout.h>
-#include <qbutton.h>
-#include <qcursor.h>
-#include <qlabel.h>
-#include <qtooltip.h>
-#include <qdrawutil.h>
-#include <qpainter.h>
-#include <qapplication.h>
+#include <tqdatetime.h>
+#include <tqlayout.h>
+#include <tqbutton.h>
+#include <tqcursor.h>
+#include <tqlabel.h>
+#include <tqtooltip.h>
+#include <tqdrawutil.h>
+#include <tqpainter.h>
+#include <tqapplication.h>
 #include <klocale.h>
 #include <kconfig.h>
 
@@ -114,9 +114,9 @@ static inline const KDecorationOptions* options()
     return KDecoration::options();
 }
 
-static void fixColorGroup(QColorGroup & colorGroup)
+static void fixColorGroup(TQColorGroup & colorGroup)
 {
-    QColor light = colorGroup.light();
+    TQColor light = colorGroup.light();
 
     int hue, saturation, value;
 
@@ -125,17 +125,17 @@ static void fixColorGroup(QColorGroup & colorGroup)
     if (value < 128)
     {
       light.setHsv(hue, saturation, 128);
-      colorGroup.setColor(QColorGroup::Light, light);
+      colorGroup.setColor(TQColorGroup::Light, light);
     }
 
-    QColor dark = colorGroup.dark();
+    TQColor dark = colorGroup.dark();
 
     dark.hsv(&hue, &saturation, &value);
 
     if (value < 84)
     {
       dark.setHsv(hue, saturation, 84);
-      colorGroup.setColor(QColorGroup::Dark, dark);
+      colorGroup.setColor(TQColorGroup::Dark, dark);
     }
 }
 
@@ -156,7 +156,7 @@ static void readConfig(CdeClientFactory *f)
     coloredFrame = conf.readBoolEntry( "UseTitleBarBorderColors", true );
     titlebarButtonMode = conf.readBoolEntry( "TitlebarButtonMode", true );
 
-    QString value = conf.readEntry( "TextAlignment", "AlignHCenter" );
+    TQString value = conf.readEntry( "TextAlignment", "AlignHCenter" );
     if ( value == "AlignLeft" )
 	textAlignment = Qt::AlignLeft;
     else if ( value == "AlignHCenter" )
@@ -178,7 +178,7 @@ static void readConfig(CdeClientFactory *f)
 
     // Force button size to be in a reasonable range.
     // If the frame width is large, the button size must be large too.
-    s_buttonSize = QFontMetrics(options()->font( true )).height() + 2;
+    s_buttonSize = TQFontMetrics(options()->font( true )).height() + 2;
     if (s_buttonSize < 19) s_buttonSize = 19;
     if (s_buttonSize < s_frameWidth) s_buttonSize = s_frameWidth;
     s_buttonSize |= 1; // Be sure the button size is odd.
@@ -248,11 +248,11 @@ bool CdeClientFactory::supports( Ability ability )
     };
 }
 
-QValueList< CdeClientFactory::BorderSize >
+TQValueList< CdeClientFactory::BorderSize >
 CdeClientFactory::borderSizes() const
 {
     // the list must be sorted
-    return QValueList< BorderSize >() << BorderTiny << BorderNormal <<
+    return TQValueList< BorderSize >() << BorderTiny << BorderNormal <<
 	BorderLarge << BorderVeryLarge <<  BorderHuge <<
 	BorderVeryHuge << BorderOversized;
 }
@@ -271,9 +271,9 @@ void CdeClient::init()
 
     widget()->setBackgroundMode(NoBackground);
 
-    mainLayout = new QVBoxLayout(widget());
-    QBoxLayout* windowLayout = new QBoxLayout(0, QBoxLayout::LeftToRight, 0, 0, 0);
-    titleLayout = new QBoxLayout(0, QBoxLayout::LeftToRight, 0, 0, 0);
+    mainLayout = new TQVBoxLayout(widget());
+    TQBoxLayout* windowLayout = new TQBoxLayout(0, TQBoxLayout::LeftToRight, 0, 0, 0);
+    titleLayout = new TQBoxLayout(0, TQBoxLayout::LeftToRight, 0, 0, 0);
 
     // TODO Check if this stuff can be simplified.
     // Border sizes are from a fixed set now.
@@ -295,17 +295,17 @@ void CdeClient::init()
     mainLayout->addLayout( windowLayout, 1 );
 
     if (isPreview())
-        windowLayout->addWidget(new QLabel(i18n(
+        windowLayout->addWidget(new TQLabel(i18n(
 			"<center><b>CDE preview</b></center>"), widget()), 1);
     else
-    	windowLayout->addItem( new QSpacerItem( 0, 0 ));
+    	windowLayout->addItem( new TQSpacerItem( 0, 0 ));
 
     for ( int i=0; i < BtnCount; i++ )
         button[i] = NULL;
 
     addClientButtons( options()->titleButtonsLeft() );
 
-    titlebar = new QSpacerItem( 10, 16, QSizePolicy::Expanding, QSizePolicy::Minimum );
+    titlebar = new TQSpacerItem( 10, 16, TQSizePolicy::Expanding, TQSizePolicy::Minimum );
     titleLayout->addItem( titlebar );
 
     addClientButtons( options()->titleButtonsRight() );
@@ -314,7 +314,7 @@ void CdeClient::init()
     closing = false;
 }
 
-void CdeClient::addClientButtons( const QString& s )
+void CdeClient::addClientButtons( const TQString& s )
 {
     if ( s.length() > 0 )
         for ( unsigned int i = 0; i < s.length(); i++ )
@@ -326,8 +326,8 @@ void CdeClient::addClientButtons( const QString& s )
                     if ( ! button[BtnMenu] )
                     {
                         button[BtnMenu] = new CdeButton( this, "menu", BtnMenu, i18n("Menu"), LeftButton|RightButton );
-                        connect( button[BtnMenu], SIGNAL(pressed()), SLOT(menuButtonPressed()) );
-                        connect( button[BtnMenu], SIGNAL(released()), SLOT(menuButtonReleased()) );
+                        connect( button[BtnMenu], TQT_SIGNAL(pressed()), TQT_SLOT(menuButtonPressed()) );
+                        connect( button[BtnMenu], TQT_SIGNAL(released()), TQT_SLOT(menuButtonReleased()) );
                         titleLayout->addWidget( button[BtnMenu] );
                     }
                     break;
@@ -338,7 +338,7 @@ void CdeClient::addClientButtons( const QString& s )
                     {
                         button[BtnHelp] = new CdeButton( this, "help", BtnHelp, i18n("Help") );
                         connect(button[BtnHelp],
-				SIGNAL(clicked()), SLOT(showContextHelp()));
+				TQT_SIGNAL(clicked()), TQT_SLOT(showContextHelp()));
                         titleLayout->addWidget( button[BtnHelp] );
                     }
                     break;
@@ -349,7 +349,7 @@ void CdeClient::addClientButtons( const QString& s )
                     {
                         button[BtnIconify] = new CdeButton( this, "iconify", BtnIconify, i18n("Minimize") );
                         connect(button[BtnIconify],
-				SIGNAL(clicked()), SLOT(minimize()));
+				TQT_SIGNAL(clicked()), TQT_SLOT(minimize()));
                         titleLayout->addWidget( button[BtnIconify] );
                     }
                     break;
@@ -359,8 +359,8 @@ void CdeClient::addClientButtons( const QString& s )
                     if ( (! button[BtnMax] ) && isMaximizable() )
                     {
                         button[BtnMax] = new CdeButton(this, "maximize", BtnMax, i18n("Maximize"), LeftButton|MidButton|RightButton);
-                        connect(button[BtnMax], SIGNAL(clicked()),
-				SLOT(maximizeButtonClicked()));
+                        connect(button[BtnMax], TQT_SIGNAL(clicked()),
+				TQT_SLOT(maximizeButtonClicked()));
                         titleLayout->addWidget( button[BtnMax] );
                     }
                     break;
@@ -370,7 +370,7 @@ void CdeClient::addClientButtons( const QString& s )
                     if ( !button[BtnClose] && isCloseable())
                     {
                         button[BtnClose] = new CdeButton(this, "close", BtnClose, i18n("Close"));
-                        connect( button[BtnClose], SIGNAL( clicked()), SLOT(closeWindow()) );
+                        connect( button[BtnClose], TQT_SIGNAL( clicked()), TQT_SLOT(closeWindow()) );
                         titleLayout->addWidget( button[BtnClose] );
                     }
 		// Add onAlldesktops button and spacers
@@ -396,8 +396,8 @@ void CdeClient::maximizeChange()
 {
     if ( button[BtnMax] ) {
 	bool m = maximizeMode() == MaximizeFull;
-	QToolTip::remove(button[BtnMax]);
-	QToolTip::add(button[BtnMax], m ? i18n("Restore") : i18n("Maximize"));
+	TQToolTip::remove(button[BtnMax]);
+	TQToolTip::add(button[BtnMax], m ? i18n("Restore") : i18n("Maximize"));
 	button[BtnMax]->repaint();
     }
 }
@@ -410,7 +410,7 @@ void CdeClient::shadeChange()
 {
 }
 
-void CdeClient::showEvent(QShowEvent *)
+void CdeClient::showEvent(TQShowEvent *)
 {
     widget()->repaint();
 }
@@ -420,13 +420,13 @@ void CdeClient::desktopChange()
     // Nothing to do yet
 }
 
-QSize CdeClient::minimumSize() const
+TQSize CdeClient::minimumSize() const
 {
-    return QSize(2 * (s_buttonSize + s_frameWidth),
+    return TQSize(2 * (s_buttonSize + s_frameWidth),
 	         2 * s_frameWidth + s_buttonSize);
 }
 
-void CdeClient::resize(const QSize& s)
+void CdeClient::resize(const TQSize& s)
 {
     widget()->resize(s);
 }
@@ -440,21 +440,21 @@ void CdeClient::maximizeButtonClicked()
 
 void CdeClient::menuButtonPressed()
 {
-    static QTime* t = NULL;
+    static TQTime* t = NULL;
     static CdeClient* lastClient = NULL;
     if( t == NULL )
 	t = new QTime;
-    bool dbl = ( lastClient == this && t->elapsed() <= QApplication::doubleClickInterval());
+    bool dbl = ( lastClient == this && t->elapsed() <= TQApplication::doubleClickInterval());
     lastClient = this;
     t->start();
     if( !dbl )
     {
-	QRect menuRect = button[BtnMenu]->rect();
-        QPoint menuTop = button[BtnMenu]->mapToGlobal(menuRect.topLeft());
-        QPoint menuBottom = 
+	TQRect menuRect = button[BtnMenu]->rect();
+        TQPoint menuTop = button[BtnMenu]->mapToGlobal(menuRect.topLeft());
+        TQPoint menuBottom = 
 	    button[BtnMenu]->mapToGlobal(menuRect.bottomRight());
         KDecorationFactory* f = factory();
-        showWindowMenu(QRect(menuTop, menuBottom));
+        showWindowMenu(TQRect(menuTop, menuBottom));
         if( !f->exists( this )) // 'this' was deleted
             return;
 	button[BtnMenu]->setDown(false);
@@ -469,7 +469,7 @@ void CdeClient::menuButtonReleased()
         closeWindow();
 }
 
-void CdeClient::resizeEvent( QResizeEvent* e)
+void CdeClient::resizeEvent( TQResizeEvent* e)
 {
     if (widget()->isVisibleToTLW()) {
         widget()->update();
@@ -488,22 +488,22 @@ void CdeClient::resizeEvent( QResizeEvent* e)
         if ( dx )
         {
 	    widget()->update( width() - dx + 1, 0, dx, height() );
-	    widget()->update( QRect( QPoint(4,4),
-	    titlebar->geometry().bottomLeft() - QPoint(1,0) ) );
-	    widget()->update(QRect(titlebar->geometry().topRight(),
-			QPoint(width() - 4, titlebar->geometry().bottom())));
+	    widget()->update( TQRect( TQPoint(4,4),
+	    titlebar->geometry().bottomLeft() - TQPoint(1,0) ) );
+	    widget()->update(TQRect(titlebar->geometry().topRight(),
+			TQPoint(width() - 4, titlebar->geometry().bottom())));
 
 	    // Titlebar needs no paint event
-	    QApplication::postEvent( this, new QPaintEvent( titlebar->geometry(), false ) );
+	    TQApplication::postEvent( this, new TQPaintEvent( titlebar->geometry(), false ) );
 	}
     }
 }
 
-void CdeClient::paintEvent( QPaintEvent* )
+void CdeClient::paintEvent( TQPaintEvent* )
 {
-    QPainter p(widget());
+    TQPainter p(widget());
 
-    QColorGroup colorGroup;
+    TQColorGroup colorGroup;
 
     if ( coloredFrame )
 	colorGroup = options()->colorGroup( KDecoration::ColorTitleBar, isActive() );
@@ -512,8 +512,8 @@ void CdeClient::paintEvent( QPaintEvent* )
 
     fixColorGroup( colorGroup );
 
-    QRect trect = titlebar->geometry();
-    QRect mrect = widget()->rect();
+    TQRect trect = titlebar->geometry();
+    TQRect mrect = widget()->rect();
 
     if ( s_frameWidth > 0 )
     {
@@ -678,7 +678,7 @@ void CdeClient::paintEvent( QPaintEvent* )
 
 }
 
-KDecoration::Position CdeClient::mousePosition( const QPoint& p ) const
+KDecoration::Position CdeClient::mousePosition( const TQPoint& p ) const
 {
     const int range = s_frameWidth + s_buttonSize;
     const int border = s_frameWidth + 1;
@@ -710,19 +710,19 @@ KDecoration::Position CdeClient::mousePosition( const QPoint& p ) const
     return m;
 }
 
-void CdeClient::mouseDoubleClickEvent( QMouseEvent * e )
+void CdeClient::mouseDoubleClickEvent( TQMouseEvent * e )
 {
     if ( e->button() == LeftButton && titlebar->geometry().contains( e->pos() ) )
 	titlebarDblClickOperation();
 }
 
-void CdeClient::wheelEvent( QWheelEvent * e )
+void CdeClient::wheelEvent( TQWheelEvent * e )
 {
     if (isSetShade() || titleLayout->geometry().contains( e->pos() ) )
         titlebarMouseWheelOperation( e->delta());
 }
 
-void CdeClient::mousePressEvent( QMouseEvent * e )
+void CdeClient::mousePressEvent( TQMouseEvent * e )
 {
     if ( e->button() == LeftButton && titlebar->geometry().contains( e->pos() ) )
     {
@@ -740,7 +740,7 @@ void CdeClient::borders(int &left, int &right, int &top, int &bottom) const
     top = s_buttonSize + s_frameWidth + 1;
 }
 
-void CdeClient::mouseReleaseEvent( QMouseEvent * e )
+void CdeClient::mouseReleaseEvent( TQMouseEvent * e )
 {
     if ( e->button() == LeftButton && titlebarPressed )
     {
@@ -749,28 +749,28 @@ void CdeClient::mouseReleaseEvent( QMouseEvent * e )
     }
 }
 
-bool CdeClient::eventFilter(QObject *o, QEvent *e)
+bool CdeClient::eventFilter(TQObject *o, TQEvent *e)
 {
     if (o != widget())
 	return false;
     switch (e->type()) {
-    case QEvent::Resize:
-	resizeEvent(static_cast< QResizeEvent* >(e));
+    case TQEvent::Resize:
+	resizeEvent(static_cast< TQResizeEvent* >(e));
 	return true;
-    case QEvent::Paint:
-	paintEvent(static_cast< QPaintEvent* >(e));
+    case TQEvent::Paint:
+	paintEvent(static_cast< TQPaintEvent* >(e));
 	return true;
-    case QEvent::MouseButtonDblClick:
-	mouseDoubleClickEvent(static_cast< QMouseEvent* >(e));
+    case TQEvent::MouseButtonDblClick:
+	mouseDoubleClickEvent(static_cast< TQMouseEvent* >(e));
 	return true;
-    case QEvent::MouseButtonPress:
-	processMousePressEvent(static_cast< QMouseEvent* >(e));
+    case TQEvent::MouseButtonPress:
+	processMousePressEvent(static_cast< TQMouseEvent* >(e));
 	return true;
-    case QEvent::Show:
-	showEvent(static_cast< QShowEvent* >(e));
+    case TQEvent::Show:
+	showEvent(static_cast< TQShowEvent* >(e));
 	return true;
-    case QEvent::Wheel:
-	wheelEvent( static_cast< QWheelEvent* >( e ));
+    case TQEvent::Wheel:
+	wheelEvent( static_cast< TQWheelEvent* >( e ));
 	return true;
     default:
 	break;
@@ -781,16 +781,16 @@ bool CdeClient::eventFilter(QObject *o, QEvent *e)
 // ---------------------------------------
 
 CdeButton::CdeButton(CdeClient* parent,
-	const char* name, int btnType, const QString& tip, int realize_btns)
-    : QButton(parent->widget(), name), m_btnType(btnType), last_button(NoButton)
+	const char* name, int btnType, const TQString& tip, int realize_btns)
+    : TQButton(parent->widget(), name), m_btnType(btnType), last_button(NoButton)
 {
-    setBackgroundMode( QWidget::NoBackground );
+    setBackgroundMode( TQWidget::NoBackground );
     setFixedSize( s_buttonSize, s_buttonSize );
     resize( s_buttonSize, s_buttonSize );
     m_parent = parent;
 
     setCursor(ArrowCursor);
-    QToolTip::add(this, tip);
+    TQToolTip::add(this, tip);
 
     m_realize_buttons = realize_btns;
 }
@@ -800,12 +800,12 @@ void CdeButton::reset()
     repaint( false );
 }
 
-void CdeButton::drawButton( QPainter* p )
+void CdeButton::drawButton( TQPainter* p )
 {
     p->setBrush( options()->color( KDecoration::ColorTitleBar, m_parent->isActive() ) );
     p->drawRect( 0, 0, s_buttonSize, s_buttonSize );
 
-    QColorGroup colorGroup =
+    TQColorGroup colorGroup =
       options()->colorGroup( KDecoration::ColorTitleBar, m_parent->isActive() );
 
     fixColorGroup(colorGroup);
@@ -820,9 +820,9 @@ void CdeButton::drawButton( QPainter* p )
 	break;
 	case (BtnHelp):
 	    p->setPen( colorGroup.light() );
-	    p->drawLineSegments( QPointArray(16, helpLLines) );
+	    p->drawLineSegments( TQPointArray(16, helpLLines) );
 	    p->setPen( colorGroup.dark() );
-	    p->drawLineSegments( QPointArray(14, helpDLines) );
+	    p->drawLineSegments( TQPointArray(14, helpDLines) );
 	break;
 	case (BtnIconify):
 	    qDrawShadePanel( p, s_o2, s_o2, s_w2, s_w2, colorGroup );
@@ -833,27 +833,27 @@ void CdeButton::drawButton( QPainter* p )
 	break;
 	case (BtnClose):
 	    p->setPen( colorGroup.dark() );
-	    p->drawLineSegments( QPointArray(18, closeDLines) );
+	    p->drawLineSegments( TQPointArray(18, closeDLines) );
 	    p->setPen( colorGroup.light() );
-	    p->drawLineSegments( QPointArray(15, closeLLines) );
+	    p->drawLineSegments( TQPointArray(15, closeLLines) );
 	break;
     }
 }
 
-void CdeButton::mousePressEvent(QMouseEvent *e)
+void CdeButton::mousePressEvent(TQMouseEvent *e)
 {
     last_button = e->button();
-    QMouseEvent me(e->type(), e->pos(),
+    TQMouseEvent me(e->type(), e->pos(),
 	    e->globalPos(), (e->button()&m_realize_buttons)?LeftButton:NoButton, e->state());
-    QButton::mousePressEvent(&me);
+    TQButton::mousePressEvent(&me);
 }
 
-void CdeButton::mouseReleaseEvent(QMouseEvent * e)
+void CdeButton::mouseReleaseEvent(TQMouseEvent * e)
 {
     last_button = e->button();
-    QMouseEvent me(e->type(), e->pos(),
+    TQMouseEvent me(e->type(), e->pos(),
 	    e->globalPos(), (e->button()&m_realize_buttons)?LeftButton:NoButton, e->state());
-    QButton::mouseReleaseEvent(&me);
+    TQButton::mouseReleaseEvent(&me);
 }
 
 } // CDE namespace

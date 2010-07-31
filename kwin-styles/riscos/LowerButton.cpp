@@ -44,13 +44,13 @@ static const char * const lower_xpm[] = {
 "      ..... ",
 "            "};
 
-LowerButton::LowerButton(QWidget *parent)
+LowerButton::LowerButton(TQWidget *parent)
   : Button(parent, i18n("Keep below others"))
 {
-   setPixmap(QPixmap((const char **)lower_xpm));
+   setPixmap(TQPixmap((const char **)lower_xpm));
 }
 
-void LowerButton::mouseReleaseEvent(QMouseEvent *e)
+void LowerButton::mouseReleaseEvent(TQMouseEvent *e)
 {
    Button::mouseReleaseEvent(e);
 

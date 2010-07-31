@@ -69,7 +69,7 @@ class KFireSaverKSS : public KScreenSaver
 class KFireSaverSetupKDB : public KDialogBase
 {
     public:
-	KFireSaverSetupKDB( QWidget* parent = 0, const char* name = 0 )
+	KFireSaverSetupKDB( TQWidget* parent = 0, const char* name = 0 )
 	    : KDialogBase( parent, name, true, i18n("Setup Screen Saver"),
 	    Ok | Cancel | Help, Ok, true )
 	{
@@ -104,7 +104,7 @@ extern "C"
 	return new KFireSaverKSS( id );
     }
 
-    KDE_EXPORT QDialog *kss_setup()
+    KDE_EXPORT TQDialog *kss_setup()
     {
 	return new KFireSaverSetupKDB;
     }
@@ -114,8 +114,8 @@ extern "C"
 \* Factory code for KScreensaver ends *here*   */
 
 
-KFireSaver :: KFireSaver( QWidget *parent, const char *name )
-	: QGLWidget( parent, name )
+KFireSaver :: KFireSaver( TQWidget *parent, const char *name )
+	: TQGLWidget( parent, name )
 {
 	// set random seed to initialize drand48() calls
 	timeval tv;
@@ -518,7 +518,7 @@ void KFireSaver :: paintGL ()
 	{
 		int chance = (int) (1000.0 * DRAND);
 		if ( !chance ) {
-			static const QString someStrings[] = {
+			static const TQString someStrings[] = {
 				i18n("www.kde.org"),
 				i18n("My KDE, please!"),
 				i18n("KoNqUeR the World"),
@@ -801,7 +801,7 @@ void KFireSaver :: explodeFirework(Particle* leaderParticle)
 	}
 }
 
-void KFireSaver :: timerEvent(QTimerEvent*)
+void KFireSaver :: timerEvent(TQTimerEvent*)
 {
 	timeval tv;
 	gettimeofday(&tv,NULL);
@@ -888,7 +888,7 @@ void KFireSaver :: timerEvent(QTimerEvent*)
 	updateGL();
 }
 
-void KFireSaver :: burnLogo(QImage * image)
+void KFireSaver :: burnLogo(TQImage * image)
 {
 	if (!image || image->isNull())
 		return;
@@ -935,7 +935,7 @@ void KFireSaver :: burnLogo(QImage * image)
 		playSound(sound_debris);
 }
 
-void KFireSaver :: playSound(QString file)
+void KFireSaver :: playSound(TQString file)
 {
 	//flush inactive players
 	KPlayObject * playObject = playObjectList.first();
@@ -954,7 +954,7 @@ void KFireSaver :: playSound(QString file)
 		return;
 
 	// not needed when all of the files are in the distribution
-	//if (!QFile::exists(file))
+	//if (!TQFile::exists(file))
 		//return;
 
 	KPlayObjectFactory factory(artsServer.server());
@@ -967,18 +967,18 @@ void KFireSaver :: playSound(QString file)
 	}
 }
 
-bool KFireSaver :: loadTexture( QString fileName, unsigned int & textureID )
+bool KFireSaver :: loadTexture( TQString fileName, unsigned int & textureID )
 {
 	//reset texture ID to the default EMPTY value
 	textureID = 0;
 
 	//load image
-	QImage tmp;
+	TQImage tmp;
 	if ( !tmp.load( fileName ) )
 		return false;
 
 	//convert it to suitable format (flipped RGBA)
-	QImage texture = QGLWidget::convertToGLFormat( tmp );
+	TQImage texture = TQGLWidget::convertToGLFormat( tmp );
 	if ( texture.isNull() )
 		return false;
 
@@ -1019,7 +1019,7 @@ void KFireSaver :: readConfig ()
 		parameters.particleSize = 5;
 	if ( parameters.enableBottomFire = config.readBoolEntry( "enable-BottomFire", true ) )
 	{
-		QColor blue = Qt::darkBlue;
+		TQColor blue = Qt::darkBlue;
 		parameters.bottomFireColor = config.readColorEntry( "BottomFireColor", &blue );
 	}
 	parameters.enableSound = config.readBoolEntry( "enable-Sounds", false );
@@ -1083,21 +1083,21 @@ void KFireSaver :: readConfig ()
 	config.setGroup( "Specials" );
 	if ( parameters.enableLogos = config.readBoolEntry( "enable-Logos", true ) )
 	{
-		QImage tempImage;
+		TQImage tempImage;
 		tempImage.setAlphaBuffer( true );
 		if ( config.readBoolEntry( "LogosTux", true ) )
 			if ( tempImage.load(locate("data","kfiresaver/kfs_tux.png")) )
-				imageList.append( new QImage(tempImage) );
+				imageList.append( new TQImage(tempImage) );
 		if ( config.readBoolEntry( "LogosKonqui", true ) )
 			if ( tempImage.load(locate("data","kfiresaver/kfs_kde.png")) )
-				imageList.append( new QImage(tempImage) );
+				imageList.append( new TQImage(tempImage) );
 		if ( config.readBoolEntry( "LogosKDEIcons", true ) ) {
-			const QString icons[] = {
+			const TQString icons[] = {
 				"3floppy_unmount", "cdrom_unmount", "hdd_mount", "kmix",
 				"network", "my-computer", "folder_home", "konqueror",
 				"kmail", "penguin", "personal" };
 			for ( int i = 0; i < 11; i++ )
-				imageList.append( new QImage(DesktopIcon(icons[i],64).convertToImage()) );
+				imageList.append( new TQImage(DesktopIcon(icons[i],64).convertToImage()) );
 		}
 		parameters.enableReduceLogo = config.readBoolEntry( "LogosReduceDetail", true );
 		parameters.logoFrequency = 11 - config.readNumEntry( "LogosFrequency", 4 );

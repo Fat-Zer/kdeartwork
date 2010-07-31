@@ -22,8 +22,8 @@
 #ifndef __KXSCONTROL_H__
 #define __KXSCONTROL_H__
 
-#include <qwidget.h>
-#include <qcheckbox.h>
+#include <tqwidget.h>
+#include <tqcheckbox.h>
 
 #include "kxsitem.h"
 
@@ -34,12 +34,12 @@ class QComboBox;
 class QLineEdit;
 
 //===========================================================================
-class KXSRangeControl : public QWidget, public KXSRangeItem
+class KXSRangeControl : public TQWidget, public KXSRangeItem
 {
   Q_OBJECT
 public:
-  KXSRangeControl(QWidget *parent, const QString &name, KConfig &config);
-  KXSRangeControl(QWidget *parent, const QString &name, const QXmlAttributes &attr );
+  KXSRangeControl(TQWidget *parent, const TQString &name, KConfig &config);
+  KXSRangeControl(TQWidget *parent, const TQString &name, const TQXmlAttributes &attr );
 
   virtual void read(KConfig &config);
 
@@ -50,17 +50,17 @@ protected slots:
   void slotValueChanged(int value);
 
 protected:
-  QSlider *mSlider;
-  QSpinBox *mSpinBox;
+  TQSlider *mSlider;
+  TQSpinBox *mSpinBox;
 };
 
 //===========================================================================
-class KXSDoubleRangeControl : public QWidget, public KXSDoubleRangeItem
+class KXSDoubleRangeControl : public TQWidget, public KXSDoubleRangeItem
 {
   Q_OBJECT
 public:
-  KXSDoubleRangeControl(QWidget *parent, const QString &name, KConfig &config);
-  KXSDoubleRangeControl(QWidget *parent, const QString &name, const QXmlAttributes &attr );
+  KXSDoubleRangeControl(TQWidget *parent, const TQString &name, KConfig &config);
+  KXSDoubleRangeControl(TQWidget *parent, const TQString &name, const TQXmlAttributes &attr );
 
   virtual void read(KConfig &config);
 
@@ -71,17 +71,17 @@ protected slots:
   void slotValueChanged(int value);
 
 protected:
-  QSlider *mSlider;
+  TQSlider *mSlider;
   double  mStep;
 };
 
 //===========================================================================
-class KXSCheckBoxControl : public QCheckBox, public KXSBoolItem
+class KXSCheckBoxControl : public TQCheckBox, public KXSBoolItem
 {
   Q_OBJECT
 public:
-  KXSCheckBoxControl(QWidget *parent, const QString &name, KConfig &config);
-  KXSCheckBoxControl(QWidget *parent, const QString &name, const QXmlAttributes &attr );
+  KXSCheckBoxControl(TQWidget *parent, const TQString &name, KConfig &config);
+  KXSCheckBoxControl(TQWidget *parent, const TQString &name, const TQXmlAttributes &attr );
 
   virtual void read(KConfig &config);
 
@@ -93,16 +93,16 @@ protected slots:
 };
 
 //===========================================================================
-class KXSDropListControl : public QWidget, public KXSSelectItem
+class KXSDropListControl : public TQWidget, public KXSSelectItem
 {
   Q_OBJECT
 public:
-  KXSDropListControl(QWidget *parent, const QString &name, KConfig &config);
-  KXSDropListControl(QWidget *parent, const QString &name, const QXmlAttributes &attr );
+  KXSDropListControl(TQWidget *parent, const TQString &name, KConfig &config);
+  KXSDropListControl(TQWidget *parent, const TQString &name, const TQXmlAttributes &attr );
 
   virtual void read(KConfig &config);
 
-  virtual void addOption( const QXmlAttributes &attr );
+  virtual void addOption( const TQXmlAttributes &attr );
 
 signals:
   void changed();
@@ -111,16 +111,16 @@ protected slots:
   void slotActivated(int);
 
 protected:
-  QComboBox *mCombo;
+  TQComboBox *mCombo;
 };
 
 //===========================================================================
-class KXSLineEditControl : public QWidget, public KXSStringItem
+class KXSLineEditControl : public TQWidget, public KXSStringItem
 {
   Q_OBJECT
 public:
-  KXSLineEditControl(QWidget *parent, const QString &name, KConfig &config);
-  KXSLineEditControl(QWidget *parent, const QString &name, const QXmlAttributes &attr );
+  KXSLineEditControl(TQWidget *parent, const TQString &name, KConfig &config);
+  KXSLineEditControl(TQWidget *parent, const TQString &name, const TQXmlAttributes &attr );
 
   virtual void read(KConfig &config);
 
@@ -128,19 +128,19 @@ signals:
   void changed();
 
 protected slots:
-  void textChanged(const QString &);
+  void textChanged(const TQString &);
 
 protected:
-  QLineEdit *mEdit;
+  TQLineEdit *mEdit;
 };
 
 //===========================================================================
-class KXSFileControl : public QWidget, public KXSStringItem
+class KXSFileControl : public TQWidget, public KXSStringItem
 {
   Q_OBJECT
 public:
-  KXSFileControl(QWidget *parent, const QString &name, KConfig &config);
-  KXSFileControl(QWidget *parent, const QString &name, const QXmlAttributes &attr );
+  KXSFileControl(TQWidget *parent, const TQString &name, KConfig &config);
+  KXSFileControl(TQWidget *parent, const TQString &name, const TQXmlAttributes &attr );
 
   virtual void read(KConfig &config);
 
@@ -148,11 +148,11 @@ signals:
   void changed();
 
 protected slots:
-  void textChanged(const QString &);
+  void textChanged(const TQString &);
   void selectFile();
 
 protected:
-  QLineEdit *mEdit;
+  TQLineEdit *mEdit;
 
 };
 

@@ -21,23 +21,23 @@
 
 #include "kxsxml.h"
 #include "kxscontrol.h"
-#include <qobject.h>
-#include <qfile.h>
-#include <qvbox.h>
-#include <qhbox.h>
+#include <tqobject.h>
+#include <tqfile.h>
+#include <tqvbox.h>
+#include <tqhbox.h>
 #include <stdio.h>
 
-KXSXml::KXSXml( QWidget *p )
+KXSXml::KXSXml( TQWidget *p )
     : parent(p), handler(0)
 {
 }
 
-bool KXSXml::parse( const QString &filename )
+bool KXSXml::parse( const TQString &filename )
 {
-    QFile file( filename );
+    TQFile file( filename );
     handler = new KXSXmlHandler( parent );
-    QXmlInputSource source( &file );
-    QXmlSimpleReader reader;
+    TQXmlInputSource source( &file );
+    TQXmlSimpleReader reader;
     reader.setContentHandler( handler );
     if ( !reader.parse( &source, FALSE ) )
 	return FALSE;
@@ -45,24 +45,24 @@ bool KXSXml::parse( const QString &filename )
     return true;
 }
 
-const QPtrList<KXSConfigItem> *KXSXml::items() const
+const TQPtrList<KXSConfigItem> *KXSXml::items() const
 {
     if ( handler )
 	return handler->items();
     return 0;
 }
 
-QString KXSXml::description() const
+TQString KXSXml::description() const
 {
     if ( handler )
 	return handler->description();
-    return QString();
+    return TQString();
 }
 
 //===========================================================================
 
-KXSXmlHandler::KXSXmlHandler( QWidget *p )
-    : QXmlDefaultHandler(), parent(p), selItem(0), inDesc(false)
+KXSXmlHandler::KXSXmlHandler( TQWidget *p )
+    : TQXmlDefaultHandler(), parent(p), selItem(0), inDesc(false)
 {
     mParentStack.push( p );
 }
@@ -72,15 +72,15 @@ bool KXSXmlHandler::startDocument()
     return true;
 }
 
-bool KXSXmlHandler::startElement( const QString&, const QString&, 
-                                    const QString& qName, 
-                                    const QXmlAttributes &atts )
+bool KXSXmlHandler::startElement( const TQString&, const TQString&, 
+                                    const TQString& qName, 
+                                    const TQXmlAttributes &atts )
 {
     KXSConfigItem *i = 0;
-    QString id = atts.value("id");
+    TQString id = atts.value("id");
     if ( qName == "number" ) {
-	QString sLow = atts.value( "low" );
-	QString sHigh = atts.value( "high" );
+	TQString sLow = atts.value( "low" );
+	TQString sHigh = atts.value( "high" );
 	if ( sLow.contains( '.' ) || sHigh.contains( '.' ) ) {
 	    if ( parent )
 		i = new KXSDoubleRangeControl( parent, id, atts );
@@ -118,11 +118,11 @@ bool KXSXmlHandler::startElement( const QString&, const QString&,
     } else if ( qName == "option" && selItem ) {
 	selItem->addOption( atts );
     } else if ( qName == "hgroup" && parent ) {
-	QHBox *hb = new QHBox( parent );
+	TQHBox *hb = new TQHBox( parent );
 	mParentStack.push( hb );
 	parent = hb;
     } else if ( qName == "vgroup" && parent ) {
-	QVBox *vb = new QVBox( parent );
+	TQVBox *vb = new TQVBox( parent );
 	mParentStack.push( vb );
 	parent = vb;
     }
@@ -133,7 +133,7 @@ bool KXSXmlHandler::startElement( const QString&, const QString&,
     return true;
 }
 
-bool KXSXmlHandler::endElement( const QString&, const QString&, const QString &qName )
+bool KXSXmlHandler::endElement( const TQString&, const TQString&, const TQString &qName )
 {
     if ( qName == "select" ) {
 	selItem = 0;
@@ -148,7 +148,7 @@ bool KXSXmlHandler::endElement( const QString&, const QString&, const QString &q
     return true;
 }
 
-bool KXSXmlHandler::characters( const QString &ch )
+bool KXSXmlHandler::characters( const TQString &ch )
 {
     if ( inDesc )
 	desc += ch;

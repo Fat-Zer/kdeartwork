@@ -8,8 +8,8 @@
 #ifndef __LINES_H__
 #define __LINES_H__
 
-#include <qtimer.h>
-#include <qptrlist.h>
+#include <tqtimer.h>
+#include <tqptrlist.h>
 
 #include <kdialogbase.h>
 #include <krandomsequence.h>
@@ -44,7 +44,7 @@ class kLinesSaver:public KScreenSaver{
 
 	void setLines(int len);
 	void setSpeed(int spd);
-	void setColor(const QColor&, const QColor&, const QColor&);
+	void setColor(const TQColor&, const TQColor&, const TQColor&);
 
 	private:
 	void readSettings();
@@ -57,11 +57,11 @@ class kLinesSaver:public KScreenSaver{
 
 	protected:
 	KRandomSequence rnd;
-	QTimer timer;
+	TQTimer timer;
 	unsigned numLines;
 	int colorContext, speed;
-	QColor colors[64];
-    QColor colstart, colmid, colend;
+	TQColor colors[64];
+    TQColor colstart, colmid, colend;
 	double colscale;
 	Lines* lines;
 };
@@ -69,7 +69,7 @@ class kLinesSaver:public KScreenSaver{
 class kLinesSetup : public KDialogBase{
 	Q_OBJECT
 	public:
-	kLinesSetup(QWidget *parent=NULL, const char *name=NULL);
+	kLinesSetup(TQWidget *parent=NULL, const char *name=NULL);
     ~kLinesSetup();
 
 	protected:
@@ -78,18 +78,18 @@ class kLinesSetup : public KDialogBase{
 	private slots:
 	void slotLength(int);
 	void slotSpeed(int);
-	void slotColstart(const QColor &);
-	void slotColmid(const QColor &);
-	void slotColend(const QColor &);
+	void slotColstart(const TQColor &);
+	void slotColmid(const TQColor &);
+	void slotColend(const TQColor &);
 	void slotOk();
 	void slotHelp();
 
 	private:
 	KColorButton *colorPush0, *colorPush1, *colorPush2;
-	QWidget *preview;
+	TQWidget *preview;
 	kLinesSaver *saver;
 	int length, speed;
-	QColor colstart, colmid, colend;
+	TQColor colstart, colmid, colend;
 };
 
 #endif

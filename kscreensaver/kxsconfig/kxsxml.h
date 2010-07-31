@@ -23,46 +23,46 @@
 #define KXSXML_H
 
 #include "kxsconfig.h"
-#include <qxml.h>
-#include <qptrstack.h>
+#include <tqxml.h>
+#include <tqptrstack.h>
 
 class KXSXmlHandler;
 
 class KXSXml
 {
 public:
-    KXSXml( QWidget *p );
+    KXSXml( TQWidget *p );
     
-    bool parse( const QString &filename );
-    const QPtrList<KXSConfigItem> *items() const;
-    QString description() const;
+    bool parse( const TQString &filename );
+    const TQPtrList<KXSConfigItem> *items() const;
+    TQString description() const;
 
 private:
-    QWidget *parent;
+    TQWidget *parent;
     KXSXmlHandler *handler;
 };
 
 class KXSXmlHandler : public QXmlDefaultHandler
 {
 public:
-    KXSXmlHandler( QWidget *p );
+    KXSXmlHandler( TQWidget *p );
 
     bool startDocument();
-    bool startElement( const QString&, const QString&, const QString& ,
-	    const QXmlAttributes& );
-    bool endElement( const QString&, const QString&, const QString& );
-    bool characters( const QString & );
+    bool startElement( const TQString&, const TQString&, const TQString& ,
+	    const TQXmlAttributes& );
+    bool endElement( const TQString&, const TQString&, const TQString& );
+    bool characters( const TQString & );
 
-    const QPtrList<KXSConfigItem> *items() const { return &mConfigItemList; }
-    const QString &description() const { return desc; }
+    const TQPtrList<KXSConfigItem> *items() const { return &mConfigItemList; }
+    const TQString &description() const { return desc; }
 
 private:
-    QWidget *parent;
+    TQWidget *parent;
     KXSSelectItem *selItem;
     bool inDesc;
-    QString desc;
-    QPtrList<KXSConfigItem> mConfigItemList;
-    QPtrStack<QWidget> mParentStack;
+    TQString desc;
+    TQPtrList<KXSConfigItem> mConfigItemList;
+    TQPtrStack<TQWidget> mParentStack;
 };
 
 #endif // KXSXML_H

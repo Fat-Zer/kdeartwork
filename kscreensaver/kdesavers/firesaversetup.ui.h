@@ -11,8 +11,8 @@
 #ifndef KFIRESAVER_SETUP_H
 #define KFIRESAVER_SETUP_H
 
-#include <qcolor.h>
-#include <qtimer.h>
+#include <tqcolor.h>
+#include <tqtimer.h>
 #include <kconfig.h>
 
 
@@ -137,7 +137,7 @@ void KFireSaverSetup::readConfig()
     fireworksSlider->setValue(config.readNumEntry( "FireworksFrequency", 7 ));
     particlesSlider->setValue(config.readNumEntry( "ParticlesSize", 0 ));
     bottomfireBox->setChecked(config.readBoolEntry( "enable-BottomFire", true ));
-    QColor blue = Qt::darkBlue;
+    TQColor blue = Qt::darkBlue;
     bottomfireColorButton->setColor(config.readColorEntry( "BottomFireColor", &blue ));
     soundsBox->setChecked(config.readBoolEntry( "enable-Sounds", false ));
     overheadBox->setChecked(config.readBoolEntry( "enable-NoOverhead", true ));

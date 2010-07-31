@@ -43,30 +43,30 @@ class GlowButtonFactory;
 
 struct GlowTheme
 {
-	QSize buttonSize;
+	TQSize buttonSize;
 	
-	QString backgroundPixmap;
-	QString backgroundAlphaPixmap;
+	TQString backgroundPixmap;
+	TQString backgroundAlphaPixmap;
 
-	QString stickyOnPixmap;
-	QString stickyOffPixmap;
-	QString maximizeOnPixmap;
-	QString maximizeOffPixmap;
-	QString helpPixmap;
-	QString closePixmap;
-	QString iconifyPixmap;
+	TQString stickyOnPixmap;
+	TQString stickyOffPixmap;
+	TQString maximizeOnPixmap;
+	TQString maximizeOffPixmap;
+	TQString helpPixmap;
+	TQString closePixmap;
+	TQString iconifyPixmap;
 
-	QString stickyOnGlowPixmap;
-	QString stickyOffGlowPixmap;
-	QString maximizeOnGlowPixmap;
-	QString maximizeOffGlowPixmap;
-	QString helpGlowPixmap;
-	QString closeGlowPixmap;
-	QString iconifyGlowPixmap;
+	TQString stickyOnGlowPixmap;
+	TQString stickyOffGlowPixmap;
+	TQString maximizeOnGlowPixmap;
+	TQString maximizeOffGlowPixmap;
+	TQString helpGlowPixmap;
+	TQString closeGlowPixmap;
+	TQString iconifyGlowPixmap;
 };
 
 static GlowTheme default_glow_theme = {
-	QSize (17, 17),
+	TQSize (17, 17),
 	"background.png", "background_alpha.png",
 	"stickyon.png", "stickyoff.png",
 	"maximizeon.png", "maximizeoff.png",
@@ -86,14 +86,14 @@ public:
 
 	void load (KDecorationFactory *factory);
 
-	QColor stickyButtonGlowColor;
-	QColor helpButtonGlowColor;
-	QColor iconifyButtonGlowColor;
-	QColor maximizeButtonGlowColor;
-	QColor closeButtonGlowColor;
+	TQColor stickyButtonGlowColor;
+	TQColor helpButtonGlowColor;
+	TQColor iconifyButtonGlowColor;
+	TQColor maximizeButtonGlowColor;
+	TQColor closeButtonGlowColor;
 	bool showResizeHandle;
 	int titlebarGradientType;
-	QString themeName;
+	TQString themeName;
 };
 
 //-----------------------------------------------------------------------------
@@ -113,9 +113,9 @@ public:
 	virtual KDecoration* createDecoration( KDecorationBridge* b );
 	virtual bool reset( unsigned long changed );
     virtual bool supports( Ability ability );
-	QValueList< GlowClientGlobals::BorderSize >  borderSizes() const;
+	TQValueList< GlowClientGlobals::BorderSize >  borderSizes() const;
 	
-	QString getPixmapName(PixmapType type, bool isActive);
+	TQString getPixmapName(PixmapType type, bool isActive);
 
 	GlowTheme * theme() const { return _theme; }
 	GlowClientConfig * config() const { return _config; }
@@ -134,7 +134,7 @@ private:
 	bool createPixmaps();
 	void deletePixmaps();
 	bool createPixmap(PixmapType type,bool isActive);
-	const QString getPixmapTypeName(PixmapType type);
+	const TQString getPixmapTypeName(PixmapType type);
 };
 
 //-----------------------------------------------------------------------------
@@ -150,23 +150,23 @@ public:
 	
 	virtual void init();
 	virtual void borders( int&, int&, int&, int& ) const;
-	virtual void resize( const QSize& );
-	virtual QSize minimumSize() const;
+	virtual void resize( const TQSize& );
+	virtual TQSize minimumSize() const;
 
 protected:
-	virtual void resizeEvent( QResizeEvent * );
-	virtual void paintEvent( QPaintEvent * );
-	virtual void showEvent( QShowEvent * );
-	virtual void mouseDoubleClickEvent( QMouseEvent * );
-	virtual void wheelEvent( QWheelEvent * );
+	virtual void resizeEvent( TQResizeEvent * );
+	virtual void paintEvent( TQPaintEvent * );
+	virtual void showEvent( TQShowEvent * );
+	virtual void mouseDoubleClickEvent( TQMouseEvent * );
+	virtual void wheelEvent( TQWheelEvent * );
 	virtual void maximizeChange();
 	virtual void activeChange();
 	virtual void iconChange();
 	virtual void desktopChange();
 	virtual void shadeChange();
 	virtual void captionChange();
-	virtual Position mousePosition(const QPoint &) const;
-	virtual bool eventFilter( QObject* o, QEvent* e );
+	virtual Position mousePosition(const TQPoint &) const;
+	virtual bool eventFilter( TQObject* o, TQEvent* e );
 
 private:
 	std::vector<GlowButton*> m_buttonList;
@@ -177,11 +177,11 @@ private:
 	GlowButton *m_minimizeButton;
 	GlowButton *m_maximizeButton;
 	GlowButton *m_closeButton;
-	QBoxLayout *m_leftButtonLayout;
-	QBoxLayout *m_rightButtonLayout;
-	QSpacerItem * _bottom_spacer;
-	QSpacerItem * _title_spacer;
-	QVBoxLayout * _main_layout;
+	TQBoxLayout *m_leftButtonLayout;
+	TQBoxLayout *m_rightButtonLayout;
+	TQSpacerItem * _bottom_spacer;
+	TQSpacerItem * _title_spacer;
+	TQVBoxLayout * _main_layout;
 
 	void createButtons();
 	void updateButtonPositions();

@@ -15,19 +15,19 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qapplication.h>
-#include <qbitmap.h>
-#include <qimage.h>
-#include <qlayout.h>
-#include <qpainter.h>
-#include <qpixmap.h>
+#include <tqapplication.h>
+#include <tqbitmap.h>
+#include <tqimage.h>
+#include <tqlayout.h>
+#include <tqpainter.h>
+#include <tqpixmap.h>
 #include <kconfig.h>
 #include <kdebug.h>
 #include <klocale.h>
 #include <kpixmapeffect.h>
 #include <kpixmap.h>
 #include <kstandarddirs.h>
-#include <qlabel.h>
+#include <tqlabel.h>
 #include "resources.h"
 #include "glowclient.h"
 #include "glowbutton.h"
@@ -54,11 +54,11 @@ void GlowClientConfig::load(KDecorationFactory *factory)
 	KConfig conf("kwinglowrc");
 	conf.setGroup("General");
 
-	const QColor defaultCloseButtonColor(DEFAULT_CLOSE_BUTTON_COLOR);
-	const QColor defaultMaximizeButtonColor(DEFAULT_MAXIMIZE_BUTTON_COLOR);
-	const QColor defaultIconifyButtonColor(DEFAULT_ICONIFY_BUTTON_COLOR);
-	const QColor defaultHelpButtonColor(DEFAULT_HELP_BUTTON_COLOR);
-	const QColor defaultStickyButtonColor(DEFAULT_STICKY_BUTTON_COLOR);
+	const TQColor defaultCloseButtonColor(DEFAULT_CLOSE_BUTTON_COLOR);
+	const TQColor defaultMaximizeButtonColor(DEFAULT_MAXIMIZE_BUTTON_COLOR);
+	const TQColor defaultIconifyButtonColor(DEFAULT_ICONIFY_BUTTON_COLOR);
+	const TQColor defaultHelpButtonColor(DEFAULT_HELP_BUTTON_COLOR);
+	const TQColor defaultStickyButtonColor(DEFAULT_STICKY_BUTTON_COLOR);
 
 	stickyButtonGlowColor = conf.readColorEntry(
 		"stickyButtonGlowColor", &defaultStickyButtonColor);
@@ -123,9 +123,9 @@ GlowClientGlobals::~GlowClientGlobals()
 	m_instance = 0;
 }
 
-QString GlowClientGlobals::getPixmapName(PixmapType type, bool isActive)
+TQString GlowClientGlobals::getPixmapName(PixmapType type, bool isActive)
 {
-	QString s = getPixmapTypeName(static_cast<PixmapType>(type));
+	TQString s = getPixmapTypeName(static_cast<PixmapType>(type));
 	s += "|";
 	s += isActive ? "Active" : "NotActive";
 	return s;
@@ -153,19 +153,19 @@ void GlowClientGlobals::readConfig()
 	_config->load(this);
 }
 
-QValueList< GlowClientGlobals::BorderSize >
+TQValueList< GlowClientGlobals::BorderSize >
 GlowClientGlobals::borderSizes() const
 {
     // the list must be sorted
-    return QValueList< BorderSize >() << BorderNormal <<
+    return TQValueList< BorderSize >() << BorderNormal <<
 	BorderLarge << BorderVeryLarge <<  BorderHuge <<
 	BorderVeryHuge << BorderOversized;
 }
 
 void GlowClientGlobals::readTheme()
 {
-	QString theme_config_file = KGlobal::dirs()->findResource ("data",
-			QString("kwin/glow-themes/") + config()->themeName + "/" +
+	TQString theme_config_file = KGlobal::dirs()->findResource ("data",
+			TQString("kwin/glow-themes/") + config()->themeName + "/" +
 			config()->themeName + ".theme");
 	if (theme_config_file.isNull())
 	{
@@ -207,7 +207,7 @@ void GlowClientGlobals::readTheme()
 	_theme->iconifyGlowPixmap = conf.readEntry ("iconifyGlowPixmap",
 			_theme->iconifyGlowPixmap);
 
-	titleHeight = QFontMetrics(KDecoration::options()->font(true)).height();
+	titleHeight = TQFontMetrics(KDecoration::options()->font(true)).height();
 	if (titleHeight < SIDE_MARGIN)
 		titleHeight = SIDE_MARGIN;
 	if (titleHeight < _theme->buttonSize.height())
@@ -266,7 +266,7 @@ void GlowClientGlobals::deletePixmaps()
 	PixmapCache::clear();
 }
 
-const QString GlowClientGlobals::getPixmapTypeName(PixmapType type)
+const TQString GlowClientGlobals::getPixmapTypeName(PixmapType type)
 {
 	switch(type) {
 		case (StickyOn):
@@ -284,69 +284,69 @@ const QString GlowClientGlobals::getPixmapTypeName(PixmapType type)
 		case(Close):
 			return "Close";
 		default:
-			return QString::null;
+			return TQString::null;
 	}
 }
 
 bool GlowClientGlobals::createPixmap(PixmapType type, bool isActive)
 {
-	QString theme_dir = KGlobal::dirs()->findResource ("data",
-			QString("kwin/glow-themes/") + _config->themeName + "/");
+	TQString theme_dir = KGlobal::dirs()->findResource ("data",
+			TQString("kwin/glow-themes/") + _config->themeName + "/");
 
-	QColor glow_color;
-	QColor color = options()->color(ColorButtonBg, isActive);
+	TQColor glow_color;
+	TQColor color = options()->color(ColorButtonBg, isActive);
 
-	QImage bg_image (theme_dir+_theme->backgroundPixmap);
-	QImage fg_image;
-	QImage glow_image;
+	TQImage bg_image (theme_dir+_theme->backgroundPixmap);
+	TQImage fg_image;
+	TQImage glow_image;
 
 	switch(type) {
 		case (StickyOn):
 		{
-			fg_image = QImage (theme_dir+_theme->stickyOnPixmap);
-			glow_image = QImage (theme_dir+_theme->stickyOnGlowPixmap);
+			fg_image = TQImage (theme_dir+_theme->stickyOnPixmap);
+			glow_image = TQImage (theme_dir+_theme->stickyOnGlowPixmap);
 			glow_color = _config->stickyButtonGlowColor;
 			break;
 		}
 		case (StickyOff):
 		{
-			fg_image = QImage (theme_dir+_theme->stickyOffPixmap);
-			glow_image = QImage (theme_dir+_theme->stickyOffGlowPixmap);
+			fg_image = TQImage (theme_dir+_theme->stickyOffPixmap);
+			glow_image = TQImage (theme_dir+_theme->stickyOffGlowPixmap);
 			glow_color = _config->stickyButtonGlowColor;
 			break;
 		}
 		case (Help):
 		{
-			fg_image = QImage (theme_dir+_theme->helpPixmap);
-			glow_image = QImage (theme_dir+_theme->helpGlowPixmap);
+			fg_image = TQImage (theme_dir+_theme->helpPixmap);
+			glow_image = TQImage (theme_dir+_theme->helpGlowPixmap);
 			glow_color = _config->helpButtonGlowColor;
 			break;
 		}
 		case (Iconify):
 		{
-			fg_image = QImage (theme_dir+_theme->iconifyPixmap);
-			glow_image = QImage (theme_dir+_theme->iconifyGlowPixmap);
+			fg_image = TQImage (theme_dir+_theme->iconifyPixmap);
+			glow_image = TQImage (theme_dir+_theme->iconifyGlowPixmap);
 			glow_color = _config->iconifyButtonGlowColor;
 			break;
 		}
 		case (MaximizeOn):
 		{
-			fg_image = QImage (theme_dir+_theme->maximizeOnPixmap);
-			glow_image = QImage (theme_dir+_theme->maximizeOnGlowPixmap);
+			fg_image = TQImage (theme_dir+_theme->maximizeOnPixmap);
+			glow_image = TQImage (theme_dir+_theme->maximizeOnGlowPixmap);
 			glow_color = _config->maximizeButtonGlowColor;
 			break;
 		}
 		case (MaximizeOff):
 		{
-			fg_image = QImage (theme_dir+_theme->maximizeOffPixmap);
-			glow_image = QImage (theme_dir+_theme->maximizeOffGlowPixmap);
+			fg_image = TQImage (theme_dir+_theme->maximizeOffPixmap);
+			glow_image = TQImage (theme_dir+_theme->maximizeOffGlowPixmap);
 			glow_color = _config->maximizeButtonGlowColor;
 			break;
 		}
 		case (Close):
 		{
-			fg_image = QImage (theme_dir+_theme->closePixmap);
-			glow_image = QImage (theme_dir+_theme->closeGlowPixmap);
+			fg_image = TQImage (theme_dir+_theme->closePixmap);
+			glow_image = TQImage (theme_dir+_theme->closeGlowPixmap);
 			glow_color = _config->closeButtonGlowColor;
 			break;
 		}
@@ -357,7 +357,7 @@ bool GlowClientGlobals::createPixmap(PixmapType type, bool isActive)
 			|| glow_image.size() != _theme->buttonSize)
 		return false;
 
-	QPixmap * glowPm = buttonFactory()->createGlowButtonPixmap(
+	TQPixmap * glowPm = buttonFactory()->createGlowButtonPixmap(
 		bg_image, fg_image, glow_image,
 		color, glow_color);
 	if (glowPm->isNull())
@@ -398,40 +398,40 @@ void GlowClient::init()
 
 GlowClient::~GlowClient()
 {
-	PixmapCache::erase(QString::number(widget()->winId()));
+	PixmapCache::erase(TQString::number(widget()->winId()));
 }
 
-void GlowClient::resizeEvent( QResizeEvent * )
+void GlowClient::resizeEvent( TQResizeEvent * )
 {
 	doShape();
 	widget()->repaint(false);
 }
 
-void GlowClient::paintEvent( QPaintEvent * )
+void GlowClient::paintEvent( TQPaintEvent * )
 {
 	GlowClientConfig *conf = GlowClientGlobals::instance()->config();
-	QRect r_this = widget()->rect();
-	QRect r_title = _title_spacer->geometry();
-	QColorGroup titleCg = options()->colorGroup(ColorTitleBar, isActive());
-	QColorGroup titleBlendCg=options()->colorGroup(ColorTitleBlend, isActive());
-	QColorGroup cg = widget()->colorGroup();
-	QColor titleColor = options()->color(ColorTitleBar, isActive());
-	QColor titleBlendColor = options()->color(ColorTitleBlend, isActive());
-	QColor bgColor = widget()->colorGroup().background();
-	QPainter p;
-	QPointArray pArray, pArray2, pArray3, pArray4;
+	TQRect r_this = widget()->rect();
+	TQRect r_title = _title_spacer->geometry();
+	TQColorGroup titleCg = options()->colorGroup(ColorTitleBar, isActive());
+	TQColorGroup titleBlendCg=options()->colorGroup(ColorTitleBlend, isActive());
+	TQColorGroup cg = widget()->colorGroup();
+	TQColor titleColor = options()->color(ColorTitleBar, isActive());
+	TQColor titleBlendColor = options()->color(ColorTitleBlend, isActive());
+	TQColor bgColor = widget()->colorGroup().background();
+	TQPainter p;
+	TQPointArray pArray, pArray2, pArray3, pArray4;
 
 	// pixmap for title bar
-	QSize tBSize(width(), r_title.height());
-	QSize gradientPixmapSize (tBSize-QSize(3,3));
+	TQSize tBSize(width(), r_title.height());
+	TQSize gradientPixmapSize (tBSize-TQSize(3,3));
 	if (! gradientPixmapSize.isValid())
-		gradientPixmapSize = QSize(0,0);
+		gradientPixmapSize = TQSize(0,0);
 	KPixmap gradientPixmap(gradientPixmapSize);
 	if (! gradientPixmapSize.isNull())
 		KPixmapEffect::gradient(gradientPixmap, titleColor, titleBlendColor,
 			(KPixmapEffect::GradientType) conf->titlebarGradientType);
 
-	QPixmap  * title_buffer = new QPixmap(tBSize);
+	TQPixmap  * title_buffer = new TQPixmap(tBSize);
 	p.begin(title_buffer);
 	if (! gradientPixmap.isNull())
 		p.drawPixmap(2, 2, gradientPixmap);
@@ -446,7 +446,7 @@ void GlowClient::paintEvent( QPaintEvent * )
 			Qt::AlignLeft | Qt::AlignVCenter | Qt::SingleLine, caption());
 	
 		// draw split color beneath buttons top right
-		pArray4 = QPointArray(4);
+		pArray4 = TQPointArray(4);
 		pArray4.setPoint(0, tBSize.width()-1, tBSize.height()/2-1);
 		pArray4.setPoint(1, r_title.x()+r_title.width()-1+tBSize.height()/2,
 			tBSize.height()/2-1);
@@ -457,7 +457,7 @@ void GlowClient::paintEvent( QPaintEvent * )
 		p.drawPolygon(pArray4);
 				
 		// draw borders
-		pArray = QPointArray(3);
+		pArray = TQPointArray(3);
 		pArray.setPoint(0, tBSize.width()-1, tBSize.height()/2-1);
 		pArray.setPoint(1, r_title.x()+r_title.width()-1+tBSize.height()/2,
 			tBSize.height()/2-1);
@@ -466,7 +466,7 @@ void GlowClient::paintEvent( QPaintEvent * )
 		p.drawPolyline(pArray);
 		p.drawLine (0, tBSize.height()-1, r_title.x()+r_title.width()-1, tBSize.height()-1);
 
-		pArray2 = QPointArray(3);
+		pArray2 = TQPointArray(3);
 		pArray2.setPoint(0, 1, tBSize.height()-2);
 		pArray2.setPoint(1, 1, 1);
 		pArray2.setPoint(2, tBSize.width()-2, 1);
@@ -474,7 +474,7 @@ void GlowClient::paintEvent( QPaintEvent * )
 		p.drawPolyline(pArray2);
 	}
 
-	pArray3 = QPointArray(4);
+	pArray3 = TQPointArray(4);
 	pArray3.setPoint(0, 0, tBSize.height()-1);
 	pArray3.setPoint(1, 0, 0);
 	pArray3.setPoint(2, tBSize.width()-1, 0);
@@ -484,8 +484,8 @@ void GlowClient::paintEvent( QPaintEvent * )
 	p.end();
 
 	// insert title buffer in cache; before that, remove old buffer
-	PixmapCache::erase(QString::number(widget()->winId()));
-	PixmapCache::insert(QString::number(widget()->winId()), title_buffer);
+	PixmapCache::erase(TQString::number(widget()->winId()));
+	PixmapCache::insert(TQString::number(widget()->winId()), title_buffer);
 
 	bitBlt(widget(), 0, 0, title_buffer);
 	for (unsigned int i=0; i<m_buttonList.size(); ++i)
@@ -518,21 +518,21 @@ void GlowClient::paintEvent( QPaintEvent * )
 	}
 }
 
-void GlowClient::showEvent( QShowEvent * )
+void GlowClient::showEvent( TQShowEvent * )
 {
 	doShape();
 	widget()->repaint(false);
 }
 
-void GlowClient::mouseDoubleClickEvent( QMouseEvent *e )
+void GlowClient::mouseDoubleClickEvent( TQMouseEvent *e )
 {
 	if(e->button() == LeftButton && _title_spacer->geometry().contains(e->pos()))
 		titlebarDblClickOperation();
 }
 
-void GlowClient::wheelEvent( QWheelEvent *e )
+void GlowClient::wheelEvent( TQWheelEvent *e )
 {
-    if (isSetShade() || QRect( 0, 0, width(), titleHeight ).contains(e->pos()))
+    if (isSetShade() || TQRect( 0, 0, width(), titleHeight ).contains(e->pos()))
         titlebarMouseWheelOperation( e->delta());
 }
 
@@ -556,12 +556,12 @@ void GlowClient::captionChange()
     widget()->update(_title_spacer->geometry());
 }
 
-QSize GlowClient::minimumSize() const
+TQSize GlowClient::minimumSize() const
 {
     return widget()->minimumSize();
 }
 
-void GlowClient::resize( const QSize& s )
+void GlowClient::resize( const TQSize& s )
 {
     widget()->resize( s );
 }
@@ -607,7 +607,7 @@ void GlowClient::maximizeChange()
 	}
 }
 
-KDecoration::Position GlowClient::mousePosition(const QPoint &pos) const
+KDecoration::Position GlowClient::mousePosition(const TQPoint &pos) const
 {
 	Position m = PositionCenter;
 
@@ -646,87 +646,87 @@ void GlowClient::createButtons()
 {
 	GlowClientGlobals *globals = GlowClientGlobals::instance();
 	GlowButtonFactory *factory = globals->buttonFactory();
-	QSize size = globals->theme()->buttonSize;
+	TQSize size = globals->theme()->buttonSize;
 
 	m_stickyButton = factory->createGlowButton(widget(),
 					"StickyButton", isOnAllDesktops()?i18n("Not on all desktops"):i18n("On all desktops"), LeftButton|RightButton);
 	m_stickyButton->setFixedSize(size);
-	connect(m_stickyButton, SIGNAL(clicked()), this, SLOT(toggleOnAllDesktops()));
+	connect(m_stickyButton, TQT_SIGNAL(clicked()), this, TQT_SLOT(toggleOnAllDesktops()));
 	m_buttonList.insert(m_buttonList.end(), m_stickyButton);
 
 	m_helpButton = factory->createGlowButton(widget(),
 					"HelpButton", i18n("Help"));
 	m_helpButton->setFixedSize(size);
-	connect(m_helpButton, SIGNAL(clicked()), this, SLOT(showContextHelp()));
+	connect(m_helpButton, TQT_SIGNAL(clicked()), this, TQT_SLOT(showContextHelp()));
 	m_buttonList.insert(m_buttonList.end(), m_helpButton);
 
 	m_minimizeButton = factory->createGlowButton(widget(),
 					"IconifyButton", i18n("Minimize"));
 	m_minimizeButton->setFixedSize(size);
-	connect(m_minimizeButton, SIGNAL(clicked()), this, SLOT(minimize()));
+	connect(m_minimizeButton, TQT_SIGNAL(clicked()), this, TQT_SLOT(minimize()));
 	m_buttonList.insert(m_buttonList.end(), m_minimizeButton);
 
 	m_maximizeButton=factory->createGlowButton(widget(),
 					"MaximizeButton", i18n("Maximize"), LeftButton|MidButton|RightButton);
 	m_maximizeButton->setFixedSize(size);
-	connect(m_maximizeButton, SIGNAL(clicked()), this, SLOT(slotMaximize()));
+	connect(m_maximizeButton, TQT_SIGNAL(clicked()), this, TQT_SLOT(slotMaximize()));
 	m_buttonList.insert(m_buttonList.end(), m_maximizeButton);
 
 	m_closeButton = factory->createGlowButton(widget(),
 					"CloseButton", i18n("Close"));
 	m_closeButton->setFixedSize(size);
-	connect(m_closeButton, SIGNAL(clicked()), this, SLOT(closeWindow()));
+	connect(m_closeButton, TQT_SIGNAL(clicked()), this, TQT_SLOT(closeWindow()));
 	m_buttonList.insert(m_buttonList.end(), m_closeButton);
 }
 
 void GlowClient::resetLayout()
 {
-	_main_layout = new QVBoxLayout(widget(), 0, 0);
-	_main_layout->setResizeMode (QLayout::FreeResize);
+	_main_layout = new TQVBoxLayout(widget(), 0, 0);
+	_main_layout->setResizeMode (TQLayout::FreeResize);
 
 	// update button positions and colors
 	updateButtonPositions();
 	updateButtonPixmaps();
 
-	QBoxLayout * topLayout = new QBoxLayout(_main_layout,
-			QBoxLayout::LeftToRight, 0, 0);
+	TQBoxLayout * topLayout = new TQBoxLayout(_main_layout,
+			TQBoxLayout::LeftToRight, 0, 0);
 	topLayout->setMargin(0);
 	topLayout->setSpacing(TITLE_SPACING);
 	topLayout->addSpacing(SIDE_MARGIN);
-	QVBoxLayout *outerLeftLayout = new QVBoxLayout(topLayout);
+	TQVBoxLayout *outerLeftLayout = new TQVBoxLayout(topLayout);
 	outerLeftLayout->addSpacing(TITLE_MARGIN);
 	outerLeftLayout->addItem(m_leftButtonLayout);
 	outerLeftLayout->addSpacing(1);
 	topLayout->addSpacing(SIDE_MARGIN);
 
-	_title_spacer = new QSpacerItem(0, titleHeight + TITLE_MARGIN + 1,
-		QSizePolicy::Expanding, QSizePolicy::Fixed);
+	_title_spacer = new TQSpacerItem(0, titleHeight + TITLE_MARGIN + 1,
+		TQSizePolicy::Expanding, TQSizePolicy::Fixed);
 	topLayout->addItem(_title_spacer);
 
 	topLayout->addSpacing(SIDE_MARGIN);
-	QVBoxLayout *outerRightLayout = new QVBoxLayout(topLayout);
+	TQVBoxLayout *outerRightLayout = new TQVBoxLayout(topLayout);
 	outerRightLayout->addSpacing(TITLE_MARGIN);
 	outerRightLayout->addItem(m_rightButtonLayout);
 	outerRightLayout->addSpacing(1);
 	topLayout->addSpacing(SIDE_MARGIN);
 
-	QBoxLayout *midLayout = new QBoxLayout(
-			_main_layout, QBoxLayout::LeftToRight, 0, 0);
+	TQBoxLayout *midLayout = new TQBoxLayout(
+			_main_layout, TQBoxLayout::LeftToRight, 0, 0);
 	midLayout->addSpacing(SIDE_MARGIN);
 	if(isPreview())
 		midLayout->addWidget(
-				new QLabel( i18n( "<b><center>Glow preview</center></b>" ), widget()));
+				new TQLabel( i18n( "<b><center>Glow preview</center></b>" ), widget()));
 	else
-		midLayout->addItem( new QSpacerItem( 0, 0 ));
+		midLayout->addItem( new TQSpacerItem( 0, 0 ));
 	midLayout->addSpacing(SIDE_MARGIN);
 
 	if(GlowClientGlobals::instance()->config()->showResizeHandle
 		&& isResizable() ) {
-		_bottom_spacer = new QSpacerItem(SIDE_MARGIN*2,
-			RESIZE_HANDLE_HEIGHT, QSizePolicy::Expanding, QSizePolicy::Minimum);
+		_bottom_spacer = new TQSpacerItem(SIDE_MARGIN*2,
+			RESIZE_HANDLE_HEIGHT, TQSizePolicy::Expanding, TQSizePolicy::Minimum);
 	} else {
-		_bottom_spacer = new QSpacerItem(SIDE_MARGIN*2,
-			BOTTOM_MARGIN, QSizePolicy::Expanding, QSizePolicy::Minimum);
+		_bottom_spacer = new TQSpacerItem(SIDE_MARGIN*2,
+			BOTTOM_MARGIN, TQSizePolicy::Expanding, TQSizePolicy::Minimum);
 	}
 	_main_layout->addItem (_bottom_spacer);
 	_main_layout->setStretchFactor(topLayout, 0);
@@ -735,7 +735,7 @@ void GlowClient::resetLayout()
 
 void GlowClient::updateButtonPositions()
 {
-	QString buttons = options()->titleButtonsLeft() + "|"
+	TQString buttons = options()->titleButtonsLeft() + "|"
 		+ options()->titleButtonsRight();
 	bool leftButtons=true;
 
@@ -749,12 +749,12 @@ void GlowClient::updateButtonPositions()
 	// reset left and right button layout
 	if(m_leftButtonLayout)
 		delete m_leftButtonLayout;
-	m_leftButtonLayout = new QBoxLayout(0, QBoxLayout::LeftToRight, 0, 0, 0);
+	m_leftButtonLayout = new TQBoxLayout(0, TQBoxLayout::LeftToRight, 0, 0, 0);
 	m_leftButtonLayout->setMargin(0);
 	m_leftButtonLayout->setSpacing(TITLE_SPACING);
 	if(m_rightButtonLayout)
 		delete m_rightButtonLayout;
-	m_rightButtonLayout = new QBoxLayout(0, QBoxLayout::LeftToRight, 0, 0, 0);
+	m_rightButtonLayout = new TQBoxLayout(0, TQBoxLayout::LeftToRight, 0, 0, 0);
 	m_rightButtonLayout->setMargin(0);
 	m_rightButtonLayout->setSpacing(TITLE_SPACING);
 
@@ -825,12 +825,12 @@ void GlowClient::updateButtonPixmaps()
 
 void GlowClient::doShape()
 {
-	QRegion mask(widget()->rect());
+	TQRegion mask(widget()->rect());
 	// edges
 
-	mask -= QRegion(width()-1,0,1,1);
-	mask -= QRegion(0,height()-1,1,1);
-	mask -= QRegion(width()-1,height()-1,1,1);
+	mask -= TQRegion(width()-1,0,1,1);
+	mask -= TQRegion(0,height()-1,1,1);
+	mask -= TQRegion(width()-1,height()-1,1,1);
 	setMask(mask);
 }
 
@@ -855,29 +855,29 @@ void GlowClient::slotMaximize()
 	maximize(m_maximizeButton->lastButton());
 }
 
-bool GlowClient::eventFilter( QObject* o, QEvent* e )
+bool GlowClient::eventFilter( TQObject* o, TQEvent* e )
 {
 	if( o != widget())
 		return false;
 	switch( e->type())
 	{
-	case QEvent::Resize:
-	    resizeEvent( static_cast< QResizeEvent* >( e ));
+	case TQEvent::Resize:
+	    resizeEvent( static_cast< TQResizeEvent* >( e ));
 	    return true;
-	case QEvent::Paint:
-	    paintEvent( static_cast< QPaintEvent* >( e ));
+	case TQEvent::Paint:
+	    paintEvent( static_cast< TQPaintEvent* >( e ));
 	    return true;
-	case QEvent::MouseButtonDblClick:
-	    mouseDoubleClickEvent( static_cast< QMouseEvent* >( e ));
+	case TQEvent::MouseButtonDblClick:
+	    mouseDoubleClickEvent( static_cast< TQMouseEvent* >( e ));
 	    return true;
-	case QEvent::MouseButtonPress:
-	    processMousePressEvent( static_cast< QMouseEvent* >( e ));
+	case TQEvent::MouseButtonPress:
+	    processMousePressEvent( static_cast< TQMouseEvent* >( e ));
 	    return true;
-	case QEvent::Show:
-	    showEvent( static_cast< QShowEvent* >( e ));
+	case TQEvent::Show:
+	    showEvent( static_cast< TQShowEvent* >( e ));
 	    return true;
-	case QEvent::Wheel:
-	    wheelEvent( static_cast< QWheelEvent* >( e ));
+	case TQEvent::Wheel:
+	    wheelEvent( static_cast< TQWheelEvent* >( e ));
 	    return true;
 	default:
 	    break;

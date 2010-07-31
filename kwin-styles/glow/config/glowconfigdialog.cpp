@@ -15,19 +15,19 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qbitmap.h>
-#include <qbuttongroup.h>
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <qdir.h>
-#include <qfileinfo.h>
-#include <qgroupbox.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qlistview.h>
-#include <qpushbutton.h>
-#include <qsignalmapper.h>
-#include <qstringlist.h>
+#include <tqbitmap.h>
+#include <tqbuttongroup.h>
+#include <tqcheckbox.h>
+#include <tqcombobox.h>
+#include <tqdir.h>
+#include <tqfileinfo.h>
+#include <tqgroupbox.h>
+#include <tqlabel.h>
+#include <tqlayout.h>
+#include <tqlistview.h>
+#include <tqpushbutton.h>
+#include <tqsignalmapper.h>
+#include <tqstringlist.h>
 #include <kconfig.h>
 #include <kcolorbutton.h>
 #include <kdebug.h>
@@ -45,129 +45,129 @@
 
 extern "C"
 {
-	KDE_EXPORT QObject* allocate_config( KConfig* conf, QWidget* parent )
+	KDE_EXPORT TQObject* allocate_config( KConfig* conf, TQWidget* parent )
 	{
 		return(new GlowConfigDialog(conf, parent));
 	}
 }
 
-GlowConfigDialog::GlowConfigDialog( KConfig * conf, QWidget * parent )
-	: QObject(parent)
+GlowConfigDialog::GlowConfigDialog( KConfig * conf, TQWidget * parent )
+	: TQObject(parent)
 {
 	_glowConfig = new KConfig("kwinglowrc");
 	KGlobal::locale()->insertCatalogue("kwin_glow_config");
 
-	_main_group_box = new QWidget(parent);
-	QVBoxLayout *main_group_boxLayout = new QVBoxLayout(_main_group_box);
+	_main_group_box = new TQWidget(parent);
+	TQVBoxLayout *main_group_boxLayout = new TQVBoxLayout(_main_group_box);
 	main_group_boxLayout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 	main_group_boxLayout->setSpacing(6);
 
 	//-------------------------------------------------------------------------
 	// themes
 
-	_theme_list_view = new QListView (_main_group_box, "theme_list_view");
+	_theme_list_view = new TQListView (_main_group_box, "theme_list_view");
 	_theme_list_view->addColumn (i18n("Theme"));
 	_theme_list_view->addColumn (i18n("Button Size"));
         _theme_list_view->setAllColumnsShowFocus(true);
-        _theme_list_view->setResizeMode(QListView::AllColumns);
+        _theme_list_view->setResizeMode(TQListView::AllColumns);
 
 	main_group_boxLayout->addWidget (_theme_list_view);
-	QObject::connect (_theme_list_view, SIGNAL(selectionChanged()),
-			this, SLOT(slotThemeListViewSelectionChanged()));
+	TQObject::connect (_theme_list_view, TQT_SIGNAL(selectionChanged()),
+			this, TQT_SLOT(slotThemeListViewSelectionChanged()));
 	slotLoadThemeList();
 
-	_button_glow_color_group_box = new QGroupBox(
+	_button_glow_color_group_box = new TQGroupBox(
 		0, Qt::Horizontal, i18n("Button Glow Colors"), _main_group_box);
-	QHBoxLayout *colorHBoxLayout =
-		new QHBoxLayout(_button_glow_color_group_box->layout());
+	TQHBoxLayout *colorHBoxLayout =
+		new TQHBoxLayout(_button_glow_color_group_box->layout());
 
 	// create buttons
-	QSize buttonSize(BITMAP_SIZE, BITMAP_SIZE);
-	QPixmap pm(buttonSize);
+	TQSize buttonSize(BITMAP_SIZE, BITMAP_SIZE);
+	TQPixmap pm(buttonSize);
 	pm.fill(Qt::black);
 
-	_stickyButton = new QPushButton(_button_glow_color_group_box);
-	pm.setMask(QBitmap(buttonSize, stickyoff_bits, true));
+	_stickyButton = new TQPushButton(_button_glow_color_group_box);
+	pm.setMask(TQBitmap(buttonSize, stickyoff_bits, true));
 	_stickyButton->setPixmap(pm);
 	colorHBoxLayout->addWidget(_stickyButton);
 	_titleButtonList.push_back(_stickyButton);
 
-	_helpButton = new QPushButton(_button_glow_color_group_box);
-	pm.setMask(QBitmap(buttonSize, help_bits, true));
+	_helpButton = new TQPushButton(_button_glow_color_group_box);
+	pm.setMask(TQBitmap(buttonSize, help_bits, true));
 	_helpButton->setPixmap(pm);
 	colorHBoxLayout->addWidget(_helpButton);
 	_titleButtonList.push_back(_helpButton);
 
-	_iconifyButton = new QPushButton(_button_glow_color_group_box);
-	pm.setMask(QBitmap(buttonSize, minimize_bits, true));
+	_iconifyButton = new TQPushButton(_button_glow_color_group_box);
+	pm.setMask(TQBitmap(buttonSize, minimize_bits, true));
 	_iconifyButton->setPixmap(pm);
 	colorHBoxLayout->addWidget(_iconifyButton);
 	_titleButtonList.push_back(_iconifyButton);
 
-	_maximizeButton = new QPushButton(_button_glow_color_group_box);
-	pm.setMask(QBitmap(buttonSize, maximizeoff_bits, true));
+	_maximizeButton = new TQPushButton(_button_glow_color_group_box);
+	pm.setMask(TQBitmap(buttonSize, maximizeoff_bits, true));
 	_maximizeButton->setPixmap(pm);
 	colorHBoxLayout->addWidget(_maximizeButton);
 	_titleButtonList.push_back(_maximizeButton);
 
-	_closeButton = new QPushButton(_button_glow_color_group_box);
-	pm.setMask(QBitmap(buttonSize, close_bits, true));
+	_closeButton = new TQPushButton(_button_glow_color_group_box);
+	pm.setMask(TQBitmap(buttonSize, close_bits, true));
 	_closeButton->setPixmap(pm);
 	colorHBoxLayout->addWidget(_closeButton);
 	_titleButtonList.push_back(_closeButton);
 
 	// create signal mapper
-	_titleButtonMapper = new QSignalMapper(this);
+	_titleButtonMapper = new TQSignalMapper(this);
 	for( uint i=0; i<_titleButtonList.size(); i++ ) {
 		_titleButtonMapper->setMapping(_titleButtonList[i], i);
-		connect(_titleButtonList[i], SIGNAL(clicked()),_titleButtonMapper, SLOT(map()));
+		connect(_titleButtonList[i], TQT_SIGNAL(clicked()),_titleButtonMapper, TQT_SLOT(map()));
 	}
-	connect(_titleButtonMapper, SIGNAL(mapped(int)),this, SLOT(slotTitleButtonClicked(int)));
+	connect(_titleButtonMapper, TQT_SIGNAL(mapped(int)),this, TQT_SLOT(slotTitleButtonClicked(int)));
 
 	_colorButton = new KColorButton(_button_glow_color_group_box);
 	_colorButton->setEnabled(false);
-	connect(_colorButton, SIGNAL(changed(const QColor&)),
-		this, SLOT(slotColorButtonChanged(const QColor&)));
+	connect(_colorButton, TQT_SIGNAL(changed(const TQColor&)),
+		this, TQT_SLOT(slotColorButtonChanged(const TQColor&)));
 
-	colorHBoxLayout->addItem(new QSpacerItem(
-		200, 20, QSizePolicy::Expanding, QSizePolicy::Minimum));
+	colorHBoxLayout->addItem(new TQSpacerItem(
+		200, 20, TQSizePolicy::Expanding, TQSizePolicy::Minimum));
 	colorHBoxLayout->addWidget(_colorButton);
 
 	main_group_boxLayout->addWidget(_button_glow_color_group_box);
 
-	QHBoxLayout *titlebarGradientTypeLayout = new QHBoxLayout();
-	_titlebarGradientTypeComboBox = new QComboBox(_main_group_box);
+	TQHBoxLayout *titlebarGradientTypeLayout = new TQHBoxLayout();
+	_titlebarGradientTypeComboBox = new TQComboBox(_main_group_box);
 
     KConfig *c = KGlobal::config();
-    KConfigGroupSaver cgs( c, QString::fromLatin1("WM") );
-    QColor activeBackground = c->readColorEntry("activeBackground");
-    QColor activeBlend = c->readColorEntry("activeBlend");
+    KConfigGroupSaver cgs( c, TQString::fromLatin1("WM") );
+    TQColor activeBackground = c->readColorEntry("activeBackground");
+    TQColor activeBlend = c->readColorEntry("activeBlend");
 
 	// If the colors are equal, change one to get a gradient effect
 	if (activeBackground==activeBlend) {
 		activeBackground = activeBackground.dark();
 	}
 	for (int i=0; i< KPixmapEffect::EllipticGradient; i++ ) {
-		KPixmap gradPixmap(QSize(196,20));
+		KPixmap gradPixmap(TQSize(196,20));
 		KPixmapEffect::gradient(gradPixmap, activeBackground,
 								activeBlend, (KPixmapEffect::GradientType) i);
 
 		_titlebarGradientTypeComboBox->insertItem(gradPixmap, i);
 	}
 
-	connect(_titlebarGradientTypeComboBox, SIGNAL(activated(int)),
-		this, SLOT(slotTitlebarGradientTypeChanged(int)));
+	connect(_titlebarGradientTypeComboBox, TQT_SIGNAL(activated(int)),
+		this, TQT_SLOT(slotTitlebarGradientTypeChanged(int)));
 	titlebarGradientTypeLayout->addWidget(
-		new QLabel(i18n("Titlebar gradient:"), _main_group_box));
+		new TQLabel(i18n("Titlebar gradient:"), _main_group_box));
 	titlebarGradientTypeLayout->addWidget(_titlebarGradientTypeComboBox, 0, Qt::AlignLeft);
         titlebarGradientTypeLayout->addStretch(10);
 	main_group_boxLayout->addLayout(titlebarGradientTypeLayout);
 
 
-	_showResizeHandleCheckBox = new QCheckBox(
+	_showResizeHandleCheckBox = new TQCheckBox(
 			i18n("Show resize handle"),	_main_group_box);
-	connect(_showResizeHandleCheckBox, SIGNAL(clicked()),
-		this, SLOT(slotResizeHandleCheckBoxChanged()));
+	connect(_showResizeHandleCheckBox, TQT_SIGNAL(clicked()),
+		this, TQT_SLOT(slotResizeHandleCheckBoxChanged()));
 	main_group_boxLayout->addWidget(_showResizeHandleCheckBox);
 
 	// load config and update user interface
@@ -185,12 +185,12 @@ GlowConfigDialog::~GlowConfigDialog()
 
 void GlowConfigDialog::load( KConfig* /* conf */ )
 {
-	QColor color;
-	const QColor defaultCloseButtonColor(DEFAULT_CLOSE_BUTTON_COLOR);
-	const QColor defaultMaximizeButtonColor(DEFAULT_MAXIMIZE_BUTTON_COLOR);
-	const QColor defaultIconifyButtonColor(DEFAULT_ICONIFY_BUTTON_COLOR);
-	const QColor defaultHelpButtonColor(DEFAULT_HELP_BUTTON_COLOR);
-	const QColor defaultStickyButtonColor(DEFAULT_STICKY_BUTTON_COLOR);
+	TQColor color;
+	const TQColor defaultCloseButtonColor(DEFAULT_CLOSE_BUTTON_COLOR);
+	const TQColor defaultMaximizeButtonColor(DEFAULT_MAXIMIZE_BUTTON_COLOR);
+	const TQColor defaultIconifyButtonColor(DEFAULT_ICONIFY_BUTTON_COLOR);
+	const TQColor defaultHelpButtonColor(DEFAULT_HELP_BUTTON_COLOR);
+	const TQColor defaultStickyButtonColor(DEFAULT_STICKY_BUTTON_COLOR);
 
 	_glowConfig->setGroup("General");
 
@@ -249,11 +249,11 @@ void GlowConfigDialog::save( KConfig* /* conf */ )
 
 void GlowConfigDialog::defaults()
 {
-	const QColor defaultCloseButtonColor = DEFAULT_CLOSE_BUTTON_COLOR;
-	const QColor defaultMaximizeButtonColor(DEFAULT_MAXIMIZE_BUTTON_COLOR);
-	const QColor defaultIconifyButtonColor(DEFAULT_ICONIFY_BUTTON_COLOR);
-	const QColor defaultHelpButtonColor(DEFAULT_HELP_BUTTON_COLOR);
-	const QColor defaultStickyButtonColor(DEFAULT_STICKY_BUTTON_COLOR);
+	const TQColor defaultCloseButtonColor = DEFAULT_CLOSE_BUTTON_COLOR;
+	const TQColor defaultMaximizeButtonColor(DEFAULT_MAXIMIZE_BUTTON_COLOR);
+	const TQColor defaultIconifyButtonColor(DEFAULT_ICONIFY_BUTTON_COLOR);
+	const TQColor defaultHelpButtonColor(DEFAULT_HELP_BUTTON_COLOR);
+	const TQColor defaultStickyButtonColor(DEFAULT_STICKY_BUTTON_COLOR);
 
 	_buttonConfigMap[stickyButton] = defaultStickyButtonColor;
 	_buttonConfigMap[helpButton] = defaultHelpButtonColor;
@@ -273,21 +273,21 @@ void GlowConfigDialog::defaults()
 
 void GlowConfigDialog::slotLoadThemeList ()
 {
-	QStringList dir_list=KGlobal::dirs()->findDirs("data", "kwin/glow-themes");
+	TQStringList dir_list=KGlobal::dirs()->findDirs("data", "kwin/glow-themes");
 
-	QStringList::ConstIterator it;
+	TQStringList::ConstIterator it;
 
 	_theme_list_view->clear();
-	new QListViewItem (_theme_list_view, "default", "17x17");
+	new TQListViewItem (_theme_list_view, "default", "17x17");
 
 	for (it=dir_list.begin(); it!=dir_list.end(); ++it)
 	{
-		QDir dir (*it, QString("*"), QDir::Unsorted,
-				QDir::Dirs | QDir::Readable);
+		TQDir dir (*it, TQString("*"), TQDir::Unsorted,
+				TQDir::Dirs | TQDir::Readable);
 		if (dir.exists())
 		{
 			QFileInfoListIterator it2(*dir.entryInfoList());
-			QFileInfo * finfo;
+			TQFileInfo * finfo;
 
 			while ((finfo=it2.current()))
 			{
@@ -300,17 +300,17 @@ void GlowConfigDialog::slotLoadThemeList ()
 				{
 					KConfig conf (dir.path() + "/" + finfo->fileName() + "/" +
 							finfo->fileName() + ".theme");
-					QSize button_size = conf.readSizeEntry (
-						"buttonSize", new QSize (-1, -1));
+					TQSize button_size = conf.readSizeEntry (
+						"buttonSize", new TQSize (-1, -1));
 					if (button_size.width() == -1)
 					{
 						++it2;
 						continue;
 					}
-					QString size_string = QString("") +
-						QString::number(button_size.width()) +
-						"x" + QString::number(button_size.height());
-					new QListViewItem (_theme_list_view,
+					TQString size_string = TQString("") +
+						TQString::number(button_size.width()) +
+						"x" + TQString::number(button_size.height());
+					new TQListViewItem (_theme_list_view,
 							finfo->fileName(), size_string);
 				}
 
@@ -341,7 +341,7 @@ void GlowConfigDialog::slotTitleButtonClicked(int index)
 	_colorButton->setColor(_buttonConfigMap[index]);
 }
 
-void GlowConfigDialog::slotColorButtonChanged(const QColor& glowColor)
+void GlowConfigDialog::slotColorButtonChanged(const TQColor& glowColor)
 {
 	if( _stickyButton->isDown() ) {
 		_buttonConfigMap[stickyButton] = glowColor;

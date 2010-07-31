@@ -26,13 +26,13 @@
 #include <unistd.h> // for usleep
 #include <math.h>
 
-#include <qlayout.h>
-#include <qpainter.h>
-#include <qdrawutil.h>
-#include <qtoolbutton.h>
-#include <qimage.h>
-#include <qlabel.h>
-#include <qpixmap.h>
+#include <tqlayout.h>
+#include <tqpainter.h>
+#include <tqdrawutil.h>
+#include <tqtoolbutton.h>
+#include <tqimage.h>
+#include <tqlabel.h>
+#include <tqpixmap.h>
 
 #include <kapplication.h>
 #include <klocale.h>
@@ -86,11 +86,11 @@ bool DecorationFactory::supports( Ability ability )
     };
 }
 
-QValueList< DecorationFactory::BorderSize > 
+TQValueList< DecorationFactory::BorderSize > 
 DecorationFactory::borderSizes() const
 { 
     // the list must be sorted
-    return QValueList< BorderSize >() << BorderNormal << 
+    return TQValueList< BorderSize >() << BorderNormal << 
 	BorderLarge << BorderVeryLarge <<  BorderHuge << 
 	BorderVeryHuge << BorderOversized;
 }
@@ -124,7 +124,7 @@ void OpenLook::init()
   widget()->setBackgroundMode(NoBackground);
   NET::WindowType type = windowType(SUPPORTED_WINDOW_TYPES_MASK);
   tool_ = (type == NET::Toolbar || type == NET::Utility || type == NET::Menu);
-  QFontMetrics fm(options()->font(isActive(), tool_));
+  TQFontMetrics fm(options()->font(isActive(), tool_));
 
   titleHeight = fm.height() + openLookTextVMargin * 2;
   
@@ -160,35 +160,35 @@ OpenLook::~OpenLook()
   // Empty.
 }
 
-bool OpenLook::eventFilter(QObject *o, QEvent *e)
+bool OpenLook::eventFilter(TQObject *o, TQEvent *e)
 {
   if (o != widget()) return false;
   switch (e->type()) {
-  case QEvent::Resize:
-    resizeEvent(static_cast< QResizeEvent* >(e));
+  case TQEvent::Resize:
+    resizeEvent(static_cast< TQResizeEvent* >(e));
     return true;
-  case QEvent::Paint:
-    paintEvent(static_cast< QPaintEvent* >(e));
+  case TQEvent::Paint:
+    paintEvent(static_cast< TQPaintEvent* >(e));
     return true;
-  case QEvent::MouseButtonDblClick:
-    mouseDoubleClickEvent(static_cast< QMouseEvent* >(e));
+  case TQEvent::MouseButtonDblClick:
+    mouseDoubleClickEvent(static_cast< TQMouseEvent* >(e));
     return true;
-  case QEvent::Wheel:
-    wheelEvent( static_cast< QWheelEvent* >( e ));
+  case TQEvent::Wheel:
+    wheelEvent( static_cast< TQWheelEvent* >( e ));
     return true;
-  case QEvent::MouseButtonPress:
-    if (!isButtonPress(static_cast< QMouseEvent* >(e))) {
-      processMousePressEvent(static_cast< QMouseEvent* >(e));
+  case TQEvent::MouseButtonPress:
+    if (!isButtonPress(static_cast< TQMouseEvent* >(e))) {
+      processMousePressEvent(static_cast< TQMouseEvent* >(e));
     }
     return true;
-  case QEvent::MouseButtonRelease:
-    if (isButtonRelease(static_cast< QMouseEvent* >(e))) {
+  case TQEvent::MouseButtonRelease:
+    if (isButtonRelease(static_cast< TQMouseEvent* >(e))) {
       return true;
     } else {
       return false;
     }
-  case QEvent::Show:
-    showEvent(static_cast< QShowEvent* >(e));
+  case TQEvent::Show:
+    showEvent(static_cast< TQShowEvent* >(e));
     return true;
   default:
     break;
@@ -215,28 +215,28 @@ OpenLook::shadeChange()
 {
 }
 
-QSize OpenLook::minimumSize() const
+TQSize OpenLook::minimumSize() const
 {
     int left, right, top, bottom;
     borders(left, right, top, bottom);
-    return QSize(left  + right + 2 * titleHeight, top + bottom); 
+    return TQSize(left  + right + 2 * titleHeight, top + bottom); 
 }
 
   void 
-OpenLook::resize(const QSize& s)
+OpenLook::resize(const TQSize& s)
 {
     widget()->resize(s);
     widget()->repaint(); //there is some strange wrong repaint of the frame without
 }
 
   void
-OpenLook::paintEvent(QPaintEvent * pe)
+OpenLook::paintEvent(TQPaintEvent * pe)
 {
-  QRect tr(titleRect());
+  TQRect tr(titleRect());
 
-  QPainter p(widget());
+  TQPainter p(widget());
 
-  QRegion clipRegion(pe->region());
+  TQRegion clipRegion(pe->region());
 
   p.setClipRegion(clipRegion);
 
@@ -249,12 +249,12 @@ OpenLook::paintEvent(QPaintEvent * pe)
 
   p.setClipRegion(clipRegion + buttonRect());
 
-  QBrush titleBackground(options()->color(KDecoration::ColorTitleBar, true));
+  TQBrush titleBackground(options()->color(KDecoration::ColorTitleBar, true));
 
   if (isActive())
     qDrawShadePanel(&p, tr, widget()->colorGroup(), true, 1, &titleBackground);
   else
-    p.fillRect(tr, widget()->colorGroup().brush(QColorGroup::Background));
+    p.fillRect(tr, widget()->colorGroup().brush(TQColorGroup::Background));
 
   p.setClipRegion(clipRegion);
 
@@ -270,13 +270,13 @@ OpenLook::paintEvent(QPaintEvent * pe)
 }
 
   void
-OpenLook::showEvent(QShowEvent *)
+OpenLook::showEvent(TQShowEvent *)
 {
     widget()->repaint();
 }
 
   void
-OpenLook::mouseDoubleClickEvent(QMouseEvent * e)
+OpenLook::mouseDoubleClickEvent(TQMouseEvent * e)
 {
   if (e->button() == LeftButton && titleRect().contains(e->pos()))
   {
@@ -285,7 +285,7 @@ OpenLook::mouseDoubleClickEvent(QMouseEvent * e)
 }
 
   void
-OpenLook::wheelEvent(QWheelEvent *e)
+OpenLook::wheelEvent(TQWheelEvent *e)
 {
   if (isSetShade() || titleRect().contains(e->pos()))
   {
@@ -294,7 +294,7 @@ OpenLook::wheelEvent(QWheelEvent *e)
 }
 
   void 
-OpenLook::resizeEvent(QResizeEvent* e)
+OpenLook::resizeEvent(TQResizeEvent* e)
 {
   widget()->update();
 }
@@ -306,7 +306,7 @@ OpenLook::activeChange()
 }
 
   KDecoration::Position
-OpenLook::mousePosition(const QPoint & p) const
+OpenLook::mousePosition(const TQPoint & p) const
 {
   if (topLeftRect().contains(p))
     return PositionTopLeft;
@@ -339,31 +339,31 @@ OpenLook::maximizeChange()
   void
 OpenLook::doLayout()
 {
-  QVBoxLayout * layout = new QVBoxLayout(widget(), openLookMargin);
+  TQVBoxLayout * layout = new TQVBoxLayout(widget(), openLookMargin);
 
   titleSpacer_ =
     new QSpacerItem
     (
      0,
      titleHeight,
-     QSizePolicy::Expanding,
-     QSizePolicy::Fixed
+     TQSizePolicy::Expanding,
+     TQSizePolicy::Fixed
     );
 
   layout->addItem(titleSpacer_);
 
   layout->addSpacing(2);
 
-  QBoxLayout * midLayout = 
-    new QBoxLayout(layout, QBoxLayout::LeftToRight, 0, 0);
+  TQBoxLayout * midLayout = 
+    new TQBoxLayout(layout, TQBoxLayout::LeftToRight, 0, 0);
  
   if (isPreview()) {
-    midLayout->addWidget(new QLabel(
+    midLayout->addWidget(new TQLabel(
           i18n("<center><b>OpenLook preview</b></center>"), 
           widget()), 
         1);
   } else {
-    midLayout->addItem( new QSpacerItem( 0, 0 ));
+    midLayout->addItem( new TQSpacerItem( 0, 0 ));
   }
       
 }
@@ -372,21 +372,21 @@ OpenLook::doLayout()
 OpenLook::animateMinimize(bool /*iconify*/)
 {
 #if 0
-  QRect icongeom(iconGeometry());
+  TQRect icongeom(iconGeometry());
 
   if (!icongeom.isValid())
     return false;
 
-  QRect wingeom(geometry());
+  TQRect wingeom(geometry());
 
-  QPainter p(workspaceWidget());
+  TQPainter p(workspaceWidget());
 
   p.setRasterOp(Qt::NotROP);
 
 #if 0
   if (iconify)
     p.setClipRegion(
-      QRegion(workspace()->desktopWidget()->rect()) - wingeom
+      TQRegion(workspace()->desktopWidget()->rect()) - wingeom
       );
 #endif
 
@@ -471,11 +471,11 @@ OpenLook::bottomRightRect() const
 }
 
   void
-OpenLook::paintTopLeftRect(QPainter & p) const
+OpenLook::paintTopLeftRect(TQPainter & p) const
 {
-  QColor handleColour(options()->color(KDecoration::ColorHandle, isActive()));
+  TQColor handleColour(options()->color(KDecoration::ColorHandle, isActive()));
 
-  QRect r(topLeftRect());
+  TQRect r(topLeftRect());
 
   int x1(r.left());
   int y1(r.top());
@@ -502,11 +502,11 @@ OpenLook::paintTopLeftRect(QPainter & p) const
 }
 
   void
-OpenLook::paintTopRightRect(QPainter & p) const
+OpenLook::paintTopRightRect(TQPainter & p) const
 {
-  QColor handleColour(options()->color(KDecoration::ColorHandle, isActive()));
+  TQColor handleColour(options()->color(KDecoration::ColorHandle, isActive()));
 
-  QRect r(topRightRect());
+  TQRect r(topRightRect());
 
   int x1(r.left());
   int y1(r.top());
@@ -530,11 +530,11 @@ OpenLook::paintTopRightRect(QPainter & p) const
 }
 
   void
-OpenLook::paintBottomLeftRect(QPainter & p) const
+OpenLook::paintBottomLeftRect(TQPainter & p) const
 {
-  QColor handleColour(options()->color(KDecoration::ColorHandle, isActive()));
+  TQColor handleColour(options()->color(KDecoration::ColorHandle, isActive()));
 
-  QRect r(bottomLeftRect());
+  TQRect r(bottomLeftRect());
 
   int x1(r.left());
   int y1(r.top());
@@ -558,11 +558,11 @@ OpenLook::paintBottomLeftRect(QPainter & p) const
 }
 
   void
-OpenLook::paintBottomRightRect(QPainter & p) const
+OpenLook::paintBottomRightRect(TQPainter & p) const
 {
-  QColor handleColour(options()->color(KDecoration::ColorHandle, isActive()));
+  TQColor handleColour(options()->color(KDecoration::ColorHandle, isActive()));
 
-  QRect r(bottomRightRect());
+  TQRect r(bottomRightRect());
 
   int x1(r.left());
   int y1(r.top());
@@ -598,9 +598,9 @@ OpenLook::buttonRect() const
 }
 
   void
-OpenLook::paintButton(QPainter & p) const
+OpenLook::paintButton(TQPainter & p) const
 {
-  QRect r(buttonRect());
+  TQRect r(buttonRect());
 
   p.fillRect
     (
@@ -627,16 +627,16 @@ OpenLook::paintButton(QPainter & p) const
 }
 
   void
-OpenLook::paintArrow(QPainter & p) const
+OpenLook::paintArrow(TQPainter & p) const
 {
-  QRect br(buttonRect());
+  TQRect br(buttonRect());
 
   int x = br.left()   + 5;
   int y = br.top()    + 5;
   int w = br.width()  - 10;
   int h = br.height() - 10;
 
-  QPointArray poly(3);
+  TQPointArray poly(3);
 
   p.setBrush(widget()->colorGroup().mid());
 
@@ -658,7 +658,7 @@ OpenLook::paintArrow(QPainter & p) const
 }
 
   void
-OpenLook::paintBorder(QPainter & p) const
+OpenLook::paintBorder(TQPainter & p) const
 {
   const uint cs(openLookCornerSize);
 
@@ -674,7 +674,7 @@ OpenLook::paintBorder(QPainter & p) const
   p.fillRect(x, y + cs, 2, h - cs - cs,     widget()->colorGroup().shadow());
   p.fillRect(r - 1, y + cs, 2, h - cs - cs, widget()->colorGroup().shadow());
 
-  QColor frameColour(options()->color(KDecoration::ColorFrame, isActive()));
+  TQColor frameColour(options()->color(KDecoration::ColorFrame, isActive()));
 
   p.fillRect(x + cs, y + 2, w - cs - cs, openLookMargin-2, frameColour);
   p.fillRect(x + cs, b - openLookMargin + 1, w - cs - cs, openLookMargin-2, frameColour);
@@ -698,7 +698,7 @@ OpenLook::titleRect() const
 }
 
   bool
-OpenLook::isButtonPress(QMouseEvent * e)
+OpenLook::isButtonPress(TQMouseEvent * e)
 {
   mousePressPoint_ = e->pos();
 
@@ -709,7 +709,7 @@ OpenLook::isButtonPress(QMouseEvent * e)
 }
 
   bool
-OpenLook::isButtonRelease(QMouseEvent * e)
+OpenLook::isButtonRelease(TQMouseEvent * e)
 {
   if (buttonDown_ && buttonRect().contains(e->pos()))
   {

@@ -49,8 +49,8 @@
 #define LONG64
 //#define QT_CLEAN_NAMESPACE
 
-#include <qslider.h>
-#include <qlayout.h>
+#include <tqslider.h>
+#include <tqlayout.h>
 #include <kglobal.h>
 #include <kconfig.h>
 #include <krandomsequence.h>
@@ -462,10 +462,10 @@ initSpace(Window window)
 #define WARPFACTOR 100
 //-----------------------------------------------------------------------------
 
-#include <qpushbutton.h>
-#include <qcheckbox.h>
-#include <qlabel.h>
-#include <qcolor.h>
+#include <tqpushbutton.h>
+#include <tqcheckbox.h>
+#include <tqlabel.h>
+#include <tqcolor.h>
 
 #include <kmessagebox.h>
 
@@ -504,21 +504,21 @@ kSpaceSaver::kSpaceSaver( Drawable drawable ) : kScreenSaver( drawable )
 	readSettings();
 	counter = (int)warpinterval *WARPFACTOR;
 
-	colorContext = QColor::enterAllocContext();
+	colorContext = TQColor::enterAllocContext();
 
 	initXLock( mGc );
 	initSpace( mDrawable );
 
 	timer.start( speed );
-	connect( &timer, SIGNAL( timeout() ), SLOT( slotTimeout() ) );
+	connect( &timer, TQT_SIGNAL( timeout() ), TQT_SLOT( slotTimeout() ) );
 }
 
 kSpaceSaver::~kSpaceSaver()
 {
 	timer.stop();
 	release_Space();
-	QColor::leaveAllocContext();
-	QColor::destroyAllocContext( colorContext );
+	TQColor::leaveAllocContext();
+	TQColor::destroyAllocContext( colorContext );
 	delete rnd; rnd = 0;
 }
 
@@ -543,7 +543,7 @@ void kSpaceSaver::readSettings()
 	KConfig *config = klock_config();
 	config->setGroup( "Settings" );
 
-	QString str;
+	TQString str;
 
 	str = config->readEntry( "Speed" );
 	if ( !str.isNull() )
@@ -575,44 +575,44 @@ void kSpaceSaver::slotTimeout()
 
 //-----------------------------------------------------------------------------
 
-kSpaceSetup::kSpaceSetup( QWidget *parent, const char *name )
+kSpaceSetup::kSpaceSetup( TQWidget *parent, const char *name )
 	: KDialogBase( parent, name, true, i18n("Setup Space Screen Saver"),
 		       Ok|Cancel|Help, Ok, true )
 {
     setButtonText( Help, i18n( "A&bout" ) );
     readSettings();
 
-    QWidget *page = new QWidget( this );
+    TQWidget *page = new TQWidget( this );
     setMainWidget( page );
-    QHBoxLayout *hb = new QHBoxLayout( page, 0, spacingHint() );
-    QVBoxLayout *vb = new QVBoxLayout( hb, spacingHint() );
+    TQHBoxLayout *hb = new TQHBoxLayout( page, 0, spacingHint() );
+    TQVBoxLayout *vb = new TQVBoxLayout( hb, spacingHint() );
 
-    QLabel *label;
-    QSlider *slider;
+    TQLabel *label;
+    TQSlider *slider;
 
-    label = new QLabel( i18n("Speed:"), page );
+    label = new TQLabel( i18n("Speed:"), page );
     vb->addWidget( label );
 
-    slider = new QSlider(MINSPEED, MAXSPEED, 10, speed, QSlider::Horizontal,
+    slider = new TQSlider(MINSPEED, MAXSPEED, 10, speed, TQSlider::Horizontal,
 		    page );
     vb->addWidget( slider );
-    slider->setTickmarks(QSlider::Below);
+    slider->setTickmarks(TQSlider::Below);
     slider->setTickInterval(10);
-    connect( slider, SIGNAL( valueChanged( int ) ), SLOT( slotSpeed( int ) ) );
+    connect( slider, TQT_SIGNAL( valueChanged( int ) ), TQT_SLOT( slotSpeed( int ) ) );
 
-    label = new QLabel( i18n("Warp interval:"), page );
+    label = new TQLabel( i18n("Warp interval:"), page );
     vb->addWidget( label );
 
-    slider = new QSlider(MINWARP, MAXWARP, 3, warpinterval, Horizontal, page );
+    slider = new TQSlider(MINWARP, MAXWARP, 3, warpinterval, Horizontal, page );
     vb->addWidget( slider );
-    slider->setTickmarks(QSlider::Below);
+    slider->setTickmarks(TQSlider::Below);
     slider->setTickInterval(3);
-    connect( slider, SIGNAL( valueChanged( int ) ), SLOT( slotWarp( int ) ) );
+    connect( slider, TQT_SIGNAL( valueChanged( int ) ), TQT_SLOT( slotWarp( int ) ) );
 
     vb->addStrut( 150 );
     vb->addStretch();
 
-    preview = new QWidget( page );
+    preview = new TQWidget( page );
     hb->addWidget( preview );
     preview->setFixedSize( 220, 170 );
     preview->setBackgroundColor( black );
@@ -657,11 +657,11 @@ void kSpaceSetup::slotOk()
 	KConfig *config = klock_config();
 	config->setGroup( "Settings" );
 
-	QString sspeed;
+	TQString sspeed;
 	sspeed.setNum( speed );
 	config->writeEntry( "Speed", sspeed );
 
-	QString interval;
+	TQString interval;
 	interval.setNum( (int)warpinterval );
 	config->writeEntry( "WarpInterval", interval );
 

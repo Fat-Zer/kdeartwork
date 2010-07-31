@@ -21,7 +21,7 @@
 #define MINBATCH 0
 #define DEFBATCH 20
 
-#include <qslider.h>
+#include <tqslider.h>
 #include <kglobal.h>
 #include <kconfig.h>
 #include <krandomsequence.h>
@@ -217,10 +217,10 @@ drawswarm(Window win, KRandomSequence &rnd)
 
 //-----------------------------------------------------------------------------
 
-#include <qcheckbox.h>
-#include <qlabel.h>
-#include <qcolor.h>
-#include <qlayout.h>
+#include <tqcheckbox.h>
+#include <tqlabel.h>
+#include <tqcolor.h>
+#include <tqlayout.h>
 
 #include <klocale.h>
 #include <kmessagebox.h>
@@ -264,7 +264,7 @@ kSwarmSaver::kSwarmSaver( Drawable drawable ) : kScreenSaver( drawable )
     XSetWindowBackground(qt_xdisplay(), mDrawable,
                             BlackPixel(qt_xdisplay(), qt_xscreen()));
 
-	colorContext = QColor::enterAllocContext();
+	colorContext = TQColor::enterAllocContext();
 
 	batchcount = maxLevels;
 
@@ -272,14 +272,14 @@ kSwarmSaver::kSwarmSaver( Drawable drawable ) : kScreenSaver( drawable )
 	initswarm( mDrawable, rnd );
 
 	timer.start( speed );
-	connect( &timer, SIGNAL( timeout() ), SLOT( slotTimeout() ) );
+	connect( &timer, TQT_SIGNAL( timeout() ), TQT_SLOT( slotTimeout() ) );
 }
 
 kSwarmSaver::~kSwarmSaver()
 {
 	timer.stop();
-	QColor::leaveAllocContext();
-	QColor::destroyAllocContext( colorContext );
+	TQColor::leaveAllocContext();
+	TQColor::destroyAllocContext( colorContext );
 }
 
 void kSwarmSaver::setSpeed( int spd )
@@ -313,45 +313,45 @@ void kSwarmSaver::slotTimeout()
 
 //-----------------------------------------------------------------------------
 
-kSwarmSetup::kSwarmSetup( QWidget *parent, const char *name )
+kSwarmSetup::kSwarmSetup( TQWidget *parent, const char *name )
 	: KDialogBase( parent, name, true, i18n( "Setup Swarm Screen Saver" ),
 	  Ok|Cancel|Help, Ok, true )
 {
 	readSettings();
 
 	setButtonText( Help, i18n( "A&bout" ) );
-	QWidget *main = makeMainWidget();
+	TQWidget *main = makeMainWidget();
 
-	QHBoxLayout *top = new QHBoxLayout( main, 0, spacingHint() );
-	QVBoxLayout *left = new QVBoxLayout(top, spacingHint());
+	TQHBoxLayout *top = new TQHBoxLayout( main, 0, spacingHint() );
+	TQVBoxLayout *left = new TQVBoxLayout(top, spacingHint());
 
-	QLabel *label = new QLabel( i18n("Speed:"), main );
+	TQLabel *label = new TQLabel( i18n("Speed:"), main );
 	min_size(label);
 	left->addWidget(label);
 
-	QSlider *slider = new QSlider(MINSPEED, MAXSPEED, 10, speed,
+	TQSlider *slider = new TQSlider(MINSPEED, MAXSPEED, 10, speed,
 			Horizontal, main );
 	slider->setMinimumSize( 120, 20 );
-    slider->setTickmarks(QSlider::Below);
+    slider->setTickmarks(TQSlider::Below);
     slider->setTickInterval(10);
-	connect( slider, SIGNAL( valueChanged( int ) ),
-		 SLOT( slotSpeed( int ) ) );
+	connect( slider, TQT_SIGNAL( valueChanged( int ) ),
+		 TQT_SLOT( slotSpeed( int ) ) );
 	left->addWidget(slider);
 
-	label = new QLabel( i18n("Number of bees:"), main );
+	label = new TQLabel( i18n("Number of bees:"), main );
 	min_size(label);
 	left->addWidget(label);
 
-	slider = new QSlider(MINBATCH, MAXBATCH, 20, maxLevels, Horizontal, main );
+	slider = new TQSlider(MINBATCH, MAXBATCH, 20, maxLevels, Horizontal, main );
 	slider->setMinimumSize( 120, 20 );
-    slider->setTickmarks(QSlider::Below);
+    slider->setTickmarks(TQSlider::Below);
     slider->setTickInterval(20);
-	connect( slider, SIGNAL( valueChanged( int ) ),
-		 SLOT( slotLevels( int ) ) );
+	connect( slider, TQT_SIGNAL( valueChanged( int ) ),
+		 TQT_SLOT( slotLevels( int ) ) );
 	left->addWidget(slider);
 	left->addStretch();
 
-	preview = new QWidget( main );
+	preview = new TQWidget( main );
 	preview->setFixedSize( 220, 170 );
 	preview->setBackgroundColor( black );
 	preview->show();    // otherwise saver does not get correct size
@@ -398,11 +398,11 @@ void kSwarmSetup::slotOk()
 	KConfig *config = klock_config();
 	config->setGroup( "Settings" );
 
-	QString sspeed;
+	TQString sspeed;
 	sspeed.setNum( speed );
 	config->writeEntry( "Speed", sspeed );
 
-	QString slevels;
+	TQString slevels;
 	slevels.setNum( maxLevels );
 	config->writeEntry( "MaxLevels", slevels );
 

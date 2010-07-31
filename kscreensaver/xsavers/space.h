@@ -2,10 +2,10 @@
 #ifndef __SPACE_H__
 #define __SPACE_H__
 
-#include <qtimer.h>
-#include <qptrlist.h>
+#include <tqtimer.h>
+#include <tqptrlist.h>
 #include <kdialogbase.h>
-#include <qlineedit.h>
+#include <tqlineedit.h>
 #include "saver.h"
 
 class kSpaceSaver : public kScreenSaver
@@ -26,7 +26,7 @@ protected slots:
 	void slotTimeout();
 
 protected:
-	QTimer      timer;
+	TQTimer      timer;
 	int         colorContext;
 
 	int         counter;
@@ -39,7 +39,7 @@ class kSpaceSetup : public KDialogBase
 {
 	Q_OBJECT
 public:
-	kSpaceSetup( QWidget *parent = NULL, const char *name = NULL );
+	kSpaceSetup( TQWidget *parent = NULL, const char *name = NULL );
 
 protected:
 	void readSettings();
@@ -51,7 +51,7 @@ private slots:
 	void slotHelp();
 
 private:
-	QWidget *preview;
+	TQWidget *preview;
 	kSpaceSaver *saver;
 
 	int			speed;

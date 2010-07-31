@@ -42,12 +42,12 @@
 #ifndef __KDEGALLIUM_ICEWM_H
 #define __KDEGALLIUM_ICEWM_H
 
-#include <qbutton.h>
-#include <qlayout.h>
+#include <tqbutton.h>
+#include <tqlayout.h>
 #include <kpixmap.h>
 #include <kdecoration.h>
 #include <kdecorationfactory.h>
-#include <qbutton.h>
+#include <tqbutton.h>
 class QLabel;
 class QSpacerItem;
 class QBoxLayout;
@@ -77,22 +77,22 @@ class ThemeHandler: public KDecorationFactory
 
 	private:
 		bool initialized;
-		QString themeName;
+		TQString themeName;
 
 		void readConfig();
-		QColor decodeColor( QString& s );
+		TQColor decodeColor( TQString& s );
 		bool isFrameValid();
 		void initTheme();
 		void freePixmaps();
-		void freePixmapGroup( QPixmap* p[] );
-		void setPixmap( QPixmap* p[], QString s1, QString s2, bool
+		void freePixmapGroup( TQPixmap* p[] );
+		void setPixmap( TQPixmap* p[], TQString s1, TQString s2, bool
 						stretch=false, bool stretchHoriz=true );
-		void setPixmapButton( QPixmap* p[], QString s1, QString s2);
-		QPixmap* stretchPixmap( QPixmap* src, bool stretchHoriz=true,
+		void setPixmapButton( TQPixmap* p[], TQString s1, TQString s2);
+		TQPixmap* stretchPixmap( TQPixmap* src, bool stretchHoriz=true,
 								int stretchSize=-1);
-		QPixmap* duplicateValidPixmap( bool act, int size = -1 );
-		void convertButtons( QString& s );
-		QString reverseString( QString s );
+		TQPixmap* duplicateValidPixmap( bool act, int size = -1 );
+		void convertButtons( TQString& s );
+		TQString reverseString( TQString s );
 };
 
 
@@ -100,25 +100,25 @@ class IceWMButton : public QButton
 {
 	public:
 		IceWMButton( IceWMClient *parent=0, const char *name=0,
-					 QPixmap* (*p)[2]=0L, bool isToggle=false,
-					 const QString& tip=NULL, const int realizeBtns = LeftButton );
-		void setTipText(const QString &tip);
-		void  usePixmap( QPixmap* (*p)[2] );
-		QSize sizeHint() const;
+					 TQPixmap* (*p)[2]=0L, bool isToggle=false,
+					 const TQString& tip=NULL, const int realizeBtns = LeftButton );
+		void setTipText(const TQString &tip);
+		void  usePixmap( TQPixmap* (*p)[2] );
+		TQSize sizeHint() const;
 		void  turnOn( bool isOn );
 		ButtonState   last_button;
 
 	protected:
-		void mousePressEvent( QMouseEvent* e );
-		void mouseReleaseEvent( QMouseEvent* e );
+		void mousePressEvent( TQMouseEvent* e );
+		void mouseReleaseEvent( TQMouseEvent* e );
 
-		void drawButton( QPainter *p );
-		void drawButtonLabel( QPainter * ) {;}
+		void drawButton( TQPainter *p );
+		void drawButtonLabel( TQPainter * ) {;}
 
 	private:
 		int m_realizeButtons;
 		IceWMClient* client;
-		QPixmap* (*pix)[2]; // Points to active/inactive pixmap array
+		TQPixmap* (*pix)[2]; // Points to active/inactive pixmap array
 };
 
 
@@ -130,26 +130,26 @@ class IceWMClient : public KDecoration
 	    ~IceWMClient();
 
 		virtual void init();
-		virtual void resize(const QSize&);
-		virtual bool eventFilter( QObject* o, QEvent* e );
+		virtual void resize(const TQSize&);
+		virtual bool eventFilter( TQObject* o, TQEvent* e );
 
 	protected:
-	    void resizeEvent( QResizeEvent* );
-	    void paintEvent( QPaintEvent* );
-	    void showEvent( QShowEvent* );
-	    void mouseDoubleClickEvent( QMouseEvent * );
-	    void wheelEvent( QWheelEvent * );
+	    void resizeEvent( TQResizeEvent* );
+	    void paintEvent( TQPaintEvent* );
+	    void showEvent( TQShowEvent* );
+	    void mouseDoubleClickEvent( TQMouseEvent * );
+	    void wheelEvent( TQWheelEvent * );
 	    virtual void captionChange();
 	    virtual void maximizeChange();
 	    virtual void shadeChange();
 	    virtual void activeChange();
 	//	void shadeChange(bool);     /* KWin Client class doesn't provide this yet */
-	    Position mousePosition( const QPoint& ) const;
+	    Position mousePosition( const TQPoint& ) const;
 		void renderMenuIcons();
 		void iconChange();
 		virtual void desktopChange( );
 		virtual void borders(int&, int&, int&, int&) const;
-		virtual QSize minimumSize() const;
+		virtual TQSize minimumSize() const;
 
 	protected slots:
 	    void slotMaximize();
@@ -162,26 +162,26 @@ class IceWMClient : public KDecoration
 	    enum Buttons{ BtnSysMenu=0, BtnClose, BtnMaximize, BtnMinimize,
 					  BtnHide, BtnRollup, BtnDepth, BtnCount };
 
-		QString shortenCaption( const QString* s );
+		TQString shortenCaption( const TQString* s );
 		void calcHiddenButtons();
-	    int  titleTextWidth( const QString& s );
-		void addClientButtons( const QString& s );
-		QSpacerItem* addPixmapSpacer( QPixmap* p[],
-			QSizePolicy::SizeType = QSizePolicy::Maximum, int hsize = -1 );
+	    int  titleTextWidth( const TQString& s );
+		void addClientButtons( const TQString& s );
+		TQSpacerItem* addPixmapSpacer( TQPixmap* p[],
+			TQSizePolicy::SizeType = TQSizePolicy::Maximum, int hsize = -1 );
 
 	    IceWMButton* button[ IceWMClient::BtnCount ];
-	    QPixmap*     menuButtonWithIconPix[2];
-	    QSpacerItem* titleSpacerJ;
-	    QSpacerItem* titleSpacerL;
-	    QSpacerItem* titleSpacerS;
-	    QSpacerItem* titleSpacerP;
-	    QSpacerItem* titlebar;
-	    QSpacerItem* titleSpacerM;
-	    QSpacerItem* titleSpacerB;
-    	QSpacerItem* titleSpacerR;
-	    QSpacerItem* titleSpacerQ;
-	    QBoxLayout*  hb;
-	    QGridLayout* grid;
+	    TQPixmap*     menuButtonWithIconPix[2];
+	    TQSpacerItem* titleSpacerJ;
+	    TQSpacerItem* titleSpacerL;
+	    TQSpacerItem* titleSpacerS;
+	    TQSpacerItem* titleSpacerP;
+	    TQSpacerItem* titlebar;
+	    TQSpacerItem* titleSpacerM;
+	    TQSpacerItem* titleSpacerB;
+    	TQSpacerItem* titleSpacerR;
+	    TQSpacerItem* titleSpacerQ;
+	    TQBoxLayout*  hb;
+	    TQGridLayout* grid;
 	    bool m_closing;
 };
 

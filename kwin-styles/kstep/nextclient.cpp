@@ -1,11 +1,11 @@
 #include "nextclient.h"
-#include <qdatetime.h>
-#include <qdrawutil.h>
-#include <qlayout.h>
-#include <qpainter.h>
-#include <qbitmap.h>
-#include <qlabel.h>
-#include <qtooltip.h>
+#include <tqdatetime.h>
+#include <tqdrawutil.h>
+#include <tqlayout.h>
+#include <tqpainter.h>
+#include <tqbitmap.h>
+#include <tqlabel.h>
+#include <tqtooltip.h>
 #include <kdebug.h>
 #include <klocale.h>
 #include <kpixmapeffect.h>
@@ -165,7 +165,7 @@ static KPixmap *aBtn;
 static KPixmap *aBtnDown;
 static KPixmap *iBtn;
 static KPixmap *iBtnDown;
-static QColor *btnForeground;
+static TQColor *btnForeground;
 static bool pixmaps_created = false;
 
 static int titleHeight = 16;
@@ -191,7 +191,7 @@ static void create_pixmaps(NextClientFactory *f)
     int i = options()->preferredBorderSize(f);
     if (i >= 0 && i <= 6) handleSize = borderSizes[i];
 
-    titleHeight = QFontMetrics(options()->font(true)).height() + 4;
+    titleHeight = TQFontMetrics(options()->font(true)).height() + 4;
     if (titleHeight < handleSize) titleHeight = handleSize;
     titleHeight &= ~1; // Make title height even
     if (titleHeight < 16) titleHeight = 16;
@@ -250,7 +250,7 @@ static void create_pixmaps(NextClientFactory *f)
     internal.resize(internalHeight, internalHeight);
 
     // inactive buttons
-    QColor c(options()->color(KDecoration::ColorButtonBg, false));
+    TQColor c(options()->color(KDecoration::ColorButtonBg, false));
     KPixmapEffect::gradient(*iBtn, c.light(120), c.dark(120),
                             KPixmapEffect::DiagonalGradient);
     KPixmapEffect::gradient(internal, c.dark(120), c.light(120),
@@ -277,7 +277,7 @@ static void create_pixmaps(NextClientFactory *f)
                             KPixmapEffect::DiagonalGradient);
     bitBlt(aBtnDown, 3, 3, &internal, 0, 0, internalHeight, internalHeight, Qt::CopyROP, true);
 
-    QPainter p;
+    TQPainter p;
     p.begin(aBtn);
     p.setPen(Qt::black);
     p.drawRect(0, 0, btnWidth, btnWidth);
@@ -296,9 +296,9 @@ static void create_pixmaps(NextClientFactory *f)
     p.end();
 
     if(qGray(options()->color(KDecoration::ColorButtonBg, true).rgb()) > 128)
-        btnForeground = new QColor(Qt::black);
+        btnForeground = new TQColor(Qt::black);
     else
-        btnForeground = new QColor(Qt::white);
+        btnForeground = new TQColor(Qt::white);
 }
 
 static void delete_pixmaps()
@@ -322,8 +322,8 @@ static void delete_pixmaps()
 
 NextButton::NextButton(NextClient *parent, const char *name,
                        const unsigned char *bitmap, int bw, int bh,
-                       const QString& tip, const int realizeBtns)
-    : QButton(parent->widget(), name),
+                       const TQString& tip, const int realizeBtns)
+    : TQButton(parent->widget(), name),
       deco(NULL), client(parent), last_button(NoButton)
 {
     realizeButtons = realizeBtns;
@@ -335,7 +335,7 @@ NextButton::NextButton(NextClient *parent, const char *name,
     if(bitmap)
         setBitmap(bitmap, bw, bh);
 
-    QToolTip::add(this, tip);
+    TQToolTip::add(this, tip);
 }
 
 void NextButton::reset()
@@ -345,12 +345,12 @@ void NextButton::reset()
 
 void NextButton::setBitmap(const unsigned char *bitmap, int w, int h)
 {
-    deco = new QBitmap(w, h, bitmap, true);
+    deco = new TQBitmap(w, h, bitmap, true);
     deco->setMask(*deco);
     repaint();
 }
 
-void NextButton::drawButton(QPainter *p)
+void NextButton::drawButton(TQPainter *p)
 {
     if(client->isActive())
         p->drawPixmap(0, 0, isDown() ? *aBtnDown : *aBtn);
@@ -366,26 +366,26 @@ void NextButton::drawButton(QPainter *p)
         p->drawPixmap(offset, offset, *deco);
     } else {
         offset = (titleHeight - 16) / 2;
-	KPixmap btnpix = client->icon().pixmap(QIconSet::Small,
-		client->isActive() ? QIconSet::Normal : QIconSet::Disabled);
+	KPixmap btnpix = client->icon().pixmap(TQIconSet::Small,
+		client->isActive() ? TQIconSet::Normal : TQIconSet::Disabled);
         p->drawPixmap( offset, offset, btnpix );
     }
 }
 
-void NextButton::mousePressEvent( QMouseEvent* e )
+void NextButton::mousePressEvent( TQMouseEvent* e )
 {
     last_button = e->button();
-    QMouseEvent me( e->type(), e->pos(), e->globalPos(),
+    TQMouseEvent me( e->type(), e->pos(), e->globalPos(),
                     (e->button()&realizeButtons)?LeftButton:NoButton, e->state() );
-    QButton::mousePressEvent( &me );
+    TQButton::mousePressEvent( &me );
 }
 
-void NextButton::mouseReleaseEvent( QMouseEvent* e )
+void NextButton::mouseReleaseEvent( TQMouseEvent* e )
 {
     last_button = e->button();
-    QMouseEvent me( e->type(), e->pos(), e->globalPos(),
+    TQMouseEvent me( e->type(), e->pos(), e->globalPos(),
                     (e->button()&realizeButtons)?LeftButton:NoButton, e->state() );
-    QButton::mouseReleaseEvent( &me );
+    TQButton::mouseReleaseEvent( &me );
 }
 
 // =====================================
@@ -402,19 +402,19 @@ void NextClient::init()
 
     widget()->setBackgroundMode( NoBackground );
 
-    QVBoxLayout *mainLayout = new QVBoxLayout(widget());
-    QBoxLayout  *titleLayout = new QBoxLayout(0, QBoxLayout::LeftToRight, 0, 0, 0);
-    QHBoxLayout *windowLayout = new QHBoxLayout();
+    TQVBoxLayout *mainLayout = new TQVBoxLayout(widget());
+    TQBoxLayout  *titleLayout = new TQBoxLayout(0, TQBoxLayout::LeftToRight, 0, 0, 0);
+    TQHBoxLayout *windowLayout = new TQHBoxLayout();
     mainLayout->addLayout(titleLayout);
     mainLayout->addLayout(windowLayout, 1);
     mainLayout->addSpacing(mustDrawHandle() ? handleSize : 1);
 
     windowLayout->addSpacing(1);
     if (isPreview())
-        windowLayout->addWidget(new QLabel(i18n(
+        windowLayout->addWidget(new TQLabel(i18n(
 			"<center><b>KStep preview</b></center>"), widget()));
     else
-        windowLayout->addItem(new QSpacerItem( 0, 0 ));
+        windowLayout->addItem(new TQSpacerItem( 0, 0 ));
 
     windowLayout->addSpacing(1);
 
@@ -432,7 +432,7 @@ void NextClient::init()
          button is selected in the current button scheme, or (2) null
          otherwise.
  */
-void NextClient::initializeButtonsAndTitlebar(QBoxLayout* titleLayout)
+void NextClient::initializeButtonsAndTitlebar(TQBoxLayout* titleLayout)
 {
     // Null the buttons to begin with (they are not guaranteed to be null).
     for (int i=0; i<MAX_NUM_BUTTONS; i++) {
@@ -442,20 +442,20 @@ void NextClient::initializeButtonsAndTitlebar(QBoxLayout* titleLayout)
     // The default button positions for other styles do not match the
     // behavior of older versions of KStep, so we have to set these
     // manually when customButtonPositions isn't enabled.
-    QString left, right;
+    TQString left, right;
     if (options()->customButtonPositions()) {
         left = options()->titleButtonsLeft();
         right = options()->titleButtonsRight();
     } else {
-        left = QString("I");
-        right = QString("SX");
+        left = TQString("I");
+        right = TQString("SX");
     }
 
     // Do actual creation and addition to titleLayout
     addButtons(titleLayout, left);
 
-    titlebar = new QSpacerItem(10, titleHeight, QSizePolicy::Expanding,
-                               QSizePolicy::Minimum );
+    titlebar = new TQSpacerItem(10, titleHeight, TQSizePolicy::Expanding,
+                               TQSizePolicy::Minimum );
     titleLayout->addItem(titlebar);
     addButtons(titleLayout, right);
 
@@ -470,7 +470,7 @@ void NextClient::initializeButtonsAndTitlebar(QBoxLayout* titleLayout)
 /** Adds the buttons for one side of the title bar, based on the spec
  * string; see the KWinInternal::KDecoration class, methods
  * titleButtonsLeft and titleBUttonsRight. */
-void NextClient::addButtons(QBoxLayout* titleLayout, const QString& spec)
+void NextClient::addButtons(TQBoxLayout* titleLayout, const TQString& spec)
 {
     for (unsigned int i=0; i<spec.length(); i++) {
         switch (spec[i].latin1()) {
@@ -480,8 +480,8 @@ void NextClient::addButtons(QBoxLayout* titleLayout, const QString& spec)
                     new NextButton(this, "maximize", maximize_bits, 10, 10,
                                    i18n("Maximize"), LeftButton|MidButton|RightButton);
                 titleLayout->addWidget( button[MAXIMIZE_IDX] );
-                connect( button[MAXIMIZE_IDX], SIGNAL(clicked()),
-                         this, SLOT(maximizeButtonClicked()) );
+                connect( button[MAXIMIZE_IDX], TQT_SIGNAL(clicked()),
+                         this, TQT_SLOT(maximizeButtonClicked()) );
             }
             break;
 
@@ -490,8 +490,8 @@ void NextClient::addButtons(QBoxLayout* titleLayout, const QString& spec)
 		button[HELP_IDX] = new NextButton(this,
 			"help", question_bits, 10, 10, i18n("Help"));
 		titleLayout->addWidget( button[HELP_IDX] );
-		connect( button[HELP_IDX], SIGNAL(clicked()),
-			 this, SLOT(showContextHelp()) );
+		connect( button[HELP_IDX], TQT_SIGNAL(clicked()),
+			 this, TQT_SLOT(showContextHelp()) );
 	    }
             break;
 
@@ -501,8 +501,8 @@ void NextClient::addButtons(QBoxLayout* titleLayout, const QString& spec)
                     new NextButton(this, "iconify", iconify_bits, 10, 10,
                                    i18n("Minimize"));
                 titleLayout->addWidget( button[ICONIFY_IDX] );
-                connect( button[ICONIFY_IDX], SIGNAL(clicked()),
-                         this, SLOT(minimize()) );
+                connect( button[ICONIFY_IDX], TQT_SIGNAL(clicked()),
+                         this, TQT_SLOT(minimize()) );
             }
             break;
 
@@ -511,16 +511,16 @@ void NextClient::addButtons(QBoxLayout* titleLayout, const QString& spec)
                 new NextButton(this, "menu", NULL, 10, 10, i18n("Menu"), LeftButton|RightButton);
             titleLayout->addWidget( button[MENU_IDX] );
             // NOTE DIFFERENCE: capture pressed(), not clicked()
-            connect( button[MENU_IDX], SIGNAL(pressed()),
-                     this, SLOT(menuButtonPressed()) );
+            connect( button[MENU_IDX], TQT_SIGNAL(pressed()),
+                     this, TQT_SLOT(menuButtonPressed()) );
             break;
 
         case 'L':
             button[SHADE_IDX] =
                 new NextButton(this, "shade", NULL, 0, 0, i18n("Shade"));
             titleLayout->addWidget( button[SHADE_IDX] );
-            connect( button[SHADE_IDX], SIGNAL(clicked()),
-                     this, SLOT(shadeClicked()) );
+            connect( button[SHADE_IDX], TQT_SIGNAL(clicked()),
+                     this, TQT_SLOT(shadeClicked()) );
             // NOTE DIFFERENCE: set the pixmap separately (2 states)
 	    shadeChange();
             break;
@@ -529,8 +529,8 @@ void NextClient::addButtons(QBoxLayout* titleLayout, const QString& spec)
             button[STICKY_IDX] =
                 new NextButton(this, "sticky", NULL, 0, 0, i18n("On all desktops"));
             titleLayout->addWidget( button[STICKY_IDX] );
-            connect( button[STICKY_IDX], SIGNAL(clicked()),
-                     this, SLOT(toggleOnAllDesktops()) );
+            connect( button[STICKY_IDX], TQT_SIGNAL(clicked()),
+                     this, TQT_SLOT(toggleOnAllDesktops()) );
             // NOTE DIFFERENCE: set the pixmap separately (2 states)
 	    desktopChange();
             break;
@@ -538,20 +538,20 @@ void NextClient::addButtons(QBoxLayout* titleLayout, const QString& spec)
 	case 'F':
             button[ABOVE_IDX] = new NextButton(this, "above", NULL, 0, 0, "");
             titleLayout->addWidget( button[ABOVE_IDX] );
-            connect( button[ABOVE_IDX], SIGNAL(clicked()),
-                     this, SLOT(aboveClicked()) );
-	    connect(this, SIGNAL(keepAboveChanged(bool)), 
-		    SLOT(keepAboveChange(bool)));
+            connect( button[ABOVE_IDX], TQT_SIGNAL(clicked()),
+                     this, TQT_SLOT(aboveClicked()) );
+	    connect(this, TQT_SIGNAL(keepAboveChanged(bool)), 
+		    TQT_SLOT(keepAboveChange(bool)));
 	    keepAboveChange(keepAbove());
 	    break;
 	    
 	case 'B':
             button[BELOW_IDX] = new NextButton(this, "below", NULL, 0, 0, "");
             titleLayout->addWidget( button[BELOW_IDX] );
-            connect( button[BELOW_IDX], SIGNAL(clicked()),
-                     this, SLOT(belowClicked()) );
-	    connect(this, SIGNAL(keepBelowChanged(bool)), 
-		    SLOT(keepBelowChange(bool)));
+            connect( button[BELOW_IDX], TQT_SIGNAL(clicked()),
+                     this, TQT_SLOT(belowClicked()) );
+	    connect(this, TQT_SIGNAL(keepBelowChanged(bool)), 
+		    TQT_SLOT(keepBelowChange(bool)));
 	    keepBelowChange(keepBelow());
 	    break;
         
@@ -561,8 +561,8 @@ void NextClient::addButtons(QBoxLayout* titleLayout, const QString& spec)
 		    new NextButton(this, "close", close_bits, 10, 10,
 				   i18n("Close"));
 		titleLayout->addWidget(button[CLOSE_IDX]);
-		connect(button[CLOSE_IDX], SIGNAL(clicked()),
-			 this, SLOT(closeWindow()));
+		connect(button[CLOSE_IDX], TQT_SIGNAL(clicked()),
+			 this, TQT_SLOT(closeWindow()));
             }
             break;
 
@@ -573,8 +573,8 @@ void NextClient::addButtons(QBoxLayout* titleLayout, const QString& spec)
 				   i18n("Resize"));
 		titleLayout->addWidget(button[RESIZE_IDX]);
 		// NOTE DIFFERENCE: capture pressed(), not clicked()
-		connect(button[RESIZE_IDX], SIGNAL(pressed()),
-			 this, SLOT(resizePressed()));
+		connect(button[RESIZE_IDX], TQT_SIGNAL(pressed()),
+			 this, TQT_SLOT(resizePressed()));
             }
 	    break;
         case '_':
@@ -583,7 +583,7 @@ void NextClient::addButtons(QBoxLayout* titleLayout, const QString& spec)
 
         default:
             kdDebug() << " Can't happen: unknown button code "
-                      << QString(spec[i]);
+                      << TQString(spec[i]);
             break;
         }
     }
@@ -609,13 +609,13 @@ void NextClient::menuButtonPressed()
 {
     // Probably don't need this null check, but we might as well.
     if (button[MENU_IDX]) {
-	QRect menuRect = button[MENU_IDX]->rect();
-        QPoint menuTop = button[MENU_IDX]->mapToGlobal(menuRect.topLeft());
-        QPoint menuBottom = button[MENU_IDX]->mapToGlobal(menuRect.bottomRight());
-	menuTop += QPoint(1, 1);
-	menuBottom += QPoint(1, 1);
+	TQRect menuRect = button[MENU_IDX]->rect();
+        TQPoint menuTop = button[MENU_IDX]->mapToGlobal(menuRect.topLeft());
+        TQPoint menuBottom = button[MENU_IDX]->mapToGlobal(menuRect.bottomRight());
+	menuTop += TQPoint(1, 1);
+	menuBottom += TQPoint(1, 1);
         KDecorationFactory* f = factory();
-        showWindowMenu(QRect(menuTop, menuBottom));
+        showWindowMenu(TQRect(menuTop, menuBottom));
         if( !f->exists( this )) // 'this' was deleted
             return;
 	button[MENU_IDX]->setDown(false);
@@ -652,17 +652,17 @@ void NextClient::resizePressed()
     performWindowOperation(ResizeOp);
 }
 
-void NextClient::resizeEvent(QResizeEvent *)
+void NextClient::resizeEvent(TQResizeEvent *)
 {
     if (widget()->isVisible()) {
 	// TODO ? update border area only?
         widget()->update();
 #if 0
         widget()->update(titlebar->geometry());
-        QPainter p(widget());
-	QRect t = titlebar->geometry();
+        TQPainter p(widget());
+	TQRect t = titlebar->geometry();
 	t.setTop( 0 );
-	QRegion r = widget()->rect();
+	TQRegion r = widget()->rect();
 	r = r.subtract( t );
 	p.setClipRegion( r );
 	p.eraseRect(widget()->rect());
@@ -676,17 +676,17 @@ void NextClient::captionChange()
 }
 
 
-void NextClient::paintEvent( QPaintEvent* )
+void NextClient::paintEvent( TQPaintEvent* )
 {
-    QPainter p(widget());
+    TQPainter p(widget());
 
     // Draw black frame
-    QRect fr = widget()->rect();
+    TQRect fr = widget()->rect();
     p.setPen(Qt::black);
     p.drawRect(fr);
 
     // Draw title bar
-    QRect t = titlebar->geometry();
+    TQRect t = titlebar->geometry();
     t.setTop(1);
     p.drawTiledPixmap(t.x()+1, t.y()+1, t.width()-2, t.height()-2,
                       isActive() ? *aTitlePix : *iTitlePix);
@@ -696,7 +696,7 @@ void NextClient::paintEvent( QPaintEvent* )
 
 #if 0
     // Why setting up a clipping region if it is not used? (setClipping(false))
-    QRegion r = fr;
+    TQRegion r = fr;
     r = r.subtract( t );
     p.setClipRegion( r );
     p.setClipping(false);
@@ -739,19 +739,19 @@ void NextClient::paintEvent( QPaintEvent* )
     }
 }
 
-void NextClient::mouseDoubleClickEvent( QMouseEvent * e )
+void NextClient::mouseDoubleClickEvent( TQMouseEvent * e )
 {
     if (e->button() == LeftButton && titlebar->geometry().contains( e->pos() ) )
 	titlebarDblClickOperation();
 }
 
-void NextClient::wheelEvent( QWheelEvent * e )
+void NextClient::wheelEvent( TQWheelEvent * e )
 {
-    if (isSetShade() || QRect( 0, 0, width(), titleHeight ).contains( e->pos() ) )
+    if (isSetShade() || TQRect( 0, 0, width(), titleHeight ).contains( e->pos() ) )
 	titlebarMouseWheelOperation( e->delta());
 }
 
-void NextClient::showEvent(QShowEvent *)
+void NextClient::showEvent(TQShowEvent *)
 {
     widget()->repaint();
 }
@@ -761,8 +761,8 @@ void NextClient::desktopChange()
     bool on = isOnAllDesktops();
     if (NextButton * b = button[STICKY_IDX]) {
         b->setBitmap( on ? unsticky_bits : sticky_bits, 10, 10);
-	QToolTip::remove(b);
-	QToolTip::add(b, on ? i18n("Not on all desktops") : i18n("On all desktops"));
+	TQToolTip::remove(b);
+	TQToolTip::add(b, on ? i18n("Not on all desktops") : i18n("On all desktops"));
     }
 }
 
@@ -771,12 +771,12 @@ void NextClient::maximizeChange()
     if (button[MAXIMIZE_IDX]) {
 	bool m = maximizeMode() == MaximizeFull;
 	//button[MAXIMIZE_IDX]->setBitmap(m ? minmax_bits : maximize_bits);
-	QToolTip::remove(button[MAXIMIZE_IDX]);
-	QToolTip::add(button[MAXIMIZE_IDX],
+	TQToolTip::remove(button[MAXIMIZE_IDX]);
+	TQToolTip::add(button[MAXIMIZE_IDX],
 		m ? i18n("Restore") : i18n("Maximize"));
     }
     //spacer->changeSize(10, mustDrawHandle() ? handleSize : 1,
-    //		    QSizePolicy::Expanding, QSizePolicy::Minimum);
+    //		    TQSizePolicy::Expanding, TQSizePolicy::Minimum);
     //mainLayout->activate();
 }
 
@@ -796,7 +796,7 @@ void NextClient::slotReset()
 }
 
 KDecoration::Position
-NextClient::mousePosition( const QPoint& p ) const
+NextClient::mousePosition( const TQPoint& p ) const
 {
   Position m = PositionCenter;
 
@@ -827,8 +827,8 @@ void NextClient::shadeChange()
 {
     if (NextButton *b = button[SHADE_IDX]) {
         b->setBitmap(isSetShade() ? unshade_bits : shade_bits, 10, 10);
-	QToolTip::remove(b);
-	QToolTip::add(b, isSetShade() ? i18n("Unshade") : i18n("Shade"));
+	TQToolTip::remove(b);
+	TQToolTip::add(b, isSetShade() ? i18n("Unshade") : i18n("Shade"));
     }
 }
 
@@ -836,8 +836,8 @@ void NextClient::keepAboveChange(bool above)
 {
     if (NextButton *b = button[ABOVE_IDX]) {
         b->setBitmap(above ? from_above_bits : keep_above_bits, 10, 10);
-	QToolTip::remove(b);
-	QToolTip::add(b, above ? 
+	TQToolTip::remove(b);
+	TQToolTip::add(b, above ? 
 		i18n("Do not keep above others") : i18n("Keep above others"));
 	b->repaint(false);
     }
@@ -847,19 +847,19 @@ void NextClient::keepBelowChange(bool below)
 {
     if (NextButton *b = button[BELOW_IDX]) {
         b->setBitmap(below ? from_below_bits : keep_below_bits, 10, 10);
-	QToolTip::remove(b);
-	QToolTip::add(b, below ? 
+	TQToolTip::remove(b);
+	TQToolTip::add(b, below ? 
 		i18n("Do not keep below others") : i18n("Keep below others"));
 	b->repaint(false);
     }
 }
 
-QSize NextClient::minimumSize() const
+TQSize NextClient::minimumSize() const
 {
-    return QSize(titleHeight * 6 + 2, titleHeight + handleSize + 2);
+    return TQSize(titleHeight * 6 + 2, titleHeight + handleSize + 2);
 }
 
-void NextClient::resize(const QSize& s)
+void NextClient::resize(const TQSize& s)
 {
     widget()->resize(s);
 }
@@ -873,28 +873,28 @@ void NextClient::reset(unsigned long)
     widget()->repaint();
 }
 
-bool NextClient::eventFilter(QObject *o, QEvent *e)
+bool NextClient::eventFilter(TQObject *o, TQEvent *e)
 {
     if (o != widget())
 	return false;
     switch (e->type()) {
-    case QEvent::Resize:
-	resizeEvent(static_cast< QResizeEvent* >( e ));
+    case TQEvent::Resize:
+	resizeEvent(static_cast< TQResizeEvent* >( e ));
 	return true;
-    case QEvent::Paint:
-	paintEvent(static_cast< QPaintEvent* >( e ));
+    case TQEvent::Paint:
+	paintEvent(static_cast< TQPaintEvent* >( e ));
 	return true;
-    case QEvent::MouseButtonDblClick:
-	mouseDoubleClickEvent(static_cast< QMouseEvent* >( e ));
+    case TQEvent::MouseButtonDblClick:
+	mouseDoubleClickEvent(static_cast< TQMouseEvent* >( e ));
 	return true;
-    case QEvent::Wheel:
-	wheelEvent( static_cast< QWheelEvent* >( e ));
+    case TQEvent::Wheel:
+	wheelEvent( static_cast< TQWheelEvent* >( e ));
 	return true;
-    case QEvent::MouseButtonPress:
-	processMousePressEvent(static_cast< QMouseEvent* >( e ));
+    case TQEvent::MouseButtonPress:
+	processMousePressEvent(static_cast< TQMouseEvent* >( e ));
 	return true;
-    case QEvent::Show:
-	showEvent(static_cast< QShowEvent* >( e ));
+    case TQEvent::Show:
+	showEvent(static_cast< TQShowEvent* >( e ));
 	return true;
     default:
 	break;
@@ -902,10 +902,10 @@ bool NextClient::eventFilter(QObject *o, QEvent *e)
     return false;
 }
 
-bool NextClient::drawbound(const QRect& geom, bool /* clear */)
+bool NextClient::drawbound(const TQRect& geom, bool /* clear */)
 {
-    QPainter p(workspaceWidget());
-    p.setPen(QPen(Qt::white, 3));
+    TQPainter p(workspaceWidget());
+    p.setPen(TQPen(Qt::white, 3));
     p.setRasterOp(Qt::XorROP);
     p.drawRect(geom);
     int leftMargin = geom.left() + 2;
@@ -966,11 +966,11 @@ bool NextClientFactory::supports( Ability ability )
     };
 }
 
-QValueList< NextClientFactory::BorderSize >
+TQValueList< NextClientFactory::BorderSize >
 NextClientFactory::borderSizes() const
 {
     // the list must be sorted
-    return QValueList< BorderSize >() << BorderTiny << BorderNormal <<
+    return TQValueList< BorderSize >() << BorderTiny << BorderNormal <<
 	BorderLarge << BorderVeryLarge <<  BorderHuge <<
 	BorderVeryHuge << BorderOversized;
 }

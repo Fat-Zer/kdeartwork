@@ -22,13 +22,13 @@
 #include <limits.h>
 #include <math.h>
 
-#include <qcolor.h>
-#include <qlabel.h>
-#include <qlistbox.h>
-#include <qlayout.h>
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qimage.h>
+#include <tqcolor.h>
+#include <tqlabel.h>
+#include <tqlistbox.h>
+#include <tqlayout.h>
+#include <tqpainter.h>
+#include <tqpixmap.h>
+#include <tqimage.h>
 
 #include <kapplication.h>
 #include <kconfig.h>
@@ -56,7 +56,7 @@ extern "C"
         return new KBlobSaver( id );
     }
 
-    KDE_EXPORT QDialog *kss_setup()
+    KDE_EXPORT TQDialog *kss_setup()
     {
         return new KBlobSetup();
     }
@@ -64,7 +64,7 @@ extern "C"
 
 static KRandomSequence *rnd = 0;
 
-QString alg_str[5];
+TQString alg_str[5];
 void initAlg()
 {
   alg_str[0] = i18n("Random Linear");
@@ -82,26 +82,26 @@ KBlobSaver::KBlobSaver ( WId id)
 {
 	rnd = new KRandomSequence();
  initAlg();
- QColor color;
+ TQColor color;
 	float ramp = (256.0-64.0)/(float)RAMP;
-	QString msg =
+	TQString msg =
 	  i18n("This screen saver requires a color display.");
 
     blank();
 
 	// needs colors to work this one
-	if (QPixmap::defaultDepth() < 8)
+	if (TQPixmap::defaultDepth() < 8)
 	{
-        QPainter p(this);
+        TQPainter p(this);
         p.setPen( white );
         p.drawText( width()/2, height()/2, msg );
 		return;
 	}
 
-	colorContext = QColor::enterAllocContext();
+	colorContext = TQColor::enterAllocContext();
 
 	// if 8-bit, create lookup table for color ramping further down
-	if (QPixmap::defaultDepth() == 8)
+	if (TQPixmap::defaultDepth() == 8)
 	{
 		memset(lookup, 0, 256*sizeof(uint));
                 int i;
@@ -120,14 +120,14 @@ KBlobSaver::KBlobSaver ( WId id)
 		// make special provision for preview mode
 		if (height() < 400)
 		{
-			if (QPixmap::defaultDepth() > 8 )
+			if (TQPixmap::defaultDepth() > 8 )
 				setColorInc(7);
 			else
 				setColorInc(4);
 		}
 		else
 		{
-			if (QPixmap::defaultDepth() > 8 )
+			if (TQPixmap::defaultDepth() > 8 )
 				setColorInc(3);
 			else
 				setColorInc(2);
@@ -169,15 +169,15 @@ KBlobSaver::KBlobSaver ( WId id)
 
 	// start timer which will update blob painter
 	timer.start(SPEED);
-	connect(&timer, SIGNAL(timeout()), SLOT(slotTimeout()));
+	connect(&timer, TQT_SIGNAL(timeout()), TQT_SLOT(slotTimeout()));
 }
 
 KBlobSaver::~KBlobSaver()
 {
 	timer.stop();
 
-	QColor::leaveAllocContext();
-	QColor::destroyAllocContext(colorContext);
+	TQColor::leaveAllocContext();
+	TQColor::destroyAllocContext(colorContext);
 	delete rnd; rnd = 0;
 }
 
@@ -369,7 +369,7 @@ void KBlobSaver::box ( int x, int y )
 		y = 0;
 
 	// get the box region from the display to upgrade
-    QImage img = QPixmap::grabWindow(winId(), x, y, dim, dim).convertToImage();
+    TQImage img = TQPixmap::grabWindow(winId(), x, y, dim, dim).convertToImage();
 
 	// depending on the depth of the display, use either lookup table for
 	// next rgb val ( 8-bit ) or ramp the color directly for other displays
@@ -400,7 +400,7 @@ void KBlobSaver::box ( int x, int y )
 	}
 
 	// put the image back onto the screen
-    QPainter p(this);
+    TQPainter p(this);
     p.drawImage( x, y, img );
 }
 
@@ -432,7 +432,7 @@ void KBlobSaver::readSettings()
 //
 KBlobSetup::KBlobSetup
 (
-	QWidget *parent,
+	TQWidget *parent,
 	const char *name
 )
 : KDialogBase( parent, name, true, i18n( "Setup Blob Screen Saver" ),
@@ -445,23 +445,23 @@ KBlobSetup::KBlobSetup
 	readSettings();
 
 	setButtonText( Help, i18n( "A&bout" ) );
-	QWidget *main = makeMainWidget();
+	TQWidget *main = makeMainWidget();
 
-	QHBoxLayout *tl = new QHBoxLayout( main, 0, spacingHint() );
+	TQHBoxLayout *tl = new TQHBoxLayout( main, 0, spacingHint() );
 
-	QVBoxLayout *vbox = new QVBoxLayout;
+	TQVBoxLayout *vbox = new QVBoxLayout;
 	tl->addLayout(vbox);
 
 	// seconds to generate on a frame
-	QLabel *label = new QLabel(i18n("Frame duration:"), main);
+	TQLabel *label = new TQLabel(i18n("Frame duration:"), main);
 	stime = new KIntNumInput( showtime, main );
 	stime->setSuffix( i18n( " sec" ) );
 	vbox->addWidget(label);
 	vbox->addWidget(stime);
 
 	// available algorithms
-	label = new QLabel(i18n("Algorithm:"), main);
-	algs = new QListBox(main);
+	label = new TQLabel(i18n("Algorithm:"), main);
+	algs = new TQListBox(main);
 	algs->setMinimumSize(150, 105);
 	for (int i = 0; i <= ALG_RANDOM; i++)
 		algs->insertItem(alg_str[i]);
@@ -470,14 +470,14 @@ KBlobSetup::KBlobSetup
 	vbox->addWidget(algs);
 
 	// preview window
-	QWidget *preview = new QWidget( main );
+	TQWidget *preview = new TQWidget( main );
 	preview->setFixedSize(220, 170);
 	preview->setBackgroundColor(black);
 	preview->show();
 	tl->addWidget(preview);
 	saver = new KBlobSaver(preview->winId());
 	saver->setDimension(3);
-	if (QPixmap::defaultDepth() > 8)
+	if (TQPixmap::defaultDepth() > 8)
 		saver->setColorInc(7);
 	else
 		saver->setColorInc(4);
@@ -485,8 +485,8 @@ KBlobSetup::KBlobSetup
 	tl->addStretch();
 
 	// so selecting an algorithm will start previewing that alg
-	connect(algs, SIGNAL(highlighted(int)), saver,
-		SLOT(setAlgorithm(int)));
+	connect(algs, TQT_SIGNAL(highlighted(int)), saver,
+		TQT_SLOT(setAlgorithm(int)));
 }
 
 void KBlobSetup::readSettings()

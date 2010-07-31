@@ -21,16 +21,16 @@
 #include <unistd.h>
 #include <time.h>
 
-#include <qwidget.h>
-#include <qdialog.h>
-#include <qtimer.h>
-#include <qstring.h>
-#include <qvaluelist.h>
-#include <qpushbutton.h>
-#include <qradiobutton.h>
-#include <qspinbox.h>
-#include <qcheckbox.h>
-#include <qlabel.h>
+#include <tqwidget.h>
+#include <tqdialog.h>
+#include <tqtimer.h>
+#include <tqstring.h>
+#include <tqvaluelist.h>
+#include <tqpushbutton.h>
+#include <tqradiobutton.h>
+#include <tqspinbox.h>
+#include <tqcheckbox.h>
+#include <tqlabel.h>
 
 #include <klocale.h>
 #include <kapplication.h>
@@ -52,7 +52,7 @@
 #include <kiconloader.h>
 
 
-QPtrList<KPartSaver> g_savers;
+TQPtrList<KPartSaver> g_savers;
 bool g_inited = false;
 
 
@@ -68,7 +68,7 @@ extern "C"
         return new KPartSaver( d );
     }
 
-    KDE_EXPORT QDialog *kss_setup()
+    KDE_EXPORT TQDialog *kss_setup()
     {
         kdDebug() << "kss_setup" << endl;
         KGlobal::locale()->insertCatalogue("kpartsaver");
@@ -121,7 +121,7 @@ KPartSaver::KPartSaver( WId id )
     if( m_files.count()==0 ) {
 
         // create background widget
-        m_back = new QLabel( i18n("The screen saver is not configured yet."), this );
+        m_back = new TQLabel( i18n("The screen saver is not configured yet."), this );
 
         m_back->setAlignment( AlignCenter );
         embed( m_back );
@@ -138,9 +138,9 @@ KPartSaver::KPartSaver( WId id )
             next( m_random );
         else {
             next( m_random );
-            m_timer = new QTimer( this );
+            m_timer = new TQTimer( this );
             m_timer->start( m_delay*1000, true );
-            connect( m_timer, SIGNAL(timeout()), SLOT(timeout()) );
+            connect( m_timer, TQT_SIGNAL(timeout()), TQT_SLOT(timeout()) );
         }
     }
 }
@@ -168,7 +168,7 @@ bool KPartSaver::openURL( KURL url )
     closeURL();
 
     // find mime type
-    QString mime = KMimeType::findByURL( url )->name();
+    TQString mime = KMimeType::findByURL( url )->name();
 
     // find fitting kparts
     KTrader::OfferList offers;
@@ -179,7 +179,7 @@ bool KPartSaver::openURL( KURL url )
     }
 
     // load kpart library
-    QString lib = offers.first()->library();
+    TQString lib = offers.first()->library();
     KLibFactory *factory = KLibLoader::self()->factory( lib.latin1() );
     if( !factory ) {
         kdDebug() << "Library " << lib << " not found." << endl;
@@ -255,7 +255,7 @@ void KPartSaver::next( bool random )
     }
 
     // create background widget
-    m_back = new QLabel( i18n("All of your files are unsupported"), this );
+    m_back = new TQLabel( i18n("All of your files are unsupported"), this );
 
     m_back->setAlignment( AlignCenter );
     embed( m_back );
@@ -269,23 +269,23 @@ void KPartSaver::next( bool random )
 /*******************************************************************************/
 
 
-SaverConfig::SaverConfig( QWidget* parent, const char* name )
+SaverConfig::SaverConfig( TQWidget* parent, const char* name )
     : ConfigWidget( parent, name, true )
 {
-    connect( m_ok, SIGNAL(clicked()), SLOT(apply()) );
-    connect( m_ok, SIGNAL(clicked()), SLOT(accept()) );
-    connect( m_cancel, SIGNAL(clicked()), SLOT(reject()) );
+    connect( m_ok, TQT_SIGNAL(clicked()), TQT_SLOT(apply()) );
+    connect( m_ok, TQT_SIGNAL(clicked()), TQT_SLOT(accept()) );
+    connect( m_cancel, TQT_SIGNAL(clicked()), TQT_SLOT(reject()) );
 
-    connect( m_multiple, SIGNAL(toggled(bool)), m_delayLabel, SLOT(setEnabled(bool)) );
-    connect( m_multiple, SIGNAL(toggled(bool)), m_delay, SLOT(setEnabled(bool)) );
-    connect( m_multiple, SIGNAL(toggled(bool)), m_secondsLabel, SLOT(setEnabled(bool)) );
-    connect( m_multiple, SIGNAL(toggled(bool)), m_random, SLOT(setEnabled(bool)) );
+    connect( m_multiple, TQT_SIGNAL(toggled(bool)), m_delayLabel, TQT_SLOT(setEnabled(bool)) );
+    connect( m_multiple, TQT_SIGNAL(toggled(bool)), m_delay, TQT_SLOT(setEnabled(bool)) );
+    connect( m_multiple, TQT_SIGNAL(toggled(bool)), m_secondsLabel, TQT_SLOT(setEnabled(bool)) );
+    connect( m_multiple, TQT_SIGNAL(toggled(bool)), m_random, TQT_SLOT(setEnabled(bool)) );
 
-    connect( m_files, SIGNAL(selectionChanged()), SLOT(select()) );
-    connect( m_add, SIGNAL(clicked()), SLOT(add()) );
-    connect( m_remove, SIGNAL(clicked()), SLOT(remove()) );
-    connect( m_up, SIGNAL(clicked()), SLOT(up()) );
-    connect( m_down, SIGNAL(clicked()), SLOT(down()) );
+    connect( m_files, TQT_SIGNAL(selectionChanged()), TQT_SLOT(select()) );
+    connect( m_add, TQT_SIGNAL(clicked()), TQT_SLOT(add()) );
+    connect( m_remove, TQT_SIGNAL(clicked()), TQT_SLOT(remove()) );
+    connect( m_up, TQT_SIGNAL(clicked()), TQT_SLOT(up()) );
+    connect( m_down, TQT_SIGNAL(clicked()), TQT_SLOT(down()) );
 
     m_up->setIconSet( SmallIconSet("up") );
     m_down->setIconSet( SmallIconSet("down") );
@@ -325,7 +325,7 @@ void SaverConfig::apply()
     cfg->writeEntry( "Random", m_random->isChecked() );
 
     int num = m_files->count();
-    QStringList files;
+    TQStringList files;
     for( int n=0; n<num; n++ )
         files << m_files->text(n);
 
@@ -337,7 +337,7 @@ void SaverConfig::apply()
 
 void SaverConfig::add()
 {
-    KURL::List files = KFileDialog::getOpenURLs( QString::null, QString::null,
+    KURL::List files = KFileDialog::getOpenURLs( TQString::null, TQString::null,
                                                  this, i18n("Select Media Files") );
     for( unsigned int n=0; n<files.count(); n++ )
         m_files->insertItem( files[n].prettyURL(), -1 );
@@ -365,7 +365,7 @@ void SaverConfig::up()
 {
     int current = m_files->currentItem();
     if ( current>0 ) {
-        QString txt = m_files->currentText();
+        TQString txt = m_files->currentText();
         m_files->removeItem( current );
         m_files->insertItem( txt, current-1 );
         m_files->setCurrentItem( current-1 );
@@ -377,7 +377,7 @@ void SaverConfig::down()
 {
     int current = m_files->currentItem();
     if ( current!=-1 && current<(int)m_files->count()-1 ) {
-        QString txt = m_files->currentText();
+        TQString txt = m_files->currentText();
         m_files->removeItem( current );
         m_files->insertItem( txt, current+1 );
         m_files->setCurrentItem( current+1 );

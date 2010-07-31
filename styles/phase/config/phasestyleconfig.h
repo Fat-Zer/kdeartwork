@@ -35,7 +35,7 @@ class PhaseStyleConfig : public StyleDialog
 {
     Q_OBJECT
 public:
-    PhaseStyleConfig(QWidget* parent);
+    PhaseStyleConfig(TQWidget* parent);
     ~PhaseStyleConfig();
 
 signals:

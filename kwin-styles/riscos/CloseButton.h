@@ -34,7 +34,7 @@ class CloseButton : public Button
 
    public:
 
-      CloseButton(QWidget *parent);
+      CloseButton(TQWidget *parent);
 
    signals:
 
@@ -42,7 +42,7 @@ class CloseButton : public Button
 
    protected:
 
-      void mouseReleaseEvent(QMouseEvent *);
+      void mouseReleaseEvent(TQMouseEvent *);
 };
 
 } // End namespace;

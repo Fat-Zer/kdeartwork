@@ -44,13 +44,13 @@ static const char * const close_xpm[] = {
 " .+.    .+. ",
 "  .      .  "};
 
-CloseButton::CloseButton(QWidget *parent)
+CloseButton::CloseButton(TQWidget *parent)
   : Button(parent, i18n("Close"))
 {
-   setPixmap(QPixmap((const char **)close_xpm));
+   setPixmap(TQPixmap((const char **)close_xpm));
 }
 
-void CloseButton::mouseReleaseEvent(QMouseEvent *e)
+void CloseButton::mouseReleaseEvent(TQMouseEvent *e)
 {
    Button::mouseReleaseEvent(e);
 

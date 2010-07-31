@@ -18,8 +18,8 @@
 #ifndef GLOW_CONFIG_DIALOG_H
 #define GLOW_CONFIG_DIALOG_H
 
-#include <qvaluevector.h>
-#include <qobject.h>
+#include <tqvaluevector.h>
+#include <tqobject.h>
 
 class QListView;
 class QPushButton;
@@ -34,7 +34,7 @@ class GlowConfigDialog : public QObject
 	Q_OBJECT
 
 public:
-	GlowConfigDialog( KConfig* conf, QWidget* parent );
+	GlowConfigDialog( KConfig* conf, TQWidget* parent );
 	~GlowConfigDialog();
 
 signals:
@@ -47,7 +47,7 @@ public slots:
 
 protected slots:
 	void slotTitleButtonClicked(int);
-	void slotColorButtonChanged(const QColor&);
+	void slotColorButtonChanged(const TQColor&);
 	void slotTitlebarGradientTypeChanged(int);
 	void slotResizeHandleCheckBoxChanged();
 	void slotThemeListViewSelectionChanged ();
@@ -63,26 +63,26 @@ private:
 
 	bool _showResizeHandle;
 	KPixmapEffect::GradientType _titlebarGradientType;
-	QString _theme_name;
+	TQString _theme_name;
 
-	QWidget *_main_group_box;
-	QGroupBox *_button_glow_color_group_box;
-	QGroupBox *_theme_group_box;
+	TQWidget *_main_group_box;
+	TQGroupBox *_button_glow_color_group_box;
+	TQGroupBox *_theme_group_box;
 
-	QListView * _theme_list_view;
+	TQListView * _theme_list_view;
 
-	QCheckBox *_showResizeHandleCheckBox;
-	QComboBox *_titlebarGradientTypeComboBox;
+	TQCheckBox *_showResizeHandleCheckBox;
+	TQComboBox *_titlebarGradientTypeComboBox;
 
-	QPushButton *_stickyButton;
-	QPushButton *_helpButton;
-	QPushButton *_iconifyButton;
-	QPushButton *_maximizeButton;
-	QPushButton *_closeButton;
-	QSignalMapper *_titleButtonMapper;
+	TQPushButton *_stickyButton;
+	TQPushButton *_helpButton;
+	TQPushButton *_iconifyButton;
+	TQPushButton *_maximizeButton;
+	TQPushButton *_closeButton;
+	TQSignalMapper *_titleButtonMapper;
 
-	QColor* _buttonConfigMap;
-	QValueVector<QPushButton*> _titleButtonList;
+	TQColor* _buttonConfigMap;
+	TQValueVector<TQPushButton*> _titleButtonList;
 	
 	KColorButton *_colorButton;
 };

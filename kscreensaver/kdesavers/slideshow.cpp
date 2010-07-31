@@ -10,17 +10,17 @@
  */
 
 
-#include <qdir.h>
-#include <qcolor.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qfile.h>
-#include <qpaintdevicemetrics.h>
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <qspinbox.h>
-#include <qframe.h>
-#include <qdesktopwidget.h>
+#include <tqdir.h>
+#include <tqcolor.h>
+#include <tqlabel.h>
+#include <tqlayout.h>
+#include <tqfile.h>
+#include <tqpaintdevicemetrics.h>
+#include <tqcheckbox.h>
+#include <tqcombobox.h>
+#include <tqspinbox.h>
+#include <tqframe.h>
+#include <tqdesktopwidget.h>
 
 #include <kconfig.h>
 #include <kglobal.h>
@@ -62,7 +62,7 @@ extern "C"
         return new kSlideShowSaver( id );
     }
 
-    KDE_EXPORT QDialog *kss_setup()
+    KDE_EXPORT TQDialog *kss_setup()
     {
         return new kSlideShowSetup();
     }
@@ -87,19 +87,19 @@ kSlideShowSaver::kSlideShowSaver( WId id ): KScreenSaver(id)
   initNextScreen();
 
   mFileIdx = 0;
-  mColorContext = QColor::enterAllocContext();
+  mColorContext = TQColor::enterAllocContext();
 
   mEffectRunning = false;
 
   mTimer.start(10, true);
-  connect(&mTimer, SIGNAL(timeout()), SLOT(slotTimeout()));
+  connect(&mTimer, TQT_SIGNAL(timeout()), TQT_SLOT(slotTimeout()));
 
-  QDesktopWidget *d = QApplication::desktop();
+  TQDesktopWidget *d = TQApplication::desktop();
   if( geometry() == d->geometry() && d->numScreens() > 1)
   {
 	for(int i = 0; i < d->numScreens(); ++i)
 	{
-		QRect s = d->screenGeometry(i);
+		TQRect s = d->screenGeometry(i);
 		mGeoList.append(new mScreenGeo(s.width(), s.height(), s.topLeft().x(), s.topLeft().y()));
 	}
    }
@@ -119,20 +119,20 @@ kSlideShowSaver::~kSlideShowSaver()
 
   mTimer.stop();
   if (mPainter.isActive()) mPainter.end();
-  QColor::leaveAllocContext();
-  QColor::destroyAllocContext(mColorContext);
+  TQColor::leaveAllocContext();
+  TQColor::destroyAllocContext(mColorContext);
 }
 
 
 //-----------------------------------------------------------------------------
 void kSlideShowSaver::initNextScreen()
 {
-  QPaintDeviceMetrics metric(this);
+  TQPaintDeviceMetrics metric(this);
   int w, h;
 
   w = width();
   h = height();
-  mNextScreen = QPixmap(w, h, metric.depth());
+  mNextScreen = TQPixmap(w, h, metric.depth());
 }
 
 
@@ -182,7 +182,7 @@ int kSlideShowSaver::effectMultiCircleOut(bool aInit)
 {
   int x, y, i;
   double alpha;
-  static QPointArray pa(4);
+  static TQPointArray pa(4);
 
   if (aInit)
   {
@@ -341,7 +341,7 @@ int kSlideShowSaver::effectMeltdown(bool aInit)
 int kSlideShowSaver::effectCircleOut(bool aInit)
 {
   int x, y;
-  static QPointArray pa(4);
+  static TQPointArray pa(4);
 
   if (aInit)
   {
@@ -663,7 +663,7 @@ int kSlideShowSaver::effectVertLines(bool aInit)
 //-----------------------------------------------------------------------------
 void kSlideShowSaver::startPainter(Qt::PenStyle aPen)
 {
-  QBrush brush;
+  TQBrush brush;
   brush.setPixmap(mNextScreen);
   if (mPainter.isActive()) mPainter.end();
   mPainter.begin(this);
@@ -724,7 +724,7 @@ void kSlideShowSaver::showNextScreen()
 //----------------------------------------------------------------------------
 void kSlideShowSaver::createNextScreen()
 {
-  QPainter p;
+  TQPainter p;
   int ww, wh, iw, ih, x, y;
   double fx, fy;
 
@@ -747,7 +747,7 @@ void kSlideShowSaver::createNextScreen()
 
   if (mFileList.isEmpty())
   {
-    p.setPen(QColor("white"));
+    p.setPen(TQColor("white"));
     p.drawText(20 + (KApplication::random() % (ww>>1)), 20 + (KApplication::random() % (wh>>1)),
 	       i18n("No images found"));
   }
@@ -761,7 +761,7 @@ void kSlideShowSaver::createNextScreen()
       if (fx > 2) fx = 2;
       iw = (int)(iw * fx);
       ih = (int)(ih * fx);
-      QImage scaledImg = mImage.smoothScale(iw, ih);
+      TQImage scaledImg = mImage.smoothScale(iw, ih);
 
         x = ((ww - iw) >> 1) + geoptr->mXorg;
         y = ((wh - ih) >> 1) + geoptr->mYorg;
@@ -778,7 +778,7 @@ void kSlideShowSaver::createNextScreen()
 	if (fx > 2) fx = 2;
 	iw = (int)(iw * fx);
 	ih = (int)(ih * fx);
-	QImage scaledImg = mImage.smoothScale(iw, ih);
+	TQImage scaledImg = mImage.smoothScale(iw, ih);
 
           x = ((ww - iw) >> 1) + geoptr->mXorg;
           y = ((wh - ih) >> 1) + geoptr->mYorg;
@@ -805,11 +805,11 @@ void kSlideShowSaver::createNextScreen()
 
     if (mPrintName)
     {
-      p.setPen(QColor("black"));
+      p.setPen(TQColor("black"));
       for (x=9; x<=11; x++)
 	for (y=21; y>=19; y--)
             p.drawText(x + geoptr->mXorg, wh-y+geoptr->mYorg, mImageName);
-      p.setPen(QColor("white"));
+      p.setPen(TQColor("white"));
         p.drawText(10 + geoptr->mXorg, wh-20 + geoptr->mYorg, mImageName);
       }
     }
@@ -821,7 +821,7 @@ void kSlideShowSaver::createNextScreen()
 //----------------------------------------------------------------------------
 void kSlideShowSaver::loadNextImage()
 {
-  QString fname;
+  TQString fname;
   int num;
 
   num = mFileList.count();
@@ -875,18 +875,18 @@ void kSlideShowSaver::loadDirectory()
   mRandomList = mFileList;
 }
 
-void kSlideShowSaver::traverseDirectory(const QString &dirName)
+void kSlideShowSaver::traverseDirectory(const TQString &dirName)
 {
-  QDir dir(dirName);
+  TQDir dir(dirName);
   if (!dir.exists())
   {
      return ;
   }
-  dir.setFilter(QDir::Dirs | QDir::Files);
+  dir.setFilter(TQDir::Dirs | TQDir::Files);
 
   const QFileInfoList *fileinfolist = dir.entryInfoList();
   QFileInfoListIterator it(*fileinfolist);
-  QFileInfo *fi;
+  TQFileInfo *fi;
   while ((fi = it.current()))
   {
      if (fi->fileName() == "." || fi->fileName() == "..")
@@ -920,14 +920,14 @@ void kSlideShowSaver::blank()
 //=============================================================================
 //  Class kSlideShowSetup
 //=============================================================================
-kSlideShowSetup::kSlideShowSetup(QWidget *aParent, const char *aName)
+kSlideShowSetup::kSlideShowSetup(TQWidget *aParent, const char *aName)
   : KDialogBase(aParent, aName, true, i18n( "Setup Slide Show Screen Saver" ),
     Ok|Cancel|Help, Ok, true )
 {
   setButtonText( Help, i18n( "A&bout" ) );
 
-  QWidget *main = makeMainWidget();
-  QVBoxLayout *top = new QVBoxLayout( main, 0, spacingHint() );
+  TQWidget *main = makeMainWidget();
+  TQVBoxLayout *top = new TQVBoxLayout( main, 0, spacingHint() );
 
   cfg = new SlideShowCfg( main, "SlideShowCfg" );
   top->addWidget( cfg );
@@ -939,10 +939,10 @@ kSlideShowSetup::kSlideShowSetup(QWidget *aParent, const char *aName)
   mSaver = new kSlideShowSaver(cfg->mPreview->winId());
 
   cfg->mDirChooser->setMode(KFile::Directory | KFile::ExistingOnly);
-  connect(cfg->mDirChooser, SIGNAL(returnPressed(const QString &)),
-      SLOT(slotDirSelected(const QString &)));
-  connect(cfg->mDirChooser, SIGNAL(urlSelected(const QString &)),
-      SLOT(slotDirSelected(const QString &)));
+  connect(cfg->mDirChooser, TQT_SIGNAL(returnPressed(const TQString &)),
+      TQT_SLOT(slotDirSelected(const TQString &)));
+  connect(cfg->mDirChooser, TQT_SIGNAL(urlSelected(const TQString &)),
+      TQT_SLOT(slotDirSelected(const TQString &)));
 
   readSettings();
 }
@@ -993,7 +993,7 @@ void kSlideShowSetup::writeSettings()
 
 
 //-----------------------------------------------------------------------------
-void kSlideShowSetup::slotDirSelected(const QString &)
+void kSlideShowSetup::slotDirSelected(const TQString &)
 {
   writeSettings();
 }

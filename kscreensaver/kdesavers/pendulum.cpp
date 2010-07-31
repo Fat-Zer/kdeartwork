@@ -30,12 +30,12 @@
 #include <cstdlib>
 
 // Qt headers
-#include <qlineedit.h>
-#include <qspinbox.h>
-#include <qvalidator.h>
-#include <qcolordialog.h>
-#include <qpushbutton.h>
-#include <qtooltip.h>
+#include <tqlineedit.h>
+#include <tqspinbox.h>
+#include <tqvalidator.h>
+#include <tqcolordialog.h>
+#include <tqpushbutton.h>
+#include <tqtooltip.h>
 // KDE headers
 #include <klocale.h>
 #include <kconfig.h>
@@ -67,7 +67,7 @@ extern "C"
    }
 
    /// function to create setup dialog for screen saver
-   KDE_EXPORT QDialog* kss_setup()
+   KDE_EXPORT TQDialog* kss_setup()
    {
       return new KPendulumSetup();
    }
@@ -129,8 +129,8 @@ std::valarray<double> PendulumOdeSolver::f(
 // Rotation: screen saver widget
 //-----------------------------------------------------------------------------
 
-PendulumGLWidget::PendulumGLWidget(QWidget* parent, const char* name)
-   : QGLWidget(parent, name),
+PendulumGLWidget::PendulumGLWidget(TQWidget* parent, const char* name)
+   : TQGLWidget(parent, name),
      eyeR(30),                  // eye coordinates (polar)
      eyeTheta(M_PI*0.45),
      eyePhi(0),
@@ -180,7 +180,7 @@ void PendulumGLWidget::setLengths(const double& _l1, const double& _l2)
    l2 = static_cast<GLfloat>(_l2);
 }
 
-void PendulumGLWidget::setBarColor(const QColor& c)
+void PendulumGLWidget::setBarColor(const TQColor& c)
 {
    if (c.isValid())
    {
@@ -188,14 +188,14 @@ void PendulumGLWidget::setBarColor(const QColor& c)
    }
 }
 
-void PendulumGLWidget::setM1Color(const QColor& c)
+void PendulumGLWidget::setM1Color(const TQColor& c)
 {
    if (c.isValid())
    {
       m_m1Color = c;
    }
 }
-void PendulumGLWidget::setM2Color(const QColor& c)
+void PendulumGLWidget::setM2Color(const TQColor& c)
 {
    if (c.isValid())
    {
@@ -207,7 +207,7 @@ void PendulumGLWidget::setM2Color(const QColor& c)
 
 void PendulumGLWidget::initializeGL(void)
 {
-   qglClearColor(QColor(black)); // set color to clear the background
+   qglClearColor(TQColor(black)); // set color to clear the background
 
    glClearDepth(1);             // depth buffer setup
    glEnable(GL_DEPTH_TEST);     // depth testing
@@ -377,9 +377,9 @@ KPendulumSaver::KPendulumSaver(WId id) :
    glArea->show();              // show gl widget
 
    // set up and start cyclic timer
-   timer = new QTimer(this);
+   timer = new TQTimer(this);
    timer->start(deltaT, TRUE);
-   connect(timer, SIGNAL(timeout()), this, SLOT(doTimeStep()));
+   connect(timer, TQT_SIGNAL(timeout()), this, TQT_SLOT(doTimeStep()));
 }
 
 KPendulumSaver::~KPendulumSaver()
@@ -465,38 +465,38 @@ void KPendulumSaver::initData()
 }
 
 
-void KPendulumSaver::setBarColor(const QColor& c)
+void KPendulumSaver::setBarColor(const TQColor& c)
 {
    glArea->setBarColor(c);
 }
-QColor KPendulumSaver::barColor(void) const
+TQColor KPendulumSaver::barColor(void) const
 {
    return glArea->barColor();
 }
 
-const QColor KPendulumSaver::barColorDefault(255, 255, 127);
+const TQColor KPendulumSaver::barColorDefault(255, 255, 127);
 
-void KPendulumSaver::setM1Color(const QColor& c)
+void KPendulumSaver::setM1Color(const TQColor& c)
 {
    glArea->setM1Color(c);
 }
-QColor KPendulumSaver::m1Color(void) const
+TQColor KPendulumSaver::m1Color(void) const
 {
    return glArea->m1Color();
 }
 
-const QColor KPendulumSaver::m1ColorDefault(170,   0, 127);
+const TQColor KPendulumSaver::m1ColorDefault(170,   0, 127);
 
-void KPendulumSaver::setM2Color(const QColor& c)
+void KPendulumSaver::setM2Color(const TQColor& c)
 {
    glArea->setM2Color(c);
 }
-QColor KPendulumSaver::m2Color(void) const
+TQColor KPendulumSaver::m2Color(void) const
 {
    return glArea->m2Color();
 }
 
-const QColor KPendulumSaver::m2ColorDefault( 85, 170, 127);
+const TQColor KPendulumSaver::m2ColorDefault( 85, 170, 127);
 
 
 void KPendulumSaver::setMassRatio(const double& massRatio)
@@ -660,7 +660,7 @@ void KPendulumSaver::doTimeStep()
 
 // public slot of KPendulumSaver, forward resize event to public slot of glArea
 // to allow the resizing of the gl area withing the setup dialog
-void KPendulumSaver::resizeGlArea(QResizeEvent* e)
+void KPendulumSaver::resizeGlArea(TQResizeEvent* e)
 {
    glArea->resize(e->size());
 }
@@ -669,7 +669,7 @@ void KPendulumSaver::resizeGlArea(QResizeEvent* e)
 // KPendulumSetup: dialog to setup screen saver parameters
 //-----------------------------------------------------------------------------
 
-KPendulumSetup::KPendulumSetup(QWidget* parent, const char* name)
+KPendulumSetup::KPendulumSetup(TQWidget* parent, const char* name)
    : KPendulumSetupUi(parent, name),
      // create saver and give it the WinID of the preview area
      saver(new KPendulumSaver(preview->winId()))
@@ -679,19 +679,19 @@ KPendulumSetup::KPendulumSetup(QWidget* parent, const char* name)
    setModal(TRUE);
 
    // create input validators
-   mEdit->setValidator(new QDoubleValidator(
+   mEdit->setValidator(new TQDoubleValidator(
                           KPendulumSaver::massRatioLimitLower,
                           KPendulumSaver::massRatioLimitUpper,
                           5, mEdit));
-   lEdit->setValidator(new QDoubleValidator(
+   lEdit->setValidator(new TQDoubleValidator(
                           KPendulumSaver::lengthRatioLimitLower,
                           KPendulumSaver::lengthRatioLimitUpper,
                           5, lEdit));
-   gEdit->setValidator(new QDoubleValidator(
+   gEdit->setValidator(new TQDoubleValidator(
                           KPendulumSaver::gLimitLower,
                           KPendulumSaver::gLimitUpper,
                           5, gEdit));
-   eEdit->setValidator(new QDoubleValidator(
+   eEdit->setValidator(new TQDoubleValidator(
                           KPendulumSaver::ELimitLower,
                           KPendulumSaver::ELimitUpper,
                           5, eEdit));
@@ -701,27 +701,27 @@ KPendulumSetup::KPendulumSetup(QWidget* parent, const char* name)
    persSpinBox->setMaxValue(KPendulumSaver::persChangeIntervalLimitUpper);
 
    // set tool tips of editable fields
-   QToolTip::add(
+   TQToolTip::add(
       mEdit,
       i18n("Ratio of 2nd mass to sum of both masses.\nValid values from %1 to %2.")
       .arg(KPendulumSaver::massRatioLimitLower, 0, 'f', 2)
       .arg(KPendulumSaver::massRatioLimitUpper, 0, 'f', 2));
-   QToolTip::add(
+   TQToolTip::add(
       lEdit,
       i18n("Ratio of 2nd pendulum part length to the sum of both part lengths.\nValid values from %1 to %2.")
       .arg(KPendulumSaver::lengthRatioLimitLower, 0, 'f', 2)
       .arg(KPendulumSaver::lengthRatioLimitUpper, 0, 'f', 2));
-   QToolTip::add(
+   TQToolTip::add(
       gEdit,
       i18n("Gravitational constant in arbitrary units.\nValid values from %1 to %2.")
       .arg(KPendulumSaver::gLimitLower, 0, 'f', 2)
       .arg(KPendulumSaver::gLimitUpper, 0, 'f', 2));
-   QToolTip::add(
+   TQToolTip::add(
       eEdit,
       i18n("Energy in units of the maximum potential energy of the given configuration.\nValid values from %1 to %2.")
       .arg(KPendulumSaver::ELimitLower, 0, 'f', 2)
       .arg(KPendulumSaver::ELimitUpper, 0, 'f', 2));
-   QToolTip::add(
+   TQToolTip::add(
       persSpinBox,
       i18n("Time in seconds after which a random perspective change occurs.\nValid values from %1 to %2.")
       .arg(KPendulumSaver::persChangeIntervalLimitLower)
@@ -735,7 +735,7 @@ KPendulumSetup::KPendulumSetup(QWidget* parent, const char* name)
    // has read settings in its constructor
 
    // set editable fields with stored values as defaults
-   QString text;
+   TQString text;
    text.setNum(saver->massRatio());
    mEdit->setText(text);
    text.setNum(saver->lengthRatio());
@@ -754,8 +754,8 @@ KPendulumSetup::KPendulumSetup(QWidget* parent, const char* name)
    // if the preview area is resized it emmits the resized() event which is
    // caught by the saver.  The embedded GlArea is resized to fit into the
    // preview area.
-   connect(preview, SIGNAL(resized(QResizeEvent*)),
-           saver,   SLOT(resizeGlArea(QResizeEvent*)));
+   connect(preview, TQT_SIGNAL(resized(TQResizeEvent*)),
+           saver,   TQT_SLOT(resizeGlArea(TQResizeEvent*)));
 }
 
 KPendulumSetup::~KPendulumSetup()
@@ -800,7 +800,7 @@ void KPendulumSetup::mEditLostFocusSlot(void)
    }
    else
    {  // write current setting back into input field
-      QString text;
+      TQString text;
       text.setNum(saver->massRatio());
       mEdit->setText(text);
    }
@@ -813,7 +813,7 @@ void KPendulumSetup::lEditLostFocusSlot(void)
    }
    else
    {  // write current setting back into input field
-      QString text;
+      TQString text;
       text.setNum(saver->lengthRatio());
       lEdit->setText(text);
    }
@@ -826,7 +826,7 @@ void KPendulumSetup::gEditLostFocusSlot(void)
    }
    else
    {  // write current setting back into input field
-      QString text;
+      TQString text;
       text.setNum(saver->g());
       gEdit->setText(text);
    }
@@ -839,7 +839,7 @@ void KPendulumSetup::eEditLostFocusSlot(void)
    }
    else
    {  // write current setting back into input field
-      QString text;
+      TQString text;
       text.setNum(saver->E());
       eEdit->setText(text);
    }
@@ -851,7 +851,7 @@ void KPendulumSetup::persChangeEnteredSlot(int t)
 
 void KPendulumSetup::barColorButtonClickedSlot(void)
 {
-   QColor color = QColorDialog::getColor(
+   TQColor color = QColorDialog::getColor(
       saver->barColor(), this, "bar color dialog");
    if (color.isValid())
    {
@@ -861,7 +861,7 @@ void KPendulumSetup::barColorButtonClickedSlot(void)
 }
 void KPendulumSetup::m1ColorButtonClickedSlot(void)
 {
-   QColor color = QColorDialog::getColor(
+   TQColor color = QColorDialog::getColor(
       saver->m1Color(), this, "mass 1 color dialog");
    if (color.isValid())
    {
@@ -871,7 +871,7 @@ void KPendulumSetup::m1ColorButtonClickedSlot(void)
 }
 void KPendulumSetup::m2ColorButtonClickedSlot(void)
 {
-   QColor color = QColorDialog::getColor(
+   TQColor color = QColorDialog::getColor(
       saver->m2Color(), this, "mass 2 color dialog");
    if (color.isValid())
    {

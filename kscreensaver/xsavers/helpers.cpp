@@ -2,33 +2,33 @@
 
 #include <kapplication.h>
 
-void min_width(QWidget *w) {
+void min_width(TQWidget *w) {
   w->setMinimumWidth(w->sizeHint().width());
 }
 
-void fixed_width(QWidget *w) {
+void fixed_width(TQWidget *w) {
   w->setFixedWidth(w->sizeHint().width());
 }
 
-void min_height(QWidget *w) {
+void min_height(TQWidget *w) {
   w->setMinimumHeight(w->sizeHint().height());
 }
 
-void fixed_height(QWidget *w) {
+void fixed_height(TQWidget *w) {
   w->setFixedHeight(w->sizeHint().height());
 }
 
-void min_size(QWidget *w) {
+void min_size(TQWidget *w) {
   w->setMinimumSize(w->sizeHint());
 }
 
-void fixed_size(QWidget *w) {
+void fixed_size(TQWidget *w) {
   w->setFixedSize(w->sizeHint());
 }
 
 KConfig *klock_config()
 {
-    QString name( kapp->argv()[0] );
+    TQString name( kapp->argv()[0] );
     int slash = name.findRev( '/' );
     if ( slash )
 	name = name.mid( slash+1 );

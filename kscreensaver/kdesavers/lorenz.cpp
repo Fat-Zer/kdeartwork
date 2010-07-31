@@ -11,11 +11,11 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include <qpainter.h>
-#include <qslider.h>
-#include <qlayout.h>
-#include <qcolor.h>
-#include <qlabel.h>
+#include <tqpainter.h>
+#include <tqslider.h>
+#include <tqlayout.h>
+#include <tqcolor.h>
+#include <tqlabel.h>
 
 #include <kapplication.h>
 #include <klocale.h>
@@ -38,7 +38,7 @@ extern "C"
         return new KLorenzSaver( id );
     }
 
-    KDE_EXPORT QDialog *kss_setup()
+    KDE_EXPORT TQDialog *kss_setup()
     {
         return new KLorenzSetup();
     }
@@ -66,80 +66,80 @@ extern "C"
 //-----------------------------------------------------------------------------
 // dialog to setup screen saver parameters
 //
-KLorenzSetup::KLorenzSetup( QWidget *parent, const char *name )
+KLorenzSetup::KLorenzSetup( TQWidget *parent, const char *name )
     : KDialogBase( parent, name, true, i18n( "Setup Lorenz Attractor" ),
       Ok|Cancel|Default|Help, Ok, true )
 {
     readSettings();
 
     setButtonText( Help, i18n( "A&bout" ) );
-    QWidget *main = makeMainWidget();
+    TQWidget *main = makeMainWidget();
 
-    QHBoxLayout *tl = new QHBoxLayout( main, 0, spacingHint() );
-    QVBoxLayout *tl1 = new QVBoxLayout;
+    TQHBoxLayout *tl = new TQHBoxLayout( main, 0, spacingHint() );
+    TQVBoxLayout *tl1 = new QVBoxLayout;
     tl->addLayout(tl1);
 
-    QLabel *label = new QLabel( i18n("Speed:"), main );
+    TQLabel *label = new TQLabel( i18n("Speed:"), main );
     tl1->addWidget(label);
 
-    sps = new QSlider(MINSPEED, MAXSPEED, 10, speed, QSlider::Horizontal, main);
+    sps = new TQSlider(MINSPEED, MAXSPEED, 10, speed, TQSlider::Horizontal, main);
     sps->setMinimumSize( 120, 20 );
-    sps->setTickmarks(QSlider::Below);
+    sps->setTickmarks(TQSlider::Below);
     sps->setTickInterval(150);
-    connect( sps, SIGNAL( valueChanged( int ) ), SLOT( slotSpeed( int ) ) );
+    connect( sps, TQT_SIGNAL( valueChanged( int ) ), TQT_SLOT( slotSpeed( int ) ) );
     tl1->addWidget(sps);
 
-    label = new QLabel( i18n("Epoch:"), main );
+    label = new TQLabel( i18n("Epoch:"), main );
     tl1->addWidget(label);
 
-    eps = new QSlider(MINEPOCH, MAXEPOCH, 100, epoch, QSlider::Horizontal, main);
+    eps = new TQSlider(MINEPOCH, MAXEPOCH, 100, epoch, TQSlider::Horizontal, main);
     eps->setMinimumSize( 120, 20 );
-    eps->setTickmarks(QSlider::Below);
+    eps->setTickmarks(TQSlider::Below);
     eps->setTickInterval(3000);
-    connect( eps, SIGNAL( valueChanged( int ) ), SLOT( slotEpoch( int ) ) );
+    connect( eps, TQT_SIGNAL( valueChanged( int ) ), TQT_SLOT( slotEpoch( int ) ) );
     tl1->addWidget(eps);
 
-    label = new QLabel( i18n("Color rate:"), main );
+    label = new TQLabel( i18n("Color rate:"), main );
     tl1->addWidget(label);
 
-    crs = new QSlider(MINCOLOR, MAXCOLOR, 5, crate, QSlider::Horizontal, main);
+    crs = new TQSlider(MINCOLOR, MAXCOLOR, 5, crate, TQSlider::Horizontal, main);
     crs->setMinimumSize( 120, 20 );
-    crs->setTickmarks(QSlider::Below);
+    crs->setTickmarks(TQSlider::Below);
     crs->setTickInterval(10);
-    connect( crs, SIGNAL( valueChanged( int ) ), SLOT( slotCRate( int ) ) );
+    connect( crs, TQT_SIGNAL( valueChanged( int ) ), TQT_SLOT( slotCRate( int ) ) );
     tl1->addWidget(crs);
 
-    label = new QLabel( i18n("Rotation Z:"), main );
+    label = new TQLabel( i18n("Rotation Z:"), main );
     tl1->addWidget(label);
 
-    zrs = new QSlider(MINZROT, MAXZROT, 18, zrot, QSlider::Horizontal, main);
+    zrs = new TQSlider(MINZROT, MAXZROT, 18, zrot, TQSlider::Horizontal, main);
     zrs->setMinimumSize( 120, 20 );
-    zrs->setTickmarks(QSlider::Below);
+    zrs->setTickmarks(TQSlider::Below);
     zrs->setTickInterval(36);
-    connect( zrs, SIGNAL( valueChanged( int ) ), SLOT( slotZRot( int ) ) );
+    connect( zrs, TQT_SIGNAL( valueChanged( int ) ), TQT_SLOT( slotZRot( int ) ) );
     tl1->addWidget(zrs);
 
-    label = new QLabel( i18n("Rotation Y:"), main );
+    label = new TQLabel( i18n("Rotation Y:"), main );
     tl1->addWidget(label);
 
-    yrs = new QSlider(MINYROT, MAXYROT, 18, yrot, QSlider::Horizontal, main);
+    yrs = new TQSlider(MINYROT, MAXYROT, 18, yrot, TQSlider::Horizontal, main);
     yrs->setMinimumSize( 120, 20 );
-    yrs->setTickmarks(QSlider::Below);
+    yrs->setTickmarks(TQSlider::Below);
     yrs->setTickInterval(36);
-    connect( yrs, SIGNAL( valueChanged( int ) ), SLOT( slotYRot( int ) ) );
+    connect( yrs, TQT_SIGNAL( valueChanged( int ) ), TQT_SLOT( slotYRot( int ) ) );
     tl1->addWidget(yrs);
 
-    label = new QLabel( i18n("Rotation X:"), main );
+    label = new TQLabel( i18n("Rotation X:"), main );
     tl1->addWidget(label);
 
-    xrs = new QSlider(MINXROT, MAXXROT, 18, xrot, QSlider::Horizontal, main);
+    xrs = new TQSlider(MINXROT, MAXXROT, 18, xrot, TQSlider::Horizontal, main);
     xrs->setMinimumSize( 120, 20 );
-    xrs->setTickmarks(QSlider::Below);
+    xrs->setTickmarks(TQSlider::Below);
     xrs->setTickInterval(36);
-    connect( xrs, SIGNAL( valueChanged( int ) ), SLOT( slotXRot( int ) ) );
+    connect( xrs, TQT_SIGNAL( valueChanged( int ) ), TQT_SLOT( slotXRot( int ) ) );
     tl1->addWidget(xrs);
 
-    preview = new QWidget( main );
+    preview = new TQWidget( main );
     preview->setFixedSize( 220, 165 );
     preview->setBackgroundColor( black );
     preview->show();    // otherwise saver does not get correct size
@@ -441,12 +441,12 @@ KLorenzSaver::KLorenzSaver( WId id ) : KScreenSaver( id )
     mat = new Matrix3D();
     updateMatrix();
 
-    colorContext = QColor::enterAllocContext();
+    colorContext = TQColor::enterAllocContext();
     setBackgroundColor( black );
     newEpoch();
 
     timer.start( 10 );
-    connect( &timer, SIGNAL( timeout() ), SLOT( drawOnce() ) );
+    connect( &timer, TQT_SIGNAL( timeout() ), TQT_SLOT( drawOnce() ) );
 }
 
 KLorenzSaver::~KLorenzSaver()
@@ -454,8 +454,8 @@ KLorenzSaver::~KLorenzSaver()
     delete mat;
     mat=0;
     timer.stop();
-    QColor::leaveAllocContext();
-    QColor::destroyAllocContext( colorContext );
+    TQColor::leaveAllocContext();
+    TQColor::destroyAllocContext( colorContext );
 }
 
 // read configuration settings from config file
@@ -544,7 +544,7 @@ void KLorenzSaver::drawOnce()
     double kx, ky, kz, dx, dy, dz;
     const double h = 0.0001;
     const double tqh = h * 3.0 / 4.0;
-    QPainter p(this);
+    TQPainter p(this);
 
     for (int i=0; i<speed; i++) {
         // Runge-Kutta formula
@@ -557,7 +557,7 @@ void KLorenzSaver::drawOnce()
         mat->transform(x,y,z,kx,ky,kz);
         // Choose a color
         p.setPen(
-            QColor((int)(sin(t*crate/pi)*127+128),
+            TQColor((int)(sin(t*crate/pi)*127+128),
                    (int)(sin(t*crate/(pi-1))*127+128),
                    (int)(sin(t*crate/(pi-2))*127+128)).pixel() );
         // Draw a point

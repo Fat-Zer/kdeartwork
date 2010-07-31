@@ -8,8 +8,8 @@
 // Nick Betcher <nbetcher@usinternet.com> 2001
 //
 #include <stdlib.h>
-#include <qlabel.h>
-#include <qlayout.h>
+#include <tqlabel.h>
+#include <tqlayout.h>
 #include <kapplication.h>
 #include <klocale.h>
 #include <kconfig.h>
@@ -26,11 +26,11 @@
 #include <GL/glu.h>
 #include <GL/gl.h>
 #endif
-#include <qimage.h>
+#include <tqimage.h>
 #include <kdebug.h>
-#include <qpainter.h>
-#include <qradiobutton.h>
-#include <qspinbox.h>
+#include <tqpainter.h>
+#include <tqradiobutton.h>
+#include <tqspinbox.h>
 #include <kstandarddirs.h>
 #include <math.h>
 #include <kmessagebox.h>
@@ -46,7 +46,7 @@ extern "C"
 		return new KFountainSaver( id );
 	}
 
-	KDE_EXPORT QDialog *kss_setup()
+	KDE_EXPORT TQDialog *kss_setup()
 	{
 		return new KFountainSetup();
 	}
@@ -55,27 +55,27 @@ extern "C"
 //-----------------------------------------------------------------------------
 // dialog to setup screen saver parameters
 //
-KFountainSetup::KFountainSetup( QWidget *parent, const char *name )
+KFountainSetup::KFountainSetup( TQWidget *parent, const char *name )
 	: SetupUi( parent, name, TRUE )
 {
 	readSettings();
 
-	//QLabel *label;
-	//QPushButton *button;
+	//TQLabel *label;
+	//TQPushButton *button;
 
 	//setCaption( i18n("Setup Particle Fountain") );
 
-	//QVBoxLayout *tl = new QVBoxLayout(this, 10);
-	//QHBoxLayout *tl1 = new QHBoxLayout;
+	//TQVBoxLayout *tl = new TQVBoxLayout(this, 10);
+	//TQHBoxLayout *tl1 = new QHBoxLayout;
 	//tl->addLayout(tl1);
 
-	//QVBoxLayout *tl11 = new QVBoxLayout(5);
+	//TQVBoxLayout *tl11 = new TQVBoxLayout(5);
 	//tl1->addLayout(tl11);
 
-	//label = new QLabel( i18n("No options here yet...:"), this );
+	//label = new TQLabel( i18n("No options here yet...:"), this );
 	///tl11->addWidget(label);;
 
-	//preview = new QWidget( this );
+	//preview = new TQWidget( this );
 	preview->setFixedSize( 220, 170 );
 	preview->setBackgroundColor( black );
 	preview->show();    // otherwise saver does not get correct size
@@ -85,11 +85,11 @@ KFountainSetup::KFountainSetup( QWidget *parent, const char *name )
 	//KButtonBox *bbox = new KButtonBox(this);
 	//bbox->addStretch(1);
 ;
-	connect( PushButton1, SIGNAL( clicked() ), SLOT( slotOkPressed() ) );
-	connect( PushButton2, SIGNAL( clicked() ), SLOT( reject() ) );
-	connect( PushButton3, SIGNAL( clicked() ), SLOT( aboutPressed() ) );
-	connect(  SpinBox1, SIGNAL( valueChanged(int)), saver, SLOT( updateSize(int)));
-	connect( RadioButton1, SIGNAL( toggled(bool)), saver, SLOT( doStars(bool)));
+	connect( PushButton1, TQT_SIGNAL( clicked() ), TQT_SLOT( slotOkPressed() ) );
+	connect( PushButton2, TQT_SIGNAL( clicked() ), TQT_SLOT( reject() ) );
+	connect( PushButton3, TQT_SIGNAL( clicked() ), TQT_SLOT( aboutPressed() ) );
+	connect(  SpinBox1, TQT_SIGNAL( valueChanged(int)), saver, TQT_SLOT( updateSize(int)));
+	connect( RadioButton1, TQT_SIGNAL( toggled(bool)), saver, TQT_SLOT( doStars(bool)));
 
 }
 
@@ -99,7 +99,7 @@ void KFountainSetup::readSettings()
 	KConfig config("kssfountainrc", false, false);
 
 	config.setGroup( "Settings" );
-	QString boolval = config.readEntry( "Stars", "false" );
+	TQString boolval = config.readEntry( "Stars", "false" );
 	if (boolval == "true") {
 		RadioButton1->setDown(true);
 		RadioButton1_2->setDown(false);
@@ -111,7 +111,7 @@ void KFountainSetup::readSettings()
 		}
 	}
 
-	QString starammount = config.readEntry("StarSize", "75");
+	TQString starammount = config.readEntry("StarSize", "75");
 	SpinBox1->setValue(starammount.toInt());
 
 }
@@ -131,7 +131,7 @@ void KFountainSetup::slotOkPressed()
 			config.writeEntry( "Stars", "false" );
 		}
 	}
-	config.writeEntry( "StarSize", QString::number(SpinBox1->value()) );
+	config.writeEntry( "StarSize", TQString::number(SpinBox1->value()) );
 
 	config.sync();
 
@@ -151,14 +151,14 @@ KFountainSaver::KFountainSaver( WId id ) : KScreenSaver( id )
 
 	kdDebug() << "Blank" << endl;
 
-	timer = new QTimer( this );
+	timer = new TQTimer( this );
     	timer->start( 25, TRUE );
 	setBackgroundColor( black );
         erase();
 	fountain = new Fountain();
 	embed(fountain);
 	fountain->show();
-	connect( timer, SIGNAL(timeout()), this, SLOT(blank()) );
+	connect( timer, TQT_SIGNAL(timeout()), this, TQT_SLOT(blank()) );
 }
 
 KFountainSaver::~KFountainSaver()
@@ -181,7 +181,7 @@ void KFountainSaver::blank()
 	timer->start( 25, TRUE );
 
 }
-Fountain::Fountain( QWidget * parent, const char * name) : QGLWidget (parent,name)
+Fountain::Fountain( TQWidget * parent, const char * name) : TQGLWidget (parent,name)
 {
 	rainbow=true;
 	slowdown=2.0f;
@@ -193,7 +193,7 @@ Fountain::Fountain( QWidget * parent, const char * name) : QGLWidget (parent,nam
 // This has to be here because you can't update the fountain until 'fountain' is created!
 	KConfig config("kssfountainrc", false, false);
 	config.setGroup( "Settings" );
-	QString boolval = config.readEntry( "Stars", "false" );
+	TQString boolval = config.readEntry( "Stars", "false" );
 	if (boolval == "true") {
 		setStars(true);
 	} else {
@@ -203,7 +203,7 @@ Fountain::Fountain( QWidget * parent, const char * name) : QGLWidget (parent,nam
 		}
 	}
 
-	QString starammount = config.readEntry("StarSize", "75");
+	TQString starammount = config.readEntry("StarSize", "75");
 	float passvalue = (starammount.toInt() / 100.0);
 	setSize(passvalue);
 
@@ -220,7 +220,7 @@ bool Fountain::loadParticle()
 {
     /* Status indicator */
     bool Status = TRUE;
-	QImage buf;
+	TQImage buf;
 
     kdDebug() << "Loading: " << locate("data", "kscreensaver/particle.png") << endl;
  if (buf.load( locate("data", "kscreensaver/particle.png") ) )
@@ -231,7 +231,7 @@ bool Fountain::loadParticle()
 	}
 	else
 	{
-		QImage dummy( 32, 32, 32 );
+		TQImage dummy( 32, 32, 32 );
   		dummy.fill( Qt::white.rgb() );
         	buf = dummy;
 		tex = convertToGLFormat( buf );

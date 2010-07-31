@@ -34,7 +34,7 @@ class MaximiseButton : public Button
 
    public:
 
-      MaximiseButton(QWidget *parent);
+      MaximiseButton(TQWidget *parent);
 
    public slots:
 
@@ -46,7 +46,7 @@ class MaximiseButton : public Button
 
    protected:
 
-      void mouseReleaseEvent(QMouseEvent *);
+      void mouseReleaseEvent(TQMouseEvent *);
 
    private:
 

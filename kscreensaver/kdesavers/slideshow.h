@@ -7,12 +7,12 @@
 #ifndef SLIDESHOW_H
 #define SLIDESHOW_H
 
-#include <qtimer.h>
-#include <qptrlist.h>
-#include <qstringlist.h>
-#include <qpixmap.h>
-#include <qpainter.h>
-#include <qimage.h>
+#include <tqtimer.h>
+#include <tqptrlist.h>
+#include <tqstringlist.h>
+#include <tqpixmap.h>
+#include <tqpainter.h>
+#include <tqimage.h>
 
 #include <kscreensaver.h>
 #include <kdialogbase.h>
@@ -45,7 +45,7 @@ protected:
   virtual void loadDirectory();
 
   /** Helper for loadDirectory() */
-  virtual void traverseDirectory(const QString &dirName);
+  virtual void traverseDirectory(const TQString &dirName);
 
   /** Load next image from list. If the file cannot be read
 	   it is automatically removed from the file list.
@@ -92,20 +92,20 @@ protected:
     int mXorg;
     int mYorg;
   };
-  QPtrList<mScreenGeo> mGeoList;
+  TQPtrList<mScreenGeo> mGeoList;
   bool mEffectRunning;
-  QTimer mTimer;
+  TQTimer mTimer;
   int mColorContext;
-  QStringList mFileList;
-  QStringList mRandomList;
+  TQStringList mFileList;
+  TQStringList mRandomList;
   int mFileIdx;
-  QImage mImage;
-  QPixmap mNextScreen;
+  TQImage mImage;
+  TQPixmap mNextScreen;
   EffectMethod* mEffectList;
   EffectMethod mEffect;
   int mNumEffects;
-  QPainter mPainter;
-  QString mImageName;
+  TQPainter mPainter;
+  TQString mImageName;
 
   // config settings:
   bool mShowRandom;
@@ -114,7 +114,7 @@ protected:
   bool mSubdirectory;
   bool mRandomPosition;
   int mDelay;
-  QString mDirectory;
+  TQString mDirectory;
 
   // values for state of various effects:
   int mx, my, mw, mh, mdx, mdy, mix, miy, mi, mj, mSubType;
@@ -129,7 +129,7 @@ class kSlideShowSetup : public KDialogBase
 {
   Q_OBJECT
 public:
-  kSlideShowSetup(QWidget *parent=NULL, const char *name=NULL);
+  kSlideShowSetup(TQWidget *parent=NULL, const char *name=NULL);
   ~kSlideShowSetup();
 
 protected:
@@ -139,7 +139,7 @@ protected slots:
   void slotOk();
   void slotHelp();
   void writeSettings();
-  void slotDirSelected(const QString &where);
+  void slotDirSelected(const TQString &where);
 
 private:
   kSlideShowSaver *mSaver;

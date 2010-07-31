@@ -28,7 +28,7 @@
 #define PHASESTYLE_H
 
 #include <kstyle.h>
-#include <qcolor.h>
+#include <tqcolor.h>
 
 class KPixmap;
 
@@ -43,14 +43,14 @@ public:
         GradientTypeCount
     };
 
-    GradientSet(const QColor &color, int size);
+    GradientSet(const TQColor &color, int size);
     ~GradientSet();
 
     KPixmap* gradient(bool horizontal, bool reverse);
 
 private:
     KPixmap *set[GradientTypeCount];
-    QColor color_;
+    TQColor color_;
     int size_;
 };
 
@@ -61,118 +61,118 @@ public:
     PhaseStyle();
     virtual ~PhaseStyle();
 
-    void polish(QApplication* app);
-    void polish(QWidget *widget);
-    void polish(QPalette &pal);
-    void unPolish(QWidget *widget);
+    void polish(TQApplication* app);
+    void polish(TQWidget *widget);
+    void polish(TQPalette &pal);
+    void unPolish(TQWidget *widget);
 
     void drawPrimitive(PrimitiveElement element,
-            QPainter *painter,
-            const QRect &rect,
-            const QColorGroup &group,
+            TQPainter *painter,
+            const TQRect &rect,
+            const TQColorGroup &group,
             SFlags flags = Style_Default,
-            const QStyleOption &option = QStyleOption::Default) const;
+            const TQStyleOption &option = TQStyleOption::Default) const;
 
     void drawKStylePrimitive(KStylePrimitive element,
-            QPainter *painter,
-            const QWidget *widget,
-            const QRect &rect,
-            const QColorGroup &group,
+            TQPainter *painter,
+            const TQWidget *widget,
+            const TQRect &rect,
+            const TQColorGroup &group,
             SFlags flags = Style_Default,
-            const QStyleOption &option = QStyleOption::Default) const;
+            const TQStyleOption &option = TQStyleOption::Default) const;
 
     void drawControl(ControlElement element,
-            QPainter *painter,
-            const QWidget *widget,
-            const QRect &rect,
-            const QColorGroup &group,
+            TQPainter *painter,
+            const TQWidget *widget,
+            const TQRect &rect,
+            const TQColorGroup &group,
             SFlags flags = Style_Default,
-            const QStyleOption &option = QStyleOption::Default) const;
+            const TQStyleOption &option = TQStyleOption::Default) const;
 
     void drawControlMask(ControlElement element,
-            QPainter *painter,
-            const QWidget *widget,
-            const QRect &rect,
-            const QStyleOption &option = QStyleOption::Default) const;
+            TQPainter *painter,
+            const TQWidget *widget,
+            const TQRect &rect,
+            const TQStyleOption &option = TQStyleOption::Default) const;
 
     void drawComplexControl(ComplexControl control,
-            QPainter *painter,
-            const QWidget *widget,
-            const QRect &rect,
-            const QColorGroup &group,
+            TQPainter *painter,
+            const TQWidget *widget,
+            const TQRect &rect,
+            const TQColorGroup &group,
             SFlags flags = Style_Default,
             SCFlags controls = SC_All,
             SCFlags active = SC_None,
-            const QStyleOption &option = QStyleOption::Default) const;
+            const TQStyleOption &option = TQStyleOption::Default) const;
 
     void drawComplexControlMask(ComplexControl control,
-            QPainter *painter,
-            const QWidget *widget,
-            const QRect &rect,
-            const QStyleOption &option = QStyleOption::Default) const;
+            TQPainter *painter,
+            const TQWidget *widget,
+            const TQRect &rect,
+            const TQStyleOption &option = TQStyleOption::Default) const;
 
     int pixelMetric(PixelMetric metric,
-            const QWidget *widget = 0) const;
+            const TQWidget *widget = 0) const;
 
-    QRect subRect(SubRect rect, const QWidget *widget) const;
+    TQRect subRect(SubRect rect, const TQWidget *widget) const;
 
-    QRect querySubControlMetrics(ComplexControl control,
-            const QWidget *widget,
+    TQRect querySubControlMetrics(ComplexControl control,
+            const TQWidget *widget,
 	    SubControl subcontrol,
-            const QStyleOption &option = QStyleOption::Default) const;
+            const TQStyleOption &option = TQStyleOption::Default) const;
 
-    QSize sizeFromContents(ContentsType contents,
-            const QWidget *widget,
-            const QSize &contentsize,
-            const QStyleOption& option = QStyleOption::Default) const;
+    TQSize sizeFromContents(ContentsType contents,
+            const TQWidget *widget,
+            const TQSize &contentsize,
+            const TQStyleOption& option = TQStyleOption::Default) const;
 
 private:
     PhaseStyle(const PhaseStyle &);
     PhaseStyle& operator=(const PhaseStyle &);
 
-    void drawPhaseBevel(QPainter *painter,
+    void drawPhaseBevel(TQPainter *painter,
             int x, int y, int w, int h,
-            const QColorGroup &group,
-	    const QColor &fill,
+            const TQColorGroup &group,
+	    const TQColor &fill,
             bool sunken=false,
             bool horizontal=true,
             bool reverse=false) const;
 
-    void drawPhaseButton(QPainter *painter,
+    void drawPhaseButton(TQPainter *painter,
             int x, int y, int w, int h,
-            const QColorGroup &group,
-	    const QColor &fill,
+            const TQColorGroup &group,
+	    const TQColor &fill,
             bool sunken=false) const;
 
-    void drawPhasePanel(QPainter *painter,
+    void drawPhasePanel(TQPainter *painter,
             int x, int y, int w, int h,
-            const QColorGroup &group,
+            const TQColorGroup &group,
             bool sunken=false,
-            const QBrush *fill=NULL) const;
+            const TQBrush *fill=NULL) const;
 
-    void drawPhaseTab(QPainter *painter,
+    void drawPhaseTab(TQPainter *painter,
             int x, int y, int w, int h,
-            const QColorGroup &group,
-            const QTabBar *bar,
-	    const QStyleOption &option,
+            const TQColorGroup &group,
+            const TQTabBar *bar,
+	    const TQStyleOption &option,
             const SFlags flags) const;
 
-    void drawPhaseGradient(QPainter *painter,
-            const QRect &rect,
-            QColor color,
+    void drawPhaseGradient(TQPainter *painter,
+            const TQRect &rect,
+            TQColor color,
             bool horizontal,
             int px=0, int py=0,
             int pw=-1, int ph=-1,
             bool reverse=false) const;
 
-    bool flatToolbar(const QToolBar *toolbar) const;
+    bool flatToolbar(const TQToolBar *toolbar) const;
 
-    bool eventFilter(QObject *object, QEvent *event);
+    bool eventFilter(TQObject *object, TQEvent *event);
 
 private:
-    QWidget *hover_;
-    QTab *hovertab_;
-    QMap<unsigned int, QIntDict<GradientSet> > * gradients;
+    TQWidget *hover_;
+    TQTab *hovertab_;
+    TQMap<unsigned int, TQIntDict<GradientSet> > * gradients;
     bool gradients_;
     bool highlights_;
     bool reverse_;

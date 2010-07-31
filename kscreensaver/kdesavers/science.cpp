@@ -12,13 +12,13 @@
 #include <sys/types.h>
 #include <time.h>
 
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qlabel.h>
-#include <qlistbox.h>
-#include <qcheckbox.h>
-#include <qslider.h>
-#include <qlayout.h>
+#include <tqpainter.h>
+#include <tqpixmap.h>
+#include <tqlabel.h>
+#include <tqlistbox.h>
+#include <tqcheckbox.h>
+#include <tqslider.h>
+#include <tqlayout.h>
 
 #include <kapplication.h>
 #include <kglobal.h>
@@ -63,14 +63,14 @@ extern "C"
         return new KScienceSaver( id );
     }
 
-    KDE_EXPORT QDialog *kss_setup()
+    KDE_EXPORT TQDialog *kss_setup()
     {
         return new KScienceSetup();
     }
 }
 
 static struct {
-	QString name;
+	TQString name;
 	bool inverseEnable;
 	} modeInfo[MAX_MODES];
 
@@ -101,10 +101,10 @@ void initModeInfo()
 // KPreviewWidget
 //
 
-KPreviewWidget::KPreviewWidget( QWidget *parent ) :
-                QWidget ( parent ) { }
+KPreviewWidget::KPreviewWidget( TQWidget *parent ) :
+                TQWidget ( parent ) { }
 
-void KPreviewWidget::paintEvent( QPaintEvent *event )
+void KPreviewWidget::paintEvent( TQPaintEvent *event )
 {
 	if( saver != 0 )
 		saver->do_refresh( event->rect() );
@@ -146,10 +146,10 @@ KScienceSaver::KScienceSaver( WId id, bool s, bool gP )
 	{
 		grabRootWindow();
 		initialize();
-		do_refresh( QRect ( 0, 0, width(), height() ) );
+		do_refresh( TQRect ( 0, 0, width(), height() ) );
 	}
 
-	connect( &timer, SIGNAL( timeout() ), SLOT( slotTimeout() ) );
+	connect( &timer, TQT_SIGNAL( timeout() ), TQT_SLOT( slotTimeout() ) );
 	timer.start( SCI_MAX_SPEED - speed[mode] );
 }
 
@@ -452,12 +452,12 @@ void KScienceSaver::setMode( int m )
 	int dm = diam;
 	initLens();
 	if( hideBG[old] ^ hideBG[m] )
-		do_refresh( QRect( 0, 0, width(), height() ) );
+		do_refresh( TQRect( 0, 0, width(), height() ) );
 	else
 		if( diam < dm )
 		{
-			do_refresh( QRect( (int) x+diam, (int) y,      dm-diam, diam    ) );
-			do_refresh( QRect( (int) x,      (int) y+diam, dm,      dm-diam ) );
+			do_refresh( TQRect( (int) x+diam, (int) y,      dm-diam, diam    ) );
+			do_refresh( TQRect( (int) x,      (int) y+diam, dm,      dm-diam ) );
 		}
 
 	timer.start( SCI_MAX_SPEED - speed[mode] );
@@ -498,8 +498,8 @@ void KScienceSaver::setSize( int s )
 	initLens();
 	if( diam < dm )
 	{
-		do_refresh( QRect( (int) x+diam, (int) y,      dm-diam, diam    ) );
-		do_refresh( QRect( (int) x,      (int) y+diam, dm,      dm-diam ) );
+		do_refresh( TQRect( (int) x+diam, (int) y,      dm-diam, diam    ) );
+		do_refresh( TQRect( (int) x,      (int) y+diam, dm,      dm-diam ) );
 	}
 
 	timer.start( SCI_MAX_SPEED - speed[mode] );
@@ -553,7 +553,7 @@ void KScienceSaver::setHideBG( bool b )
 	releaseLens();
 	hideBG[mode] = b;
 	initLens();
-	do_refresh( QRect( 0, 0, width(), height() ) );
+	do_refresh( TQRect( 0, 0, width(), height() ) );
 
 	timer.start( SCI_MAX_SPEED - speed[mode]);
 }
@@ -561,7 +561,7 @@ void KScienceSaver::setHideBG( bool b )
 void KScienceSaver::readSettings()
 {
     KConfig *config = KGlobal::config();
-        QString sMode;
+        TQString sMode;
 
 	config->setGroup( "Settings" );
 	mode = config->readNumEntry( "ModeNr", SCI_DEFAULT_MODE );
@@ -584,7 +584,7 @@ void KScienceSaver::readSettings()
 	vy = copysign( moveY[mode], vy );
 }
 
-void KScienceSaver::do_refresh( const QRect & rect )
+void KScienceSaver::do_refresh( const TQRect & rect )
 {
 	if( grabPixmap )
 		return;
@@ -609,13 +609,13 @@ void KScienceSaver::do_refresh( const QRect & rect )
 void KScienceSaver::slotTimeout()
 {
 	if( grabPixmap ) {
-		if( !QWidget::find(winId())->isActiveWindow() )
+		if( !TQWidget::find(winId())->isActiveWindow() )
 			return;
 		grabPreviewWidget();
 		grabPixmap = false;
 		initialize();
 		if( hideBG[mode] )
-			do_refresh( QRect ( 0, 0, width(), height() ) );
+			do_refresh( TQRect ( 0, 0, width(), height() ) );
 	}
 
 	signed int oldx = xcoord, oldy = ycoord;
@@ -724,7 +724,7 @@ void KScienceSaver::grabRootWindow()
 
 void KScienceSaver::grabPreviewWidget()
 {
-	myAssert( QWidget::find(winId())->isActiveWindow(), "can't grab preview widget: dialog not active()" );
+	myAssert( TQWidget::find(winId())->isActiveWindow(), "can't grab preview widget: dialog not active()" );
 
 	if( d->xRootWin )
 		XDestroyImage( d->xRootWin );
@@ -846,124 +846,124 @@ void KScienceSaver::applyLens32bpp(int xs, int ys, int xd, int yd, int w, int h)
 
 //-----------------------------------------------------------------------------
 
-KScienceSetup::KScienceSetup(  QWidget *parent, const char *name )
+KScienceSetup::KScienceSetup(  TQWidget *parent, const char *name )
 	: KDialogBase( parent, name, true, i18n( "Setup Science Screen Saver" ),
 	  Ok|Cancel|Help, Ok, true ), saver( 0 )
 {
 	readSettings();
 	initModeInfo();
 
-	QWidget *main = makeMainWidget();
+	TQWidget *main = makeMainWidget();
 
-	QHBoxLayout *lt  = new QHBoxLayout( main, 0, spacingHint());
-	QVBoxLayout *ltm = new QVBoxLayout;
+	TQHBoxLayout *lt  = new TQHBoxLayout( main, 0, spacingHint());
+	TQVBoxLayout *ltm = new QVBoxLayout;
 	lt->addLayout( ltm );
-	QVBoxLayout *ltc = new QVBoxLayout;
+	TQVBoxLayout *ltc = new QVBoxLayout;
 	lt->addLayout( ltc );
 
 	// mode
-	QLabel *label = new QLabel( i18n("Mode:"), main );
+	TQLabel *label = new TQLabel( i18n("Mode:"), main );
 	ltm->addWidget( label );
 
-	QListBox *c = new QListBox( main );
+	TQListBox *c = new TQListBox( main );
 	for(int i = 0; i<MAX_MODES; i++)
 		c->insertItem( modeInfo[i].name );
 	c->setCurrentItem( mode );
 	c->setFixedHeight( 5 * c->fontMetrics().height() );
-	connect( c, SIGNAL( highlighted( int ) ), SLOT( slotMode( int ) ) );
+	connect( c, TQT_SIGNAL( highlighted( int ) ), TQT_SLOT( slotMode( int ) ) );
 	ltm->addWidget( c );
 
 	// inverse
-	QCheckBox *cbox = checkInverse = new QCheckBox( i18n("Inverse"), main );
+	TQCheckBox *cbox = checkInverse = new TQCheckBox( i18n("Inverse"), main );
 	cbox->setEnabled( modeInfo[mode].inverseEnable );
 	cbox->setChecked( inverse[mode] );
-	connect( cbox, SIGNAL( clicked() ), SLOT( slotInverse() ) );
+	connect( cbox, TQT_SIGNAL( clicked() ), TQT_SLOT( slotInverse() ) );
 	ltm->addWidget( cbox );
 
 	// gravity
-	cbox = checkGravity = new QCheckBox( i18n("Gravity"), main );
+	cbox = checkGravity = new TQCheckBox( i18n("Gravity"), main );
 	cbox->setChecked( gravity[mode] );
-	connect( cbox, SIGNAL( clicked() ), SLOT( slotGravity() ) );
+	connect( cbox, TQT_SIGNAL( clicked() ), TQT_SLOT( slotGravity() ) );
 	ltm->addWidget( cbox );
 
 	// hide background
-	cbox = checkHideBG = new QCheckBox( i18n("Hide background"), main );
+	cbox = checkHideBG = new TQCheckBox( i18n("Hide background"), main );
 	cbox->setChecked( hideBG[mode] );
-	connect( cbox, SIGNAL( clicked() ), SLOT( slotHideBG() ) );
+	connect( cbox, TQT_SIGNAL( clicked() ), TQT_SLOT( slotHideBG() ) );
 	ltm->addWidget( cbox );
 	ltm->addStretch();
 
 	// size
-	label = new QLabel( i18n("Size:"), main );
+	label = new TQLabel( i18n("Size:"), main );
 	ltc->addWidget( label );
 
-	slideSize = new QSlider(9, 50, 5, size[mode], QSlider::Horizontal,
+	slideSize = new TQSlider(9, 50, 5, size[mode], TQSlider::Horizontal,
                                 main );
 	slideSize->setMinimumSize( 90, 20 );
-    slideSize->setTickmarks(QSlider::Below);
+    slideSize->setTickmarks(TQSlider::Below);
     slideSize->setTickInterval(5);
-	connect( slideSize, SIGNAL( sliderMoved( int ) ),
-		SLOT( slotSize( int ) ) );
-	connect( slideSize, SIGNAL( sliderPressed() ),
-		SLOT( slotSliderPressed() ) );
-	connect( slideSize, SIGNAL( sliderReleased() ),
-		SLOT( slotSliderReleased() ) );
+	connect( slideSize, TQT_SIGNAL( sliderMoved( int ) ),
+		TQT_SLOT( slotSize( int ) ) );
+	connect( slideSize, TQT_SIGNAL( sliderPressed() ),
+		TQT_SLOT( slotSliderPressed() ) );
+	connect( slideSize, TQT_SIGNAL( sliderReleased() ),
+		TQT_SLOT( slotSliderReleased() ) );
 
 	ltc->addWidget( slideSize );
 
 	// intensity
-	label = new QLabel( i18n("Intensity:"), main );
+	label = new TQLabel( i18n("Intensity:"), main );
 	ltc->addWidget( label );
 
-	slideIntensity = new QSlider(0, 10, 1, intensity[mode],
-                                     QSlider::Horizontal, main );
+	slideIntensity = new TQSlider(0, 10, 1, intensity[mode],
+                                     TQSlider::Horizontal, main );
 	slideIntensity->setMinimumSize( 90, 20 );
-    slideIntensity->setTickmarks(QSlider::Below);
+    slideIntensity->setTickmarks(TQSlider::Below);
     slideIntensity->setTickInterval(1);
-	connect( slideIntensity, SIGNAL( sliderMoved( int ) ),
-		SLOT( slotIntensity( int )) );
-	connect( slideIntensity, SIGNAL( sliderPressed() ),
-		SLOT( slotSliderPressed() ) );
-	connect( slideIntensity, SIGNAL( sliderReleased() ),
-		SLOT( slotSliderReleased() ) );
+	connect( slideIntensity, TQT_SIGNAL( sliderMoved( int ) ),
+		TQT_SLOT( slotIntensity( int )) );
+	connect( slideIntensity, TQT_SIGNAL( sliderPressed() ),
+		TQT_SLOT( slotSliderPressed() ) );
+	connect( slideIntensity, TQT_SIGNAL( sliderReleased() ),
+		TQT_SLOT( slotSliderReleased() ) );
 	ltc->addWidget( slideIntensity );
 
 	// speed
-	label = new QLabel( i18n("Speed:"), main );
+	label = new TQLabel( i18n("Speed:"), main );
 	ltc->addWidget( label );
 
-	slideSpeed = new QSlider(0, SCI_MAX_SPEED, 10, speed[mode],
-                             QSlider::Horizontal, main );
+	slideSpeed = new TQSlider(0, SCI_MAX_SPEED, 10, speed[mode],
+                             TQSlider::Horizontal, main );
 	slideSpeed->setMinimumSize( 90, 20 );
-    slideSpeed->setTickmarks(QSlider::Below);
+    slideSpeed->setTickmarks(TQSlider::Below);
     slideSpeed->setTickInterval(10);
-	connect( slideSpeed, SIGNAL( sliderMoved( int ) ),
-		SLOT( slotSpeed( int ) ) );
+	connect( slideSpeed, TQT_SIGNAL( sliderMoved( int ) ),
+		TQT_SLOT( slotSpeed( int ) ) );
 	ltc->addWidget( slideSpeed );
 
 	// motion
-	label = new QLabel( i18n("Motion:"), main );
+	label = new TQLabel( i18n("Motion:"), main );
 	ltc->addWidget( label );
 
-	QHBoxLayout *ltcm = new QHBoxLayout;
+	TQHBoxLayout *ltcm = new QHBoxLayout;
 	ltc->addLayout( ltcm );
 
-	slideMoveX = new QSlider(0, SCI_MAX_MOVE, 5, moveX[mode],
-                                 QSlider::Horizontal, main );
+	slideMoveX = new TQSlider(0, SCI_MAX_MOVE, 5, moveX[mode],
+                                 TQSlider::Horizontal, main );
 	slideMoveX->setMinimumSize( 40, 20 );
-    slideMoveX->setTickmarks(QSlider::Below);
+    slideMoveX->setTickmarks(TQSlider::Below);
     slideMoveX->setTickInterval(5);
-	connect( slideMoveX, SIGNAL( sliderMoved( int ) ),
-		SLOT( slotMoveX( int ) ) );
+	connect( slideMoveX, TQT_SIGNAL( sliderMoved( int ) ),
+		TQT_SLOT( slotMoveX( int ) ) );
 	ltcm->addWidget( slideMoveX );
 
-	slideMoveY = new QSlider(0, SCI_MAX_MOVE, 5, moveY[mode],
-                                QSlider::Horizontal, main );
+	slideMoveY = new TQSlider(0, SCI_MAX_MOVE, 5, moveY[mode],
+                                TQSlider::Horizontal, main );
 	slideMoveY->setMinimumSize( 40, 20 );
-    slideMoveY->setTickmarks(QSlider::Below);
+    slideMoveY->setTickmarks(TQSlider::Below);
     slideMoveY->setTickInterval(5);
-	connect( slideMoveY, SIGNAL( sliderMoved( int ) ),
-		SLOT( slotMoveY( int ) ) );
+	connect( slideMoveY, TQT_SIGNAL( sliderMoved( int ) ),
+		TQT_SLOT( slotMoveY( int ) ) );
 	ltcm->addWidget( slideMoveY );
 
 	ltc->addStretch();
@@ -971,7 +971,7 @@ KScienceSetup::KScienceSetup(  QWidget *parent, const char *name )
 	// preview
 	preview = new KPreviewWidget( main );
 	preview->setFixedSize( 220, 170 );
-	QPixmap p( locate("data", "kscreensaver/pics/kscience.png") );
+	TQPixmap p( locate("data", "kscreensaver/pics/kscience.png") );
 	if( p.isNull() )
 		preview->setBackgroundColor( black );
 	else
@@ -1009,7 +1009,7 @@ void KScienceSetup::updateSettings()
 void KScienceSetup::readSettings()
 {
     KConfig *config = KGlobal::config();
-        QString sMode;
+        TQString sMode;
 
 	config->setGroup( "Settings" );
 	mode = config->readNumEntry( "ModeNr", SCI_DEFAULT_MODE );
@@ -1119,7 +1119,7 @@ void KScienceSetup::slotSliderReleased()
 void KScienceSetup::slotOk()
 {
     KConfig *config = KGlobal::config();
-	QString sSize, sSpeed, sIntensity, sMode;
+	TQString sSize, sSpeed, sIntensity, sMode;
 
 	config->setGroup( "Settings" );
 	config->writeEntry( "ModeNr", mode );
@@ -1145,7 +1145,7 @@ void KScienceSetup::slotOk()
 
 void KScienceSetup::slotHelp()
 {
-	QString about = i18n("Science Version 0.26.5\n\nWritten by Rene Beutler (1998)\nrbeutler@g26.ethz.ch");
+	TQString about = i18n("Science Version 0.26.5\n\nWritten by Rene Beutler (1998)\nrbeutler@g26.ethz.ch");
 	KMessageBox::about(this,
 	                      about);
 }

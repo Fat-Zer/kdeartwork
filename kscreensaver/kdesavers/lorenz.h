@@ -11,8 +11,8 @@
 #ifndef __LORENZKSCRN_H__
 #define __LORENZKSCRN_H__
 
-#include <qtimer.h>
-#include <qcolor.h>
+#include <tqtimer.h>
+#include <tqcolor.h>
 #include <kscreensaver.h>
 #include <kdialogbase.h>
 
@@ -38,7 +38,7 @@ protected slots:
     void drawOnce();
 
 protected:
-    QTimer timer;
+    TQTimer timer;
     int colorContext;
 
 private:
@@ -57,7 +57,7 @@ class KLorenzSetup : public KDialogBase
 {
     Q_OBJECT
 public:
-    KLorenzSetup(QWidget *parent = 0, const char *name = 0 );
+    KLorenzSetup(TQWidget *parent = 0, const char *name = 0 );
     ~KLorenzSetup();
 
 protected:
@@ -76,8 +76,8 @@ private slots:
     void slotDefault();
 
 private:
-    QWidget *preview;
-    QSlider *sps, *eps, *zrs, *yrs, *xrs, *crs;
+    TQWidget *preview;
+    TQSlider *sps, *eps, *zrs, *yrs, *xrs, *crs;
     KLorenzSaver *saver;
     int speed, epoch, zrot, yrot, xrot, crate;
 };

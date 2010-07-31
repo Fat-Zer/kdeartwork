@@ -34,7 +34,7 @@ class StickyButton : public Button
 
    public:
 
-      StickyButton(QWidget *parent);
+      StickyButton(TQWidget *parent);
 
    public slots:
 
@@ -46,7 +46,7 @@ class StickyButton : public Button
 
    protected:
 
-      void mouseReleaseEvent(QMouseEvent *);
+      void mouseReleaseEvent(TQMouseEvent *);
 
    private:
 

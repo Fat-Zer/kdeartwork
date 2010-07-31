@@ -26,30 +26,30 @@
 #include <kpixmap.h>
 #include <kpixmapeffect.h>
 
-#include <qapplication.h>
-#include <qintdict.h>
-#include <qpainter.h>
-#include <qpointarray.h>
-#include <qsettings.h>
-#include <qstyleplugin.h>
+#include <tqapplication.h>
+#include <tqintdict.h>
+#include <tqpainter.h>
+#include <tqpointarray.h>
+#include <tqsettings.h>
+#include <tqstyleplugin.h>
 
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <qheader.h>
-#include <qmainwindow.h>
-#include <qmenubar.h>
-#include <qpopupmenu.h>
-#include <qprogressbar.h>
-#include <qpushbutton.h>
-#include <qradiobutton.h>
-#include <qscrollbar.h>
-#include <qslider.h>
-#include <qsplitter.h>
-#include <qtabbar.h>
-#include <qtabwidget.h>
-#include <qtoolbar.h>
-#include <qtoolbox.h>
-#include <qtoolbutton.h>
+#include <tqcheckbox.h>
+#include <tqcombobox.h>
+#include <tqheader.h>
+#include <tqmainwindow.h>
+#include <tqmenubar.h>
+#include <tqpopupmenu.h>
+#include <tqprogressbar.h>
+#include <tqpushbutton.h>
+#include <tqradiobutton.h>
+#include <tqscrollbar.h>
+#include <tqslider.h>
+#include <tqsplitter.h>
+#include <tqtabbar.h>
+#include <tqtabwidget.h>
+#include <tqtoolbar.h>
+#include <tqtoolbox.h>
+#include <tqtoolbutton.h>
 
 #include "phasestyle.h"
 #include "bitmaps.h"
@@ -83,9 +83,9 @@ static unsigned contrast = 110;
 PhaseStyle::PhaseStyle()
     : KStyle(FilledFrameWorkaround | AllowMenuTransparency,
              ThreeButtonScrollBar), hover_(0), hovertab_(0),
-      gradients_(QPixmap::defaultDepth() > 8), kicker_(false)
+      gradients_(TQPixmap::defaultDepth() > 8), kicker_(false)
 {
-    QSettings settings;
+    TQSettings settings;
     if (gradients_) { // don't bother setting if already false
         gradients_ =
             settings.readBoolEntry("/phasestyle/Settings/gradients", true);
@@ -94,31 +94,31 @@ PhaseStyle::PhaseStyle()
     highlights_ =
         settings.readBoolEntry("/phasestyle/Settings/highlights", true);
 
-    gradients = new QMap<unsigned int, QIntDict<GradientSet> >;
+    gradients = new TQMap<unsigned int, TQIntDict<GradientSet> >;
 
-    reverse_ = QApplication::reverseLayout();
+    reverse_ = TQApplication::reverseLayout();
 
     // create bitmaps
-    uarrow = QBitmap(6, 6, uarrow_bits, true);
+    uarrow = TQBitmap(6, 6, uarrow_bits, true);
     uarrow.setMask(uarrow);
-    darrow = QBitmap(6, 6, darrow_bits, true);
+    darrow = TQBitmap(6, 6, darrow_bits, true);
     darrow.setMask(darrow);
-    larrow = QBitmap(6, 6, larrow_bits, true);
+    larrow = TQBitmap(6, 6, larrow_bits, true);
     larrow.setMask(larrow);
-    rarrow = QBitmap(6, 6, rarrow_bits, true);
+    rarrow = TQBitmap(6, 6, rarrow_bits, true);
     rarrow.setMask(rarrow);
-    bplus = QBitmap(6, 6, bplus_bits, true);
+    bplus = TQBitmap(6, 6, bplus_bits, true);
     bplus.setMask(bplus);
-    bminus = QBitmap(6, 6, bminus_bits, true);
+    bminus = TQBitmap(6, 6, bminus_bits, true);
     bminus.setMask(bminus);
-    bcheck = QBitmap(9, 9, bcheck_bits, true);
+    bcheck = TQBitmap(9, 9, bcheck_bits, true);
     bcheck.setMask(bcheck);
-    dexpand = QBitmap(9, 9, dexpand_bits, true);
+    dexpand = TQBitmap(9, 9, dexpand_bits, true);
     dexpand.setMask(dexpand);
-    rexpand = QBitmap(9, 9, rexpand_bits, true);
+    rexpand = TQBitmap(9, 9, rexpand_bits, true);
     rexpand.setMask(rexpand);
-    doodad_mid = QBitmap(4, 4, doodad_mid_bits, true);
-    doodad_light = QBitmap(4, 4, doodad_light_bits, true);
+    doodad_mid = TQBitmap(4, 4, doodad_mid_bits, true);
+    doodad_light = TQBitmap(4, 4, doodad_light_bits, true);
 }
 
 PhaseStyle::~PhaseStyle() 
@@ -136,7 +136,7 @@ PhaseStyle::~PhaseStyle()
 // --------
 // Initialize application specific
 
-void PhaseStyle::polish(QApplication* app)
+void PhaseStyle::polish(TQApplication* app)
 {
     if (!qstrcmp(app->argv()[0], "kicker")) kicker_ = true;
 }
@@ -146,28 +146,28 @@ void PhaseStyle::polish(QApplication* app)
 // --------
 // Initialize the appearance of a widget
 
-void PhaseStyle::polish(QWidget *widget)
+void PhaseStyle::polish(TQWidget *widget)
 {
-    if (::qt_cast<QMenuBar*>(widget) ||
-        ::qt_cast<QPopupMenu*>(widget)) {
+    if (::qt_cast<TQMenuBar*>(widget) ||
+        ::qt_cast<TQPopupMenu*>(widget)) {
         // anti-flicker optimization
         widget->setBackgroundMode(NoBackground);
-    } else if (::qt_cast<QFrame*>(widget) ||
+    } else if (::qt_cast<TQFrame*>(widget) ||
                widget->inherits(QTOOLBAREXTENSION) ||
                (!qstrcmp(widget->name(), KTOOLBARWIDGET))) {
         // needs special handling on paint events
         widget->installEventFilter(this);
     } else if (highlights_ &&
-               (::qt_cast<QPushButton*>(widget) ||
-                ::qt_cast<QComboBox*>(widget) ||
-                ::qt_cast<QSpinWidget*>(widget) ||
-                ::qt_cast<QCheckBox*>(widget) ||
-                ::qt_cast<QRadioButton*>(widget) ||
-                ::qt_cast<QSlider*>(widget) ||
+               (::qt_cast<TQPushButton*>(widget) ||
+                ::qt_cast<TQComboBox*>(widget) ||
+                ::qt_cast<TQSpinWidget*>(widget) ||
+                ::qt_cast<TQCheckBox*>(widget) ||
+                ::qt_cast<TQRadioButton*>(widget) ||
+                ::qt_cast<TQSlider*>(widget) ||
                 widget->inherits(QSPLITTERHANDLE))) {
         // mouseover highlighting
         widget->installEventFilter(this);
-    } else if (highlights_ && ::qt_cast<QTabBar*>(widget)) {
+    } else if (highlights_ && ::qt_cast<TQTabBar*>(widget)) {
         // highlighting needing mouse tracking
         widget->setMouseTracking(true);
         widget->installEventFilter(this);
@@ -181,22 +181,22 @@ void PhaseStyle::polish(QWidget *widget)
 // --------
 // Initialize the palette
 
-void PhaseStyle::polish(QPalette &pal)
+void PhaseStyle::polish(TQPalette &pal)
 {
     // clear out gradients on a color change
     gradients->clear();
 
     // lighten up a bit, so the look is not so "crisp"
-    if (QPixmap::defaultDepth() > 8) { // but not on low color displays
-        pal.setColor(QPalette::Disabled, QColorGroup::Dark,
-            pal.color(QPalette::Disabled, QColorGroup::Dark).light(contrast));
-        pal.setColor(QPalette::Active, QColorGroup::Dark,
-            pal.color(QPalette::Active, QColorGroup::Dark).light(contrast));
-        pal.setColor(QPalette::Inactive, QColorGroup::Dark,
-            pal.color(QPalette::Inactive, QColorGroup::Dark).light(contrast));
+    if (TQPixmap::defaultDepth() > 8) { // but not on low color displays
+        pal.setColor(TQPalette::Disabled, TQColorGroup::Dark,
+            pal.color(TQPalette::Disabled, TQColorGroup::Dark).light(contrast));
+        pal.setColor(TQPalette::Active, TQColorGroup::Dark,
+            pal.color(TQPalette::Active, TQColorGroup::Dark).light(contrast));
+        pal.setColor(TQPalette::Inactive, TQColorGroup::Dark,
+            pal.color(TQPalette::Inactive, TQColorGroup::Dark).light(contrast));
     }
 
-    QStyle::polish(pal);
+    TQStyle::polish(pal);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -204,25 +204,25 @@ void PhaseStyle::polish(QPalette &pal)
 // ----------
 // Undo the initialization of a widget's appearance
 
-void PhaseStyle::unPolish(QWidget *widget)
+void PhaseStyle::unPolish(TQWidget *widget)
 {
-    if (::qt_cast<QMenuBar*>(widget) ||
-        ::qt_cast<QPopupMenu*>(widget)) {
+    if (::qt_cast<TQMenuBar*>(widget) ||
+        ::qt_cast<TQPopupMenu*>(widget)) {
         widget->setBackgroundMode(PaletteBackground);
-    } else if (::qt_cast<QFrame*>(widget) ||
+    } else if (::qt_cast<TQFrame*>(widget) ||
                widget->inherits(QTOOLBAREXTENSION) ||
                (!qstrcmp(widget->name(), KTOOLBARWIDGET))) {
         widget->removeEventFilter(this);
     } else if (highlights_ && // highlighting
-               (::qt_cast<QPushButton*>(widget) ||
-                ::qt_cast<QComboBox*>(widget) ||
-                ::qt_cast<QSpinWidget*>(widget) ||
-                ::qt_cast<QCheckBox*>(widget) ||
-                ::qt_cast<QRadioButton*>(widget) ||
-                ::qt_cast<QSlider*>(widget) ||
+               (::qt_cast<TQPushButton*>(widget) ||
+                ::qt_cast<TQComboBox*>(widget) ||
+                ::qt_cast<TQSpinWidget*>(widget) ||
+                ::qt_cast<TQCheckBox*>(widget) ||
+                ::qt_cast<TQRadioButton*>(widget) ||
+                ::qt_cast<TQSlider*>(widget) ||
                 widget->inherits(QSPLITTERHANDLE))) {
         widget->removeEventFilter(this);
-    } else if (highlights_ && ::qt_cast<QTabBar*>(widget)) {
+    } else if (highlights_ && ::qt_cast<TQTabBar*>(widget)) {
         widget->setMouseTracking(false);
         widget->removeEventFilter(this);
     }
@@ -239,9 +239,9 @@ void PhaseStyle::unPolish(QWidget *widget)
 // ------------------
 // Draw gradient
 
-void PhaseStyle::drawPhaseGradient(QPainter *painter,
-                                   const QRect &rect,
-                                   QColor color,
+void PhaseStyle::drawPhaseGradient(TQPainter *painter,
+                                   const TQRect &rect,
+                                   TQColor color,
                                    bool horizontal,
                                    int px, int py,
                                    int pw, int ph,
@@ -270,7 +270,7 @@ void PhaseStyle::drawPhaseGradient(QPainter *painter,
             (*gradients)[color.rgb()].insert(size, set);
         }
         painter->drawTiledPixmap(rect, *set->gradient(horizontal, reverse),
-                                 QPoint(px, py));
+                                 TQPoint(px, py));
     }
 }
 
@@ -279,10 +279,10 @@ void PhaseStyle::drawPhaseGradient(QPainter *painter,
 // ----------------
 // Draw the basic Phase bevel
 
-void PhaseStyle::drawPhaseBevel(QPainter *painter,
+void PhaseStyle::drawPhaseBevel(TQPainter *painter,
 				int x, int y, int w, int h,
-				const QColorGroup &group,
-				const QColor &fill,
+				const TQColorGroup &group,
+				const TQColor &fill,
 				bool sunken,
 				bool horizontal,
 				bool reverse) const
@@ -310,7 +310,7 @@ void PhaseStyle::drawPhaseBevel(QPainter *painter,
         // sunken bevels don't get gradients
         painter->fillRect(x+2, y+2, w-4, h-4, fill);
     } else {
-        drawPhaseGradient(painter, QRect(x+2, y+2, w-4, h-4), fill,
+        drawPhaseGradient(painter, TQRect(x+2, y+2, w-4, h-4), fill,
                           horizontal, 0, 0, w-4, h-4, reverse);
     }
     painter->restore();
@@ -321,10 +321,10 @@ void PhaseStyle::drawPhaseBevel(QPainter *painter,
 // ----------------
 // Draw the basic Phase button
 
-void PhaseStyle::drawPhaseButton(QPainter *painter,
+void PhaseStyle::drawPhaseButton(TQPainter *painter,
                                  int x, int y, int w, int h,
-                                 const QColorGroup &group,
-                                 const QColor &fill,
+                                 const TQColorGroup &group,
+                                 const TQColor &fill,
                                  bool sunken) const
 {
     int x2 = x + w - 1;
@@ -351,11 +351,11 @@ void PhaseStyle::drawPhaseButton(QPainter *painter,
 // ----------------
 // Draw the basic Phase panel
 
-void PhaseStyle::drawPhasePanel(QPainter *painter,
+void PhaseStyle::drawPhasePanel(TQPainter *painter,
                                 int x, int y, int w, int h,
-                                const QColorGroup &group,
+                                const TQColorGroup &group,
                                 bool sunken,
-                                const QBrush *fill) const
+                                const TQBrush *fill) const
 {
     int x2 = x + w - 1;
     int y2 = y + h - 1;
@@ -398,14 +398,14 @@ void PhaseStyle::drawPhasePanel(QPainter *painter,
 // -------------
 // Draw a Phase style tab
 
-void PhaseStyle::drawPhaseTab(QPainter *painter,
+void PhaseStyle::drawPhaseTab(TQPainter *painter,
                               int x, int y, int w, int h,
-                              const QColorGroup &group,
-                              const QTabBar *bar,
-                              const QStyleOption &option,
+                              const TQColorGroup &group,
+                              const TQTabBar *bar,
+                              const TQStyleOption &option,
                               SFlags flags) const
 {
-    const QTabWidget *tabwidget;
+    const TQTabWidget *tabwidget;
     bool selected = (flags & Style_Selected);
     bool edge; // tab is at edge of bar
     const int x2 = x + w - 1;
@@ -421,11 +421,11 @@ void PhaseStyle::drawPhaseTab(QPainter *painter,
 	edge = false;
     }
 
-    switch (QTabBar::Shape(bar->shape())) {
-      case QTabBar::RoundedAbove:
-      case QTabBar::TriangularAbove: {
+    switch (TQTabBar::Shape(bar->shape())) {
+      case TQTabBar::RoundedAbove:
+      case TQTabBar::TriangularAbove: {
 	  // is there a corner widget?
-	  tabwidget = ::qt_cast<QTabWidget*>(bar->parent());
+	  tabwidget = ::qt_cast<TQTabWidget*>(bar->parent());
 	  if (edge && tabwidget
 	      && tabwidget->cornerWidget(reverse_ ?
 					 Qt::TopRight : Qt::TopLeft)) {
@@ -438,9 +438,9 @@ void PhaseStyle::drawPhaseTab(QPainter *painter,
           if (selected) {
               painter->setPen(Qt::NoPen);
               painter->fillRect(x+1, y+1, w-1, h-1,
-                                group.brush(QColorGroup::Background));
+                                group.brush(TQColorGroup::Background));
           } else {
-              drawPhaseGradient(painter, QRect(x+1, y+1, w-1, h-2),
+              drawPhaseGradient(painter, TQRect(x+1, y+1, w-1, h-2),
                                 (flags & Style_MouseOver)
                                 ? group.background()
                                 : group.background().dark(contrast),
@@ -501,10 +501,10 @@ void PhaseStyle::drawPhaseTab(QPainter *painter,
           break;
       }
 
-      case QTabBar::RoundedBelow:
-      case QTabBar::TriangularBelow: {
+      case TQTabBar::RoundedBelow:
+      case TQTabBar::TriangularBelow: {
 	  // is there a corner widget?
-	  tabwidget = ::qt_cast<QTabWidget*>(bar->parent());
+	  tabwidget = ::qt_cast<TQTabWidget*>(bar->parent());
 	  if (edge && tabwidget
 	      && tabwidget->cornerWidget(reverse_ ?
 					 Qt::BottomRight : Qt::BottomLeft)) {
@@ -572,11 +572,11 @@ void PhaseStyle::drawPhaseTab(QPainter *painter,
 // Draw the primitive element
 
 void PhaseStyle::drawPrimitive(PrimitiveElement element,
-                               QPainter *painter,
-                               const QRect &rect,
-                               const QColorGroup &group,
+                               TQPainter *painter,
+                               const TQRect &rect,
+                               const TQColorGroup &group,
                                SFlags flags,
-                               const QStyleOption &option) const
+                               const TQStyleOption &option) const
 {
     // common locals
     bool down      = flags & Style_Down;
@@ -586,8 +586,8 @@ void PhaseStyle::drawPrimitive(PrimitiveElement element,
     bool horiz     = flags & Style_Horizontal;
     bool mouseover = highlights_ && (flags & Style_MouseOver);
     int x, y, w, h, x2, y2, n, cx, cy;
-    QPointArray parray;
-    QWidget* widget;
+    TQPointArray parray;
+    TQWidget* widget;
 
     rect.rect(&x, &y, &w, &h);
     x2 = rect.right();
@@ -610,7 +610,7 @@ void PhaseStyle::drawPrimitive(PrimitiveElement element,
           break;
 
       case PE_FocusRect: {
-          QPen old = painter->pen();
+          TQPen old = painter->pen();
           painter->setPen(group.highlight().dark(contrast));
 
           painter->drawRect(rect);
@@ -621,8 +621,8 @@ void PhaseStyle::drawPrimitive(PrimitiveElement element,
 
       case PE_HeaderSection: {
           // covers kicker taskbar buttons and menu titles
-          QHeader* header = dynamic_cast<QHeader*>(painter->device());
-          widget =dynamic_cast<QWidget*>(painter->device());
+          TQHeader* header = dynamic_cast<TQHeader*>(painter->device());
+          widget =dynamic_cast<TQWidget*>(painter->device());
 
           if (header) {
               horiz = (header->orientation() == Horizontal);
@@ -630,7 +630,7 @@ void PhaseStyle::drawPrimitive(PrimitiveElement element,
               horiz = true;
           }
 
-          if ((widget) && ((widget->inherits("QPopupMenu")) ||
+          if ((widget) && ((widget->inherits("TQPopupMenu")) ||
                            (widget->inherits("KPopupTitle")))) {
               // kicker/kdesktop menu titles
               drawPhaseBevel(painter, x,y,w,h,
@@ -639,7 +639,7 @@ void PhaseStyle::drawPrimitive(PrimitiveElement element,
               // taskbar buttons (assuming no normal headers used in kicker)
               if (depress) {
                   painter->setPen(group.dark());
-                  painter->setBrush(group.brush(QColorGroup::Mid));
+                  painter->setBrush(group.brush(TQColorGroup::Mid));
                   painter->drawRect(x-1, y-1, w+1, h+1);
               }
               else {
@@ -650,7 +650,7 @@ void PhaseStyle::drawPrimitive(PrimitiveElement element,
               // other headers
               if (depress) {
                   painter->setPen(group.dark());
-                  painter->setBrush(group.brush(QColorGroup::Mid));
+                  painter->setBrush(group.brush(TQColorGroup::Mid));
                   painter->drawRect(x-1, y-1, w+1, h+1);
               }
               else {
@@ -703,7 +703,7 @@ void PhaseStyle::drawPrimitive(PrimitiveElement element,
               }
           }
 
-          drawPrimitive(arrow, painter, QRect(x,y,h,w), group, flags);
+          drawPrimitive(arrow, painter, TQRect(x,y,h,w), group, flags);
           break;
       }
 
@@ -727,8 +727,8 @@ void PhaseStyle::drawPrimitive(PrimitiveElement element,
 
       case PE_Indicator:
           drawPhasePanel(painter, x+1, y+1, w-2, h-2, group, true, enabled ?
-                         &group.brush(QColorGroup::Base) :
-                         &group.brush(QColorGroup::Background));
+                         &group.brush(TQColorGroup::Base) :
+                         &group.brush(TQColorGroup::Background));
 
           if (on) {
               painter->setPen(mouseover
@@ -736,7 +736,7 @@ void PhaseStyle::drawPrimitive(PrimitiveElement element,
                               : group.dark());
               painter->drawRect(x+4, y+4, w-8, h-8);
               painter->fillRect(x+5, y+5, w-10, h-10,
-                                group.brush(QColorGroup::Highlight));
+                                group.brush(TQColorGroup::Highlight));
           } else if (mouseover) {
               painter->setPen(group.highlight().dark(contrast));
               painter->drawRect(x+4, y+4, w-8, h-8);
@@ -754,8 +754,8 @@ void PhaseStyle::drawPrimitive(PrimitiveElement element,
           cy = (y + y2) / 2;
 
           painter->setBrush(enabled
-                            ? group.brush(QColorGroup::Base)
-                            : group.brush(QColorGroup::Background));
+                            ? group.brush(TQColorGroup::Base)
+                            : group.brush(TQColorGroup::Background));
 
           painter->setPen(group.dark());
           parray.putPoints(0, 8,
@@ -771,7 +771,7 @@ void PhaseStyle::drawPrimitive(PrimitiveElement element,
           painter->drawPolyline(parray, 0, 4);
 
           if (on) {
-              painter->setBrush(group.brush(QColorGroup::Highlight));
+              painter->setBrush(group.brush(TQColorGroup::Highlight));
               painter->setPen(mouseover
                               ? group.highlight().dark(contrast)
                               : group.dark());
@@ -804,7 +804,7 @@ void PhaseStyle::drawPrimitive(PrimitiveElement element,
 
       case PE_DockWindowResizeHandle:
           drawPhasePanel(painter, x, y, w, h, group, false,
-                         &group.brush(QColorGroup::Background));
+                         &group.brush(TQColorGroup::Background));
           break;
 
       case PE_Splitter:
@@ -883,12 +883,12 @@ void PhaseStyle::drawPrimitive(PrimitiveElement element,
           break;
 
       case PE_DockWindowSeparator: {
-          widget = dynamic_cast<QWidget*>(painter->device());
+          widget = dynamic_cast<TQWidget*>(painter->device());
           bool flat = true;
 
           if (widget && widget->parent() &&
-              widget->parent()->inherits("QToolBar")) {
-              QToolBar *toolbar = ::qt_cast<QToolBar*>(widget->parent());
+              widget->parent()->inherits("TQToolBar")) {
+              TQToolBar *toolbar = ::qt_cast<TQToolBar*>(widget->parent());
               if (toolbar) {
                   // toolbar not floating or in a QMainWindow
                   flat = flatToolbar(toolbar);
@@ -1009,12 +1009,12 @@ void PhaseStyle::drawPrimitive(PrimitiveElement element,
 // Draw the element
 
 void PhaseStyle::drawKStylePrimitive(KStylePrimitive element,
-                                     QPainter *painter,
-                                     const QWidget *widget,
-                                     const QRect &rect,
-                                     const QColorGroup &group,
+                                     TQPainter *painter,
+                                     const TQWidget *widget,
+                                     const TQRect &rect,
+                                     const TQColorGroup &group,
                                      SFlags flags,
-                                     const QStyleOption &option) const
+                                     const TQStyleOption &option) const
 {
     bool horiz = flags & Style_Horizontal;
     int x, y, w, h, x2, y2, n, cx, cy;
@@ -1050,7 +1050,7 @@ void PhaseStyle::drawKStylePrimitive(KStylePrimitive element,
       //case KPE_DockWindowHandle:
       case KPE_GeneralHandle:
           cx-=2; cy-=2;
-          painter->fillRect(rect, group.brush(QColorGroup::Background));
+          painter->fillRect(rect, group.brush(TQColorGroup::Background));
 
           if (horiz) {
               for (n = -5; n <= 5; n += 5) {
@@ -1084,7 +1084,7 @@ void PhaseStyle::drawKStylePrimitive(KStylePrimitive element,
           break;
 
       case KPE_SliderGroove: {
-          const QSlider* slider = ::qt_cast<const QSlider*>(widget);
+          const TQSlider* slider = ::qt_cast<const TQSlider*>(widget);
           if (slider) {
               if (slider->orientation() == Horizontal) {
                   y = cy - 3;
@@ -1095,14 +1095,14 @@ void PhaseStyle::drawKStylePrimitive(KStylePrimitive element,
               }
           }
           drawPhasePanel(painter, x, y, w, h, group, true,
-                         &group.brush(QColorGroup::Mid));
+                         &group.brush(TQColorGroup::Mid));
           break;
       }
 
       case KPE_SliderHandle: {
-          const QSlider* slider = ::qt_cast<const QSlider*>(widget);
+          const TQSlider* slider = ::qt_cast<const TQSlider*>(widget);
           if (slider) {
-              QColor color = (widget==hover_)
+              TQColor color = (widget==hover_)
                   ? group.button().light(contrast)
                   : group.button();
               if (slider->orientation() == Horizontal) {
@@ -1132,19 +1132,19 @@ void PhaseStyle::drawKStylePrimitive(KStylePrimitive element,
 // Draw the control
 
 void PhaseStyle::drawControl(ControlElement element,
-                             QPainter *painter,
-                             const QWidget *widget,
-                             const QRect &rect,
-                             const QColorGroup &group,
+                             TQPainter *painter,
+                             const TQWidget *widget,
+                             const TQRect &rect,
+                             const TQColorGroup &group,
                              SFlags flags,
-                             const QStyleOption &option) const
+                             const TQStyleOption &option) const
 {
     bool active, enabled, depress;
     int x, y, w, h, x2, y2, dx;
-    QMenuItem *mi;
-    QIconSet::Mode mode;
-    QIconSet::State state;
-    QPixmap pixmap;
+    TQMenuItem *mi;
+    TQIconSet::Mode mode;
+    TQIconSet::State state;
+    TQPixmap pixmap;
 
     rect.rect(&x, &y, &w, &h);
     x2 = rect.right();
@@ -1157,7 +1157,7 @@ void PhaseStyle::drawControl(ControlElement element,
 
           if ((flags & Style_ButtonDefault) && !depress) {
               drawPhasePanel(painter, x, y, w, h, group, true,
-                             &group.brush(QColorGroup::Mid));
+                             &group.brush(TQColorGroup::Mid));
               drawPhaseBevel(painter, x+bd, y+bd, w-bd*2, h-bd*2, group,
                              (widget==hover_)
                              ? group.button().light(contrast)
@@ -1179,7 +1179,7 @@ void PhaseStyle::drawControl(ControlElement element,
       }
 
       case CE_PushButtonLabel: {
-          const QPushButton* button = ::qt_cast<const QPushButton*>(widget);
+          const TQPushButton* button = ::qt_cast<const TQPushButton*>(widget);
           if (!button) {
               KStyle::drawControl(element, painter, widget, rect, group,
                                   flags, option);
@@ -1195,7 +1195,7 @@ void PhaseStyle::drawControl(ControlElement element,
           if (button->isMenuButton()) { // menu indicator
               int dx = pixelMetric(PM_MenuButtonIndicator, widget);
               drawPrimitive(PE_ArrowDown, painter,
-                            QRect(x+w-dx-2, y+2, dx, h-4),
+                            TQRect(x+w-dx-2, y+2, dx, h-4),
                             group, flags, option);
               w -= dx;
           }
@@ -1203,21 +1203,21 @@ void PhaseStyle::drawControl(ControlElement element,
           if (button->iconSet() && !button->iconSet()->isNull()) { // draw icon
               if (button->isEnabled()) {
                   if (button->hasFocus()) {
-                      mode = QIconSet::Active;
+                      mode = TQIconSet::Active;
                   } else {
-                      mode = QIconSet::Normal;
+                      mode = TQIconSet::Normal;
                   }
               } else {
-                  mode = QIconSet::Disabled;
+                  mode = TQIconSet::Disabled;
               }
 
               if (button->isToggleButton() && button->isOn()) {
-                  state = QIconSet::On;
+                  state = TQIconSet::On;
               } else {
-                  state = QIconSet::Off;
+                  state = TQIconSet::Off;
               }
 
-              pixmap = button->iconSet()->pixmap(QIconSet::Small, mode, state);
+              pixmap = button->iconSet()->pixmap(TQIconSet::Small, mode, state);
               if (button->text().isEmpty() && !button->pixmap()) {
                   painter->drawPixmap(x+w/2 - pixmap.width()/2,
                                       y+h/2 - pixmap.height()/2, pixmap);
@@ -1230,7 +1230,7 @@ void PhaseStyle::drawControl(ControlElement element,
 
           if (active || button->isDefault()) { // default button
               for(int n=0; n<2; n++) {
-                  drawItem(painter, QRect(x+n, y, w, h),
+                  drawItem(painter, TQRect(x+n, y, w, h),
                            AlignCenter | ShowPrefix,
                            button->colorGroup(),
                            button->isEnabled(),
@@ -1241,7 +1241,7 @@ void PhaseStyle::drawControl(ControlElement element,
                            &button->colorGroup().mid());
               }
           } else { // normal button
-              drawItem(painter, QRect(x, y, w, h),
+              drawItem(painter, TQRect(x, y, w, h),
                        AlignCenter | ShowPrefix,
                        button->colorGroup(),
                        button->isEnabled(),
@@ -1256,7 +1256,7 @@ void PhaseStyle::drawControl(ControlElement element,
 
       case CE_CheckBoxLabel:
       case CE_RadioButtonLabel: {
-          const QButton *b = ::qt_cast<const QButton*>(widget);
+          const TQButton *b = ::qt_cast<const TQButton*>(widget);
           if (!b) return;
 
           int alignment = reverse_ ? AlignRight : AlignLeft;
@@ -1274,7 +1274,7 @@ void PhaseStyle::drawControl(ControlElement element,
       }
 
       case CE_DockWindowEmptyArea:  {
-          const QToolBar *tb = ::qt_cast<const QToolBar*>(widget);
+          const TQToolBar *tb = ::qt_cast<const TQToolBar*>(widget);
           if (tb) {
               // toolbar not floating or in a QMainWindow
               if (flatToolbar(tb)) {
@@ -1289,24 +1289,24 @@ void PhaseStyle::drawControl(ControlElement element,
       }
 
       case CE_MenuBarEmptyArea:
-          drawPhaseGradient(painter, QRect(x, y, w, h), group.background(),
+          drawPhaseGradient(painter, TQRect(x, y, w, h), group.background(),
                             (w<h), 0, 0, 0, 0, false);
           break;
 
       case CE_MenuBarItem: {
-          const QMenuBar *mbar = ::qt_cast<const QMenuBar*>(widget);
+          const TQMenuBar *mbar = ::qt_cast<const TQMenuBar*>(widget);
           if (!mbar) {
               KStyle::drawControl(element, painter, widget, rect, group,
                                   flags, option);
               return;
           }
           mi = option.menuItem();
-          QRect prect = mbar->rect();
+          TQRect prect = mbar->rect();
 
           if ((flags & Style_Active) && (flags & Style_HasFocus)) {
               if (flags & Style_Down) {
                   drawPhasePanel(painter, x, y, w, h, group, true,
-                                 &group.brush(QColorGroup::Background));
+                                 &group.brush(TQColorGroup::Background));
               } else {
                   drawPhaseBevel(painter, x, y, w, h,
                                  group, group.background(),
@@ -1325,7 +1325,7 @@ void PhaseStyle::drawControl(ControlElement element,
       }
 
       case CE_PopupMenuItem: {
-          const QPopupMenu *popup = ::qt_cast<const QPopupMenu*>(widget);
+          const TQPopupMenu *popup = ::qt_cast<const TQPopupMenu*>(widget);
           if (!popup) {
               KStyle::drawControl(element, painter, widget, rect, group,
                                   flags, option);
@@ -1344,7 +1344,7 @@ void PhaseStyle::drawControl(ControlElement element,
           bool etchtext  = styleHint(SH_EtchDisabledText);
           active         = flags & Style_Active;
           enabled        = mi->isEnabled();
-          QRect vrect;
+          TQRect vrect;
 
           if (checkable) checkwidth = QMAX(checkwidth, 20);
 
@@ -1374,13 +1374,13 @@ void PhaseStyle::drawControl(ControlElement element,
           // draw icon
           if (mi->iconSet() && !mi->isChecked()) {
               if (active)
-                  mode = enabled ? QIconSet::Active : QIconSet::Disabled;
+                  mode = enabled ? TQIconSet::Active : TQIconSet::Disabled;
               else
-                  mode = enabled ? QIconSet::Normal : QIconSet::Disabled;
+                  mode = enabled ? TQIconSet::Normal : TQIconSet::Disabled;
 
-              pixmap = mi->iconSet()->pixmap(QIconSet::Small, mode);
-              QRect pmrect(0, 0, pixmap.width(), pixmap.height());
-              vrect = visualRect(QRect(x, y, checkwidth, h), rect);
+              pixmap = mi->iconSet()->pixmap(TQIconSet::Small, mode);
+              TQRect pmrect(0, 0, pixmap.width(), pixmap.height());
+              vrect = visualRect(TQRect(x, y, checkwidth, h), rect);
               pmrect.moveCenter(vrect.center());
               painter->drawPixmap(pmrect.topLeft(), pixmap);
           }
@@ -1389,7 +1389,7 @@ void PhaseStyle::drawControl(ControlElement element,
           if (mi->isChecked()) {
               int cx = reverse_ ? x+w - checkwidth : x;
               drawPrimitive(PE_CheckMark, painter,
-                            QRect(cx + ITEMFRAME, y + ITEMFRAME,
+                            TQRect(cx + ITEMFRAME, y + ITEMFRAME,
                                   checkwidth - ITEMFRAME*2, h - ITEMFRAME*2),
                             group, Style_Default |
                             (active ? Style_Enabled : Style_On));
@@ -1421,7 +1421,7 @@ void PhaseStyle::drawControl(ControlElement element,
               painter->restore();
           }
           else { // draw label
-              QString text = mi->text();
+              TQString text = mi->text();
 
               if (!text.isNull()) {
                   int t = text.find('\t');
@@ -1477,7 +1477,7 @@ void PhaseStyle::drawControl(ControlElement element,
           if (mi->popup()) { // draw submenu arrow
               PrimitiveElement arrow = reverse_ ? PE_ArrowLeft : PE_ArrowRight;
               int dim = (h-2*ITEMFRAME) / 2;
-              vrect = visualRect(QRect(x + w - ARROWMARGIN - ITEMFRAME - dim,
+              vrect = visualRect(TQRect(x + w - ARROWMARGIN - ITEMFRAME - dim,
                                        y + h / 2 - dim / 2, dim, dim), rect);
               drawPrimitive(arrow, painter, vrect, group,
                             enabled ? Style_Enabled : Style_Default);
@@ -1486,7 +1486,7 @@ void PhaseStyle::drawControl(ControlElement element,
       }
 
       case CE_TabBarTab: {
-          const QTabBar* tab = ::qt_cast<const QTabBar*>(widget);
+          const TQTabBar* tab = ::qt_cast<const TQTabBar*>(widget);
           if (tab) {
               if ((widget == hover_) && (option.tab() == hovertab_)) {
                   flags |= Style_MouseOver;
@@ -1504,12 +1504,12 @@ void PhaseStyle::drawControl(ControlElement element,
 
       case CE_ProgressBarGroove: {
           drawPhasePanel(painter, x, y, w, h, group, true,
-                         &group.brush(QColorGroup::Base));
+                         &group.brush(TQColorGroup::Base));
           break;
       }
 
       case CE_ProgressBarContents: {
-          const QProgressBar* pbar = ::qt_cast<const QProgressBar*>(widget);
+          const TQProgressBar* pbar = ::qt_cast<const TQProgressBar*>(widget);
           if (!pbar) {
               KStyle::drawControl(element, painter, widget, rect, group,
                                   flags, option);
@@ -1517,7 +1517,7 @@ void PhaseStyle::drawControl(ControlElement element,
           }
           subRect(SR_ProgressBarContents, widget).rect(&x, &y, &w, &h);
 
-          painter->setBrush(group.brush(QColorGroup::Highlight));
+          painter->setBrush(group.brush(TQColorGroup::Highlight));
           painter->setPen(group.dark());
 
           if (!pbar->totalSteps()) {
@@ -1539,7 +1539,7 @@ void PhaseStyle::drawControl(ControlElement element,
 
 #if (QT_VERSION >= 0x030200)
       case CE_ToolBoxTab: {
-          const QToolBox *box = ::qt_cast<const QToolBox*>(widget);
+          const TQToolBox *box = ::qt_cast<const TQToolBox*>(widget);
           if (!box) {
               KStyle::drawControl(element, painter, widget, rect, group,
                                   flags, option);
@@ -1549,7 +1549,7 @@ void PhaseStyle::drawControl(ControlElement element,
           const int rx = x2 - 20;
           const int cx = rx - h + 1;
 
-          QPointArray parray(6);
+          TQPointArray parray(6);
           parray.putPoints(0, 6,
                            x-1,y, cx,y, rx-2,y2-2, x2+1,y2-2,
                            x2+1,y2+2, x-1,y2+2);
@@ -1560,7 +1560,7 @@ void PhaseStyle::drawControl(ControlElement element,
               painter->drawConvexPolygon(parray, 0, 6);
               painter->setBrush(NoBrush);
           } else {
-              painter->setClipRegion(parray, QPainter::CoordPainter);
+              painter->setClipRegion(parray, TQPainter::CoordPainter);
               drawPhaseGradient(painter, rect,
                                 group.background(),
                                 false, 0, 0, 0, h*2, false);
@@ -1588,10 +1588,10 @@ void PhaseStyle::drawControl(ControlElement element,
 // Draw a bitmask for the element
 
 void PhaseStyle::drawControlMask(ControlElement element,
-                                 QPainter *painter,
-                                 const QWidget *widget,
-                                 const QRect &rect,
-                                 const QStyleOption &option) const
+                                 TQPainter *painter,
+                                 const TQWidget *widget,
+                                 const TQRect &rect,
+                                 const TQStyleOption &option) const
 {
     switch (element) {
       case CE_PushButton:
@@ -1610,26 +1610,26 @@ void PhaseStyle::drawControlMask(ControlElement element,
 // Draw a complex control
 
 void PhaseStyle::drawComplexControl(ComplexControl control,
-                                    QPainter *painter,
-                                    const QWidget *widget,
-                                    const QRect &rect,
-                                    const QColorGroup &group,
+                                    TQPainter *painter,
+                                    const TQWidget *widget,
+                                    const TQRect &rect,
+                                    const TQColorGroup &group,
                                     SFlags flags,
                                     SCFlags controls,
                                     SCFlags active,
-                                    const QStyleOption &option) const
+                                    const TQStyleOption &option) const
 {
     bool down = flags & Style_Down;
     bool on = flags & Style_On;
     bool raised = flags & Style_Raised;
     bool sunken = flags & Style_Sunken;
-    QRect subrect;
+    TQRect subrect;
     int x, y, w, h, x2, y2;
     rect.rect(&x, &y, &w, &h);
 
     switch (control) {
       case CC_ComboBox: {
-          const QComboBox * combo = ::qt_cast<const QComboBox*>(widget);
+          const TQComboBox * combo = ::qt_cast<const TQComboBox*>(widget);
           if (!combo) {
               KStyle::drawComplexControl(control, painter, widget, rect, group,
                                          flags, controls, active, option);
@@ -1650,8 +1650,8 @@ void PhaseStyle::drawComplexControl(ComplexControl control,
               int slot = QMAX(h/4, 6) + (h % 2);
               drawPhasePanel(painter, x+3, y+(h/2)-(slot/2), w-6,
                              slot, group, true,
-                             sunken ? &group.brush(QColorGroup::Midlight)
-                             : &group.brush(QColorGroup::Mid));
+                             sunken ? &group.brush(TQColorGroup::Midlight)
+                             : &group.brush(TQColorGroup::Mid));
           }
 
           if (controls & SC_ComboBoxEditField) { // draw edit box
@@ -1670,7 +1670,7 @@ void PhaseStyle::drawComplexControl(ComplexControl control,
                                                combo), widget);
                   drawPrimitive(PE_FocusRect, painter, subrect, group,
                                 Style_FocusAtBorder,
-                                QStyleOption(group.highlight()));
+                                TQStyleOption(group.highlight()));
               }
           }
 
@@ -1680,14 +1680,14 @@ void PhaseStyle::drawComplexControl(ComplexControl control,
 
       case CC_ScrollBar: {
           // always a three button scrollbar
-          const QScrollBar *sb = ::qt_cast<const QScrollBar*>(widget);
+          const TQScrollBar *sb = ::qt_cast<const TQScrollBar*>(widget);
           if (!sb) {
               KStyle::drawComplexControl(control, painter, widget, rect, group,
                                          flags, controls, active, option);
               return;
           }
 
-          QRect srect;
+          TQRect srect;
           bool horizontal = (sb->orientation() == Qt::Horizontal);
           SFlags scrollflags = (horizontal ? Style_Horizontal : Style_Default);
 
@@ -1777,7 +1777,7 @@ void PhaseStyle::drawComplexControl(ComplexControl control,
       }
 
       case CC_SpinWidget: {
-          const QSpinWidget *spin = ::qt_cast<const QSpinWidget*>(widget);
+          const TQSpinWidget *spin = ::qt_cast<const TQSpinWidget*>(widget);
           if (!spin) {
               KStyle::drawComplexControl(control, painter, widget, rect, group,
                                          flags, controls, active, option);
@@ -1809,7 +1809,7 @@ void PhaseStyle::drawComplexControl(ComplexControl control,
               subrect = spin->upRect();
 
               sunken = (active == SC_SpinWidgetUp);
-              if (spin->buttonSymbols() == QSpinWidget::PlusMinus)
+              if (spin->buttonSymbols() == TQSpinWidget::PlusMinus)
                   element = PE_SpinWidgetPlus;
               else
                   element = PE_SpinWidgetUp;
@@ -1824,7 +1824,7 @@ void PhaseStyle::drawComplexControl(ComplexControl control,
               subrect = spin->downRect();
 
               sunken = (active == SC_SpinWidgetDown);
-              if (spin->buttonSymbols() == QSpinWidget::PlusMinus)
+              if (spin->buttonSymbols() == TQSpinWidget::PlusMinus)
                   element = PE_SpinWidgetMinus;
               else
                   element = PE_SpinWidgetDown;
@@ -1837,23 +1837,23 @@ void PhaseStyle::drawComplexControl(ComplexControl control,
       }
 
       case CC_ToolButton: {
-          const QToolButton *btn = ::qt_cast<const QToolButton*>(widget);
+          const TQToolButton *btn = ::qt_cast<const TQToolButton*>(widget);
           if (!btn) {
               KStyle::drawComplexControl(control, painter, widget, rect, group,
                                          flags, controls, active, option);
               return;
           }
 
-          QToolBar *toolbar;
+          TQToolBar *toolbar;
           bool horiz = true;
           bool normal = !(down || on || raised); // normal button state
 
           x2 = rect.right();
           y2 = rect.bottom();
 
-          // check for QToolBar parent
-          if (btn->parent() && btn->parent()->inherits("QToolBar")) {
-              toolbar = ::qt_cast<QToolBar*>(btn->parent());
+          // check for TQToolBar parent
+          if (btn->parent() && btn->parent()->inherits("TQToolBar")) {
+              toolbar = ::qt_cast<TQToolBar*>(btn->parent());
               if (toolbar) {
                   horiz = (toolbar->orientation() == Qt::Horizontal);
                   if (normal) { // draw background
@@ -1878,9 +1878,9 @@ void PhaseStyle::drawComplexControl(ComplexControl control,
           // check for QToolBarExtensionWidget parent
           else if (btn->parent() &&
                    btn->parent()->inherits(QTOOLBAREXTENSION)) {
-              QWidget *extension;
-              if ((extension = ::qt_cast<QWidget*>(btn->parent()))) {
-                  toolbar = ::qt_cast<QToolBar*>(extension->parent());
+              TQWidget *extension;
+              if ((extension = ::qt_cast<TQWidget*>(btn->parent()))) {
+                  toolbar = ::qt_cast<TQToolBar*>(extension->parent());
                   if (toolbar) {
                       horiz = (toolbar->orientation() == Qt::Horizontal);
                       if (normal) { // draw background
@@ -1895,7 +1895,7 @@ void PhaseStyle::drawComplexControl(ComplexControl control,
           else if (normal && btn->parentWidget() &&
                    btn->parentWidget()->backgroundPixmap() &&
                    !btn->parentWidget()->backgroundPixmap()->isNull()) {
-              QPixmap pixmap = *(btn->parentWidget()->backgroundPixmap());
+              TQPixmap pixmap = *(btn->parentWidget()->backgroundPixmap());
               painter->drawTiledPixmap(rect, pixmap, btn->pos());
           }
           // everything else
@@ -1907,7 +1907,7 @@ void PhaseStyle::drawComplexControl(ComplexControl control,
           // now draw active buttons
           if (down || on) {
               drawPhasePanel(painter, x, y, w, h, group, true,
-                             &group.brush(QColorGroup::Button));
+                             &group.brush(TQColorGroup::Button));
           } else if (raised) {
               drawPhaseBevel(painter, x, y, w, h, group, group.button(),
                              false, !horiz, true);
@@ -1929,10 +1929,10 @@ void PhaseStyle::drawComplexControl(ComplexControl control,
 // Draw a bitmask for the control
 
 void PhaseStyle::drawComplexControlMask(ComplexControl control,
-                                        QPainter *painter,
-                                        const QWidget *widget,
-                                        const QRect &rect,
-                                        const QStyleOption &option) const
+                                        TQPainter *painter,
+                                        const TQWidget *widget,
+                                        const TQRect &rect,
+                                        const TQStyleOption &option) const
 {
     switch (control) {
       case CC_ComboBox:
@@ -1952,10 +1952,10 @@ void PhaseStyle::drawComplexControlMask(ComplexControl control,
 // -------------
 // Get the pixel metric for metric
 
-int PhaseStyle::pixelMetric(PixelMetric metric, const QWidget *widget) const
+int PhaseStyle::pixelMetric(PixelMetric metric, const TQWidget *widget) const
 {
     // not using widget's font, so that all metrics are uniform
-    int em = QMAX(QApplication::fontMetrics().strikeOutPos() * 3, 17);
+    int em = QMAX(TQApplication::fontMetrics().strikeOutPos() * 3, 17);
 
     switch (metric) {
       case PM_DefaultFrameWidth:
@@ -1974,8 +1974,8 @@ int PhaseStyle::pixelMetric(PixelMetric metric, const QWidget *widget) const
           return 24;
 
       case PM_TabBarTabVSpace:
-          if (const QTabBar *tb = ::qt_cast<const QTabBar*>(widget)) {
-              if (tb->shape() == QTabBar::RoundedAbove) {
+          if (const TQTabBar *tb = ::qt_cast<const TQTabBar*>(widget)) {
+              if (tb->shape() == TQTabBar::RoundedAbove) {
                   return 10;
               } else {
                   return 6;
@@ -2011,11 +2011,11 @@ int PhaseStyle::pixelMetric(PixelMetric metric, const QWidget *widget) const
 // ---------
 // Return subrect for the widget in logical coordinates
 
-QRect PhaseStyle::subRect(SubRect rect, const QWidget *widget) const
+TQRect PhaseStyle::subRect(SubRect rect, const TQWidget *widget) const
 {
     switch (rect) {
       case SR_ComboBoxFocusRect: {
-          QRect r = querySubControlMetrics(CC_ComboBox, widget,
+          TQRect r = querySubControlMetrics(CC_ComboBox, widget,
                                            SC_ComboBoxEditField);
           r.addCoords(1, 1,-1,-1);
           return r;
@@ -2031,12 +2031,12 @@ QRect PhaseStyle::subRect(SubRect rect, const QWidget *widget) const
 // ------------------------
 // Get metrics for subcontrols of complex controls
 
-QRect PhaseStyle::querySubControlMetrics(ComplexControl control,
-                                         const QWidget *widget,
+TQRect PhaseStyle::querySubControlMetrics(ComplexControl control,
+                                         const TQWidget *widget,
                                          SubControl subcontrol,
-                                         const QStyleOption &option) const
+                                         const TQStyleOption &option) const
 {
-    QRect rect;
+    TQRect rect;
 
     const int fw = pixelMetric(PM_DefaultFrameWidth, widget);
     int w = widget->width(), h = widget->height();
@@ -2071,7 +2071,7 @@ QRect PhaseStyle::querySubControlMetrics(ComplexControl control,
       }
 
       case CC_ScrollBar: {
-          const QScrollBar *sb = ::qt_cast<const QScrollBar*>(widget);
+          const TQScrollBar *sb = ::qt_cast<const TQScrollBar*>(widget);
           if (!sb) break;
 
           bool horizontal = (sb->orientation() == Qt::Horizontal);
@@ -2130,17 +2130,17 @@ QRect PhaseStyle::querySubControlMetrics(ComplexControl control,
 // ------------------
 // Returns the size of widget based on the contentsize
 
-QSize PhaseStyle::sizeFromContents(ContentsType contents,
-                                   const QWidget* widget,
-                                   const QSize &contentsize,
-                                   const QStyleOption &option ) const
+TQSize PhaseStyle::sizeFromContents(ContentsType contents,
+                                   const TQWidget* widget,
+                                   const TQSize &contentsize,
+                                   const TQStyleOption &option ) const
 {
     int w = contentsize.width();
     int h = contentsize.height();
 
     switch (contents) {
       case CT_PushButton: {
-          const QPushButton* button = ::qt_cast<const QPushButton*>(widget);
+          const TQPushButton* button = ::qt_cast<const TQPushButton*>(widget);
           if (!button) {
               return KStyle::sizeFromContents(contents, widget, contentsize,
                                               option);
@@ -2156,17 +2156,17 @@ QSize PhaseStyle::sizeFromContents(ContentsType contents,
               if (w < 80 && !button->pixmap()) w = 80;
           }
           if (h < 22) h = 22;
-          return QSize(w, h);
+          return TQSize(w, h);
       }
 
       case CT_PopupMenuItem: {
           if (!widget || option.isDefault()) return contentsize;
-          const QPopupMenu *popup = ::qt_cast<const QPopupMenu*>(widget);
+          const TQPopupMenu *popup = ::qt_cast<const TQPopupMenu*>(widget);
           if (!popup) {
               return KStyle::sizeFromContents(contents, widget, contentsize,
                                               option);
           }
-          QMenuItem *item = option.menuItem();
+          TQMenuItem *item = option.menuItem();
 
           if (item->custom()) {
               w = item->custom()->sizeHint().width();
@@ -2188,7 +2188,7 @@ QSize PhaseStyle::sizeFromContents(ContentsType contents,
               }
               if (item->iconSet())
                   h = QMAX(h, item->iconSet()->
-                           pixmap(QIconSet::Small, QIconSet::Normal).height()
+                           pixmap(TQIconSet::Small, TQIconSet::Normal).height()
                            + ITEMFRAME*2);
           }
 
@@ -2199,11 +2199,11 @@ QSize PhaseStyle::sizeFromContents(ContentsType contents,
 
           if (option.maxIconWidth() || popup->isCheckable()) {
               w += QMAX(option.maxIconWidth(),
-                        QIconSet::iconSize(QIconSet::Small).width())
+                        TQIconSet::iconSize(TQIconSet::Small).width())
                   + ITEMHMARGIN*2;
           }
           w += RIGHTBORDER;
-          return QSize(w, h);
+          return TQSize(w, h);
       }
 
       default:
@@ -2221,12 +2221,12 @@ QSize PhaseStyle::sizeFromContents(ContentsType contents,
 // -------------
 // Is the toolbar "flat"
 
-bool PhaseStyle::flatToolbar(const QToolBar *toolbar) const
+bool PhaseStyle::flatToolbar(const TQToolBar *toolbar) const
 {
     if (!toolbar) return true; // not on a toolbar
     if (!toolbar->isMovingEnabled()) return true; // immobile toolbars are flat
     if (!toolbar->area()) return true; // not docked
-    if (toolbar->place() == QDockWindow::OutsideDock) return true; // ditto
+    if (toolbar->place() == TQDockWindow::OutsideDock) return true; // ditto
     if (!toolbar->mainWindow()) return true; // not in a main window
     return false;
 }
@@ -2237,42 +2237,42 @@ bool PhaseStyle::flatToolbar(const QToolBar *toolbar) const
 // Grab events we are interested in. Most of this routine is to handle the
 // exceptions to the normal styling rules.
 
-bool PhaseStyle::eventFilter(QObject *object, QEvent *event)
+bool PhaseStyle::eventFilter(TQObject *object, TQEvent *event)
 {
     if (KStyle::eventFilter(object, event)) return true;
     if (!object->isWidgetType()) return false;
 
     bool horiz;
     int x, y, w, h;
-    QFrame *frame;
-    QToolBar *toolbar;
-    QWidget *widget;
+    TQFrame *frame;
+    TQToolBar *toolbar;
+    TQWidget *widget;
 
     // painting events
-    if (event->type() == QEvent::Paint) {
+    if (event->type() == TQEvent::Paint) {
         // make sure we do the most specific stuff first
 
         // KDE Toolbar Widget
         // patch by Daniel Brownlees <dbrownlees@paradise.net.nz>
         if (object->parent() && !qstrcmp(object->name(), KTOOLBARWIDGET)) {
-            if (0 == (widget = ::qt_cast<QWidget*>(object))) return false;
-            QWidget *parent = ::qt_cast<QWidget*>(object->parent());
+            if (0 == (widget = ::qt_cast<TQWidget*>(object))) return false;
+            TQWidget *parent = ::qt_cast<TQWidget*>(object->parent());
             int px = widget->x(), py = widget->y();
             // find the toolbar
             while (parent && parent->parent()
-                   && !::qt_cast<QToolBar*>(parent)) {
+                   && !::qt_cast<TQToolBar*>(parent)) {
                 px += parent->x();
                 py += parent->y();
-                parent = ::qt_cast<QWidget*>(parent->parent());
+                parent = ::qt_cast<TQWidget*>(parent->parent());
             }
             if (!parent) return false;
             widget->rect().rect(&x, &y, &w, &h);
-            QRect prect = parent->rect();
+            TQRect prect = parent->rect();
 
-            toolbar = ::qt_cast<QToolBar*>(parent);
+            toolbar = ::qt_cast<TQToolBar*>(parent);
             horiz = (toolbar) ? (toolbar->orientation() == Qt::Horizontal)
                 : (prect.height() < prect.width());
-            QPainter painter(widget);
+            TQPainter painter(widget);
             if (flatToolbar(toolbar)) {
                 painter.fillRect(widget->rect(),
                                   parent->colorGroup().background());
@@ -2293,10 +2293,10 @@ bool PhaseStyle::eventFilter(QObject *object, QEvent *event)
 
         // QToolBarExtensionWidget
         else if (object && object->isWidgetType() && object->parent() &&
-                 (toolbar = ::qt_cast<QToolBar*>(object->parent()))) {
-            if (0 == (widget = ::qt_cast<QWidget*>(object))) return false;
+                 (toolbar = ::qt_cast<TQToolBar*>(object->parent()))) {
+            if (0 == (widget = ::qt_cast<TQWidget*>(object))) return false;
             horiz = (toolbar->orientation() == Qt::Horizontal);
-            QPainter painter(widget);
+            TQPainter painter(widget);
             widget->rect().rect(&x, &y, &w, &h);
             // draw the extension
             drawPhaseGradient(&painter, widget->rect(),
@@ -2323,19 +2323,19 @@ bool PhaseStyle::eventFilter(QObject *object, QEvent *event)
             }
         }
 
-        // QFrame lines (do this guy last)
-        else if (0 != (frame = ::qt_cast<QFrame*>(object))) {
-            QFrame::Shape shape = frame->frameShape();
+        // TQFrame lines (do this guy last)
+        else if (0 != (frame = ::qt_cast<TQFrame*>(object))) {
+            TQFrame::Shape shape = frame->frameShape();
             switch (shape) {
-              case QFrame::HLine:
-              case QFrame::VLine: {
+              case TQFrame::HLine:
+              case TQFrame::VLine: {
                   // NOTE: assuming lines have no content
-                  QPainter painter(frame);
+                  TQPainter painter(frame);
                   frame->rect().rect(&x, &y, &w, &h);
                   painter.setPen(frame->colorGroup().dark());
-                  if (shape == QFrame::HLine) {
+                  if (shape == TQFrame::HLine) {
                       painter.drawLine(0, h/2, w, h/2);
-                  } else if (shape == QFrame::VLine) {
+                  } else if (shape == TQFrame::VLine) {
                       painter.drawLine(w/2, 0, w/2, h);
                   }
                   return true;
@@ -2346,45 +2346,45 @@ bool PhaseStyle::eventFilter(QObject *object, QEvent *event)
         }
 
     } else if (highlights_) { // "mouseover" events
-        if (::qt_cast<QPushButton*>(object) ||
-            ::qt_cast<QComboBox*>(object) ||
-            ::qt_cast<QSpinWidget*>(object) ||
-            ::qt_cast<QCheckBox*>(object) ||
-            ::qt_cast<QRadioButton*>(object) ||
-            ::qt_cast<QSlider*>(object) ||
+        if (::qt_cast<TQPushButton*>(object) ||
+            ::qt_cast<TQComboBox*>(object) ||
+            ::qt_cast<TQSpinWidget*>(object) ||
+            ::qt_cast<TQCheckBox*>(object) ||
+            ::qt_cast<TQRadioButton*>(object) ||
+            ::qt_cast<TQSlider*>(object) ||
             object->inherits(QSPLITTERHANDLE)) {
-            if (event->type() == QEvent::Enter) {
-                if (0 != (widget = ::qt_cast<QWidget*>(object)) &&
+            if (event->type() == TQEvent::Enter) {
+                if (0 != (widget = ::qt_cast<TQWidget*>(object)) &&
                     widget->isEnabled()) {
                     hover_ = widget;
                     widget->repaint(false);
                 }
-            } else if (event->type() == QEvent::Leave) {
-                if (0 != (widget = ::qt_cast<QWidget*>(object))) {
+            } else if (event->type() == TQEvent::Leave) {
+                if (0 != (widget = ::qt_cast<TQWidget*>(object))) {
                     hover_ = 0;
                     widget->repaint(false);
                 }
             }
-        } else if (::qt_cast<QTabBar*>(object)) { // special case for qtabbar
-            if (event->type() == QEvent::Enter) {
-                if (0 != (widget = ::qt_cast<QWidget*>(object)) &&
+        } else if (::qt_cast<TQTabBar*>(object)) { // special case for qtabbar
+            if (event->type() == TQEvent::Enter) {
+                if (0 != (widget = ::qt_cast<TQWidget*>(object)) &&
                     widget->isEnabled()) {
                     hover_ = widget;
                     hovertab_ = 0;;
                     widget->repaint(false);
                 }
-            } else if (event->type() == QEvent::Leave) {
-                if (0 != (widget = ::qt_cast<QWidget*>(object))) {
+            } else if (event->type() == TQEvent::Leave) {
+                if (0 != (widget = ::qt_cast<TQWidget*>(object))) {
                     hover_ = 0;
                     hovertab_ = 0;;
                     widget->repaint(false);
                 }
-            } else if (event->type() == QEvent::MouseMove) {
-                QTabBar *tabbar;
-                if (0 != (tabbar = ::qt_cast<QTabBar*>(object))) {
-                    QMouseEvent *me;
-                    if (0 != (me = dynamic_cast<QMouseEvent*>(event))) {
-                        QTab *tab = tabbar->selectTab(me->pos());
+            } else if (event->type() == TQEvent::MouseMove) {
+                TQTabBar *tabbar;
+                if (0 != (tabbar = ::qt_cast<TQTabBar*>(object))) {
+                    TQMouseEvent *me;
+                    if (0 != (me = dynamic_cast<TQMouseEvent*>(event))) {
+                        TQTab *tab = tabbar->selectTab(me->pos());
                         if (hovertab_ != tab) {
                             hovertab_ = tab;
                             tabbar->repaint(false);
@@ -2407,7 +2407,7 @@ bool PhaseStyle::eventFilter(QObject *object, QEvent *event)
 // -------------
 // Constructor
 
-GradientSet::GradientSet(const QColor &color, int size)
+GradientSet::GradientSet(const TQColor &color, int size)
     : color_(color), size_(size)
 {
     for (int n=0; n<GradientTypeCount; ++n)  set[n] = 0;
@@ -2489,18 +2489,18 @@ class PhaseStylePlugin : public QStylePlugin
 {
  public:
     PhaseStylePlugin();
-    QStringList keys() const;
-    QStyle *create(const QString &key);
+    TQStringList keys() const;
+    TQStyle *create(const TQString &key);
 };
 
-PhaseStylePlugin::PhaseStylePlugin() : QStylePlugin() { ; }
+PhaseStylePlugin::PhaseStylePlugin() : TQStylePlugin() { ; }
 
-QStringList PhaseStylePlugin::keys() const
+TQStringList PhaseStylePlugin::keys() const
 {
-    return QStringList() << "Phase";
+    return TQStringList() << "Phase";
 }
 
-QStyle* PhaseStylePlugin::create(const QString& key)
+TQStyle* PhaseStylePlugin::create(const TQString& key)
 {
     if (key.lower() == "phase")
         return new PhaseStyle();
