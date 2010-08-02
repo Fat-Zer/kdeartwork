@@ -15,7 +15,7 @@
 #include <kdialogbase.h>
 
 class wisp;
-class QTimer;
+class TQTimer;
 
 class EuphoriaWidget : public QGLWidget
 {
@@ -132,7 +132,7 @@ private:
 };
 
 
-class QComboBox;
+class TQComboBox;
 
 class KEuphoriaSetup : public KDialogBase
 {

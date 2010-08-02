@@ -35,7 +35,7 @@
 #include <kurllabel.h>
 #include <kconfig.h>
 
-class QVBox;
+class TQVBox;
 
 class IceWMConfig: public QObject
 {

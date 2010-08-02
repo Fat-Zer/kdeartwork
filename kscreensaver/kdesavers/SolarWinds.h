@@ -17,7 +17,7 @@
 
 
 class wind;
-class QTimer;
+class TQTimer;
 
 class SWindsWidget : public QGLWidget
 {
@@ -111,7 +111,7 @@ private:
 };
 
 
-class QComboBox;
+class TQComboBox;
 
 class KSWindsSetup : public KDialogBase
 {

@@ -9,8 +9,8 @@
 #include <kdecoration.h>
 #include <kdecorationfactory.h>
 
-class QLabel;
-class QSpacerItem;
+class TQLabel;
+class TQSpacerItem;
 
 namespace KStep {
 

@@ -48,10 +48,10 @@
 #include <kdecoration.h>
 #include <kdecorationfactory.h>
 #include <tqbutton.h>
-class QLabel;
-class QSpacerItem;
-class QBoxLayout;
-class QGridLayout;
+class TQLabel;
+class TQSpacerItem;
+class TQBoxLayout;
+class TQGridLayout;
 
 namespace IceWM {
 

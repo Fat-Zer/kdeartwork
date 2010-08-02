@@ -856,9 +856,9 @@ KScienceSetup::KScienceSetup(  TQWidget *parent, const char *name )
 	TQWidget *main = makeMainWidget();
 
 	TQHBoxLayout *lt  = new TQHBoxLayout( main, 0, spacingHint());
-	TQVBoxLayout *ltm = new QVBoxLayout;
+	TQVBoxLayout *ltm = new TQVBoxLayout;
 	lt->addLayout( ltm );
-	TQVBoxLayout *ltc = new QVBoxLayout;
+	TQVBoxLayout *ltc = new TQVBoxLayout;
 	lt->addLayout( ltc );
 
 	// mode
@@ -945,7 +945,7 @@ KScienceSetup::KScienceSetup(  TQWidget *parent, const char *name )
 	label = new TQLabel( i18n("Motion:"), main );
 	ltc->addWidget( label );
 
-	TQHBoxLayout *ltcm = new QHBoxLayout;
+	TQHBoxLayout *ltcm = new TQHBoxLayout;
 	ltc->addLayout( ltcm );
 
 	slideMoveX = new TQSlider(0, SCI_MAX_MOVE, 5, moveX[mode],

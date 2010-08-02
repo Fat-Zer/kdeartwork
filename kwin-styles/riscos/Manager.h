@@ -27,9 +27,9 @@
 #include <kdecoration.h>
 #include <kdecorationfactory.h>
 
-class QSpacerItem;
-class QVBoxLayout;
-class QBoxLayout;
+class TQSpacerItem;
+class TQVBoxLayout;
+class TQBoxLayout;
 
 namespace RiscOS
 {

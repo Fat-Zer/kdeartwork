@@ -9,11 +9,11 @@
 #include <tqhbox.h>
 #include <kconfig.h>
 
-class QCheckBox;
-class QGroupBox;
-class QVBox;
-class QLabel;
-class QRadioButton;
+class TQCheckBox;
+class TQGroupBox;
+class TQVBox;
+class TQLabel;
+class TQRadioButton;
 
 class CdeConfig: public QObject
 {

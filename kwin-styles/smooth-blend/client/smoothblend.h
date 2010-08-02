@@ -29,8 +29,8 @@
 #include <kdecoration.h>
 #include <kdecorationfactory.h>
 
-class QSpacerItem;
-class QPoint;
+class TQSpacerItem;
+class TQPoint;
 
 namespace smoothblend {
 

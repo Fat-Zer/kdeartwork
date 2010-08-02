@@ -31,7 +31,7 @@
 #include <kdecoration.h>
 #include <kdecorationfactory.h>
 
-class QSpacerItem;
+class TQSpacerItem;
 
 namespace OpenLook
 {

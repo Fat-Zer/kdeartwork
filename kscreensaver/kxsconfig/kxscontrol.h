@@ -27,11 +27,11 @@
 
 #include "kxsitem.h"
 
-class QLabel;
-class QSlider;
-class QSpinBox;
-class QComboBox;
-class QLineEdit;
+class TQLabel;
+class TQSlider;
+class TQSpinBox;
+class TQComboBox;
+class TQLineEdit;
 
 //===========================================================================
 class KXSRangeControl : public TQWidget, public KXSRangeItem

@@ -26,7 +26,7 @@
 #include "kxsitem.h"
 
 class KProcess;
-class QLabel;
+class TQLabel;
 
 class KXSConfigDialog : public KDialogBase
 {

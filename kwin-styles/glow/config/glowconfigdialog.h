@@ -21,11 +21,11 @@
 #include <tqvaluevector.h>
 #include <tqobject.h>
 
-class QListView;
-class QPushButton;
-class QSignalMapper;
-class QCheckBox;
-class QComboBox;
+class TQListView;
+class TQPushButton;
+class TQSignalMapper;
+class TQCheckBox;
+class TQComboBox;
 class KConfig;
 class KColorButton;
 

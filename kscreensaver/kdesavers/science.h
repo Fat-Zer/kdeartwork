@@ -13,8 +13,8 @@
 #include <kdialogbase.h>
 #include <kscreensaver.h>
 
-class QSlider;
-class QCheckBox;
+class TQSlider;
+class TQCheckBox;
 
 #define MAX_MODES  6
 

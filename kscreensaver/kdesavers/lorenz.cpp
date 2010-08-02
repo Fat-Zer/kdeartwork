@@ -76,7 +76,7 @@ KLorenzSetup::KLorenzSetup( TQWidget *parent, const char *name )
     TQWidget *main = makeMainWidget();
 
     TQHBoxLayout *tl = new TQHBoxLayout( main, 0, spacingHint() );
-    TQVBoxLayout *tl1 = new QVBoxLayout;
+    TQVBoxLayout *tl1 = new TQVBoxLayout;
     tl->addLayout(tl1);
 
     TQLabel *label = new TQLabel( i18n("Speed:"), main );

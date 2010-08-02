@@ -87,7 +87,7 @@ protected slots:
     void slotTimeout();
 };
 
-class QListBox;
+class TQListBox;
 class KIntNumInput;
 
 class KBlobSetup : public KDialogBase

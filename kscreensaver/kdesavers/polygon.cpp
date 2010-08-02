@@ -60,7 +60,7 @@ kPolygonSetup::kPolygonSetup( TQWidget *parent, const char *name )
 	setButtonText( Help, i18n( "A&bout" ) );
 
 	TQHBoxLayout *tl = new TQHBoxLayout(main, 0, spacingHint());
-	TQVBoxLayout *tl1 = new QVBoxLayout;
+	TQVBoxLayout *tl1 = new TQVBoxLayout;
 	tl->addLayout(tl1);
 
 	TQLabel *label = new TQLabel( i18n("Length:"), main );

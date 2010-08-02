@@ -23,13 +23,13 @@
 #include <kdecoration.h>
 #include <kdecorationfactory.h>
 
-class QPixmap;
-class QBitmap;
-class QTimer;
-class QBoxLayout;
-class QGridLayout;
-class QVBoxLayout;
-class QSpacerItem;
+class TQPixmap;
+class TQBitmap;
+class TQTimer;
+class TQBoxLayout;
+class TQGridLayout;
+class TQVBoxLayout;
+class TQSpacerItem;
 
 namespace Glow
 {

@@ -10,8 +10,8 @@ Copyright (C) 1999, 2000 Matthias Ettrich <ettrich@kde.org>
 #include <kdecoration.h>
 #include <kdecorationfactory.h>
 #include <tqtoolbutton.h>
-class QLabel;
-class QSpacerItem;
+class TQLabel;
+class TQSpacerItem;
 
 namespace KDE1 {
 

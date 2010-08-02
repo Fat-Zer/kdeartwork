@@ -449,7 +449,7 @@ KBlobSetup::KBlobSetup
 
 	TQHBoxLayout *tl = new TQHBoxLayout( main, 0, spacingHint() );
 
-	TQVBoxLayout *vbox = new QVBoxLayout;
+	TQVBoxLayout *vbox = new TQVBoxLayout;
 	tl->addLayout(vbox);
 
 	// seconds to generate on a frame

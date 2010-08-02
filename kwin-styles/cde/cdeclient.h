@@ -24,10 +24,10 @@
 #include <kdecoration.h>
 #include <kdecorationfactory.h>
 
-class QLabel;
-class QBoxLayout;
-class QVBoxLayout;
-class QSpacerItem;
+class TQLabel;
+class TQBoxLayout;
+class TQVBoxLayout;
+class TQSpacerItem;
 
 namespace CDE {
 

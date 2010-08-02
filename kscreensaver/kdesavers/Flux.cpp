@@ -879,7 +879,7 @@ KFluxSetup::KFluxSetup( TQWidget* parent, const char* name )
     TQWidget *main = makeMainWidget();
 
     TQHBoxLayout* top = new TQHBoxLayout( main, 0, spacingHint() );
-    TQVBoxLayout* leftCol = new QVBoxLayout;
+    TQVBoxLayout* leftCol = new TQVBoxLayout;
     top->addLayout( leftCol );
 
     // Parameters

@@ -142,7 +142,7 @@ KBannerSetup::KBannerSetup( TQWidget *parent, const char *name )
 	tl11->addWidget(sb);
 	connect( sb, TQT_SIGNAL( valueChanged( int ) ), TQT_SLOT( slotSpeed( int ) ) );
 
-	TQHBoxLayout *tl2 = new QHBoxLayout;
+	TQHBoxLayout *tl2 = new TQHBoxLayout;
 	tl->addLayout(tl2);
 
 	label = new TQLabel( i18n("Message:"), main );

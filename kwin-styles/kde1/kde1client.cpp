@@ -618,7 +618,7 @@ void StdToolClient::init()
     closeBtn->setFixedSize( 13, 13);
     reset( -1U );
 
-    TQHBoxLayout* hb = new QHBoxLayout;
+    TQHBoxLayout* hb = new TQHBoxLayout;
     g->addLayout( hb, 0, 1 );
 
     int fh = widget()->fontMetrics().lineSpacing()+2;

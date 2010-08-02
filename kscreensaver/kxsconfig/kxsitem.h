@@ -24,7 +24,7 @@
 
 #include <kconfig.h>
 
-class QXmlAttributes;
+class TQXmlAttributes;
 
 class KXSConfigItem
 {

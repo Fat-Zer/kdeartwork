@@ -443,7 +443,7 @@ void CdeClient::menuButtonPressed()
     static TQTime* t = NULL;
     static CdeClient* lastClient = NULL;
     if( t == NULL )
-	t = new QTime;
+	t = new TQTime;
     bool dbl = ( lastClient == this && t->elapsed() <= TQApplication::doubleClickInterval());
     lastClient = this;
     t->start();

@@ -80,7 +80,7 @@ KClockSetup::KClockSetup(TQWidget *parent, const char *name)
 
 	TQVBoxLayout *top = new TQVBoxLayout(main, 0, spacingHint());
 
-	TQHBoxLayout *hbox = new QHBoxLayout;
+	TQHBoxLayout *hbox = new TQHBoxLayout;
 	top->addLayout( hbox );
 
 	TQGroupBox *colgroup = new TQGroupBox(i18n("Colors"), main);

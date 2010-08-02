@@ -22,10 +22,10 @@
 #include <tqmap.h>
 #include <tqbutton.h>
 
-class QPixmap;
-class QBitmap;
-class QTimer;
-class QString;
+class TQPixmap;
+class TQBitmap;
+class TQTimer;
+class TQString;
 
 namespace Glow
 {

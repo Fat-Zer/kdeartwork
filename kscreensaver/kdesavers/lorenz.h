@@ -51,7 +51,7 @@ private:
     Matrix3D *mat;
 };
 
-class QSlider;
+class TQSlider;
 
 class KLorenzSetup : public KDialogBase
 {
