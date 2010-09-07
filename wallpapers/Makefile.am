@@ -29,7 +29,26 @@ papers_DATA = \
 	storm_green.jpg \
 	storm_green.jpg.desktop \
 	the_bay.jpg \
-	the_bay.jpg.desktop     
+	the_bay.jpg.desktop \
+	\
+	aghi.jpg \
+	aghi.jpg.desktop \
+	air.jpg \
+	air.jpg.desktop \
+	antique_chess.jpg \
+	antique_chess.jpg.desktop \
+	autumn_leaves.jpg \
+	autumn_leaves.jpg.desktop \
+	curls_on_green.jpg \
+	curls_on_green.jpg.desktop \
+	damselfly.jpg \
+	damselfly.jpg.desktop \
+	ethais.png \
+	ethais.png.desktop \
+	stripes.jpg \
+	stripes.jpg.desktop \
+	sunset_field.jpg \
+	sunset_field.jpg.desktop \
 
 papersdir = $(kde_wallpaperdir)
 
