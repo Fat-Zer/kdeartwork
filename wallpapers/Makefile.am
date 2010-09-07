@@ -48,7 +48,7 @@ papers_DATA = \
 	stripes.jpg \
 	stripes.jpg.desktop \
 	sunset_field.jpg \
-	sunset_field.jpg.desktop \
+	sunset_field.jpg.desktop
 
 papersdir = $(kde_wallpaperdir)
 
