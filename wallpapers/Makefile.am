@@ -31,8 +31,6 @@ papers_DATA = \
 	the_bay.jpg \
 	the_bay.jpg.desktop \
 	\
-	aghi.jpg \
-	aghi.jpg.desktop \
 	air.jpg \
 	air.jpg.desktop \
 	antique_chess.jpg \
@@ -45,8 +43,6 @@ papers_DATA = \
 	damselfly.jpg.desktop \
 	ethais.png \
 	ethais.png.desktop \
-	stripes.jpg \
-	stripes.jpg.desktop \
 	sunset_field.jpg \
 	sunset_field.jpg.desktop
 
