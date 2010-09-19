@@ -37,6 +37,8 @@ papers_DATA = \
 	antique_chess.jpg.desktop \
 	autumn_leaves.jpg \
 	autumn_leaves.jpg.desktop \
+	crystal_fire.png \
+	crystal_fire.png.desktop \
 	curls_on_green.jpg \
 	curls_on_green.jpg.desktop \
 	damselfly.jpg \
