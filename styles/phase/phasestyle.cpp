@@ -630,7 +630,7 @@ void PhaseStyle::drawPrimitive(PrimitiveElement element,
               horiz = true;
           }
 
-          if ((widget) && ((widget->inherits("TQPopupMenu")) ||
+          if ((widget) && ((widget->inherits(TQPOPUPMENU_OBJECT_NAME_STRING)) ||
                            (widget->inherits("KPopupTitle")))) {
               // kicker/kdesktop menu titles
               drawPhaseBevel(painter, x,y,w,h,
@@ -887,7 +887,7 @@ void PhaseStyle::drawPrimitive(PrimitiveElement element,
           bool flat = true;
 
           if (widget && widget->parent() &&
-              widget->parent()->inherits("TQToolBar")) {
+              widget->parent()->inherits(TQTOOLBAR_OBJECT_NAME_STRING)) {
               TQToolBar *toolbar = ::qt_cast<TQToolBar*>(widget->parent());
               if (toolbar) {
                   // toolbar not floating or in a QMainWindow
@@ -1852,7 +1852,7 @@ void PhaseStyle::drawComplexControl(ComplexControl control,
           y2 = rect.bottom();
 
           // check for TQToolBar parent
-          if (btn->parent() && btn->parent()->inherits("TQToolBar")) {
+          if (btn->parent() && btn->parent()->inherits(TQTOOLBAR_OBJECT_NAME_STRING)) {
               toolbar = ::qt_cast<TQToolBar*>(btn->parent());
               if (toolbar) {
                   horiz = (toolbar->orientation() == Qt::Horizontal);

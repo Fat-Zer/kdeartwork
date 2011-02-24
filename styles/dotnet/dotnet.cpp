@@ -121,7 +121,7 @@ void dotNETstyle::polish(TQWidget* widget)
 // to update the palette again.
 	bool extraPalette = false;
 
-	if (widget->inherits("TQComboBox") && !inheritsKHTML(widget)) {
+	if (widget->inherits(TQCOMBOBOX_OBJECT_NAME_STRING) && !inheritsKHTML(widget)) {
 		widget->installEventFilter (this);
 		updatePalette( (TQComboBox*) widget );
 		extraPalette = true;
@@ -134,10 +134,10 @@ void dotNETstyle::polish(TQWidget* widget)
 //	other bad things (see bug #54569)
 /*
 	if (!widget->ownPalette()) {
-		if (widget->inherits("TQToolBar")) {
+		if (widget->inherits(TQTOOLBAR_OBJECT_NAME_STRING)) {
 			updatePalette( (TQToolBar*) widget );
 			extraPalette = true;
-		} else if (widget->inherits("TQMenuBar")) {
+		} else if (widget->inherits(TQMENUBAR_OBJECT_NAME_STRING)) {
 			updatePalette( (TQMenuBar*) widget );
 			extraPalette = true;
 		}
@@ -149,7 +149,7 @@ void dotNETstyle::unPolish(TQWidget* widget)
 {
 	winstyle->unPolish(widget);
 
-	if (widget->inherits("TQComboBox") && !inheritsKHTML(widget)) {
+	if (widget->inherits(TQCOMBOBOX_OBJECT_NAME_STRING) && !inheritsKHTML(widget)) {
 		widget->removeEventFilter (this);
 	}
 }
@@ -863,7 +863,7 @@ void dotNETstyle::drawControl(ControlElement element,
 			r.rect(&x, &y, &w, &h);
 			r.coords(&x, &y, &x2, &y2);
 
-			if (tb->parent()->inherits("TQTabWidget")) {
+			if (tb->parent()->inherits(TQTABWIDGET_OBJECT_NAME_STRING)) {
 				const TQTabWidget *tw = (const TQTabWidget *)tb->parent();
 				TQWidget *cw = tw->cornerWidget(Qt::TopLeft);
 				if (cw) {
@@ -1857,10 +1857,10 @@ int dotNETstyle::pixelMetric(PixelMetric m, const TQWidget *widget) const
 				return 1;
 			} else {
 				if (widget &&
-				   (widget->inherits("TQPopupMenu") ||
-				    widget->inherits("TQMenuBar") ||
-				    widget->inherits("TQRangeControl") ||
-				    widget->inherits("TQScrollView"))) {
+				   (widget->inherits(TQPOPUPMENU_OBJECT_NAME_STRING) ||
+				    widget->inherits(TQMENUBAR_OBJECT_NAME_STRING) ||
+				    widget->inherits(TQRANGECONTROL_OBJECT_NAME_STRING) ||
+				    widget->inherits(TQSCROLLVIEW_OBJECT_NAME_STRING))) {
 					return 1;
 				} else {
 					return 2;
@@ -2042,7 +2042,7 @@ void dotNETstyle::slotDestroyed()
 
 bool dotNETstyle::eventFilter(TQObject *obj, TQEvent *ev)
 {
-	if (obj->inherits("TQComboBox")) {
+	if (obj->inherits(TQCOMBOBOX_OBJECT_NAME_STRING)) {
 		if (ev->type() == TQEvent::Enter) {
 			TQWidget *btn = (TQWidget *)obj;
 			if (btn->isEnabled()) {
@@ -2062,7 +2062,7 @@ bool dotNETstyle::eventFilter(TQObject *obj, TQEvent *ev)
 			             pal.active().color(TQColorGroup::Background));
 			btn->setPalette(pal);
 		}
-	} else if (obj->inherits("TQButton")) {
+	} else if (obj->inherits(TQBUTTON_OBJECT_NAME_STRING)) {
 		TQWidget *btn = (TQWidget *)obj;
 		TQPalette pal = btn->palette();
 		pal.setColor(TQColorGroup::Button,
