@@ -21,7 +21,7 @@
  * implied warranty.
  *
  */
-// layout management added 1998/04/19 by Mario Weilguni <mweilguni@kde.org>
+// tqlayout management added 1998/04/19 by Mario Weilguni <mweilguni@kde.org>
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -166,8 +166,8 @@ draw_pool (m_state *state)
          if( state->modified[index] == 1 )
           pos_x += 2;
           TQPainter p(state->w);
-          p.setPen( Qt::green );
-          p.setBrush( Qt::black );
+          p.setPen( TQt::green );
+          p.setBrush( TQt::black );
           p.drawPixmap( state->grid_margin_x + x*state->char_width,
                          state->grid_margin_y + y*state->char_height,
                          state->images, pos_x*state->char_width,
@@ -289,7 +289,7 @@ kVmSetup::kVmSetup( TQWidget *parent, const char *name )
 	TQLabel *label = new TQLabel( i18n("Virtual machine speed:"), main );
 	tl1->addWidget(label);
 
-	TQSlider *slider = new TQSlider( TQSlider::Horizontal, main );
+	TQSlider *slider = new TQSlider( Qt::Horizontal, main );
 	slider->setMinimumSize( 120, 20 );
 	slider->setRange( 0, 100 );
 	slider->setSteps( 10, 20 );
@@ -303,7 +303,7 @@ kVmSetup::kVmSetup( TQWidget *parent, const char *name )
 	label = new TQLabel( i18n("Display update speed:"), main );
 	tl1->addWidget(label);
 
-	slider = new TQSlider( TQSlider::Horizontal, main );
+	slider = new TQSlider( Qt::Horizontal, main );
 	slider->setMinimumSize( 120, 20 );
 	slider->setRange( 0, MAX_REFRESH_TIMEOUT );
 	slider->setSteps( MAX_REFRESH_TIMEOUT/10, MAX_REFRESH_TIMEOUT/5 );

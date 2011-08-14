@@ -19,10 +19,10 @@ class KClockPainter
 {
 	int m_width;
 	int m_height;
-	Q_UINT8 *m_buf;
+	TQ_UINT8 *m_buf;
 	double m_matrix[6];
-	Q_UINT32 m_color;
-	Q_UINT32 m_shadow;
+	TQ_UINT32 m_color;
+	TQ_UINT32 m_shadow;
 
     public:
 	KClockPainter(int width, int height);
@@ -45,6 +45,7 @@ class KClockPainter
 class KClockSaver : public KScreenSaver
 {
     Q_OBJECT
+  TQ_OBJECT
     public:
 	KClockSaver(WId id);
 	virtual ~KClockSaver();
@@ -94,6 +95,7 @@ class KClockSaver : public KScreenSaver
 class KClockSetup : public KDialogBase
 {
     Q_OBJECT
+  TQ_OBJECT
     public:
 	 KClockSetup(TQWidget *parent = 0, const char *name = 0);
     ~KClockSetup();

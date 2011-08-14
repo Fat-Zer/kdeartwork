@@ -95,9 +95,9 @@ Writer::Writer( TQString descFileName )
 		return;
 
 	TQString welcomeString = i18n("Welcome to KDE %1.%2.%3")
-	    .arg(KDE_VERSION_MAJOR)
-	    .arg(KDE_VERSION_MINOR)
-	    .arg(KDE_VERSION_RELEASE);
+	    .tqarg(KDE_VERSION_MAJOR)
+	    .tqarg(KDE_VERSION_MINOR)
+	    .tqarg(KDE_VERSION_RELEASE);
 	spawnWords(welcomeString, Fun1);
 }
 

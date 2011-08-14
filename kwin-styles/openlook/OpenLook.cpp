@@ -162,33 +162,33 @@ OpenLook::~OpenLook()
 
 bool OpenLook::eventFilter(TQObject *o, TQEvent *e)
 {
-  if (o != widget()) return false;
+  if (TQT_BASE_OBJECT(o) != TQT_BASE_OBJECT(widget())) return false;
   switch (e->type()) {
   case TQEvent::Resize:
-    resizeEvent(static_cast< TQResizeEvent* >(e));
+    resizeEvent(TQT_TQRESIZEEVENT(e));
     return true;
   case TQEvent::Paint:
-    paintEvent(static_cast< TQPaintEvent* >(e));
+    paintEvent(TQT_TQPAINTEVENT(e));
     return true;
   case TQEvent::MouseButtonDblClick:
-    mouseDoubleClickEvent(static_cast< TQMouseEvent* >(e));
+    mouseDoubleClickEvent(TQT_TQMOUSEEVENT(e));
     return true;
   case TQEvent::Wheel:
-    wheelEvent( static_cast< TQWheelEvent* >( e ));
+    wheelEvent( TQT_TQWHEELEVENT( e ));
     return true;
   case TQEvent::MouseButtonPress:
-    if (!isButtonPress(static_cast< TQMouseEvent* >(e))) {
-      processMousePressEvent(static_cast< TQMouseEvent* >(e));
+    if (!isButtonPress(TQT_TQMOUSEEVENT(e))) {
+      processMousePressEvent(TQT_TQMOUSEEVENT(e));
     }
     return true;
   case TQEvent::MouseButtonRelease:
-    if (isButtonRelease(static_cast< TQMouseEvent* >(e))) {
+    if (isButtonRelease(TQT_TQMOUSEEVENT(e))) {
       return true;
     } else {
       return false;
     }
   case TQEvent::Show:
-    showEvent(static_cast< TQShowEvent* >(e));
+    showEvent(TQT_TQSHOWEVENT(e));
     return true;
   default:
     break;
@@ -215,7 +215,7 @@ OpenLook::shadeChange()
 {
 }
 
-TQSize OpenLook::minimumSize() const
+TQSize OpenLook::tqminimumSize() const
 {
     int left, right, top, bottom;
     borders(left, right, top, bottom);
@@ -226,7 +226,7 @@ TQSize OpenLook::minimumSize() const
 OpenLook::resize(const TQSize& s)
 {
     widget()->resize(s);
-    widget()->repaint(); //there is some strange wrong repaint of the frame without
+    widget()->tqrepaint(); //there is some strange wrong tqrepaint of the frame without
 }
 
   void
@@ -252,9 +252,9 @@ OpenLook::paintEvent(TQPaintEvent * pe)
   TQBrush titleBackground(options()->color(KDecoration::ColorTitleBar, true));
 
   if (isActive())
-    qDrawShadePanel(&p, tr, widget()->colorGroup(), true, 1, &titleBackground);
+    qDrawShadePanel(&p, tr, widget()->tqcolorGroup(), true, 1, &titleBackground);
   else
-    p.fillRect(tr, widget()->colorGroup().brush(TQColorGroup::Background));
+    p.fillRect(tr, widget()->tqcolorGroup().brush(TQColorGroup::Background));
 
   p.setClipRegion(clipRegion);
 
@@ -272,13 +272,13 @@ OpenLook::paintEvent(TQPaintEvent * pe)
   void
 OpenLook::showEvent(TQShowEvent *)
 {
-    widget()->repaint();
+    widget()->tqrepaint();
 }
 
   void
 OpenLook::mouseDoubleClickEvent(TQMouseEvent * e)
 {
-  if (e->button() == LeftButton && titleRect().contains(e->pos()))
+  if (e->button() == Qt::LeftButton && titleRect().contains(e->pos()))
   {
 	  titlebarDblClickOperation();
   }
@@ -302,7 +302,7 @@ OpenLook::resizeEvent(TQResizeEvent* e)
   void
 OpenLook::activeChange()
 {
-  widget()->repaint();
+  widget()->tqrepaint();
 }
 
   KDecoration::Position
@@ -333,16 +333,16 @@ OpenLook::desktopChange()
   void 
 OpenLook::maximizeChange()
 {
-    widget()->repaint(false);
+    widget()->tqrepaint(false);
 }
 
   void
 OpenLook::doLayout()
 {
-  TQVBoxLayout * layout = new TQVBoxLayout(widget(), openLookMargin);
+  TQVBoxLayout * tqlayout = new TQVBoxLayout(widget(), openLookMargin);
 
   titleSpacer_ =
-    new QSpacerItem
+    new TQSpacerItem
     (
      0,
      titleHeight,
@@ -350,12 +350,12 @@ OpenLook::doLayout()
      TQSizePolicy::Fixed
     );
 
-  layout->addItem(titleSpacer_);
+  tqlayout->addItem(titleSpacer_);
 
-  layout->addSpacing(2);
+  tqlayout->addSpacing(2);
 
   TQBoxLayout * midLayout = 
-    new TQBoxLayout(layout, TQBoxLayout::LeftToRight, 0, 0);
+    new TQBoxLayout(tqlayout, TQBoxLayout::LeftToRight, 0, 0);
  
   if (isPreview()) {
     midLayout->addWidget(new TQLabel(
@@ -377,11 +377,11 @@ OpenLook::animateMinimize(bool /*iconify*/)
   if (!icongeom.isValid())
     return false;
 
-  TQRect wingeom(geometry());
+  TQRect wingeom(tqgeometry());
 
   TQPainter p(workspaceWidget());
 
-  p.setRasterOp(Qt::NotROP);
+  p.setRasterOp(TQt::NotROP);
 
 #if 0
   if (iconify)
@@ -422,10 +422,10 @@ OpenLook::animateMinimize(bool /*iconify*/)
   return true;
 }
 
-  QRect
+  TQRect
 OpenLook::topLeftRect() const
 {
-  return QRect
+  return TQRect
     (
      0,
      0,
@@ -434,10 +434,10 @@ OpenLook::topLeftRect() const
     );
 }
 
-  QRect
+  TQRect
 OpenLook::topRightRect() const
 {
-  return QRect
+  return TQRect
     (
      width() - openLookCornerSize,
      0,
@@ -446,10 +446,10 @@ OpenLook::topRightRect() const
     );
 }
 
-  QRect
+  TQRect
 OpenLook::bottomLeftRect() const
 {
-  return QRect
+  return TQRect
     (
      0,
      height() - openLookCornerSize,
@@ -458,10 +458,10 @@ OpenLook::bottomLeftRect() const
     );
 }
 
-  QRect
+  TQRect
 OpenLook::bottomRightRect() const
 {
-  return QRect
+  return TQRect
     (
      width() - openLookCornerSize,
      height() - openLookCornerSize,
@@ -482,7 +482,7 @@ OpenLook::paintTopLeftRect(TQPainter & p) const
   int x2(r.right());
   int y2(r.bottom());
 
-  p.setPen(widget()->colorGroup().light());
+  p.setPen(widget()->tqcolorGroup().light());
 
   p.drawLine(x1, y1, x2, y1);
   p.drawLine(x1, y1 + 1, x1, y2);
@@ -490,7 +490,7 @@ OpenLook::paintTopLeftRect(TQPainter & p) const
   p.fillRect(x1 + 1, y1 + 1, r.width()-2, openLookMargin-2,  handleColour);
   p.fillRect(x1 + 1, y1 + 1, openLookMargin-2, r.height()-2, handleColour);
 
-  p.setPen(widget()->colorGroup().dark());
+  p.setPen(widget()->tqcolorGroup().dark());
 
   p.drawLine(x2, y1 + 1, x2, y1 + openLookMargin-1);
 
@@ -513,7 +513,7 @@ OpenLook::paintTopRightRect(TQPainter & p) const
   int x2(r.right());
   int y2(r.bottom());
 
-  p.setPen(widget()->colorGroup().light());
+  p.setPen(widget()->tqcolorGroup().light());
 
   p.drawLine(x1, y1, x2, y1);
   p.drawLine(x1, y1 + 1, x1, y1 + openLookMargin-1);
@@ -522,7 +522,7 @@ OpenLook::paintTopRightRect(TQPainter & p) const
   p.fillRect(x1 + 1, y1 + 1, r.width()-2, openLookMargin-2, handleColour);
   p.fillRect(x2 - openLookMargin + 2, y1 + 1, openLookMargin-2, r.height()-2, handleColour);
 
-  p.setPen(widget()->colorGroup().dark());
+  p.setPen(widget()->tqcolorGroup().dark());
 
   p.drawLine(x1 + 1, y1 + openLookMargin-1, x2 - openLookMargin+1, y1 + openLookMargin-1);
   p.drawLine(x2, y1 + 1, x2, y2);
@@ -541,7 +541,7 @@ OpenLook::paintBottomLeftRect(TQPainter & p) const
   int x2(r.right());
   int y2(r.bottom());
 
-  p.setPen(widget()->colorGroup().light());
+  p.setPen(widget()->tqcolorGroup().light());
 
   p.drawLine(x1, y1, x1 + openLookMargin-1, y1);
   p.drawLine(x1, y1 + 1, x1, y2);
@@ -550,7 +550,7 @@ OpenLook::paintBottomLeftRect(TQPainter & p) const
   p.fillRect(x1 + 1, y2 - openLookMargin + 2, r.width()-2, openLookMargin-2, handleColour);
   p.fillRect(x1 + 1, y1 + 1, openLookMargin-2, r.height()-2, handleColour);
 
-  p.setPen(widget()->colorGroup().dark());
+  p.setPen(widget()->tqcolorGroup().dark());
 
   p.drawLine(x1 + openLookMargin-1, y1 + 1, x1 + openLookMargin-1, y2 - openLookMargin);
   p.drawLine(x1 + 1, y2, x2, y2);
@@ -569,7 +569,7 @@ OpenLook::paintBottomRightRect(TQPainter & p) const
   int x2(r.right());
   int y2(r.bottom());
 
-  p.setPen(widget()->colorGroup().light());
+  p.setPen(widget()->tqcolorGroup().light());
 
   p.drawLine(x1, y2 - openLookMargin+1, x1, y2);
   p.drawLine(x1 + 1, y2 - openLookMargin+1, x2 - openLookMargin+1, y2 - openLookMargin+1);
@@ -579,16 +579,16 @@ OpenLook::paintBottomRightRect(TQPainter & p) const
   p.fillRect(x1 + 1, y2 - openLookMargin + 2, r.width()-2, openLookMargin-2,  handleColour);
   p.fillRect(x2 - openLookMargin + 2, y1 + 1, openLookMargin-2, r.height()-2, handleColour);
 
-  p.setPen(widget()->colorGroup().dark());
+  p.setPen(widget()->tqcolorGroup().dark());
 
   p.drawLine(x1 + 1, y2, x2, y2);
   p.drawLine(x2, y1 + 1, x2, y2 - 1);
 }
 
-  QRect
+  TQRect
 OpenLook::buttonRect() const
 {
-  return QRect
+  return TQRect
     (
       openLookCornerSize + 3,
       titleRect().top(),
@@ -609,16 +609,16 @@ OpenLook::paintButton(TQPainter & p) const
      r.width() - 2,
      r.height() - 2,
      buttonDown_
-     ? widget()->colorGroup().dark()
+     ? widget()->tqcolorGroup().dark()
      : options()->color(KDecoration::ColorButtonBg, isActive())
     );
 
-  p.setPen(buttonDown_ ? widget()->colorGroup().dark() : widget()->colorGroup().light());
+  p.setPen(buttonDown_ ? widget()->tqcolorGroup().dark() : widget()->tqcolorGroup().light());
 
   p.drawLine(r.left() + 1, r.top(), r.right() - 1, r.top());
   p.drawLine(r.left(), r.top() + 1, r.left(), r.bottom() - 1);
 
-  p.setPen(buttonDown_ ? widget()->colorGroup().light() : widget()->colorGroup().dark());
+  p.setPen(buttonDown_ ? widget()->tqcolorGroup().light() : widget()->tqcolorGroup().dark());
 
   p.drawLine(r.right(), r.top() + 1, r.right(), r.bottom() - 1);
   p.drawLine(r.left() + 1, r.bottom(), r.right() - 1, r.bottom());
@@ -638,7 +638,7 @@ OpenLook::paintArrow(TQPainter & p) const
 
   TQPointArray poly(3);
 
-  p.setBrush(widget()->colorGroup().mid());
+  p.setBrush(widget()->tqcolorGroup().mid());
 
   poly.setPoint(0, x, y);
   poly.setPoint(1, x + w - 1, y);
@@ -646,13 +646,13 @@ OpenLook::paintArrow(TQPainter & p) const
 
   p.drawPolygon(poly);
 
-  p.setPen(widget()->colorGroup().dark());
+  p.setPen(widget()->tqcolorGroup().dark());
 
   p.drawLine(x, y, x + w - 1, y);
 
   p.drawLine(x, y, x + (w / 2), y + h - 1);
 
-  p.setPen(widget()->colorGroup().light());
+  p.setPen(widget()->tqcolorGroup().light());
 
   p.drawLine(x + (w / 2), y + h - 1, x + w - 1, y);
 }
@@ -669,10 +669,10 @@ OpenLook::paintBorder(TQPainter & p) const
   uint r = widget()->rect().right();
   uint b = widget()->rect().bottom();
 
-  p.fillRect(x + cs, y, w - cs - cs, 2,     widget()->colorGroup().shadow());
-  p.fillRect(x + cs, b - 1, w - cs - cs, 2, widget()->colorGroup().shadow());
-  p.fillRect(x, y + cs, 2, h - cs - cs,     widget()->colorGroup().shadow());
-  p.fillRect(r - 1, y + cs, 2, h - cs - cs, widget()->colorGroup().shadow());
+  p.fillRect(x + cs, y, w - cs - cs, 2,     widget()->tqcolorGroup().shadow());
+  p.fillRect(x + cs, b - 1, w - cs - cs, 2, widget()->tqcolorGroup().shadow());
+  p.fillRect(x, y + cs, 2, h - cs - cs,     widget()->tqcolorGroup().shadow());
+  p.fillRect(r - 1, y + cs, 2, h - cs - cs, widget()->tqcolorGroup().shadow());
 
   TQColor frameColour(options()->color(KDecoration::ColorFrame, isActive()));
 
@@ -687,14 +687,14 @@ OpenLook::paintBorder(TQPainter & p) const
      titleRect().bottom() + 1,
      width() - 2 * openLookMargin,
      2,
-     widget()->colorGroup().background()
+     widget()->tqcolorGroup().background()
     );
 }
 
-  QRect
+  TQRect
 OpenLook::titleRect() const
 {
-  return titleSpacer_->geometry();
+  return titleSpacer_->tqgeometry();
 }
 
   bool
@@ -704,7 +704,7 @@ OpenLook::isButtonPress(TQMouseEvent * e)
 
   buttonDown_ = buttonRect().contains(mousePressPoint_);
 
-  widget()->repaint(buttonRect());
+  widget()->tqrepaint(buttonRect());
   return buttonDown_;
 }
 
@@ -717,7 +717,7 @@ OpenLook::isButtonRelease(TQMouseEvent * e)
     return true;
   }
   buttonDown_ = false;
-  widget()->repaint(buttonRect());
+  widget()->tqrepaint(buttonRect());
 
   return false;
 }

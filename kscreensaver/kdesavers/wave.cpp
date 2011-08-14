@@ -16,7 +16,7 @@
 #include <kglobal.h>
 #include "wave.h"
 #include "wave.moc"
-#ifdef Q_WS_MACX
+#ifdef TQ_WS_MACX
 #include <OpenGL/glu.h>
 #include <OpenGL/gl.h>
 #else
@@ -288,8 +288,8 @@ void Wave::paintGL ()
 
 bool Wave::LoadGLTextures()
 {
-    /* Status indicator */
-    bool Status = TRUE;
+    /* tqStatus indicator */
+    bool tqStatus = TRUE;
 
 	TQImage buf; // = TQPixmap::grabWindow ( 0 ).convertToImage();
    kdDebug() << "Loading: " << locate("data", "kscreensaver/image.png") << endl;
@@ -302,12 +302,12 @@ bool Wave::LoadGLTextures()
         else
         {
                 TQImage dummy( 64, 64, 64 );
-                dummy.fill( Qt::white.rgb() );
+                dummy.fill( TQt::white.rgb() );
                 buf = dummy;
                 tex = convertToGLFormat( buf );
         }
             /* Set the status to true */
-            //Status = TRUE;
+            //tqStatus = TRUE;
 	glGenTextures(1, &texture[0]);   /* create three textures */
  	glBindTexture(GL_TEXTURE_2D, texture[0]);
 	/* use linear filtering */
@@ -320,5 +320,5 @@ bool Wave::LoadGLTextures()
 	kdDebug() << "Texture Loaded: " << tex.width() << "," << tex.height() << endl;
 
 
-    return Status;
+    return tqStatus;
 }

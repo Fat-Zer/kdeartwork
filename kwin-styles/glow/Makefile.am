@@ -6,7 +6,7 @@ SUBDIRS = . config themes
 kde_module_LTLIBRARIES = kwin3_glow.la
 
 kwin3_glow_la_SOURCES = glowclient.cpp glowbutton.cpp
-kwin3_glow_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN) -module
+kwin3_glow_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN) -module $(LIB_QT) $(LIB_KDECORE) $(LIB_KDEUI) -lkdefx
 kwin3_glow_la_LIBADD  = $(LIB_KDECORE) -lkdecorations
 
 METASOURCES = AUTO

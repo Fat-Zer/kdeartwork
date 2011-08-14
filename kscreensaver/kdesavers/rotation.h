@@ -12,7 +12,7 @@
 #include <math.h>
 // STL headers
 #include <valarray>
-// Qt headers
+// TQt headers
 #include <tqwidget.h>
 #include <tqtimer.h>
 #include <tqgl.h>
@@ -79,14 +79,15 @@ class EulerOdeSolver : public RkOdeSolver<double>
 /** @brief GL widget class for the KRotation screen saver
  *
  * Class implements TQGLWidget to display the KRotation screen saver. */
-class RotationGLWidget : public QGLWidget
+class RotationGLWidget : public TQGLWidget
 {
    Q_OBJECT
+  TQ_OBJECT
 
   public:
    /** @brief Constructor of KRotation's GL widget
-    * @param parent parent widget, passed to QGLWidget's constructor
-    * @param name name of widget, passed to QGLWidget's constructor
+    * @param parent parent widget, passed to TQGLWidget's constructor
+    * @param name name of widget, passed to TQGLWidget's constructor
     * @param omega current rotation vector
     * @param e1 x trace data
     * @param e2 y trace data
@@ -172,6 +173,7 @@ class RotationGLWidget : public QGLWidget
 class KRotationSaver : public KScreenSaver
 {
    Q_OBJECT
+  TQ_OBJECT
 
   public:
    /** @brief Constructor of the KRotation screen saver object
@@ -299,6 +301,7 @@ class KRotationSaver : public KScreenSaver
 class KRotationSetup : public KRotationSetupUi
 {
    Q_OBJECT
+  TQ_OBJECT
 
   public:
    KRotationSetup(TQWidget* parent = NULL, const char* name = NULL);

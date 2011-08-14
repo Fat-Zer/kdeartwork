@@ -28,11 +28,12 @@ enum ButtonType {
 class StdClient : public KDecoration
 {
     Q_OBJECT
+  TQ_OBJECT
 public:
     StdClient( KDecorationBridge* b, KDecorationFactory* f );
     ~StdClient();
     void init();
-    TQSize minimumSize() const;
+    TQSize tqminimumSize() const;
     void borders( int& left, int& right, int& top, int& bottom ) const;
     void reset( unsigned long mask );
     void resize( const TQSize& s );
@@ -66,11 +67,12 @@ private:
 class StdToolClient : public KDecoration
 {
     Q_OBJECT
+  TQ_OBJECT
 public:
     StdToolClient( KDecorationBridge* b, KDecorationFactory* f );
     ~StdToolClient();
     void init();
-    TQSize minimumSize() const;
+    TQSize tqminimumSize() const;
     void borders( int& left, int& right, int& top, int& bottom ) const;
     void reset( unsigned long mask );
     void resize( const TQSize& s );
@@ -100,9 +102,10 @@ private:
   Like TQToolButton, but provides a clicked(ButtonState) signals that
   has the last pressed mouse button as argument
  */
-class ThreeButtonButton: public QToolButton
+class ThreeButtonButton: public TQToolButton
 {
     Q_OBJECT
+  TQ_OBJECT
 public:
   ThreeButtonButton ( TQWidget *parent = 0, const char* name = 0 )
       : TQToolButton( parent, name )
@@ -119,13 +122,13 @@ protected:
     void mousePressEvent( TQMouseEvent* e )
     {
 	last_button = e->button();
-	TQMouseEvent me ( e->type(), e->pos(), e->globalPos(), LeftButton, e->state() );
+	TQMouseEvent me ( e->type(), e->pos(), e->globalPos(), Qt::LeftButton, e->state() );
 	TQToolButton::mousePressEvent( &me );
     }
 
     void mouseReleaseEvent( TQMouseEvent* e )
     {
-	TQMouseEvent me ( e->type(), e->pos(), e->globalPos(), LeftButton, e->state() );
+	TQMouseEvent me ( e->type(), e->pos(), e->globalPos(), Qt::LeftButton, e->state() );
 	TQToolButton::mouseReleaseEvent( &me );
     }
 

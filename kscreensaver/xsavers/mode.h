@@ -38,7 +38,7 @@ typedef struct LockStruct_s {
 	ModeHook   *init_hook;	/* func to init a mode */
 	ModeHook   *callback_hook;	/* func to run (tick) a mode */
 	ModeHook   *release_hook;	/* func to shutdown a mode */
-	ModeHook   *refresh_hook;	/* tells mode to repaint */
+	ModeHook   *refresh_hook;	/* tells mode to tqrepaint */
 	ModeHook   *change_hook;	/* user wants mode to change */
 	ModeHook   *unused_hook;	/* for future expansion */
 	ModeSpecOpt *msopt;	/* this mode's def resources */
@@ -313,10 +313,10 @@ extern ModeHook release_galaxy;
 extern ModeHook refresh_galaxy;
 extern ModeSpecOpt galaxy_opts;
 
-extern ModeHook init_geometry;
-extern ModeHook draw_geometry;
-extern ModeHook release_geometry;
-extern ModeHook refresh_geometry;
+extern ModeHook init_tqgeometry;
+extern ModeHook draw_tqgeometry;
+extern ModeHook release_tqgeometry;
+extern ModeHook refresh_tqgeometry;
 extern ModeSpecOpt geometry_opts;
 
 extern ModeHook init_grav;
@@ -504,11 +504,11 @@ extern ModeHook release_rotor;
 extern ModeHook refresh_rotor;
 extern ModeSpecOpt rotor_opts;
 
-extern ModeHook init_shape;
-extern ModeHook draw_shape;
-extern ModeHook release_shape;
-extern ModeHook refresh_shape;
-extern ModeSpecOpt shape_opts;
+extern ModeHook init_tqshape;
+extern ModeHook draw_tqshape;
+extern ModeHook release_tqshape;
+extern ModeHook refresh_tqshape;
+extern ModeSpecOpt tqshape_opts;
 
 extern ModeHook init_slip;
 extern ModeHook draw_slip;

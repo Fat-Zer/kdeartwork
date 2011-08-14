@@ -47,19 +47,19 @@ class Palette
          data_[7] = 0xFF000000;
       }
 
-      QRgb& operator [] (int idx)
+      TQRgb& operator [] (int idx)
       {
          return data_[idx];
       }
 
-      QRgb operator [] (int idx) const
+      TQRgb operator [] (int idx) const
       {
          return data_[idx];
       }
 
    private:
 
-      TQMemArray<QRgb> data_;
+      TQMemArray<TQRgb> data_;
 };
 
 } // End namespace

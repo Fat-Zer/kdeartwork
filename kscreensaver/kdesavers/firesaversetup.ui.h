@@ -2,7 +2,7 @@
 ** ui.h extension file, included from the uic-generated form implementation.
 **
 ** If you wish to add, delete or rename functions or slots use
-** Qt Designer which will update this file, preserving your code. Create an
+** TQt Designer which will update this file, preserving your code. Create an
 ** init() function in place of a constructor, and a destroy() function in
 ** place of a destructor.
 *****************************************************************************/
@@ -137,7 +137,7 @@ void KFireSaverSetup::readConfig()
     fireworksSlider->setValue(config.readNumEntry( "FireworksFrequency", 7 ));
     particlesSlider->setValue(config.readNumEntry( "ParticlesSize", 0 ));
     bottomfireBox->setChecked(config.readBoolEntry( "enable-BottomFire", true ));
-    TQColor blue = Qt::darkBlue;
+    TQColor blue = TQt::darkBlue;
     bottomfireColorButton->setColor(config.readColorEntry( "BottomFireColor", &blue ));
     soundsBox->setChecked(config.readBoolEntry( "enable-Sounds", false ));
     overheadBox->setChecked(config.readBoolEntry( "enable-NoOverhead", true ));
@@ -205,7 +205,7 @@ void KFireSaverSetup::useButton_clicked()
 	showCombo->setCurrentItem( 1 );
 	fireworksSlider->setValue( 7 );
 	bottomfireBox->setChecked( true );
-	bottomfireColorButton->setColor( Qt::darkBlue );
+	bottomfireColorButton->setColor( TQt::darkBlue );
 	frameskipBox->setChecked( true );
 	fire1Box->setChecked( true );
 	fire2Box->setChecked( false );
@@ -243,7 +243,7 @@ void KFireSaverSetup::useButton_clicked()
     case 1:  // Elegant white
 	fireworksSlider->setValue( 7 );
 	bottomfireBox->setChecked( true );
-	bottomfireColorButton->setColor( Qt::blue );
+	bottomfireColorButton->setColor( TQt::blue );
 	frameskipBox->setChecked( true );
 	fire1Box->setChecked( true );
 	fire2Box->setChecked( false );
@@ -320,7 +320,7 @@ void KFireSaverSetup::useButton_clicked()
     case 3: //Enhanced reality
 	fireworksSlider->setValue( 8 );
 	bottomfireBox->setChecked( true );
-	bottomfireColorButton->setColor( Qt::magenta );
+	bottomfireColorButton->setColor( TQt::magenta );
 	frameskipBox->setChecked( true );
 	fire1Box->setChecked( true );
 	fire2Box->setChecked( true );
@@ -358,7 +358,7 @@ void KFireSaverSetup::useButton_clicked()
     case 4: //Hypnotic illusions
 	fireworksSlider->setValue( 9 );
 	bottomfireBox->setChecked( true );
-	bottomfireColorButton->setColor( Qt::red );
+	bottomfireColorButton->setColor( TQt::red );
 	frameskipBox->setChecked( true );
 	fire1Box->setChecked( true );
 	fire2Box->setChecked( true );

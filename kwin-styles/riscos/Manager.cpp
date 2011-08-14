@@ -82,23 +82,23 @@ void Manager::init()
 
 bool Manager::eventFilter(TQObject *o, TQEvent *e)
 {
-   if (o != widget()) return false;
+   if (TQT_BASE_OBJECT(o) != TQT_BASE_OBJECT(widget())) return false;
    switch (e->type())
    {
       case TQEvent::Resize:
-         resizeEvent(static_cast<TQResizeEvent*>(e));
+         resizeEvent(TQT_TQRESIZEEVENT(e));
          return true;
       case TQEvent::Paint:
-         paintEvent(static_cast<TQPaintEvent*>(e));
+         paintEvent(TQT_TQPAINTEVENT(e));
          return true;
       case TQEvent::MouseButtonDblClick:
-         mouseDoubleClickEvent(static_cast<TQMouseEvent*>(e));
+         mouseDoubleClickEvent(TQT_TQMOUSEEVENT(e));
          return true;
       case TQEvent::MouseButtonPress:
-         processMousePressEvent(static_cast<TQMouseEvent*>(e));
+         processMousePressEvent(TQT_TQMOUSEEVENT(e));
          return true;
       case TQEvent::Wheel:
-         wheelEvent( static_cast< TQWheelEvent* >( e ));
+         wheelEvent( TQT_TQWHEELEVENT( e ));
          return true;
       case TQEvent::MouseButtonRelease:
          return false;
@@ -134,22 +134,22 @@ void Manager::resize(const TQSize &s)
    widget()->resize(s);
 }
 
-TQSize Manager::minimumSize() const
+TQSize Manager::tqminimumSize() const
 {
-   return widget()->minimumSize();
+   return widget()->tqminimumSize();
 }
 
 void Manager::activeChange()
 {
    updateTitleBuffer();
-   widget()->repaint();
+   widget()->tqrepaint();
    emit(activeChanged(isActive()));
 }
 
 void Manager::captionChange()
 {
    updateTitleBuffer();
-   widget()->repaint();
+   widget()->tqrepaint();
 }
 
 void Manager::iconChange()
@@ -182,7 +182,7 @@ void Manager::paintEvent(TQPaintEvent *e)
 
    if (intersectsLeft || intersectsRight)
    {
-      p.setPen(Qt::black);
+      p.setPen(TQt::black);
 
       if (intersectsLeft)
          p.drawLine(0, r.top(), 0, r.bottom());
@@ -197,7 +197,7 @@ void Manager::paintEvent(TQPaintEvent *e)
 
    // Title bar.
 
-   TQRect tr = titleSpacer_->geometry();
+   TQRect tr = titleSpacer_->tqgeometry();
    bitBlt(widget(), tr.topLeft(), &titleBuf_);
 
    // Resize bar.
@@ -224,7 +224,7 @@ void Manager::resizeEvent(TQResizeEvent*)
 {
    updateButtonVisibility();
    updateTitleBuffer();
-   widget()->repaint();
+   widget()->tqrepaint();
 }
 
 void Manager::updateButtonVisibility()
@@ -282,7 +282,7 @@ void Manager::updateButtonVisibility()
          break;
    }
 
-   layout()->activate();
+   tqlayout()->activate();
 #endif
 }
 
@@ -292,7 +292,7 @@ void Manager::updateTitleBuffer()
 
    Static * s = Static::instance();
 
-   TQRect tr = titleSpacer_->geometry();
+   TQRect tr = titleSpacer_->tqgeometry();
 
    if (tr.width() == 0 || tr.height() == 0)
       titleBuf_.resize(8, 8);
@@ -352,13 +352,13 @@ KDecoration::Position Manager::mousePosition(const TQPoint& p) const
 
 void Manager::mouseDoubleClickEvent(TQMouseEvent *e)
 {
-   if (e->button() == LeftButton && titleSpacer_->geometry().contains(e->pos()))
+   if (e->button() == Qt::LeftButton && titleSpacer_->tqgeometry().contains(e->pos()))
       titlebarDblClickOperation();
 }
 
 void Manager::wheelEvent(TQWheelEvent *e)
 {
-    if (isSetShade() || titleLayout_->geometry().contains(e->pos()) )
+    if (isSetShade() || titleLayout_->tqgeometry().contains(e->pos()) )
         titlebarMouseWheelOperation( e->delta());
 }
 
@@ -428,7 +428,7 @@ bool Manager::animateMinimize(bool iconify)
 
          // Go away quick.
          helperShowHide(false);
-         qApp->syncX();
+         tqApp->syncX();
 
          TQRect r = iconGeometry();
 
@@ -463,7 +463,7 @@ bool Manager::animateMinimize(bool iconify)
          double delta  = finalAngle / steps;
 
          TQPainter p(workspaceWidget());
-         p.setRasterOp(Qt::NotROP);
+         p.setRasterOp(TQt::NotROP);
 
          for (double angle = 0; ; angle += delta)
          {
@@ -517,7 +517,7 @@ bool Manager::animateMinimize(bool iconify)
 
          // Go away quick.
          helperShowHide(false);
-         qApp->syncX();
+         tqApp->syncX();
 
          int stepCount = 12;
 
@@ -527,7 +527,7 @@ bool Manager::animateMinimize(bool iconify)
          int dy = r.height() / (stepCount * 2);
 
          TQPainter p(workspaceWidget());
-         p.setRasterOp(Qt::NotROP);
+         p.setRasterOp(TQt::NotROP);
 
          for (int step = 0; step < stepCount; step++)
          {
@@ -559,7 +559,7 @@ bool Manager::animateMinimize(bool iconify)
 
          TQPainter p(workspaceWidget());
 
-         p.setRasterOp(Qt::NotROP);
+         p.setRasterOp(TQt::NotROP);
 #if 0
          if (iconify)
             p.setClipRegion(TQRegion(workspaceWidget()->rect()) - wingeom);
@@ -573,7 +573,7 @@ bool Manager::animateMinimize(bool iconify)
 
          p.flush();
 
-         qApp->syncX();
+         tqApp->syncX();
 
          usleep(30000);
 
@@ -678,7 +678,7 @@ void Manager::createTitle()
 
    for (TQPtrListIterator<Button> it(leftButtonList_); it.current(); ++it)
    {
-      it.current()->setAlignment(Button::Left);
+      it.current()->tqsetAlignment(Button::Left);
       titleLayout_->addWidget(it.current());
    }
 
@@ -689,7 +689,7 @@ void Manager::createTitle()
 
    for (TQPtrListIterator<Button> it(rightButtonList_); it.current(); ++it)
    {
-      it.current()->setAlignment(Button::Right);
+      it.current()->tqsetAlignment(Button::Right);
       titleLayout_->addWidget(it.current());
    }
 }

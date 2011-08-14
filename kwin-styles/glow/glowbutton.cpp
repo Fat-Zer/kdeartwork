@@ -87,12 +87,12 @@ GlowButton::GlowButton(TQWidget *parent, const char *name,
 
 	_steps = 0;
 	m_updateTime = 50;
-	m_pixmapName = TQString::null;
+	m_pixmapName = TQString();
 
 	m_timer = new TQTimer(this);
 	connect(m_timer, TQT_SIGNAL(timeout()), this, TQT_SLOT(slotTimeout()));
 	m_pos = 0;
-	m_timerStatus = Stop;
+	m_timertqStatus = Stop;
 
 	setTipText (tip);
 	setCursor(arrowCursor);
@@ -116,7 +116,7 @@ TQString GlowButton::getPixmapName() const
 	return m_pixmapName;
 }
 
-Qt::ButtonState GlowButton::lastButton() const
+TQt::ButtonState GlowButton::lastButton() const
 {
 	return _last_button;
 }
@@ -132,7 +132,7 @@ void GlowButton::setPixmapName(const TQString& pixmapName)
 	// set steps
 	_steps = pixmap->height()/pixmap->width() - 1;
 
-	repaint(false);
+	tqrepaint(false);
 }
 
 void GlowButton::paintEvent( TQPaintEvent *e )
@@ -160,7 +160,7 @@ void GlowButton::enterEvent( TQEvent *e )
 {
 	if( m_pos<0 )
 		m_pos=-m_pos;
-	m_timerStatus = Run;
+	m_timertqStatus = Run;
 	if( ! m_timer->isActive() )
 		m_timer->start(m_updateTime);
 	TQButton::enterEvent(e);
@@ -168,7 +168,7 @@ void GlowButton::enterEvent( TQEvent *e )
 
 void GlowButton::leaveEvent( TQEvent *e )
 {
-	m_timerStatus = Stop;
+	m_timertqStatus = Stop;
 	if( ! m_timer->isActive() )
 		m_timer->start(m_updateTime);
 	TQButton::leaveEvent(e);
@@ -180,11 +180,11 @@ void GlowButton::mousePressEvent( TQMouseEvent *e )
 	if( m_timer->isActive() )
 		m_timer->stop();
 	m_pos = _steps;
-	repaint(false);
+	tqrepaint(false);
 	// without pretending LeftButton, clicking on the button with MidButton
 	// or RightButton would cause unwanted titlebar action
 	TQMouseEvent me (e->type(), e->pos(), e->globalPos(),
-			(e->button()&m_realizeButtons)?LeftButton:NoButton, e->state());
+			(e->button()&m_realizeButtons)?Qt::LeftButton:Qt::NoButton, e->state());
 	TQButton::mousePressEvent(&me);
 }
 
@@ -195,22 +195,22 @@ void GlowButton::mouseReleaseEvent( TQMouseEvent *e )
 	if( ! m_timer->isActive() ) {
 		m_timer->start(m_updateTime);
 	}
-	if( ! geometry().contains(p) ) {
-		m_timerStatus = Stop;
+	if( ! tqgeometry().contains(p) ) {
+		m_timertqStatus = Stop;
 	}
 	TQMouseEvent me (e->type(), e->pos(), e->globalPos(),
-			(e->button()&m_realizeButtons)?LeftButton:NoButton, e->state());
+			(e->button()&m_realizeButtons)?Qt::LeftButton:Qt::NoButton, e->state());
 	TQButton::mouseReleaseEvent(&me);
 }
 
 void GlowButton::slotTimeout()
 {
-	repaint(false);
+	tqrepaint(false);
 
 	if( m_pos>=_steps-1 ) {
 		m_pos = -m_pos;
 	}
-	if( m_timerStatus==Stop ) {
+	if( m_timertqStatus==Stop ) {
 		if( m_pos==0 ) {
 			m_timer->stop();
 			return;
@@ -268,29 +268,29 @@ TQPixmap * GlowButtonFactory::createGlowButtonPixmap(
 				uint * src2_line = (uint*) fg_image.scanLine (y);
 				uint * dst_line = (uint*) image.scanLine (i*h+y);
 				for (int x=0; x<w; ++x) {
-					int r = qRed (*(src1_line+x));
-					int g = qGreen (*(src1_line+x));
-					int b = qBlue (*(src1_line+x));
-					int a = QMAX (qAlpha(*(src1_line+x)),qGray(*(src2_line+x)));
-					*(dst_line+x) = qRgba (r, g, b, a);
+					int r = tqRed (*(src1_line+x));
+					int g = tqGreen (*(src1_line+x));
+					int b = tqBlue (*(src1_line+x));
+					int a = TQMAX (tqAlpha(*(src1_line+x)),tqGray(*(src2_line+x)));
+					*(dst_line+x) = tqRgba (r, g, b, a);
 				}
 			}
 		}
 		TQPixmap * pixmap = new TQPixmap (image);
 		TQPainter painter (pixmap);
 
-		bool dark = (qGray(color.rgb()) <= 127);
+		bool dark = (tqGray(color.rgb()) <= 127);
 		TQImage fg_img (w, h, 32);
 		fg_img.setAlphaBuffer (true);
 		for (int y=0; y<h; ++y) {
 			uint * src_line = (uint*) fg_image.scanLine (y);
 			uint * dst_line = (uint*) fg_img.scanLine (y);
 			for (int x=0; x<w; ++x) {
-				int alpha = qGray (*(src_line+x));
+				int alpha = tqGray (*(src_line+x));
 				if (dark)
-						*(dst_line+x) = qRgba (255, 255, 255, alpha);
+						*(dst_line+x) = tqRgba (255, 255, 255, alpha);
 				else
-						*(dst_line+x) = qRgba (0, 0, 0, alpha);
+						*(dst_line+x) = tqRgba (0, 0, 0, alpha);
 			}
 		}
 
@@ -306,8 +306,8 @@ TQPixmap * GlowButtonFactory::createGlowButtonPixmap(
 				uint * dst_line = (uint*) glow_img.scanLine(y);
 				for (int x=0; x<w; ++x) {
 					int alpha =
-							(int) (qGray (*(src_line+x)) * ((double) i/_steps));
-					*(dst_line+x) = qRgba (r, g, b, alpha);
+							(int) (tqGray (*(src_line+x)) * ((double) i/_steps));
+					*(dst_line+x) = tqRgba (r, g, b, alpha);
 				}
 			}
 			painter.drawImage (0, i*h, glow_img);
@@ -317,8 +317,8 @@ TQPixmap * GlowButtonFactory::createGlowButtonPixmap(
 				uint * src_line = (uint*) glow_image.scanLine (y);
 				uint * dst_line = (uint*) glow_img.scanLine (y);
 				for (int x=0; x<w; ++x) {
-					int alpha = qGray (*(src_line+x));
-					*(dst_line+x) = qRgba (r, g, b, alpha);
+					int alpha = tqGray (*(src_line+x));
+					*(dst_line+x) = tqRgba (r, g, b, alpha);
 				}
 		}
 		painter.drawImage (0, _steps*h, glow_img);

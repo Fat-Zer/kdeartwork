@@ -31,6 +31,7 @@ namespace RiscOS
 class MaximiseButton : public Button
 {
    Q_OBJECT
+  TQ_OBJECT
 
    public:
 

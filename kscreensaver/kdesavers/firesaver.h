@@ -43,7 +43,7 @@
 class Particle;
 class Writer;
 
-class KFireSaver : public QGLWidget
+class KFireSaver : public TQGLWidget
 {
     public:
 	KFireSaver( TQWidget *parent=0, const char *name=0 );
@@ -99,7 +99,7 @@ class KFireSaver : public QGLWidget
 	KArtsDispatcher artsDispatcher;
 	KArtsServer artsServer;
 	TQPtrList<KPlayObject> playObjectList;
-	QString	sound_explosion,
+	TQString	sound_explosion,
 		sound_debris;
 
 	//other stuff
@@ -133,7 +133,7 @@ class KFireSaver : public QGLWidget
 		flashOpacity,		//effects
 		fadeAmount,
 		megaFlares;
-	   QColor
+	   TQColor
 		bottomFireColor;
 	   int	colorsCount,
 		colorsT[8],

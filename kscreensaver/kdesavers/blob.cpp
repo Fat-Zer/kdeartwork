@@ -369,7 +369,7 @@ void KBlobSaver::box ( int x, int y )
 		y = 0;
 
 	// get the box region from the display to upgrade
-    TQImage img = TQPixmap::grabWindow(winId(), x, y, dim, dim).convertToImage();
+	TQImage img = TQPixmap(TQPixmap::grabWindow(winId(), x, y, dim, dim)).convertToImage();
 
 	// depending on the depth of the display, use either lookup table for
 	// next rgb val ( 8-bit ) or ramp the color directly for other displays
@@ -392,7 +392,7 @@ void KBlobSaver::box ( int x, int y )
 		{
 			for (int i = 0; i < img.width(); i++)
 			{
-                QRgb p = img.pixel( i, j );
+                TQRgb p = img.pixel( i, j );
                 p += (colorInc<<18);
                 img.setPixel( i, j, p );
 			}

@@ -95,7 +95,7 @@
 2004-01-28  Enrico Ros  <eros.kde@email.it>
 
 	* firesaverparticle.cpp: keep a particle independent from the
-	'shape' of the firework it belongs to. Added depth (level) of
+	'tqshape' of the firework it belongs to. Added depth (level) of
 	explosion (normal particles reach level 1, splitters reach 2).
 
 	* name syntax: converted filenames to match the style of the ones

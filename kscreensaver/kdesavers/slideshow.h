@@ -25,6 +25,7 @@ class SlideShowCfg;
 class kSlideShowSaver: public KScreenSaver
 {
   Q_OBJECT
+  TQ_OBJECT
 public:
   kSlideShowSaver( WId id );
   virtual ~kSlideShowSaver();
@@ -82,7 +83,7 @@ protected:
 protected:
   /** Init mPainter with next-screen's pixmap and call
       mPainter.begin(&mWidget) */
-  void startPainter(Qt::PenStyle penStyle=NoPen);
+  void startPainter(TQt::PenStyle penStyle=NoPen);
 
 protected:
   struct mScreenGeo {
@@ -128,6 +129,7 @@ protected:
 class kSlideShowSetup : public KDialogBase
 {
   Q_OBJECT
+  TQ_OBJECT
 public:
   kSlideShowSetup(TQWidget *parent=NULL, const char *name=NULL);
   ~kSlideShowSetup();

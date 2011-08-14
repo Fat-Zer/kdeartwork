@@ -15,7 +15,7 @@ noinst_HEADERS = phasestyle.h bitmaps.h
 
 kde_style_LTLIBRARIES = phasestyle.la
 phasestyle_la_SOURCES = phasestyle.cpp
-phasestyle_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN) -module
+phasestyle_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN) -module $(LIB_QT) $(LIB_KDECORE) $(LIB_KDEUI) -lkdefx
 phasestyle_la_LIBADD = -lkdefx -lkdecore
 phasestyle_la_METASOURCES = AUTO
 

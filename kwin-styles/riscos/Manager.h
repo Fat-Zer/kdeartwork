@@ -45,6 +45,7 @@ class Button;
 class Manager : public KDecoration
 {
    Q_OBJECT
+  TQ_OBJECT
 
    public:
 
@@ -55,7 +56,7 @@ class Manager : public KDecoration
       void reset(unsigned long changed);
       void borders(int&, int&, int&, int&) const;
       void resize(const TQSize&);
-      TQSize minimumSize() const;
+      TQSize tqminimumSize() const;
       void activeChange();
       void captionChange();
       void iconChange();
@@ -107,6 +108,7 @@ class Manager : public KDecoration
 class Factory : public TQObject, public KDecorationFactory
 {
    Q_OBJECT
+  TQ_OBJECT
 
    public:
       Factory();

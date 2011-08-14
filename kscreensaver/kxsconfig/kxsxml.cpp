@@ -36,7 +36,7 @@ bool KXSXml::parse( const TQString &filename )
 {
     TQFile file( filename );
     handler = new KXSXmlHandler( parent );
-    TQXmlInputSource source( &file );
+    TQXmlInputSource source( TQT_TQIODEVICE(&file) );
     TQXmlSimpleReader reader;
     reader.setContentHandler( handler );
     if ( !reader.parse( &source, FALSE ) )

@@ -19,7 +19,7 @@ Copyright (C) 1999, 2000 Matthias Ettrich <ettrich@kde.org>
 
 #include "kde1client_bitmaps.h"
 
-// Default button layout
+// Default button tqlayout
 const char default_left[]  = "MS";
 const char default_right[] = "H_IAX";
 
@@ -55,8 +55,8 @@ void create_pixmaps()
     if ( pixmaps_created )
         return;
     pixmaps_created = true;
-    TQColorGroup aGrp = options()->colorGroup(KDecorationOptions::ColorButtonBg, true);
-    TQColorGroup iGrp = options()->colorGroup(KDecorationOptions::ColorButtonBg, false);
+    TQColorGroup aGrp = options()->tqcolorGroup(KDecorationOptions::ColorButtonBg, true);
+    TQColorGroup iGrp = options()->tqcolorGroup(KDecorationOptions::ColorButtonBg, false);
 
     TQPainter aPainter, iPainter;
     close_pix = new TQPixmap(16, 16);
@@ -282,7 +282,7 @@ void StdClient::init()
 	button[n]->setBackgroundMode( PaletteBackground );
 	button[n]->setMouseTracking( FALSE );
 	button[n]->setAutoRaise( TRUE );
-	button[n]->setFocusPolicy( TQWidget::NoFocus );
+	button[n]->setFocusPolicy( TQ_NoFocus );
 	button[n]->setFixedSize( 20, 20 );
     }
 
@@ -398,7 +398,7 @@ void StdClient::activeChange()
         button[ButtonClose]->setIconSet(on ? *close_pix : *dis_close_pix);
     if (button[ButtonHelp])
         button[ButtonHelp]->setIconSet(on ? *question_mark_pix : *dis_question_mark_pix);
-    widget()->repaint( titlebar->geometry(), false );
+    widget()->tqrepaint( titlebar->tqgeometry(), false );
 }
 
 
@@ -413,7 +413,7 @@ StdClient::~StdClient()
 void StdClient::resizeEvent( TQResizeEvent* )
 {
     TQRegion rr = widget()->rect();
-    TQRect t = titlebar->geometry();
+    TQRect t = titlebar->tqgeometry();
 //     t.setTop( 0 );
 //     TQRegion r = rr.subtract( TQRect( t.x()+1, 0, t.width()-2, 1 ) );
 //     setMask( r );
@@ -429,7 +429,7 @@ void StdClient::resizeEvent( TQResizeEvent* )
  */
 void StdClient::captionChange()
 {
-    widget()->repaint( titlebar->geometry(), FALSE );
+    widget()->tqrepaint( titlebar->tqgeometry(), FALSE );
 }
 
 
@@ -461,11 +461,11 @@ void StdClient::desktopChange()
 void StdClient::paintEvent( TQPaintEvent* )
 {
     TQPainter p( widget() );
-    TQRect t = titlebar->geometry();
+    TQRect t = titlebar->tqgeometry();
     TQRegion r = widget()->rect();
     r = r.subtract( t );
     p.setClipRegion( r );
-    qDrawWinPanel( &p, widget()->rect(), widget()->colorGroup() );
+    qDrawWinPanel( &p, widget()->rect(), widget()->tqcolorGroup() );
 //     t.setTop( 1 );
 //     p.setClipRegion( t );
 //     t.setTop( 0 );
@@ -480,7 +480,7 @@ void StdClient::paintEvent( TQPaintEvent* )
 //     p.drawLine(t.left(), t.top()+1,  t.right(), t.top()+1);
     if ( isActive() )
 	qDrawShadePanel( &p2, 0, 0, titleRect.width(), titleRect.height(),
-			 widget()->colorGroup(), true, 1 );
+			 widget()->tqcolorGroup(), true, 1 );
     titleRect.setLeft( 4 );
     titleRect.setWidth( titleRect.width() - 2 );
     p2.setPen(options()->color(KDecorationOptions::ColorFont, isActive()));
@@ -494,14 +494,14 @@ void StdClient::paintEvent( TQPaintEvent* )
 
 void StdClient::mouseDoubleClickEvent( TQMouseEvent * e )
 {
-    if ( e->button() == LeftButton && titlebar->geometry().contains( e->pos() ) )
+    if ( e->button() == Qt::LeftButton && titlebar->tqgeometry().contains( e->pos() ) )
 	titlebarDblClickOperation();
 }
 
 
 void StdClient::wheelEvent( TQWheelEvent * e )
 {
-    if (isSetShade() || TQRect( 0, 0, width(), titlebar->geometry().height() ).contains( e->pos() ) )
+    if (isSetShade() || TQRect( 0, 0, width(), titlebar->tqgeometry().height() ).contains( e->pos() ) )
         titlebarMouseWheelOperation( e->delta());
 }
 
@@ -513,7 +513,7 @@ void StdClient::iconChange()
             button[ButtonMenu]->setIconSet(isActive() ? *menu_pix : *dis_menu_pix);
         else
             button[ButtonMenu]->setIconSet( icon().pixmap( TQIconSet::Small, TQIconSet::Normal ) );
-        button[ButtonMenu]->repaint( FALSE );
+        button[ButtonMenu]->tqrepaint( FALSE );
     }
 }
 
@@ -543,28 +543,28 @@ void StdClient::maxButtonClicked( ButtonState button )
 
 bool StdClient::eventFilter( TQObject* o, TQEvent* e )
 {
-    if ( o != widget() )
+    if ( TQT_BASE_OBJECT(o) != TQT_BASE_OBJECT(widget()) )
 	return false;
 
     switch ( e->type() ) {
     case TQEvent::Resize:
-	resizeEvent( static_cast< TQResizeEvent* >( e ) );
+	resizeEvent( TQT_TQRESIZEEVENT( e ) );
 	return true;
 
     case TQEvent::Paint:
-	paintEvent( static_cast< TQPaintEvent* >( e ) );
+	paintEvent( TQT_TQPAINTEVENT( e ) );
 	return true;
 
     case TQEvent::MouseButtonDblClick:
-	mouseDoubleClickEvent( static_cast< TQMouseEvent* >( e ) );
+	mouseDoubleClickEvent( TQT_TQMOUSEEVENT( e ) );
 	return true;
 
     case TQEvent::MouseButtonPress:
-	processMousePressEvent( static_cast< TQMouseEvent* >( e ) );
+	processMousePressEvent( TQT_TQMOUSEEVENT( e ) );
 	return true;
 
     case TQEvent::Wheel:
-	wheelEvent( static_cast< TQWheelEvent* >( e ));
+	wheelEvent( TQT_TQWHEELEVENT( e ));
 	return true;
 
     default:
@@ -572,9 +572,9 @@ bool StdClient::eventFilter( TQObject* o, TQEvent* e )
     }
 }
 
-TQSize StdClient::minimumSize() const
+TQSize StdClient::tqminimumSize() const
 {
-    return widget()->minimumSize().expandedTo( TQSize( 100, 50 ));
+    return widget()->tqminimumSize().expandedTo( TQSize( 100, 50 ));
 }
 
 void StdClient::borders( int& left, int& right, int& top, int& bottom ) const
@@ -636,7 +636,7 @@ StdToolClient::~StdToolClient()
 void StdToolClient::resizeEvent( TQResizeEvent* )
 {
 //     TQRegion r = rect();
-//     TQRect t = titlebar->geometry();
+//     TQRect t = titlebar->tqgeometry();
 //     t.setTop( 0 );
 //     r = r.subtract( TQRect(0, 0, width(), 1) );
 //     r = r.subtract (TQRect( 0, 0, 1, t.height() ) );
@@ -647,11 +647,11 @@ void StdToolClient::resizeEvent( TQResizeEvent* )
 void StdToolClient::paintEvent( TQPaintEvent* )
 {
     TQPainter p( widget() );
-    TQRect t = titlebar->geometry();
+    TQRect t = titlebar->tqgeometry();
     TQRect r = widget()->rect();
-    qDrawWinPanel( &p, r, widget()->colorGroup() );
+    qDrawWinPanel( &p, r, widget()->tqcolorGroup() );
     r.setTop( t.bottom()+1 );
-    qDrawWinPanel( &p, r, widget()->colorGroup() );
+    qDrawWinPanel( &p, r, widget()->tqcolorGroup() );
     p.fillRect( TQRect( TQPoint(t.topLeft() ), TQPoint( width() - t.left(), t.bottom() ) ),
 		options()->color(KDecorationOptions::ColorTitleBar, isActive()));
     p.setPen( options()->color(KDecorationOptions::ColorTitleBar, isActive()).light() );
@@ -665,19 +665,19 @@ void StdToolClient::paintEvent( TQPaintEvent* )
 
 void StdToolClient::mouseDoubleClickEvent( TQMouseEvent * e )
 {
-    if ( e->button() == LeftButton && titlebar->geometry().contains( e->pos() ) )
+    if ( e->button() == Qt::LeftButton && titlebar->tqgeometry().contains( e->pos() ) )
         titlebarDblClickOperation();
 }
 
 void StdToolClient::wheelEvent( TQWheelEvent * e )
 {
-    if (isSetShade() || TQRect( 0, 0, width(), titlebar->geometry().height() ).contains( e->pos() ) )
+    if (isSetShade() || TQRect( 0, 0, width(), titlebar->tqgeometry().height() ).contains( e->pos() ) )
         titlebarMouseWheelOperation( e->delta());
 }
 
 void StdToolClient::captionChange()
 {
-    widget()->repaint( titlebar->geometry(), FALSE );
+    widget()->tqrepaint( titlebar->tqgeometry(), FALSE );
 }
 
 void StdToolClient::reset( unsigned long )
@@ -692,28 +692,28 @@ void StdToolClient::reset( unsigned long )
 
 bool StdToolClient::eventFilter( TQObject* o, TQEvent* e )
 {
-    if ( o != widget() )
+    if ( TQT_BASE_OBJECT(o) != TQT_BASE_OBJECT(widget()) )
 	return false;
 
     switch ( e->type() ) {
     case TQEvent::Resize:
-	resizeEvent( static_cast< TQResizeEvent* >( e ) );
+	resizeEvent( TQT_TQRESIZEEVENT( e ) );
 	return true;
 
     case TQEvent::Paint:
-	paintEvent( static_cast< TQPaintEvent* >( e ) );
+	paintEvent( TQT_TQPAINTEVENT( e ) );
 	return true;
 
     case TQEvent::MouseButtonDblClick:
-	mouseDoubleClickEvent( static_cast< TQMouseEvent* >( e ) );
+	mouseDoubleClickEvent( TQT_TQMOUSEEVENT( e ) );
 	return true;
 
     case TQEvent::MouseButtonPress:
-	processMousePressEvent( static_cast< TQMouseEvent* >( e ) );
+	processMousePressEvent( TQT_TQMOUSEEVENT( e ) );
 	return true;
 
     case TQEvent::Wheel:
-	wheelEvent( static_cast< TQWheelEvent* >( e ));
+	wheelEvent( TQT_TQWHEELEVENT( e ));
 	return true;
 
     default:
@@ -721,9 +721,9 @@ bool StdToolClient::eventFilter( TQObject* o, TQEvent* e )
     }
 }
 
-TQSize StdToolClient::minimumSize() const
+TQSize StdToolClient::tqminimumSize() const
 {
-    return widget()->minimumSize().expandedTo( TQSize( 100, 50 ));
+    return widget()->tqminimumSize().expandedTo( TQSize( 100, 50 ));
 }
 
 void StdToolClient::borders( int& left, int& right, int& top, int& bottom ) const

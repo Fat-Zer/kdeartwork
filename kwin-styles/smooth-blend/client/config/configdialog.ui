@@ -1,6 +1,6 @@
 <!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>ConfigDialog</class>
-<widget class="QWidget">
+<widget class="TQWidget">
     <property name="name">
         <cstring>ConfigDialog</cstring>
     </property>
@@ -30,7 +30,7 @@
         <property name="margin">
             <number>0</number>
         </property>
-        <widget class="QGroupBox" row="1" column="0">
+        <widget class="TQGroupBox" row="1" column="0">
             <property name="name">
                 <cstring>buttongroup</cstring>
             </property>
@@ -41,7 +41,7 @@
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
-                <widget class="QSpinBox" row="0" column="2" rowspan="1" colspan="2">
+                <widget class="TQSpinBox" row="0" column="2" rowspan="1" colspan="2">
                     <property name="name">
                         <cstring>buttonsize</cstring>
                     </property>
@@ -72,7 +72,7 @@
                         <number>16</number>
                     </property>
                 </widget>
-                <widget class="QCheckBox" row="1" column="0" rowspan="1" colspan="4">
+                <widget class="TQCheckBox" row="1" column="0" rowspan="1" colspan="4">
                     <property name="name">
                         <cstring>animatebuttons</cstring>
                     </property>
@@ -92,7 +92,7 @@
                         <string>Check this option if you want to use button animations when hovering with the mouse.</string>
                     </property>
                 </widget>
-                <widget class="QLabel" row="0" column="0" rowspan="1" colspan="2">
+                <widget class="TQLabel" row="0" column="0" rowspan="1" colspan="2">
                     <property name="name">
                         <cstring>textLabel4</cstring>
                     </property>
@@ -100,7 +100,7 @@
                         <string>Button size:</string>
                     </property>
                 </widget>
-                <widget class="QCheckBox" row="3" column="0" rowspan="1" colspan="4">
+                <widget class="TQCheckBox" row="3" column="0" rowspan="1" colspan="4">
                     <property name="name">
                         <cstring>menuClose</cstring>
                     </property>
@@ -124,14 +124,14 @@
                     <property name="sizeType">
                         <enum>Fixed</enum>
                     </property>
-                    <property name="sizeHint">
+                    <property name="tqsizeHint">
                         <size>
                             <width>30</width>
                             <height>20</height>
                         </size>
                     </property>
                 </spacer>
-                <widget class="QComboBox" row="2" column="3">
+                <widget class="TQComboBox" row="2" column="3">
                     <item>
                         <property name="text">
                             <string>Intensify</string>
@@ -154,7 +154,7 @@
                         </sizepolicy>
                     </property>
                 </widget>
-                <widget class="QLabel" row="2" column="1" rowspan="1" colspan="2">
+                <widget class="TQLabel" row="2" column="1" rowspan="1" colspan="2">
                     <property name="name">
                         <cstring>textLabel2</cstring>
                     </property>
@@ -172,7 +172,7 @@
                     <property name="sizeType">
                         <enum>Expanding</enum>
                     </property>
-                    <property name="sizeHint">
+                    <property name="tqsizeHint">
                         <size>
                             <width>180</width>
                             <height>140</height>
@@ -181,7 +181,7 @@
                 </spacer>
             </grid>
         </widget>
-        <widget class="QGroupBox" row="0" column="0">
+        <widget class="TQGroupBox" row="0" column="0">
             <property name="name">
                 <cstring>titlegroup</cstring>
             </property>
@@ -192,15 +192,15 @@
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
-                <widget class="QLabel" row="0" column="0">
+                <widget class="TQLabel" row="0" column="0">
                     <property name="name">
                         <cstring>textLabel1_3</cstring>
                     </property>
                     <property name="text">
-                        <string>Text alignment:</string>
+                        <string>Text tqalignment:</string>
                     </property>
                 </widget>
-                <widget class="QLabel" row="3" column="0">
+                <widget class="TQLabel" row="3" column="0">
                     <property name="name">
                         <cstring>textLabel1_2</cstring>
                     </property>
@@ -208,7 +208,7 @@
                         <string>Frame width:</string>
                     </property>
                 </widget>
-                <widget class="QLabel" row="1" column="0" rowspan="2" colspan="1">
+                <widget class="TQLabel" row="1" column="0" rowspan="2" colspan="1">
                     <property name="name">
                         <cstring>textLabel1</cstring>
                     </property>
@@ -216,7 +216,7 @@
                         <string>Title height:</string>
                     </property>
                 </widget>
-                <widget class="QSpinBox" row="2" column="1" rowspan="1" colspan="2">
+                <widget class="TQSpinBox" row="2" column="1" rowspan="1" colspan="2">
                     <property name="name">
                         <cstring>titlesize</cstring>
                     </property>
@@ -230,7 +230,7 @@
                         <number>16</number>
                     </property>
                 </widget>
-                <widget class="QSpinBox" row="3" column="1" rowspan="1" colspan="2">
+                <widget class="TQSpinBox" row="3" column="1" rowspan="1" colspan="2">
                     <property name="name">
                         <cstring>framesize</cstring>
                     </property>
@@ -250,7 +250,7 @@
                         <number>4</number>
                     </property>
                 </widget>
-                <widget class="QButtonGroup" row="0" column="1" rowspan="2" colspan="2">
+                <widget class="TQButtonGroup" row="0" column="1" rowspan="2" colspan="2">
                     <property name="name">
                         <cstring>titlealign</cstring>
                     </property>
@@ -274,14 +274,14 @@
                     <property name="title">
                         <string></string>
                     </property>
-                    <property name="alignment">
+                    <property name="tqalignment">
                         <set>AlignTop</set>
                     </property>
                     <property name="toolTip" stdset="0">
                         <string></string>
                     </property>
                     <property name="whatsThis" stdset="0">
-                        <string>Use these buttons to set the alignment of the window title</string>
+                        <string>Use these buttons to set the tqalignment of the window title</string>
                     </property>
                     <hbox>
                         <property name="name">
@@ -290,15 +290,15 @@
                         <property name="margin">
                             <number>0</number>
                         </property>
-                        <widget class="QLayoutWidget">
+                        <widget class="TQLayoutWidget">
                             <property name="name">
-                                <cstring>layout14</cstring>
+                                <cstring>tqlayout14</cstring>
                             </property>
                             <hbox>
                                 <property name="name">
                                     <cstring>unnamed</cstring>
                                 </property>
-                                <widget class="QRadioButton">
+                                <widget class="TQRadioButton">
                                     <property name="name">
                                         <cstring>AlignLeft</cstring>
                                     </property>
@@ -309,7 +309,7 @@
                                         <string></string>
                                     </property>
                                 </widget>
-                                <widget class="QRadioButton">
+                                <widget class="TQRadioButton">
                                     <property name="name">
                                         <cstring>AlignHCenter</cstring>
                                     </property>
@@ -323,7 +323,7 @@
                                         <string></string>
                                     </property>
                                 </widget>
-                                <widget class="QRadioButton">
+                                <widget class="TQRadioButton">
                                     <property name="name">
                                         <cstring>AlignRight</cstring>
                                     </property>
@@ -348,14 +348,14 @@
                     <property name="sizeType">
                         <enum>Expanding</enum>
                     </property>
-                    <property name="sizeHint">
+                    <property name="tqsizeHint">
                         <size>
                             <width>231</width>
                             <height>71</height>
                         </size>
                     </property>
                 </spacer>
-                <widget class="QCheckBox" row="4" column="2" rowspan="1" colspan="2">
+                <widget class="TQCheckBox" row="4" column="2" rowspan="1" colspan="2">
                     <property name="name">
                         <cstring>roundCorners</cstring>
                     </property>
@@ -369,7 +369,7 @@
                         <bool>true</bool>
                     </property>
                 </widget>
-                <widget class="QCheckBox" row="4" column="0" rowspan="1" colspan="2">
+                <widget class="TQCheckBox" row="4" column="0" rowspan="1" colspan="2">
                     <property name="name">
                         <cstring>titleshadow</cstring>
                     </property>

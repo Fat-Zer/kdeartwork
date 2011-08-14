@@ -16,12 +16,12 @@ namespace KStep {
 
 class NextClient;
 
-class NextButton : public QButton
+class NextButton : public TQButton
 {
 public:
     NextButton(NextClient *parent=0, const char *name=0,
                const unsigned char *bitmap=NULL, int bw=0, int bh=0,
-               const TQString& tip=NULL, const int realizeBtns = LeftButton);
+               const TQString& tip=NULL, const int realizeBtns = Qt::LeftButton);
     void setBitmap(const unsigned char *bitmap, int bw, int bh);
     void reset();
     ButtonState lastButton() { return last_button; }
@@ -42,6 +42,7 @@ protected:
 class NextClient : public KDecoration
 {
     Q_OBJECT
+  TQ_OBJECT
 public:
     NextClient(KDecorationBridge *b, KDecorationFactory *f);
     ~NextClient() {;}
@@ -60,7 +61,7 @@ protected:
     void activeChange();
     void shadeChange();
     void iconChange();
-    TQSize minimumSize() const;
+    TQSize tqminimumSize() const;
     void resize(const TQSize &size);
     void borders(int &left, int &right, int &top, int &bottom) const;
     void reset(unsigned long changed);

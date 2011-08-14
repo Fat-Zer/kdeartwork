@@ -18,6 +18,7 @@
 class kPolygonSaver : public KScreenSaver
 {
 	Q_OBJECT
+  TQ_OBJECT
 public:
 	kPolygonSaver( WId id );
 	virtual ~kPolygonSaver();
@@ -37,12 +38,12 @@ protected slots:
 	void slotTimeout();
 
 protected:
-	QTimer		timer;
+	TQTimer		timer;
 	unsigned	numLines;
 	int			numVertices;
 	int			colorContext;
 	int			speed;
-	QColor		colors[64];
+	TQColor		colors[64];
     int         currentColor;
 	TQPtrList<TQPointArray> polygons;
 	TQMemArray<TQPoint> directions;
@@ -52,6 +53,7 @@ protected:
 class kPolygonSetup : public KDialogBase
 {
 	Q_OBJECT
+  TQ_OBJECT
 public:
 	kPolygonSetup( TQWidget *parent = 0, const char *name = 0 );
     ~kPolygonSetup();

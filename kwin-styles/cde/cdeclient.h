@@ -5,7 +5,7 @@
  *	Copyright (c) 2000-2001, 2002
  *		Chris Lee       <lee@azsites.com>
  *		Lennart Kudling <kudling@kde.org>
- *      	Fredrik Höglund <fredrik@kde.org>
+ *      	Fredrik Hï¿½glund <fredrik@kde.org>
  *
  *	Copyright (c) 2003
  *		Luciano Montanaro <mikelima@cirulla.net>
@@ -35,11 +35,11 @@ class CdeClient;
 
 enum Buttons { BtnMenu=0, BtnHelp, BtnIconify, BtnMax, BtnClose, BtnCount };
 
-class CdeButton : public QButton
+class CdeButton : public TQButton
 {
 public:
     CdeButton( CdeClient* parent=0, const char* name=0, int btnType=0,
-               const TQString& tip=NULL, int realize_btns = LeftButton );
+               const TQString& tip=NULL, int realize_btns = Qt::LeftButton );
     void reset();
     ButtonState lastButton() { return last_button; }
 
@@ -58,6 +58,7 @@ private:
 class CdeClient : public KDecoration
 {
     Q_OBJECT
+  TQ_OBJECT
 public:
     CdeClient(KDecorationBridge *b, KDecorationFactory *f);
     ~CdeClient() {};
@@ -77,7 +78,7 @@ protected:
     void activeChange();
     void shadeChange();
     void iconChange();
-    TQSize minimumSize() const;
+    TQSize tqminimumSize() const;
     void resize(const TQSize &size);
     void borders(int &left, int &right, int &top, int &bottom) const;
     void mousePressEvent( TQMouseEvent* );

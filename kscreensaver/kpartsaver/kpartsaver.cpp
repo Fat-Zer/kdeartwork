@@ -123,7 +123,7 @@ KPartSaver::KPartSaver( WId id )
         // create background widget
         m_back = new TQLabel( i18n("The screen saver is not configured yet."), this );
 
-        m_back->setAlignment( AlignCenter );
+        m_back->tqsetAlignment( AlignCenter );
         embed( m_back );
         m_back->show();
 
@@ -187,7 +187,7 @@ bool KPartSaver::openURL( KURL url )
     }
 
     // create kpart
-    m_part = (KParts::ReadOnlyPart *)factory->create( this, "kpart", "KParts::ReadOnlyPart" );
+    m_part = (KParts::ReadOnlyPart *)factory->create( TQT_TQOBJECT(this), "kpart", "KParts::ReadOnlyPart" );
     if( !m_part ) {
         kdDebug() << "Part for " << url.url() << " can't be constructed" << endl;
         return false;
@@ -257,7 +257,7 @@ void KPartSaver::next( bool random )
     // create background widget
     m_back = new TQLabel( i18n("All of your files are unsupported"), this );
 
-    m_back->setAlignment( AlignCenter );
+    m_back->tqsetAlignment( AlignCenter );
     embed( m_back );
     m_back->show();
 
@@ -337,7 +337,7 @@ void SaverConfig::apply()
 
 void SaverConfig::add()
 {
-    KURL::List files = KFileDialog::getOpenURLs( TQString::null, TQString::null,
+    KURL::List files = KFileDialog::getOpenURLs( TQString(), TQString(),
                                                  this, i18n("Select Media Files") );
     for( unsigned int n=0; n<files.count(); n++ )
         m_files->insertItem( files[n].prettyURL(), -1 );

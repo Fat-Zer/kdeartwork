@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
     {
         demoWidget = new DemoWindow();
         demoWidget->setBackgroundMode(TQWidget::NoBackground);
-//        demoWidget->setBackgroundColor(Qt::black);
+//        demoWidget->setBackgroundColor(TQt::black);
         demoWidget->show();
         saveWin = demoWidget->winId();
         app.setMainWidget(demoWidget);

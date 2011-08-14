@@ -31,6 +31,7 @@ namespace RiscOS
 class StickyButton : public Button
 {
    Q_OBJECT
+  TQ_OBJECT
 
    public:
 

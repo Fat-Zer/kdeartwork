@@ -1,6 +1,6 @@
 <!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>KPendulumSetupUi</class>
-<widget class="QDialog">
+<widget class="TQDialog">
     <property name="name">
         <cstring>KPendulumSetupUi</cstring>
     </property>
@@ -20,13 +20,13 @@
             <verstretch>2</verstretch>
         </sizepolicy>
     </property>
-    <property name="minimumSize">
+    <property name="tqminimumSize">
         <size>
             <width>0</width>
             <height>0</height>
         </size>
     </property>
-    <property name="maximumSize">
+    <property name="tqmaximumSize">
         <size>
             <width>1200</width>
             <height>900</height>
@@ -48,31 +48,31 @@
         <property name="resizeMode">
             <enum>Minimum</enum>
         </property>
-        <widget class="QLayoutWidget">
+        <widget class="TQLayoutWidget">
             <property name="name">
-                <cstring>layout18</cstring>
+                <cstring>tqlayout18</cstring>
             </property>
             <hbox>
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
-                <widget class="QLayoutWidget">
+                <widget class="TQLayoutWidget">
                     <property name="name">
-                        <cstring>layout16</cstring>
+                        <cstring>tqlayout16</cstring>
                     </property>
                     <vbox>
                         <property name="name">
                             <cstring>unnamed</cstring>
                         </property>
-                        <widget class="QLayoutWidget">
+                        <widget class="TQLayoutWidget">
                             <property name="name">
-                                <cstring>layout15</cstring>
+                                <cstring>tqlayout15</cstring>
                             </property>
                             <hbox>
                                 <property name="name">
                                     <cstring>unnamed</cstring>
                                 </property>
-                                <widget class="QLabel">
+                                <widget class="TQLabel">
                                     <property name="name">
                                         <cstring>textLabel1</cstring>
                                     </property>
@@ -90,7 +90,7 @@ m&lt;sub&gt;1&lt;/sub&gt;+m&lt;sub&gt;2&lt;/sub&gt;
 &lt;/p&gt;</string>
                                     </property>
                                 </widget>
-                                <widget class="QLineEdit">
+                                <widget class="TQLineEdit">
                                     <property name="name">
                                         <cstring>mEdit</cstring>
                                     </property>
@@ -102,7 +102,7 @@ m&lt;sub&gt;1&lt;/sub&gt;+m&lt;sub&gt;2&lt;/sub&gt;
                                             <verstretch>0</verstretch>
                                         </sizepolicy>
                                     </property>
-                                    <property name="maximumSize">
+                                    <property name="tqmaximumSize">
                                         <size>
                                             <width>60</width>
                                             <height>32767</height>
@@ -114,15 +114,15 @@ m&lt;sub&gt;1&lt;/sub&gt;+m&lt;sub&gt;2&lt;/sub&gt;
                                 </widget>
                             </hbox>
                         </widget>
-                        <widget class="QLayoutWidget">
+                        <widget class="TQLayoutWidget">
                             <property name="name">
-                                <cstring>layout14</cstring>
+                                <cstring>tqlayout14</cstring>
                             </property>
                             <hbox>
                                 <property name="name">
                                     <cstring>unnamed</cstring>
                                 </property>
-                                <widget class="QLabel">
+                                <widget class="TQLabel">
                                     <property name="name">
                                         <cstring>textLabel2</cstring>
                                     </property>
@@ -134,7 +134,7 @@ l&lt;sub&gt;1&lt;/sub&gt;+l&lt;sub&gt;2&lt;/sub&gt;
 &lt;/p&gt;</string>
                                     </property>
                                 </widget>
-                                <widget class="QLineEdit">
+                                <widget class="TQLineEdit">
                                     <property name="name">
                                         <cstring>lEdit</cstring>
                                     </property>
@@ -146,7 +146,7 @@ l&lt;sub&gt;1&lt;/sub&gt;+l&lt;sub&gt;2&lt;/sub&gt;
                                             <verstretch>0</verstretch>
                                         </sizepolicy>
                                     </property>
-                                    <property name="maximumSize">
+                                    <property name="tqmaximumSize">
                                         <size>
                                             <width>60</width>
                                             <height>32767</height>
@@ -158,26 +158,26 @@ l&lt;sub&gt;1&lt;/sub&gt;+l&lt;sub&gt;2&lt;/sub&gt;
                                 </widget>
                             </hbox>
                         </widget>
-                        <widget class="QLayoutWidget">
+                        <widget class="TQLayoutWidget">
                             <property name="name">
-                                <cstring>layout13</cstring>
+                                <cstring>tqlayout13</cstring>
                             </property>
                             <hbox>
                                 <property name="name">
                                     <cstring>unnamed</cstring>
                                 </property>
-                                <widget class="QLabel">
+                                <widget class="TQLabel">
                                     <property name="name">
                                         <cstring>textLabel3</cstring>
                                     </property>
                                     <property name="text">
                                         <string>g</string>
                                     </property>
-                                    <property name="alignment">
+                                    <property name="tqalignment">
                                         <set>WordBreak|AlignCenter</set>
                                     </property>
                                 </widget>
-                                <widget class="QLineEdit">
+                                <widget class="TQLineEdit">
                                     <property name="name">
                                         <cstring>gEdit</cstring>
                                     </property>
@@ -189,7 +189,7 @@ l&lt;sub&gt;1&lt;/sub&gt;+l&lt;sub&gt;2&lt;/sub&gt;
                                             <verstretch>0</verstretch>
                                         </sizepolicy>
                                     </property>
-                                    <property name="maximumSize">
+                                    <property name="tqmaximumSize">
                                         <size>
                                             <width>60</width>
                                             <height>32767</height>
@@ -201,26 +201,26 @@ l&lt;sub&gt;1&lt;/sub&gt;+l&lt;sub&gt;2&lt;/sub&gt;
                                 </widget>
                             </hbox>
                         </widget>
-                        <widget class="QLayoutWidget">
+                        <widget class="TQLayoutWidget">
                             <property name="name">
-                                <cstring>layout13_2</cstring>
+                                <cstring>tqlayout13_2</cstring>
                             </property>
                             <hbox>
                                 <property name="name">
                                     <cstring>unnamed</cstring>
                                 </property>
-                                <widget class="QLabel">
+                                <widget class="TQLabel">
                                     <property name="name">
                                         <cstring>textLabel4</cstring>
                                     </property>
                                     <property name="text">
                                         <string>E</string>
                                     </property>
-                                    <property name="alignment">
+                                    <property name="tqalignment">
                                         <set>WordBreak|AlignCenter</set>
                                     </property>
                                 </widget>
-                                <widget class="QLineEdit">
+                                <widget class="TQLineEdit">
                                     <property name="name">
                                         <cstring>eEdit</cstring>
                                     </property>
@@ -232,7 +232,7 @@ l&lt;sub&gt;1&lt;/sub&gt;+l&lt;sub&gt;2&lt;/sub&gt;
                                             <verstretch>0</verstretch>
                                         </sizepolicy>
                                     </property>
-                                    <property name="maximumSize">
+                                    <property name="tqmaximumSize">
                                         <size>
                                             <width>60</width>
                                             <height>32767</height>
@@ -244,15 +244,15 @@ l&lt;sub&gt;1&lt;/sub&gt;+l&lt;sub&gt;2&lt;/sub&gt;
                                 </widget>
                             </hbox>
                         </widget>
-                        <widget class="QLayoutWidget">
+                        <widget class="TQLayoutWidget">
                             <property name="name">
-                                <cstring>layout18</cstring>
+                                <cstring>tqlayout18</cstring>
                             </property>
                             <hbox>
                                 <property name="name">
                                     <cstring>unnamed</cstring>
                                 </property>
-                                <widget class="QLabel">
+                                <widget class="TQLabel">
                                     <property name="name">
                                         <cstring>textLabel2_2</cstring>
                                     </property>
@@ -264,7 +264,7 @@ Change [s]</string>
                                         <string>specify the time in seconds after which a random perspective change occurs</string>
                                     </property>
                                 </widget>
-                                <widget class="QSpinBox">
+                                <widget class="TQSpinBox">
                                     <property name="name">
                                         <cstring>persSpinBox</cstring>
                                     </property>
@@ -276,13 +276,13 @@ Change [s]</string>
                                             <verstretch>0</verstretch>
                                         </sizepolicy>
                                     </property>
-                                    <property name="minimumSize">
+                                    <property name="tqminimumSize">
                                         <size>
                                             <width>60</width>
                                             <height>0</height>
                                         </size>
                                     </property>
-                                    <property name="maximumSize">
+                                    <property name="tqmaximumSize">
                                         <size>
                                             <width>60</width>
                                             <height>32767</height>
@@ -291,19 +291,19 @@ Change [s]</string>
                                 </widget>
                             </hbox>
                         </widget>
-                        <widget class="QLayoutWidget">
+                        <widget class="TQLayoutWidget">
                             <property name="name">
-                                <cstring>layout15</cstring>
+                                <cstring>tqlayout15</cstring>
                             </property>
                             <hbox>
                                 <property name="name">
                                     <cstring>unnamed</cstring>
                                 </property>
-                                <widget class="QPushButton">
+                                <widget class="TQPushButton">
                                     <property name="name">
                                         <cstring>barColorButton</cstring>
                                     </property>
-                                    <property name="maximumSize">
+                                    <property name="tqmaximumSize">
                                         <size>
                                             <width>40</width>
                                             <height>32767</height>
@@ -313,11 +313,11 @@ Change [s]</string>
                                         <string>Bars</string>
                                     </property>
                                 </widget>
-                                <widget class="QPushButton">
+                                <widget class="TQPushButton">
                                     <property name="name">
                                         <cstring>m1ColorButton</cstring>
                                     </property>
-                                    <property name="maximumSize">
+                                    <property name="tqmaximumSize">
                                         <size>
                                             <width>40</width>
                                             <height>32767</height>
@@ -327,11 +327,11 @@ Change [s]</string>
                                         <string>M1</string>
                                     </property>
                                 </widget>
-                                <widget class="QPushButton">
+                                <widget class="TQPushButton">
                                     <property name="name">
                                         <cstring>m2ColorButton</cstring>
                                     </property>
-                                    <property name="maximumSize">
+                                    <property name="tqmaximumSize">
                                         <size>
                                             <width>40</width>
                                             <height>32767</height>
@@ -353,7 +353,7 @@ Change [s]</string>
                             <property name="sizeType">
                                 <enum>MinimumExpanding</enum>
                             </property>
-                            <property name="sizeHint">
+                            <property name="tqsizeHint">
                                 <size>
                                     <width>20</width>
                                     <height>0</height>
@@ -374,7 +374,7 @@ Change [s]</string>
                             <verstretch>0</verstretch>
                         </sizepolicy>
                     </property>
-                    <property name="minimumSize">
+                    <property name="tqminimumSize">
                         <size>
                             <width>200</width>
                             <height>150</height>
@@ -383,9 +383,9 @@ Change [s]</string>
                 </widget>
             </hbox>
         </widget>
-        <widget class="QLayoutWidget">
+        <widget class="TQLayoutWidget">
             <property name="name">
-                <cstring>layout19</cstring>
+                <cstring>tqlayout19</cstring>
             </property>
             <hbox>
                 <property name="name">
@@ -401,14 +401,14 @@ Change [s]</string>
                     <property name="sizeType">
                         <enum>Expanding</enum>
                     </property>
-                    <property name="sizeHint">
+                    <property name="tqsizeHint">
                         <size>
                             <width>66</width>
                             <height>31</height>
                         </size>
                     </property>
                 </spacer>
-                <widget class="QPushButton">
+                <widget class="TQPushButton">
                     <property name="name">
                         <cstring>OkButton</cstring>
                     </property>
@@ -419,7 +419,7 @@ Change [s]</string>
                         <bool>true</bool>
                     </property>
                 </widget>
-                <widget class="QPushButton">
+                <widget class="TQPushButton">
                     <property name="name">
                         <cstring>CancelButton</cstring>
                     </property>
@@ -427,7 +427,7 @@ Change [s]</string>
                         <string>&amp;Cancel</string>
                     </property>
                 </widget>
-                <widget class="QPushButton">
+                <widget class="TQPushButton">
                     <property name="name">
                         <cstring>AboutButton</cstring>
                     </property>
@@ -445,7 +445,7 @@ Change [s]</string>
                     <property name="sizeType">
                         <enum>Expanding</enum>
                     </property>
-                    <property name="sizeHint">
+                    <property name="tqsizeHint">
                         <size>
                             <width>65</width>
                             <height>31</height>
@@ -547,7 +547,7 @@ Change [s]</string>
         <slot>m2ColorButtonClickedSlot()</slot>
     </connection>
 </connections>
-<slots>
+<Q_SLOTS>
     <slot>okButtonClickedSlot()</slot>
     <slot>aboutButtonClickedSlot()</slot>
     <slot>mEditLostFocusSlot(void)</slot>
@@ -558,7 +558,7 @@ Change [s]</string>
     <slot>barColorButtonClickedSlot(void)</slot>
     <slot>m1ColorButtonClickedSlot(void)</slot>
     <slot>m2ColorButtonClickedSlot(void)</slot>
-</slots>
+</Q_SLOTS>
 <layoutdefaults spacing="6" margin="11"/>
 <includehints>
     <includehint>sspreviewarea.h</includehint>

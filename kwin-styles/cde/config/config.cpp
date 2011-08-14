@@ -30,7 +30,7 @@ CdeConfig::CdeConfig( KConfig* conf, TQWidget* parent )
 	
 	bgAlign = new TQButtonGroup( 3, Qt::Horizontal, i18n("Text &Alignment"), groupBox );
 	bgAlign->setExclusive( true );
-	TQWhatsThis::add( bgAlign, i18n("Use these buttons to set the alignment of the titlebar caption text.") );
+	TQWhatsThis::add( bgAlign, i18n("Use these buttons to set the tqalignment of the titlebar caption text.") );
 	new TQRadioButton( i18n("Left"), bgAlign, "AlignLeft" );
 	TQRadioButton *radio2 = new TQRadioButton( i18n("Centered"), bgAlign, "AlignHCenter" );
 	radio2->setChecked( true );

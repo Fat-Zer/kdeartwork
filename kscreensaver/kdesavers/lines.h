@@ -38,6 +38,7 @@ class Lines{
 
 class kLinesSaver:public KScreenSaver{
 	Q_OBJECT
+  TQ_OBJECT
 	public:
 	kLinesSaver( WId id );
 	virtual ~kLinesSaver();
@@ -68,6 +69,7 @@ class kLinesSaver:public KScreenSaver{
 
 class kLinesSetup : public KDialogBase{
 	Q_OBJECT
+  TQ_OBJECT
 	public:
 	kLinesSetup(TQWidget *parent=NULL, const char *name=NULL);
     ~kLinesSetup();

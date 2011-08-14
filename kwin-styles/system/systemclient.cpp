@@ -13,7 +13,7 @@
 #include <kapplication.h>
 #include <kdebug.h>
 
-// Default button layout
+// Default button tqlayout
 const char default_left[]  = "X";
 const char default_right[] = "HSIA";
 
@@ -78,7 +78,7 @@ static void create_pixmaps()
         aUpperGradient->resize(32, 18);
         iUpperGradient = new KPixmap;
         iUpperGradient->resize(32, 18);
-        TQColor bgColor = kapp->palette().active().background();
+        TQColor bgColor = kapp->tqpalette().active().background();
         KPixmapEffect::gradient(*aUpperGradient,
                                 KDecoration::options()->color(KDecorationOptions::ColorFrame, true).light(130),
                                 bgColor,
@@ -117,19 +117,19 @@ static void create_pixmaps()
                                 hColor.light(150),
                                 hColor.dark(150),
                                 KPixmapEffect::DiagonalGradient);
-        bitBlt(&aPix, 1, 1, &aInternal, 0, 0, 8, 8, Qt::CopyROP, true);
-        bitBlt(&iPix, 1, 1, &iInternal, 0, 0, 8, 8, Qt::CopyROP, true);
+        bitBlt(TQT_TQPAINTDEVICE(&aPix), 1, 1, TQT_TQPAINTDEVICE(&aInternal), 0, 0, 8, 8, TQt::CopyROP, true);
+        bitBlt(TQT_TQPAINTDEVICE(&iPix), 1, 1, TQT_TQPAINTDEVICE(&iInternal), 0, 0, 8, 8, TQt::CopyROP, true);
 
         // normal buttons
         btnPix = new KPixmap;
         btnPix->resize(14, 14);
-        bitBlt(btnPix, 2, 2, &aPix, 0, 0, 10, 10, Qt::CopyROP, true);
-        drawButtonFrame(btnPix, KDecoration::options()->colorGroup(KDecorationOptions::ColorFrame, true));
+        bitBlt(TQT_TQPAINTDEVICE(btnPix), 2, 2, TQT_TQPAINTDEVICE(&aPix), 0, 0, 10, 10, TQt::CopyROP, true);
+        drawButtonFrame(btnPix, KDecoration::options()->tqcolorGroup(KDecorationOptions::ColorFrame, true));
 
         iBtnPix = new KPixmap;
         iBtnPix->resize(14, 14);
-        bitBlt(iBtnPix, 2, 2, &iPix, 0, 0, 10, 10, Qt::CopyROP, true);
-        drawButtonFrame(iBtnPix, KDecoration::options()->colorGroup(KDecorationOptions::ColorFrame, false));
+        bitBlt(TQT_TQPAINTDEVICE(iBtnPix), 2, 2, TQT_TQPAINTDEVICE(&iPix), 0, 0, 10, 10, TQt::CopyROP, true);
+        drawButtonFrame(iBtnPix, KDecoration::options()->tqcolorGroup(KDecorationOptions::ColorFrame, false));
 
 
         // pressed buttons
@@ -152,25 +152,25 @@ static void create_pixmaps()
                                 hColor.light(150),
                                 hColor.dark(150),
                                 KPixmapEffect::DiagonalGradient);
-        bitBlt(&aPix, 1, 1, &aInternal, 0, 0, 8, 8, Qt::CopyROP, true);
-        bitBlt(&iPix, 1, 1, &iInternal, 0, 0, 8, 8, Qt::CopyROP, true);
+        bitBlt(TQT_TQPAINTDEVICE(&aPix), 1, 1, TQT_TQPAINTDEVICE(&aInternal), 0, 0, 8, 8, TQt::CopyROP, true);
+        bitBlt(TQT_TQPAINTDEVICE(&iPix), 1, 1, TQT_TQPAINTDEVICE(&iInternal), 0, 0, 8, 8, TQt::CopyROP, true);
 
         btnPixDown = new KPixmap;
         btnPixDown->resize(14, 14);
-        bitBlt(btnPixDown, 2, 2, &aPix, 0, 0, 10, 10, Qt::CopyROP, true);
-        drawButtonFrame(btnPixDown, KDecoration::options()->colorGroup(KDecorationOptions::ColorFrame,
+        bitBlt(TQT_TQPAINTDEVICE(btnPixDown), 2, 2, TQT_TQPAINTDEVICE(&aPix), 0, 0, 10, 10, TQt::CopyROP, true);
+        drawButtonFrame(btnPixDown, KDecoration::options()->tqcolorGroup(KDecorationOptions::ColorFrame,
                                                         true));
 
         iBtnPixDown = new KPixmap;
         iBtnPixDown->resize(14, 14);
-        bitBlt(iBtnPixDown, 2, 2, &iPix, 0, 0, 10, 10, Qt::CopyROP, true);
-        drawButtonFrame(iBtnPixDown, KDecoration::options()->colorGroup(KDecorationOptions::ColorFrame,
+        bitBlt(TQT_TQPAINTDEVICE(iBtnPixDown), 2, 2, TQT_TQPAINTDEVICE(&iPix), 0, 0, 10, 10, TQt::CopyROP, true);
+        drawButtonFrame(iBtnPixDown, KDecoration::options()->tqcolorGroup(KDecorationOptions::ColorFrame,
                                                          false));
     }
-    if(qGray(KDecoration::options()->color(KDecorationOptions::ColorButtonBg, true).rgb()) > 128)
-        btnForeground = new TQColor(Qt::black);
+    if(tqGray(KDecoration::options()->color(KDecorationOptions::ColorButtonBg, true).rgb()) > 128)
+        btnForeground = new TQColor(TQt::black);
     else
-        btnForeground = new TQColor(Qt::white);
+        btnForeground = new TQColor(TQt::white);
 }
 
 static void delete_pixmaps()
@@ -211,21 +211,21 @@ void SystemButton::setTipText(const TQString &tip)
 }
 
 
-TQSize SystemButton::sizeHint() const
+TQSize SystemButton::tqsizeHint() const
 {
     return(TQSize(14, 14));
 }
 
 void SystemButton::reset()
 {
-   repaint(false);
+   tqrepaint(false);
 }
 
 void SystemButton::setBitmap(const unsigned char *bitmap)
 {
     deco = TQBitmap(8, 8, bitmap, true);
     deco.setMask(deco);
-    repaint();
+    tqrepaint();
 }
 
 void SystemButton::drawButton(TQPainter *p)
@@ -237,7 +237,7 @@ void SystemButton::drawButton(TQPainter *p)
             p->drawPixmap(0, 0, isDown() ? *iBtnPixDown : *iBtnPix);
     }
     else{
-        TQColorGroup g = KDecoration::options()->colorGroup(KDecorationOptions::ColorFrame,
+        TQColorGroup g = KDecoration::options()->tqcolorGroup(KDecorationOptions::ColorFrame,
                                             client->isActive());
         int x2 = width()-1;
         int y2 = height()-1;
@@ -251,7 +251,7 @@ void SystemButton::drawButton(TQPainter *p)
         p->setPen(g.dark());
         p->drawRect(1, 1, width()-2, height()-2);
         // inner frame
-        g = KDecoration::options()->colorGroup(KDecorationOptions::ColorButtonBg, client->isActive());
+        g = KDecoration::options()->tqcolorGroup(KDecorationOptions::ColorButtonBg, client->isActive());
         p->fillRect(3, 3, width()-6, height()-6, g.background());
         p->setPen(isDown() ? g.mid() : g.light());
         p->drawLine(2, 2, x2-2, 2);
@@ -271,14 +271,14 @@ void SystemButton::drawButton(TQPainter *p)
 void SystemButton::mousePressEvent( TQMouseEvent* e )
 {
    last_button = e->button();
-   TQMouseEvent me ( e->type(), e->pos(), e->globalPos(), LeftButton, e->state() );
+   TQMouseEvent me ( e->type(), e->pos(), e->globalPos(), Qt::LeftButton, e->state() );
    TQButton::mousePressEvent( &me );
 }
 
 void SystemButton::mouseReleaseEvent( TQMouseEvent* e )
 {
    last_button = e->button();
-   TQMouseEvent me ( e->type(), e->pos(), e->globalPos(), LeftButton, e->state() );
+   TQMouseEvent me ( e->type(), e->pos(), e->globalPos(), Qt::LeftButton, e->state() );
    TQButton::mouseReleaseEvent( &me );
 }
 
@@ -411,24 +411,24 @@ void SystemClient::addButtons(TQBoxLayout *hb, const TQString& s)
 
 bool SystemClient::eventFilter( TQObject* o, TQEvent* e )
 {
-    if( o != widget())
+    if( TQT_BASE_OBJECT(o) != TQT_BASE_OBJECT(widget()))
        return false;
     switch( e->type())
     {
     case TQEvent::Resize:
-       resizeEvent(static_cast< TQResizeEvent* >( e ) );
+       resizeEvent(TQT_TQRESIZEEVENT( e ) );
        return true;
     case TQEvent::Paint:
-       paintEvent(static_cast< TQPaintEvent* >( e ) );
+       paintEvent(TQT_TQPAINTEVENT( e ) );
        return true;
     case TQEvent::MouseButtonDblClick:
-       mouseDoubleClickEvent(static_cast< TQMouseEvent* >( e ) );
+       mouseDoubleClickEvent(TQT_TQMOUSEEVENT( e ) );
        return true;
     case TQEvent::MouseButtonPress:
-       processMousePressEvent(static_cast< TQMouseEvent* >( e ) );
+       processMousePressEvent(TQT_TQMOUSEEVENT( e ) );
        return true;
     case TQEvent::Wheel:
-       wheelEvent( static_cast< TQWheelEvent* >( e ));
+       wheelEvent( TQT_TQWHEELEVENT( e ));
        return true;
     default:
         break;
@@ -440,7 +440,7 @@ void SystemClient::reset(unsigned long)
 {
    titleBuffer.resize(0, 0);
    recalcTitleBuffer();
-   widget()->repaint();
+   widget()->tqrepaint();
    if (button[ButtonClose])
        button[ButtonClose]->reset();
    if (button[ButtonSticky])
@@ -466,7 +466,7 @@ void SystemClient::resizeEvent( TQResizeEvent* )
     /*
     if ( isVisibleToTLW() && !testWFlags( WStaticContents )) {
         TQPainter p( this );
-	TQRect t = titlebar->geometry();
+	TQRect t = titlebar->tqgeometry();
 	t.setTop( 0 );
 	TQRegion r = rect();
 	r = r.subtract( t );
@@ -481,9 +481,9 @@ void SystemClient::resize( const TQSize& s )
 }
 
 
-TQSize SystemClient::minimumSize() const
+TQSize SystemClient::tqminimumSize() const
 {
-   return widget()->minimumSize();
+   return widget()->tqminimumSize();
 }
 
 
@@ -499,10 +499,10 @@ void SystemClient::recalcTitleBuffer()
         p.drawTiledPixmap(0, 0, width(), 18, *aUpperGradient);
     else
         p.fillRect(0, 0, width(), 18,
-                   options()->colorGroup(KDecorationOptions::ColorFrame, true).
+                   options()->tqcolorGroup(KDecorationOptions::ColorFrame, true).
                    brush(TQColorGroup::Button));
 
-    TQRect t = titlebar->geometry();
+    TQRect t = titlebar->tqgeometry();
     t.setTop( 2 );
     t.setLeft( t.left() + 4 );
     t.setRight( t.right() - 2 );
@@ -532,24 +532,24 @@ void SystemClient::recalcTitleBuffer()
 void SystemClient::captionChange()
 {
    recalcTitleBuffer();
-   widget()->repaint(titlebar->geometry(), false);
+   widget()->tqrepaint(titlebar->tqgeometry(), false);
 }
 
 void SystemClient::drawRoundFrame(TQPainter &p, int x, int y, int w, int h)
 {
    kDrawRoundButton(&p, x, y, w, h,
-                    options()->colorGroup(KDecorationOptions::ColorFrame, isActive()), false);
+                    options()->tqcolorGroup(KDecorationOptions::ColorFrame, isActive()), false);
 
 }
 
 void SystemClient::paintEvent( TQPaintEvent* )
 {
     TQPainter p(widget());
-    TQRect t = titlebar->geometry();
+    TQRect t = titlebar->tqgeometry();
 
-    TQBrush fillBrush(widget()->colorGroup().brush(TQColorGroup::Background).pixmap() ?
-                     widget()->colorGroup().brush(TQColorGroup::Background) :
-                     options()->colorGroup(KDecorationOptions::ColorFrame, isActive()).
+    TQBrush fillBrush(TQBrush(widget()->tqcolorGroup().brush(TQColorGroup::Background)).pixmap() ?
+                     widget()->tqcolorGroup().brush(TQColorGroup::Background) :
+                     options()->tqcolorGroup(KDecorationOptions::ColorFrame, isActive()).
                      brush(TQColorGroup::Button));
 
     p.fillRect(1, 18, width()-2, height()-19, fillBrush);
@@ -570,17 +570,17 @@ void SystemClient::paintEvent( TQPaintEvent* )
         p.drawText(t, AlignCenter, caption() );
     }
 
-    p.setPen(options()->colorGroup(KDecorationOptions::ColorFrame, isActive()).light());
+    p.setPen(options()->tqcolorGroup(KDecorationOptions::ColorFrame, isActive()).light());
     p.drawLine(width()-20, height()-7, width()-10,  height()-7);
     p.drawLine(width()-20, height()-5, width()-10,  height()-5);
-    p.setPen(options()->colorGroup(KDecorationOptions::ColorFrame, isActive()).dark());
+    p.setPen(options()->tqcolorGroup(KDecorationOptions::ColorFrame, isActive()).dark());
     p.drawLine(width()-20, height()-6, width()-10,  height()-6);
     p.drawLine(width()-20, height()-4, width()-10,  height()-4);
 
     drawRoundFrame(p, 0, 0, width(), height());
 }
 
-#define QCOORDARRLEN(x) sizeof(x)/(sizeof(QCOORD)*2)
+#define TQCOORDARRLEN(x) sizeof(x)/(sizeof(TQCOORD)*2)
 
 void SystemClient::doShape()
 {
@@ -597,7 +597,7 @@ void SystemClient::showEvent(TQShowEvent *)
 //    Client::showEvent(ev);
     doShape();
     widget()->show();
-//    widget()->repaint();
+//    widget()->tqrepaint();
 }
 
 /*void SystemClient::windowWrapperShowEvent( TQShowEvent* )
@@ -607,13 +607,13 @@ void SystemClient::showEvent(TQShowEvent *)
 
 void SystemClient::mouseDoubleClickEvent( TQMouseEvent * e )
 {
-   if ( e->button() == LeftButton && titlebar->geometry().contains( e->pos() ) )
+   if ( e->button() == Qt::LeftButton && titlebar->tqgeometry().contains( e->pos() ) )
       titlebarDblClickOperation();
 }
 
 void SystemClient::wheelEvent( TQWheelEvent *e )
 {
-    if (isSetShade() || TQRect( 0, 0, width(), titlebar->geometry().height() ).contains( e->pos() ) )
+    if (isSetShade() || TQRect( 0, 0, width(), titlebar->tqgeometry().height() ).contains( e->pos() ) )
         titlebarMouseWheelOperation( e->delta());
 }
 
@@ -633,7 +633,7 @@ void SystemClient::maximizeChange()
 
 void SystemClient::activeChange()
 {
-    widget()->repaint(false);
+    widget()->tqrepaint(false);
     if (button[ButtonClose])
         button[ButtonClose]->reset();
     if (button[ButtonSticky])
@@ -649,7 +649,7 @@ void SystemClient::activeChange()
 void SystemClient::iconChange()
 {
 //   if (button[BtnMenu] && button[BtnMenu]->isVisible())
-//      button[BtnMenu]->repaint(false);
+//      button[BtnMenu]->tqrepaint(false);
 }
 
 void SystemClient::desktopChange()

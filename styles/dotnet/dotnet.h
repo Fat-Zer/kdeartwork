@@ -30,11 +30,12 @@
 #define l_arrow 0,-3, 0,3,-1,-2,-1,2,-2,-1,-2,1,-3,0
 #define r_arrow -2,-3,-2,3,-1,-2, -1,2,0,-1,0,1,1,0
 
-#define QCOORDARRLEN(x) sizeof(x)/(sizeof(QCOORD)*2)
+#define TQCOORDARRLEN(x) sizeof(x)/(sizeof(TQCOORD)*2)
 
 class dotNETstyle : public KStyle
 {
 	Q_OBJECT
+  TQ_OBJECT
 
 public:
 	dotNETstyle();
@@ -54,14 +55,14 @@ public:
 		SFlags flags = Style_Default,
 		const TQStyleOption& = TQStyleOption::Default ) const;
 
-	void drawPrimitive( PrimitiveElement pe,
+	void tqdrawPrimitive( TQ_PrimitiveElement pe,
 		TQPainter *p,
 		const TQRect &r,
 		const TQColorGroup &cg,
 		SFlags flags = Style_Default,
 		const TQStyleOption &opt = TQStyleOption::Default ) const;
 
-	void drawControl( ControlElement element,
+	void tqdrawControl( TQ_ControlElement element,
 		TQPainter *p,
 		const TQWidget *widget,
 		const TQRect &r,
@@ -69,9 +70,9 @@ public:
 		SFlags flags = Style_Default,
 		const TQStyleOption& = TQStyleOption::Default ) const;
 
-	void drawControlMask( ControlElement, TQPainter *, const TQWidget *, const TQRect &, const TQStyleOption &) const;
+	void tqdrawControlMask( TQ_ControlElement, TQPainter *, const TQWidget *, const TQRect &, const TQStyleOption &) const;
 
-	void drawComplexControl( ComplexControl control,
+	void tqdrawComplexControl( ComplexControl control,
 		TQPainter *p,
 		const TQWidget *widget,
 		const TQRect &r,
@@ -81,7 +82,7 @@ public:
 		SCFlags active = SC_None,
 		const TQStyleOption& = TQStyleOption::Default ) const;
 
-	int pixelMetric( PixelMetric m,
+	int tqpixelMetric( PixelMetric m,
 		const TQWidget *widget = 0 ) const;
 
 	TQRect subRect( SubRect r,
@@ -92,13 +93,13 @@ public:
 		SubControl subcontrol,
 		const TQStyleOption &opt = TQStyleOption::Default ) const;
 
-	void drawComplexControlMask(TQStyle::ComplexControl c,
+	void tqdrawComplexControlMask(TQStyle::ComplexControl c,
 	                            TQPainter *p,
 	                            const TQWidget *w,
 	                            const TQRect &r,
 	                            const TQStyleOption &o=TQStyleOption::Default) const;
 
-	TQSize sizeFromContents(TQStyle::ContentsType t,
+	TQSize tqsizeFromContents(TQStyle::ContentsType t,
 	                       const TQWidget *w,
 	                       const TQSize &s,
 	                       const TQStyleOption &o) const;

@@ -15,6 +15,7 @@
 class kSwarmSaver : public kScreenSaver
 {
 	Q_OBJECT
+  TQ_OBJECT
 public:
 	kSwarmSaver( Drawable drawable );
 	virtual ~kSwarmSaver();
@@ -40,6 +41,7 @@ protected:
 class kSwarmSetup : public KDialogBase
 {
 	Q_OBJECT
+  TQ_OBJECT
 public:
 	kSwarmSetup( TQWidget *parent = NULL, const char *name = NULL );
 

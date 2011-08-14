@@ -4,7 +4,7 @@ INCLUDES = $(all_includes)
 kde_module_LTLIBRARIES = kwin3_system.la
 
 kwin3_system_la_SOURCES = systemclient.cpp
-kwin3_system_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN) -module
+kwin3_system_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN) -module $(LIB_QT) $(LIB_KDECORE) $(LIB_KDEUI) -lkdefx
 #kwin_system_la_LDFLAGS = $(all_libraries) -avoid-version -module $(KDE_RPATH) $(KDE_MT_LDFLAGS)
 kwin3_system_la_LIBADD = $(LIB_KDEUI) -lkdecorations
 

@@ -4,7 +4,7 @@
 //
 // Copyright (c)  Martin R. Jones 1996
 //
-// layout management added 1998/04/19 by Mario Weilguni <mweilguni@kde.org>
+// tqlayout management added 1998/04/19 by Mario Weilguni <mweilguni@kde.org>
 // 2001/03/04 Converted to libkscreensaver by Martin R. Jones
 
 #include <config.h>
@@ -66,7 +66,7 @@ kPolygonSetup::kPolygonSetup( TQWidget *parent, const char *name )
 	TQLabel *label = new TQLabel( i18n("Length:"), main );
 	tl1->addWidget(label);
 
-	TQSlider *sb = new TQSlider(1, MAXLENGTH, 10, length, TQSlider::Horizontal,
+	TQSlider *sb = new TQSlider(1, MAXLENGTH, 10, length, Qt::Horizontal,
 		main );
 	sb->setMinimumSize( 90, 20 );
     sb->setTickmarks(TQSlider::Below);
@@ -77,7 +77,7 @@ kPolygonSetup::kPolygonSetup( TQWidget *parent, const char *name )
 	label = new TQLabel( i18n("Vertices:"), main );
 	tl1->addWidget(label);
 
-	sb = new TQSlider(3, MAXVERTICES, 2, vertices, TQSlider::Horizontal, main);
+	sb = new TQSlider(3, MAXVERTICES, 2, vertices, Qt::Horizontal, main);
 	sb->setMinimumSize( 90, 20 );
     sb->setTickmarks(TQSlider::Below);
     sb->setTickInterval(2);
@@ -87,7 +87,7 @@ kPolygonSetup::kPolygonSetup( TQWidget *parent, const char *name )
 	label = new TQLabel( i18n("Speed:"), main );
 	tl1->addWidget(label);
 
-	sb = new TQSlider(0, 100, 10, speed, TQSlider::Horizontal, main);
+	sb = new TQSlider(0, 100, 10, speed, Qt::Horizontal, main);
 	sb->setMinimumSize( 90, 20 );
     sb->setTickmarks(TQSlider::Below);
     sb->setTickInterval(10);
@@ -102,7 +102,7 @@ kPolygonSetup::kPolygonSetup( TQWidget *parent, const char *name )
 	saver = new kPolygonSaver( preview->winId() );
 	tl->addWidget(preview);
 
-	setMinimumSize( sizeHint() );
+	setMinimumSize( tqsizeHint() );
 }
 
 kPolygonSetup::~kPolygonSetup()

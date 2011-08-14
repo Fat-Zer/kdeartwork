@@ -44,6 +44,7 @@ typedef struct {
 class kVmSaver : public KScreenSaver
 {
 	Q_OBJECT
+  TQ_OBJECT
 public:
 	kVmSaver( WId id );
 	virtual ~kVmSaver();
@@ -74,6 +75,7 @@ protected:
 class kVmSetup : public KDialogBase
 {
 	Q_OBJECT
+  TQ_OBJECT
 public:
 	kVmSetup( TQWidget *parent = NULL, const char *name = NULL );
     ~kVmSetup();

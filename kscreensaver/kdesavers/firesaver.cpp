@@ -479,7 +479,7 @@ void KFireSaver :: paintGL ()
 					glBegin( GL_QUADS );
 					flashedScreen = true;
 				}
-				// generating children and removing parent
+				// generating tqchildren and removing parent
 				int elementIndex = particleList.at();
 				explodeFirework(particle);
 				particleList.remove(elementIndex);
@@ -907,8 +907,8 @@ void KFireSaver :: burnLogo(TQImage * image)
 	{
 		for (int x=0 ; x<imageW ; x+=step)
 		{
-			QRgb pixel = image->pixel(x,y);
-			if ( qAlpha(pixel) < 250 )
+			TQRgb pixel = image->pixel(x,y);
+			if ( tqAlpha(pixel) < 250 )
 				continue;
 			//if ( DRAND > 0.9 )
 			//	continue;
@@ -924,9 +924,9 @@ void KFireSaver :: burnLogo(TQImage * image)
 			particle->xspeed = xI * speed + speedXOffs;
 			particle->zspeed = yI * speed + speedYOffs;
 
-			particle->colour[0] = qRed(pixel) / 255.0f;
-			particle->colour[1] = qGreen(pixel) / 255.0f;
-			particle->colour[2] = qBlue(pixel) / 255.0f;
+			particle->colour[0] = tqRed(pixel) / 255.0f;
+			particle->colour[1] = tqGreen(pixel) / 255.0f;
+			particle->colour[2] = tqBlue(pixel) / 255.0f;
 
 			particleList.append(particle);
 		}
@@ -1019,7 +1019,7 @@ void KFireSaver :: readConfig ()
 		parameters.particleSize = 5;
 	if ( parameters.enableBottomFire = config.readBoolEntry( "enable-BottomFire", true ) )
 	{
-		TQColor blue = Qt::darkBlue;
+		TQColor blue = TQt::darkBlue;
 		parameters.bottomFireColor = config.readColorEntry( "BottomFireColor", &blue );
 	}
 	parameters.enableSound = config.readBoolEntry( "enable-Sounds", false );

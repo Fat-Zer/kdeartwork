@@ -1,7 +1,7 @@
 <!DOCTYPE UI><UI version="3.0" stdsetdef="1">
 <class>ConfigWidget</class>
 <author>Stefan Schimanski &lt;1Stein@gmx.de&gt;</author>
-<widget class="QDialog">
+<widget class="TQDialog">
     <property name="name">
         <cstring>ConfigWidget</cstring>
     </property>
@@ -26,7 +26,7 @@
         <property name="spacing">
             <number>6</number>
         </property>
-        <widget class="QGroupBox">
+        <widget class="TQGroupBox">
             <property name="name">
                 <cstring>GroupBox1</cstring>
             </property>
@@ -43,12 +43,12 @@
                 <property name="spacing">
                     <number>6</number>
                 </property>
-                <widget class="QListBox" row="0" column="0" rowspan="2" colspan="1">
+                <widget class="TQListBox" row="0" column="0" rowspan="2" colspan="1">
                     <property name="name">
                         <cstring>m_files</cstring>
                     </property>
                 </widget>
-                <widget class="QLayoutWidget" row="0" column="1">
+                <widget class="TQLayoutWidget" row="0" column="1">
                     <property name="name">
                         <cstring>Layout2</cstring>
                     </property>
@@ -62,7 +62,7 @@
                         <property name="spacing">
                             <number>6</number>
                         </property>
-                        <widget class="QPushButton" row="2" column="1">
+                        <widget class="TQPushButton" row="2" column="1">
                             <property name="name">
                                 <cstring>m_down</cstring>
                             </property>
@@ -73,7 +73,7 @@
                                 <string>&amp;Down</string>
                             </property>
                         </widget>
-                        <widget class="QPushButton" row="2" column="0">
+                        <widget class="TQPushButton" row="2" column="0">
                             <property name="name">
                                 <cstring>m_up</cstring>
                             </property>
@@ -84,7 +84,7 @@
                                 <string>&amp;Up</string>
                             </property>
                         </widget>
-                        <widget class="QPushButton" row="0" column="0" rowspan="1" colspan="2">
+                        <widget class="TQPushButton" row="0" column="0" rowspan="1" colspan="2">
                             <property name="name">
                                 <cstring>m_add</cstring>
                             </property>
@@ -92,7 +92,7 @@
                                 <string>&amp;Add...</string>
                             </property>
                         </widget>
-                        <widget class="QPushButton" row="1" column="0" rowspan="1" colspan="2">
+                        <widget class="TQPushButton" row="1" column="0" rowspan="1" colspan="2">
                             <property name="name">
                                 <cstring>m_remove</cstring>
                             </property>
@@ -118,7 +118,7 @@
                 </spacer>
             </grid>
         </widget>
-        <widget class="QButtonGroup">
+        <widget class="TQButtonGroup">
             <property name="name">
                 <cstring>ButtonGroup1</cstring>
             </property>
@@ -135,7 +135,7 @@
                 <property name="spacing">
                     <number>6</number>
                 </property>
-                <widget class="QRadioButton" row="0" column="0" rowspan="1" colspan="2">
+                <widget class="TQRadioButton" row="0" column="0" rowspan="1" colspan="2">
                     <property name="name">
                         <cstring>m_single</cstring>
                     </property>
@@ -153,14 +153,14 @@
                     <property name="sizeType">
                         <enum>Fixed</enum>
                     </property>
-                    <property name="sizeHint">
+                    <property name="tqsizeHint">
                         <size>
                             <width>20</width>
                             <height>21</height>
                         </size>
                     </property>
                 </spacer>
-                <widget class="QRadioButton" row="1" column="0" rowspan="1" colspan="2">
+                <widget class="TQRadioButton" row="1" column="0" rowspan="1" colspan="2">
                     <property name="name">
                         <cstring>m_multiple</cstring>
                     </property>
@@ -168,7 +168,7 @@
                         <string>Switch to another medium after a delay</string>
                     </property>
                 </widget>
-                <widget class="QLayoutWidget" row="2" column="1">
+                <widget class="TQLayoutWidget" row="2" column="1">
                     <property name="name">
                         <cstring>Layout4</cstring>
                     </property>
@@ -182,7 +182,7 @@
                         <property name="spacing">
                             <number>6</number>
                         </property>
-                        <widget class="QLabel" row="0" column="0">
+                        <widget class="TQLabel" row="0" column="0">
                             <property name="name">
                                 <cstring>m_delayLabel</cstring>
                             </property>
@@ -193,7 +193,7 @@
                                 <string>Delay:</string>
                             </property>
                         </widget>
-                        <widget class="QSpinBox" row="0" column="1">
+                        <widget class="TQSpinBox" row="0" column="1">
                             <property name="name">
                                 <cstring>m_delay</cstring>
                             </property>
@@ -201,7 +201,7 @@
                                 <bool>false</bool>
                             </property>
                         </widget>
-                        <widget class="QCheckBox" row="1" column="0" rowspan="1" colspan="3">
+                        <widget class="TQCheckBox" row="1" column="0" rowspan="1" colspan="3">
                             <property name="name">
                                 <cstring>m_random</cstring>
                             </property>
@@ -212,7 +212,7 @@
                                 <string>Choose next medium randomly</string>
                             </property>
                         </widget>
-                        <widget class="QLabel" row="0" column="2">
+                        <widget class="TQLabel" row="0" column="2">
                             <property name="name">
                                 <cstring>m_secondsLabel</cstring>
                             </property>
@@ -238,7 +238,7 @@
                 </spacer>
             </grid>
         </widget>
-        <widget class="QLayoutWidget">
+        <widget class="TQLayoutWidget">
             <property name="name">
                 <cstring>Layout1</cstring>
             </property>
@@ -263,7 +263,7 @@
                         <enum>Expanding</enum>
                     </property>
                 </spacer>
-                <widget class="QPushButton">
+                <widget class="TQPushButton">
                     <property name="name">
                         <cstring>m_ok</cstring>
                     </property>
@@ -277,7 +277,7 @@
                         <bool>true</bool>
                     </property>
                 </widget>
-                <widget class="QPushButton">
+                <widget class="TQPushButton">
                     <property name="name">
                         <cstring>m_cancel</cstring>
                     </property>

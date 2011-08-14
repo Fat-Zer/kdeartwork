@@ -67,7 +67,7 @@ static const char * const unmaximise_xpm[] = {
 
 MaximiseButton::MaximiseButton(TQWidget * parent)
   : Button(parent, i18n("Maximize"),
-           (ButtonState)(LeftButton|MidButton|RightButton)),
+           (ButtonState)(Qt::LeftButton|Qt::MidButton|Qt::RightButton)),
     on_(false)
 {
    setPixmap(TQPixmap((const char **)maximise_xpm));
@@ -78,7 +78,7 @@ void MaximiseButton::setOn(bool on)
    on_ = on;
    setPixmap(on_ ? TQPixmap((const char **)unmaximise_xpm)
                  : TQPixmap((const char **)maximise_xpm));
-   repaint();
+   tqrepaint();
    TQToolTip::remove(this);
    TQToolTip::add(this, on_ ? i18n("Restore") : i18n("Maximize"));
 }

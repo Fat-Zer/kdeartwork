@@ -31,7 +31,7 @@
 #include "science.h"
 #include "science.moc"
 
-#if defined Q_WS_X11 && !defined K_WS_QTONLY
+#if defined Q_WS_X11 && !defined K_WS_TQTONLY
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #endif
@@ -897,7 +897,7 @@ KScienceSetup::KScienceSetup(  TQWidget *parent, const char *name )
 	label = new TQLabel( i18n("Size:"), main );
 	ltc->addWidget( label );
 
-	slideSize = new TQSlider(9, 50, 5, size[mode], TQSlider::Horizontal,
+	slideSize = new TQSlider(9, 50, 5, size[mode], Qt::Horizontal,
                                 main );
 	slideSize->setMinimumSize( 90, 20 );
     slideSize->setTickmarks(TQSlider::Below);
@@ -916,7 +916,7 @@ KScienceSetup::KScienceSetup(  TQWidget *parent, const char *name )
 	ltc->addWidget( label );
 
 	slideIntensity = new TQSlider(0, 10, 1, intensity[mode],
-                                     TQSlider::Horizontal, main );
+                                     Qt::Horizontal, main );
 	slideIntensity->setMinimumSize( 90, 20 );
     slideIntensity->setTickmarks(TQSlider::Below);
     slideIntensity->setTickInterval(1);
@@ -933,7 +933,7 @@ KScienceSetup::KScienceSetup(  TQWidget *parent, const char *name )
 	ltc->addWidget( label );
 
 	slideSpeed = new TQSlider(0, SCI_MAX_SPEED, 10, speed[mode],
-                             TQSlider::Horizontal, main );
+                             Qt::Horizontal, main );
 	slideSpeed->setMinimumSize( 90, 20 );
     slideSpeed->setTickmarks(TQSlider::Below);
     slideSpeed->setTickInterval(10);
@@ -949,7 +949,7 @@ KScienceSetup::KScienceSetup(  TQWidget *parent, const char *name )
 	ltc->addLayout( ltcm );
 
 	slideMoveX = new TQSlider(0, SCI_MAX_MOVE, 5, moveX[mode],
-                                 TQSlider::Horizontal, main );
+                                 Qt::Horizontal, main );
 	slideMoveX->setMinimumSize( 40, 20 );
     slideMoveX->setTickmarks(TQSlider::Below);
     slideMoveX->setTickInterval(5);
@@ -958,7 +958,7 @@ KScienceSetup::KScienceSetup(  TQWidget *parent, const char *name )
 	ltcm->addWidget( slideMoveX );
 
 	slideMoveY = new TQSlider(0, SCI_MAX_MOVE, 5, moveY[mode],
-                                TQSlider::Horizontal, main );
+                                Qt::Horizontal, main );
 	slideMoveY->setMinimumSize( 40, 20 );
     slideMoveY->setTickmarks(TQSlider::Below);
     slideMoveY->setTickInterval(5);

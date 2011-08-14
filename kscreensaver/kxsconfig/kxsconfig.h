@@ -31,6 +31,7 @@ class TQLabel;
 class KXSConfigDialog : public KDialogBase
 {
   Q_OBJECT
+  TQ_OBJECT
 public:
   KXSConfigDialog(const TQString &file, const TQString &name);
   ~KXSConfigDialog();

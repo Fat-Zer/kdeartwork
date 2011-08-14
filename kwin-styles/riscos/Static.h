@@ -99,7 +99,7 @@ class Static
          aButPal_,
          iButPal_;
 
-      QPixmap
+      TQPixmap
          aButtonUp_,         iButtonUp_,
          aButtonDown_,       iButtonDown_,
          aResize_,           iResize_,

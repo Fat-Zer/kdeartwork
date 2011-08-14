@@ -172,7 +172,7 @@ void IceWMConfig::findIceWMThemes()
 		TQDir d(*it, TQString("*"), TQDir::Unsorted, TQDir::Dirs | TQDir::Readable );
 		if (d.exists())
 		{
-			QFileInfoListIterator it2( *d.entryInfoList() );
+			TQFileInfoListIterator it2( *d.entryInfoList() );
 			TQFileInfo* finfo;
 
 			// Step through all directories within the kwin/icewm-themes directory

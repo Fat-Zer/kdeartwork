@@ -1704,7 +1704,7 @@ static struct EmbedImage {
     const unsigned char *data;
     ulong compressed;
     int numColors;
-    const QRgb *colorTable;
+    const TQRgb *colorTable;
     bool alpha;
     const char *name;
 } embed_image_vec[] = {
@@ -1731,13 +1731,13 @@ static TQImage uic_findImage( const TQString& name )
     for ( int i=0; embed_image_vec[i].data; i++ ) {
 	if ( TQString::fromUtf8(embed_image_vec[i].name) == name ) {
 	    TQByteArray baunzip;
-	    baunzip = qUncompress( embed_image_vec[i].data, 
+	    baunzip = tqUncompress( embed_image_vec[i].data, 
 		embed_image_vec[i].compressed );
 	    TQImage img((uchar*)baunzip.data(),
 			embed_image_vec[i].width,
 			embed_image_vec[i].height,
 			embed_image_vec[i].depth,
-			(QRgb*)embed_image_vec[i].colorTable,
+			(TQRgb*)embed_image_vec[i].colorTable,
 			embed_image_vec[i].numColors,
 			TQImage::BigEndian
 		);
@@ -1750,7 +1750,7 @@ static TQImage uic_findImage( const TQString& name )
     return TQImage();
 }
 
-class MimeSourceFactory_smoothblend : public QMimeSourceFactory
+class MimeSourceFactory_smoothblend : public TQMimeSourceFactory
 {
 public:
     MimeSourceFactory_smoothblend() {}

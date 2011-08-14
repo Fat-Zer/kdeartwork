@@ -3,27 +3,27 @@
 #include <kapplication.h>
 
 void min_width(TQWidget *w) {
-  w->setMinimumWidth(w->sizeHint().width());
+  w->setMinimumWidth(w->tqsizeHint().width());
 }
 
 void fixed_width(TQWidget *w) {
-  w->setFixedWidth(w->sizeHint().width());
+  w->setFixedWidth(w->tqsizeHint().width());
 }
 
 void min_height(TQWidget *w) {
-  w->setMinimumHeight(w->sizeHint().height());
+  w->setMinimumHeight(w->tqsizeHint().height());
 }
 
 void fixed_height(TQWidget *w) {
-  w->setFixedHeight(w->sizeHint().height());
+  w->setFixedHeight(w->tqsizeHint().height());
 }
 
 void min_size(TQWidget *w) {
-  w->setMinimumSize(w->sizeHint());
+  w->setMinimumSize(w->tqsizeHint());
 }
 
 void fixed_size(TQWidget *w) {
-  w->setFixedSize(w->sizeHint());
+  w->setFixedSize(w->tqsizeHint());
 }
 
 KConfig *klock_config()

@@ -28,6 +28,7 @@ enum blob_alg {
 class KBlobSaver : public KScreenSaver
 {
     Q_OBJECT
+  TQ_OBJECT
 
 public:
     KBlobSaver( WId id );
@@ -53,7 +54,7 @@ public:
     };
 private:
 
-    QTimer	timer;
+    TQTimer	timer;
     uint	colors[RAMP];
     uint	lookup[256];
     int		colorContext, colorInc;
@@ -93,6 +94,7 @@ class KIntNumInput;
 class KBlobSetup : public KDialogBase
 {
     Q_OBJECT
+  TQ_OBJECT
 
     int showtime;
     int alg;

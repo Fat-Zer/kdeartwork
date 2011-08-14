@@ -29,9 +29,10 @@ class TQComboBox;
 class KConfig;
 class KColorButton;
 
-class GlowConfigDialog : public QObject
+class GlowConfigDialog : public TQObject
 {
 	Q_OBJECT
+  TQ_OBJECT
 
 public:
 	GlowConfigDialog( KConfig* conf, TQWidget* parent );

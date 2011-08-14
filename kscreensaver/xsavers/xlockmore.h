@@ -15,7 +15,7 @@
  * Changes of David Bagley <bagleyd@bigfoot.com>
  * 12-May-95: Added defines for SunOS's Adjunct password file
  *            Dale A. Harris <rodmur@ecst.csuchico.edu>
- * 18-Nov-94: Modified for QNX 4.2 w/ Metrolink X server from Brian Campbell
+ * 18-Nov-94: Modified for TQNX 4.2 w/ Metrolink X server from Brian Campbell
  *            <brianc@qnx.com>.
  * 11-Jul-94: added Bool flag: inwindow, which tells xlock to run in a
  *            window from Greg Bowering <greg@cs.adelaide.edu.au>

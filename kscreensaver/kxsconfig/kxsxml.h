@@ -42,7 +42,7 @@ private:
     KXSXmlHandler *handler;
 };
 
-class KXSXmlHandler : public QXmlDefaultHandler
+class KXSXmlHandler : public TQXmlDefaultHandler
 {
 public:
     KXSXmlHandler( TQWidget *p );

@@ -16,7 +16,7 @@
 
 #include <tqdialog.h>
 #include <tqgl.h>
-#ifdef Q_WS_MACX
+#ifdef TQ_WS_MACX
 #include <OpenGL/glu.h>
 #include <OpenGL/gl.h>
 #else
@@ -34,9 +34,10 @@
 #define	MAX_PARTICLES	100
 
 
-class Gravity : public QGLWidget
+class Gravity : public TQGLWidget
 {
 Q_OBJECT
+  TQ_OBJECT
 	class particles						// Create A Structure For Particle
 	{
 	public:
@@ -101,6 +102,7 @@ private:
 class KGravitySaver : public KScreenSaver
 {
 Q_OBJECT
+  TQ_OBJECT
 public:
 	KGravitySaver( WId drawable );
 	virtual ~KGravitySaver();
@@ -118,6 +120,7 @@ private:
 class KGravitySetup : public SetupUi
 {
 	Q_OBJECT
+  TQ_OBJECT
 public:
 	KGravitySetup( TQWidget *parent = NULL, const char *name = NULL );
     ~KGravitySetup();

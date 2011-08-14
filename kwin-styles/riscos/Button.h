@@ -31,9 +31,10 @@
 namespace RiscOS
 {
 
-class Button : public QWidget
+class Button : public TQWidget
 {
    Q_OBJECT
+  TQ_OBJECT
 
    public:
 
@@ -42,12 +43,12 @@ class Button : public QWidget
       enum Alignment { Left, Right };
 
       Button(TQWidget *parent, const TQString &tip,
-             const ButtonState realizeButton = LeftButton);
+             const ButtonState realizeButton = Qt::LeftButton);
       virtual ~Button();
 
-      void setAlignment(Alignment);
+      void tqsetAlignment(Alignment);
 
-      Alignment alignment() const;
+      Alignment tqalignment() const;
 
    protected slots:
 

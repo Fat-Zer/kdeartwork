@@ -37,9 +37,10 @@
 
 class TQVBox;
 
-class IceWMConfig: public QObject
+class IceWMConfig: public TQObject
 {
 	Q_OBJECT
+  TQ_OBJECT
 
 	public:
 		IceWMConfig( KConfig* conf, TQWidget* parent );

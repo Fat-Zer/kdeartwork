@@ -36,7 +36,7 @@ using namespace smoothblend;
 smoothblendFactory* factory=NULL;
 
 bool smoothblendFactory::initialized_              = false;
-Qt::AlignmentFlags smoothblendFactory::titlealign_ = Qt::AlignHCenter;
+TQt::AlignmentFlags smoothblendFactory::titlealign_ = TQt::AlignHCenter;
 bool smoothblendFactory::cornerflags_               = true;
 int smoothblendFactory::titlesize_                 = 30;
 int smoothblendFactory::buttonsize_                = 26;
@@ -51,7 +51,7 @@ bool smoothblendFactory::menuClose                 = false;
 static const int TOPMARGIN       = 4; // do not change
 static const int DECOHEIGHT      = 4; // do not change
 static const int SIDETITLEMARGIN = 2;
-// Default button layout
+// Default button tqlayout
 const char default_left[]  = "M";
 const char default_right[] = "HIAX";
 
@@ -94,7 +94,7 @@ KDecoration* smoothblendFactory::createDecoration(KDecorationBridge* b) {
 // reset()
 // -------
 // Reset the handler. Returns true if decorations need to be remade, false if
-// only a repaint is necessary
+// only a tqrepaint is necessary
 
 bool smoothblendFactory::reset(unsigned long changed) {
     // read in the configuration
@@ -124,11 +124,11 @@ bool smoothblendFactory::readConfig() {
     // grab settings
     TQString value = config.readEntry("TitleAlignment", "AlignHCenter");
     if (value == "AlignLeft")
-        titlealign_ = Qt::AlignLeft;
+        titlealign_ = TQt::AlignLeft;
     else if (value == "AlignHCenter")
-        titlealign_ = Qt::AlignHCenter;
+        titlealign_ = TQt::AlignHCenter;
     else if (value == "AlignRight")
-        titlealign_ = Qt::AlignRight;
+        titlealign_ = TQt::AlignRight;
 
     cornerflags_ = config.readBoolEntry("RoundCorners", true);
     titlesize_ = config.readNumEntry("TitleSize",30);
@@ -161,7 +161,7 @@ smoothblendButton::smoothblendButton(smoothblendClient *parent, const char *name
      type_(type), 
      size_(button_size), 
      deco_(0), 
-     lastmouse_(NoButton), 
+     lastmouse_(Qt::NoButton), 
      hover_(false)
 {
     setBackgroundMode(NoBackground);
@@ -184,11 +184,11 @@ smoothblendButton::~smoothblendButton() {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// sizeHint()
+// tqsizeHint()
 // ----------
 // Return size hint
 
-TQSize smoothblendButton::sizeHint() const {
+TQSize smoothblendButton::tqsizeHint() const {
     return TQSize(::factory->buttonSize(), ::factory->buttonSize());
 }
 
@@ -232,7 +232,7 @@ void smoothblendButton::animate() {
             animTmr->start(TIMERINTERVAL, true); // single-shot
         }
     }
-    repaint(false);
+    tqrepaint(false);
 }
 //////////////////////////////////////////////////////////////////////////////
 // enterEvent()
@@ -275,9 +275,9 @@ void smoothblendButton::mousePressEvent(TQMouseEvent* e) {
     lastmouse_ = e->button();
 
     // translate and pass on mouse event
-    int button = LeftButton;
-    if ((type_ != ButtonMax) && (e->button() != LeftButton)) {
-        button = NoButton; // middle & right buttons inappropriate
+    int button = Qt::LeftButton;
+    if ((type_ != ButtonMax) && (e->button() != Qt::LeftButton)) {
+        button = Qt::NoButton; // middle & right buttons inappropriate
     }
     TQMouseEvent me(e->type(), e->pos(), e->globalPos(),
                    button, e->state());
@@ -293,9 +293,9 @@ void smoothblendButton::mouseReleaseEvent(TQMouseEvent* e) {
     lastmouse_ = e->button();
 
     // translate and pass on mouse event
-    int button = LeftButton;
-    if ((type_ != ButtonMax) && (e->button() != LeftButton)) {
-        button = NoButton; // middle & right buttons inappropriate
+    int button = Qt::LeftButton;
+    if ((type_ != ButtonMax) && (e->button() != Qt::LeftButton)) {
+        button = Qt::NoButton; // middle & right buttons inappropriate
     }
     TQMouseEvent me(e->type(), e->pos(), e->globalPos(), button, e->state());
     TQButton::mouseReleaseEvent(&me);
@@ -407,7 +407,7 @@ void smoothblendButton::drawButton( TQPainter *painter ) {
     TQColor redColor(red);
     bool active = client_->isActive();
     TQPixmap backgroundTile = client_->getTitleBarTile(active);
-    group = KDecoration::options()->colorGroup(KDecoration::ColorTitleBar, active);
+    group = KDecoration::options()->tqcolorGroup(KDecoration::ColorTitleBar, active);
 
     //draw the titlebar behind the buttons and app icons
     if ((client_->maximizeMode()==client_->MaximizeFull) && !KDecoration::options()->moveResizeMaximizedWindows())
@@ -434,7 +434,7 @@ void smoothblendButton::drawButton( TQPainter *painter ) {
         //that may produce pixilation of the image
         painter->drawImage( dx, dy, menuButtonImage.smoothScale(newWidth, newHeight) );
     } else {
-        //highlight on a mouse over repaint
+        //highlight on a mouse over tqrepaint
         double factor = animProgress * 0.13;
 
         if(!isDown())
@@ -508,8 +508,8 @@ void smoothblendClient::create_pixmaps() {
     TQColorGroup group,widgetGroup;
     int FRAMESIZE = ::factory->frameSize();
     // Get the color groups we need for the gradients
-    group = options()->colorGroup(KDecoration::ColorTitleBar, true);
-    widgetGroup = widget()->colorGroup();
+    group = options()->tqcolorGroup(KDecoration::ColorTitleBar, true);
+    widgetGroup = widget()->tqcolorGroup();
     
     // active top title bar tile
     tempPixmap.resize(1, TOPMARGIN);
@@ -525,7 +525,7 @@ void smoothblendClient::create_pixmaps() {
     painter.end();
     
     // inactive top title bar tile
-    group = options()->colorGroup(KDecoration::ColorTitleBar, false);
+    group = options()->tqcolorGroup(KDecoration::ColorTitleBar, false);
     tempPixmap = KPixmapEffect::unbalancedGradient(tempPixmap,
                                                    group.background(),
                                                    widgetGroup.background(),
@@ -539,7 +539,7 @@ void smoothblendClient::create_pixmaps() {
     
     // active title bar tile
     tempPixmap.resize(1, s_titleHeight+FRAMESIZE);
-    group = options()->colorGroup(KDecoration::ColorTitleBar, true);
+    group = options()->tqcolorGroup(KDecoration::ColorTitleBar, true);
     tempPixmap = KPixmapEffect::unbalancedGradient(tempPixmap,
                                                    group.background(),
                                                    widgetGroup.background(),
@@ -552,7 +552,7 @@ void smoothblendClient::create_pixmaps() {
     painter.end();
     
     // inactive title bar tile
-    group = options()->colorGroup(KDecoration::ColorTitleBar, false);
+    group = options()->tqcolorGroup(KDecoration::ColorTitleBar, false);
     tempPixmap = KPixmapEffect::unbalancedGradient(tempPixmap,
                                                    group.background(),
                                                    widgetGroup.background(),
@@ -600,7 +600,7 @@ void smoothblendClient::init() {
 }
 void smoothblendClient::_resetLayout()
 {
-    // basic layout:
+    // basic tqlayout:
     //  _______________________________________________________________
     // |                         topSpacer                             |
     // |_______________________________________________________________|
@@ -697,9 +697,9 @@ void smoothblendClient::_resetLayout()
 //////////////////////////////////////////////////////////////////////////////
 // addButtons()
 // ------------
-// Add buttons to title layout
+// Add buttons to title tqlayout
 
-void smoothblendClient::addButtons(TQBoxLayout *layout, const TQString& s, int button_size) {
+void smoothblendClient::addButtons(TQBoxLayout *tqlayout, const TQString& s, int button_size) {
     TQString tip;
     if (s.length() > 0) {
         for (unsigned n=0; n < s.length(); n++) {
@@ -710,8 +710,8 @@ void smoothblendClient::addButtons(TQBoxLayout *layout, const TQString& s, int b
                         new smoothblendButton(this, "splat.png", i18n("Menu"),ButtonMenu,button_size);
                     connect(button[ButtonMenu], TQT_SIGNAL(pressed()), this, TQT_SLOT(menuButtonPressed()));
                     connect(button[ButtonMenu], TQT_SIGNAL(released()), this, TQT_SLOT(menuButtonReleased()));
-                    layout->addWidget(button[ButtonMenu]);
-                    if (n < s.length()-1) layout->addSpacing(1);
+                    tqlayout->addWidget(button[ButtonMenu]);
+                    if (n < s.length()-1) tqlayout->addSpacing(1);
                 }
                 break;
 
@@ -726,8 +726,8 @@ void smoothblendClient::addButtons(TQBoxLayout *layout, const TQString& s, int b
                         new smoothblendButton(this, "circle.png", tip, ButtonSticky, button_size, true);
                     connect(button[ButtonSticky], TQT_SIGNAL(clicked()),
                             this, TQT_SLOT(toggleOnAllDesktops()));
-                    layout->addWidget(button[ButtonSticky]);
-                    if (n < s.length()-1) layout->addSpacing(1);
+                    tqlayout->addWidget(button[ButtonSticky]);
+                    if (n < s.length()-1) tqlayout->addSpacing(1);
                 }
                 break;
 
@@ -737,8 +737,8 @@ void smoothblendClient::addButtons(TQBoxLayout *layout, const TQString& s, int b
                         new smoothblendButton(this, "help.png", i18n("Help"), ButtonHelp, button_size);
                     connect(button[ButtonHelp], TQT_SIGNAL(clicked()),
                             this, TQT_SLOT(showContextHelp()));
-                    layout->addWidget(button[ButtonHelp]);
-                    if (n < s.length()-1) layout->addSpacing(1);
+                    tqlayout->addWidget(button[ButtonHelp]);
+                    if (n < s.length()-1) tqlayout->addSpacing(1);
                 }
                 break;
 
@@ -748,8 +748,8 @@ void smoothblendClient::addButtons(TQBoxLayout *layout, const TQString& s, int b
                         new smoothblendButton(this, "minimize.png", i18n("Minimize"), ButtonMin, button_size);
                     connect(button[ButtonMin], TQT_SIGNAL(clicked()),
                             this, TQT_SLOT(minimize()));
-                    layout->addWidget(button[ButtonMin]);
-                    if (n < s.length()-1) layout->addSpacing(1);
+                    tqlayout->addWidget(button[ButtonMin]);
+                    if (n < s.length()-1) tqlayout->addSpacing(1);
                 }
                 break;
 
@@ -764,8 +764,8 @@ void smoothblendClient::addButtons(TQBoxLayout *layout, const TQString& s, int b
                         new smoothblendButton(this, "maximize.png", tip, ButtonMax, button_size, true);
                     connect(button[ButtonMax], TQT_SIGNAL(clicked()),
                             this, TQT_SLOT(maxButtonPressed()));
-                    layout->addWidget(button[ButtonMax]);
-                    if (n < s.length()-1) layout->addSpacing(1);
+                    tqlayout->addWidget(button[ButtonMax]);
+                    if (n < s.length()-1) tqlayout->addSpacing(1);
                 }
                 break;
 
@@ -775,8 +775,8 @@ void smoothblendClient::addButtons(TQBoxLayout *layout, const TQString& s, int b
                         new smoothblendButton(this, "close.png", i18n("Close"), ButtonClose, button_size);
                     connect(button[ButtonClose], TQT_SIGNAL(clicked()),
                             this, TQT_SLOT(closeWindow()));
-                    layout->addWidget(button[ButtonClose]);
-                    if (n < s.length()-1) layout->addSpacing(1);
+                    tqlayout->addWidget(button[ButtonClose]);
+                    if (n < s.length()-1) tqlayout->addSpacing(1);
                 }
                 break;
 
@@ -787,8 +787,8 @@ void smoothblendClient::addButtons(TQBoxLayout *layout, const TQString& s, int b
                                           i18n("Keep Above Others"), ButtonAbove, button_size, true);
                     connect(button[ButtonAbove], TQT_SIGNAL(clicked()),
                             this, TQT_SLOT(aboveButtonPressed()));
-                    layout->addWidget(button[ButtonAbove]);
-                    if (n < s.length()-1) layout->addSpacing(1);
+                    tqlayout->addWidget(button[ButtonAbove]);
+                    if (n < s.length()-1) tqlayout->addSpacing(1);
                 }
                 break;
 
@@ -799,8 +799,8 @@ void smoothblendClient::addButtons(TQBoxLayout *layout, const TQString& s, int b
                                           i18n("Keep Below Others"), ButtonBelow, button_size, true);
                     connect(button[ButtonBelow], TQT_SIGNAL(clicked()),
                             this, TQT_SLOT(belowButtonPressed()));
-                    layout->addWidget(button[ButtonBelow]);
-                    if (n < s.length()-1) layout->addSpacing(1);
+                    tqlayout->addWidget(button[ButtonBelow]);
+                    if (n < s.length()-1) tqlayout->addSpacing(1);
                 }
                 break;
 
@@ -815,13 +815,13 @@ void smoothblendClient::addButtons(TQBoxLayout *layout, const TQString& s, int b
                         new smoothblendButton(this, "shade.png", tip, ButtonShade, button_size, true);
                     connect(button[ButtonShade], TQT_SIGNAL(clicked()),
                             this, TQT_SLOT(shadeButtonPressed()));
-                    layout->addWidget(button[ButtonShade]);
-                    if (n < s.length()-1) layout->addSpacing(1);
+                    tqlayout->addWidget(button[ButtonShade]);
+                    if (n < s.length()-1) tqlayout->addSpacing(1);
                 }
                 break;
 
             case '_': // Spacer item
-                layout->addSpacing(::factory->frameSize());
+                tqlayout->addSpacing(::factory->frameSize());
             }
         }
     }
@@ -836,7 +836,7 @@ void smoothblendClient::activeChange() {
     for (int n=0; n<ButtonTypeCount; n++)
         if (button[n])
             button[n]->reset();
-    widget()->repaint(false);
+    widget()->tqrepaint(false);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -845,7 +845,7 @@ void smoothblendClient::activeChange() {
 // The title has changed
 
 void smoothblendClient::captionChange() {
-    widget()->repaint(titlebar_->geometry(), false);
+    widget()->tqrepaint(titlebar_->tqgeometry(), false);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -858,7 +858,7 @@ void smoothblendClient::desktopChange() {
     if (button[ButtonSticky]) {
         TQToolTip::remove(button[ButtonSticky]);
         TQToolTip::add(button[ButtonSticky], d ? i18n("Un-Sticky") : i18n("Sticky"));
-        button[ButtonSticky]->repaint(false);
+        button[ButtonSticky]->tqrepaint(false);
     }
 }
 
@@ -869,7 +869,7 @@ void smoothblendClient::desktopChange() {
 
 void smoothblendClient::iconChange() {
     if (button[ButtonMenu]) {
-        button[ButtonMenu]->repaint(false);
+        button[ButtonMenu]->tqrepaint(false);
     }
 }
 
@@ -883,7 +883,7 @@ void smoothblendClient::maximizeChange() {
     if (button[ButtonMax]) {
         TQToolTip::remove(button[ButtonMax]);
         TQToolTip::add(button[ButtonMax], m ? i18n("Restore") : i18n("Maximize"));
-        button[ButtonMax]->repaint(false);
+        button[ButtonMax]->tqrepaint(false);
     }
 }
 
@@ -897,7 +897,7 @@ void smoothblendClient::shadeChange() {
     if (button[ButtonShade]) {
         TQToolTip::remove(button[ButtonShade]);
         TQToolTip::add(button[ButtonShade], s ? i18n("Unshade") : i18n("Shade"));
-        button[ButtonShade]->repaint(false);
+        button[ButtonShade]->tqrepaint(false);
     }
 }
 
@@ -909,7 +909,7 @@ void smoothblendClient::shadeChange() {
 void smoothblendClient::keepAboveChange(bool a) {
     if (button[ButtonAbove]) {
         button[ButtonAbove]->setOn(a);
-        button[ButtonAbove]->repaint(false);
+        button[ButtonAbove]->tqrepaint(false);
     }
 }
 
@@ -921,7 +921,7 @@ void smoothblendClient::keepAboveChange(bool a) {
 void smoothblendClient::keepBelowChange(bool b) {
     if (button[ButtonBelow]) {
         button[ButtonBelow]->setOn(b);
-        button[ButtonBelow]->repaint(false);
+        button[ButtonBelow]->tqrepaint(false);
     }
 }
 
@@ -937,7 +937,7 @@ void smoothblendClient::borders(int &left, int &right, int &top, int &bottom) co
         left = right = bottom = 0;
         top = ::factory->buttonSize();
 
-        // update layout etc.
+        // update tqlayout etc.
         topSpacer_->changeSize(1, 0, TQSizePolicy::Expanding, TQSizePolicy::Fixed);
         decoSpacer_->changeSize(1, 0, TQSizePolicy::Expanding, TQSizePolicy::Fixed);
         leftSpacer_->changeSize(left, 1, TQSizePolicy::Fixed, TQSizePolicy::Expanding);
@@ -949,7 +949,7 @@ void smoothblendClient::borders(int &left, int &right, int &top, int &bottom) co
         left = right = bottom = ::factory->frameSize();
         top = ::factory->titleSize() + (FRAMESIZE*2);
 
-        // update layout etc.
+        // update tqlayout etc.
         topSpacer_->changeSize(1, FRAMESIZE, TQSizePolicy::Expanding, TQSizePolicy::Fixed);
         decoSpacer_->changeSize(1, FRAMESIZE, TQSizePolicy::Expanding, TQSizePolicy::Fixed);
         leftSpacer_->changeSize(left, 1, TQSizePolicy::Fixed, TQSizePolicy::Expanding);
@@ -958,7 +958,7 @@ void smoothblendClient::borders(int &left, int &right, int &top, int &bottom) co
         rightTitleSpacer_->changeSize(right,s_titleHeight,TQSizePolicy::Fixed, TQSizePolicy::Fixed);
         bottomSpacer_->changeSize(1, bottom, TQSizePolicy::Expanding, TQSizePolicy::Fixed);
     }
-    widget()->layout()->activate();
+    widget()->tqlayout()->activate();
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -971,12 +971,12 @@ void smoothblendClient::resize(const TQSize &size) {
 }
 
 //////////////////////////////////////////////////////////////////////////////
-// minimumSize()
+// tqminimumSize()
 // -------------
 // Return the minimum allowable size for this window
 
-TQSize smoothblendClient::minimumSize() const {
-    return widget()->minimumSize();
+TQSize smoothblendClient::tqminimumSize() const {
+    return widget()->tqminimumSize();
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -1035,32 +1035,32 @@ KDecoration::Position smoothblendClient::mousePosition(const TQPoint &point) con
 // Event filter
 
 bool smoothblendClient::eventFilter(TQObject *obj, TQEvent *e) {
-    if (obj != widget())
+    if (TQT_BASE_OBJECT(obj) != TQT_BASE_OBJECT(widget()))
         return false;
 
     switch (e->type()) {
     case TQEvent::MouseButtonDblClick: {
-            mouseDoubleClickEvent(static_cast<TQMouseEvent *>(e));
+            mouseDoubleClickEvent(TQT_TQMOUSEEVENT(e));
             return true;
         }
     case TQEvent::MouseButtonPress: {
-            processMousePressEvent(static_cast<TQMouseEvent *>(e));
+            processMousePressEvent(TQT_TQMOUSEEVENT(e));
             return true;
         }
     case TQEvent::Paint: {
-            paintEvent(static_cast<TQPaintEvent *>(e));
+            paintEvent(TQT_TQPAINTEVENT(e));
             return true;
         }
     case TQEvent::Resize: {
-            resizeEvent(static_cast<TQResizeEvent *>(e));
+            resizeEvent(TQT_TQRESIZEEVENT(e));
             return true;
         }
     case TQEvent::Show: {
-            showEvent(static_cast<TQShowEvent *>(e));
+            showEvent(TQT_TQSHOWEVENT(e));
             return true;
         }
     case TQEvent::Wheel: {
-            wheelEvent( static_cast< TQWheelEvent* >( e ));
+            wheelEvent(TQT_TQWHEELEVENT( e ));
             return true;
         }
     default: {
@@ -1077,7 +1077,7 @@ bool smoothblendClient::eventFilter(TQObject *obj, TQEvent *e) {
 // Doubleclick on title
 
 void smoothblendClient::mouseDoubleClickEvent(TQMouseEvent *e) {
-    if (titlebar_->geometry().contains(e->pos()))
+    if (titlebar_->tqgeometry().contains(e->pos()))
         titlebarDblClickOperation();
 }
 
@@ -1088,7 +1088,7 @@ void smoothblendClient::mouseDoubleClickEvent(TQMouseEvent *e) {
 
 void smoothblendClient::wheelEvent(TQWheelEvent *e)
 {
-    if (titleLayout_->geometry().contains(e->pos()) )
+    if (titleLayout_->tqgeometry().contains(e->pos()) )
         titlebarMouseWheelOperation( e->delta());
 }
 
@@ -1117,18 +1117,18 @@ void smoothblendClient::paintEvent(TQPaintEvent*) {
     TQPainter painter(widget());
     bool active = isActive();
     //get group information first
-    group = options()->colorGroup(KDecoration::ColorTitleBar, isActive());
-    widgetGroup = widget()->colorGroup();
+    group = options()->tqcolorGroup(KDecoration::ColorTitleBar, isActive());
+    widgetGroup = widget()->tqcolorGroup();
 
-    TQRect topRect( topSpacer_->geometry() );
-    TQRect titleRect( titleLayout_->geometry() );
-    TQRect textRect( titlebar_->geometry() );
-    TQRect Rltitle( leftTitleSpacer_->geometry() );
-    TQRect Rrtitle( rightTitleSpacer_->geometry() );
-    TQRect Rdeco( decoSpacer_->geometry() );
-    TQRect Rleft( leftSpacer_->geometry() );
-    TQRect Rright( rightSpacer_->geometry() );
-    TQRect Rbottom( bottomSpacer_->geometry() );
+    TQRect topRect( topSpacer_->tqgeometry() );
+    TQRect titleRect( titleLayout_->tqgeometry() );
+    TQRect textRect( titlebar_->tqgeometry() );
+    TQRect Rltitle( leftTitleSpacer_->tqgeometry() );
+    TQRect Rrtitle( rightTitleSpacer_->tqgeometry() );
+    TQRect Rdeco( decoSpacer_->tqgeometry() );
+    TQRect Rleft( leftSpacer_->tqgeometry() );
+    TQRect Rright( rightSpacer_->tqgeometry() );
+    TQRect Rbottom( bottomSpacer_->tqgeometry() );
     TQRect tempRect;
     
     
@@ -1167,14 +1167,14 @@ void smoothblendClient::paintEvent(TQPaintEvent*) {
         painter.setFont(options()->font(isActive(), false));
         painter.setPen(blackColor);
         painter.drawText(shadowRect,
-                         ::factory->titleAlign() | AlignVCenter | Qt::SingleLine,
+                         ::factory->titleAlign() | AlignVCenter | TQt::SingleLine,
                          captionText);
     }
     // draw title text
     painter.setFont(options()->font(isActive(), false));
     painter.setPen(options()->color(KDecoration::ColorFont, isActive()));
     painter.drawText(textRect,
-                     ::factory->titleAlign() | AlignVCenter | Qt::SingleLine,
+                     ::factory->titleAlign() | AlignVCenter | TQt::SingleLine,
                      captionText);
     
     //left of buttons and title
@@ -1183,7 +1183,7 @@ void smoothblendClient::paintEvent(TQPaintEvent*) {
                             Rltitle.width(),
                             Rltitle.height()+Rdeco.height(),
                             active ? *aTitleBarTile:*iTitleBarTile);
-    // left mid layout
+    // left mid tqlayout
     painter.fillRect(Rleft,widgetGroup.background());
 
     // right of buttons and title
@@ -1192,7 +1192,7 @@ void smoothblendClient::paintEvent(TQPaintEvent*) {
                             Rrtitle.width(),
                             Rrtitle.height()+Rdeco.height(),
                             active ? *aTitleBarTile:*iTitleBarTile);
-    // right mid layout
+    // right mid tqlayout
     painter.fillRect(Rright,widgetGroup.background());
     
     // bottom
@@ -1280,7 +1280,7 @@ void smoothblendClient::updateMask() {
 void smoothblendClient::resizeEvent(TQResizeEvent *) {
     if (widget()->isShown()) {
         TQRegion region = widget()->rect();
-        region = region.subtract(titlebar_->geometry());
+        region = region.subtract(titlebar_->tqgeometry());
         widget()->erase(region);
         updateMask();
     }
@@ -1293,7 +1293,7 @@ void smoothblendClient::resizeEvent(TQResizeEvent *) {
 
 void smoothblendClient::showEvent(TQShowEvent *) {
     updateMask();
-    widget()->repaint();
+    widget()->tqrepaint();
 }
 
 //////////////////////////////////////////////////////////////////////////////

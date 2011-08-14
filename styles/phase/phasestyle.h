@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // phasestyle.h
 // -------------------
-// Qt/KDE widget style
+// TQt/KDE widget style
 // -------------------
 // Copyright (c) 2004 David Johnson <david@usermode.org>
 //
@@ -57,6 +57,7 @@ private:
 class PhaseStyle : public KStyle
 {
     Q_OBJECT
+  TQ_OBJECT
 public:
     PhaseStyle();
     virtual ~PhaseStyle();
@@ -66,7 +67,7 @@ public:
     void polish(TQPalette &pal);
     void unPolish(TQWidget *widget);
 
-    void drawPrimitive(PrimitiveElement element,
+    void tqdrawPrimitive(TQ_PrimitiveElement element,
             TQPainter *painter,
             const TQRect &rect,
             const TQColorGroup &group,
@@ -81,7 +82,7 @@ public:
             SFlags flags = Style_Default,
             const TQStyleOption &option = TQStyleOption::Default) const;
 
-    void drawControl(ControlElement element,
+    void tqdrawControl(TQ_ControlElement element,
             TQPainter *painter,
             const TQWidget *widget,
             const TQRect &rect,
@@ -89,13 +90,13 @@ public:
             SFlags flags = Style_Default,
             const TQStyleOption &option = TQStyleOption::Default) const;
 
-    void drawControlMask(ControlElement element,
+    void tqdrawControlMask(TQ_ControlElement element,
             TQPainter *painter,
             const TQWidget *widget,
             const TQRect &rect,
             const TQStyleOption &option = TQStyleOption::Default) const;
 
-    void drawComplexControl(ComplexControl control,
+    void tqdrawComplexControl(TQ_ComplexControl control,
             TQPainter *painter,
             const TQWidget *widget,
             const TQRect &rect,
@@ -105,23 +106,23 @@ public:
             SCFlags active = SC_None,
             const TQStyleOption &option = TQStyleOption::Default) const;
 
-    void drawComplexControlMask(ComplexControl control,
+    void tqdrawComplexControlMask(TQ_ComplexControl control,
             TQPainter *painter,
             const TQWidget *widget,
             const TQRect &rect,
             const TQStyleOption &option = TQStyleOption::Default) const;
 
-    int pixelMetric(PixelMetric metric,
+    int tqpixelMetric(PixelMetric metric,
             const TQWidget *widget = 0) const;
 
     TQRect subRect(SubRect rect, const TQWidget *widget) const;
 
-    TQRect querySubControlMetrics(ComplexControl control,
+    TQRect querySubControlMetrics(TQ_ComplexControl control,
             const TQWidget *widget,
 	    SubControl subcontrol,
             const TQStyleOption &option = TQStyleOption::Default) const;
 
-    TQSize sizeFromContents(ContentsType contents,
+    TQSize tqsizeFromContents(ContentsType contents,
             const TQWidget *widget,
             const TQSize &contentsize,
             const TQStyleOption& option = TQStyleOption::Default) const;

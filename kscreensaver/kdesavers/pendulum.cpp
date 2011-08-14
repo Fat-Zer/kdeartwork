@@ -29,7 +29,7 @@
 // std. C++ headers
 #include <cstdlib>
 
-// Qt headers
+// TQt headers
 #include <tqlineedit.h>
 #include <tqspinbox.h>
 #include <tqvalidator.h>
@@ -44,7 +44,7 @@
 
 #include "sspreviewarea.h"
 
-// pendulum.moc includes pendulum.h
+// pendulum.tqmoc includes pendulum.h
 #include "pendulum.moc"
 
 #define KPENDULUM_VERSION "1.1"
@@ -654,7 +654,7 @@ void KPendulumSaver::doTimeStep()
       glArea->setEyePhi(eyePhi); // set new perspective
    }
 
-   glArea->updateGL();          // repaint scenery
+   glArea->updateGL();          // tqrepaint scenery
    timer->start(deltaT, TRUE);  // restart timer
 }
 
@@ -704,28 +704,28 @@ KPendulumSetup::KPendulumSetup(TQWidget* parent, const char* name)
    TQToolTip::add(
       mEdit,
       i18n("Ratio of 2nd mass to sum of both masses.\nValid values from %1 to %2.")
-      .arg(KPendulumSaver::massRatioLimitLower, 0, 'f', 2)
-      .arg(KPendulumSaver::massRatioLimitUpper, 0, 'f', 2));
+      .tqarg(KPendulumSaver::massRatioLimitLower, 0, 'f', 2)
+      .tqarg(KPendulumSaver::massRatioLimitUpper, 0, 'f', 2));
    TQToolTip::add(
       lEdit,
       i18n("Ratio of 2nd pendulum part length to the sum of both part lengths.\nValid values from %1 to %2.")
-      .arg(KPendulumSaver::lengthRatioLimitLower, 0, 'f', 2)
-      .arg(KPendulumSaver::lengthRatioLimitUpper, 0, 'f', 2));
+      .tqarg(KPendulumSaver::lengthRatioLimitLower, 0, 'f', 2)
+      .tqarg(KPendulumSaver::lengthRatioLimitUpper, 0, 'f', 2));
    TQToolTip::add(
       gEdit,
       i18n("Gravitational constant in arbitrary units.\nValid values from %1 to %2.")
-      .arg(KPendulumSaver::gLimitLower, 0, 'f', 2)
-      .arg(KPendulumSaver::gLimitUpper, 0, 'f', 2));
+      .tqarg(KPendulumSaver::gLimitLower, 0, 'f', 2)
+      .tqarg(KPendulumSaver::gLimitUpper, 0, 'f', 2));
    TQToolTip::add(
       eEdit,
       i18n("Energy in units of the maximum potential energy of the given configuration.\nValid values from %1 to %2.")
-      .arg(KPendulumSaver::ELimitLower, 0, 'f', 2)
-      .arg(KPendulumSaver::ELimitUpper, 0, 'f', 2));
+      .tqarg(KPendulumSaver::ELimitLower, 0, 'f', 2)
+      .tqarg(KPendulumSaver::ELimitUpper, 0, 'f', 2));
    TQToolTip::add(
       persSpinBox,
       i18n("Time in seconds after which a random perspective change occurs.\nValid values from %1 to %2.")
-      .arg(KPendulumSaver::persChangeIntervalLimitLower)
-      .arg(KPendulumSaver::persChangeIntervalLimitUpper));
+      .tqarg(KPendulumSaver::persChangeIntervalLimitLower)
+      .tqarg(KPendulumSaver::persChangeIntervalLimitUpper));
 
    // init preview area
    preview->setBackgroundColor(black);
@@ -851,7 +851,7 @@ void KPendulumSetup::persChangeEnteredSlot(int t)
 
 void KPendulumSetup::barColorButtonClickedSlot(void)
 {
-   TQColor color = QColorDialog::getColor(
+   TQColor color = TQColorDialog::getColor(
       saver->barColor(), this, "bar color dialog");
    if (color.isValid())
    {
@@ -861,7 +861,7 @@ void KPendulumSetup::barColorButtonClickedSlot(void)
 }
 void KPendulumSetup::m1ColorButtonClickedSlot(void)
 {
-   TQColor color = QColorDialog::getColor(
+   TQColor color = TQColorDialog::getColor(
       saver->m1Color(), this, "mass 1 color dialog");
    if (color.isValid())
    {
@@ -871,7 +871,7 @@ void KPendulumSetup::m1ColorButtonClickedSlot(void)
 }
 void KPendulumSetup::m2ColorButtonClickedSlot(void)
 {
-   TQColor color = QColorDialog::getColor(
+   TQColor color = TQColorDialog::getColor(
       saver->m2Color(), this, "mass 2 color dialog");
    if (color.isValid())
    {

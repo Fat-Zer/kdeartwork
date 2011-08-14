@@ -1,6 +1,6 @@
 <!DOCTYPE UI><UI version="3.2" stdsetdef="1">
 <class>SlideShowCfg</class>
-<widget class="QWidget">
+<widget class="TQWidget">
     <property name="name">
         <cstring>Form1</cstring>
     </property>
@@ -19,7 +19,7 @@
         <property name="margin">
             <number>0</number>
         </property>
-        <widget class="QCheckBox" row="7" column="0" rowspan="1" colspan="4">
+        <widget class="TQCheckBox" row="7" column="0" rowspan="1" colspan="4">
             <property name="name">
                 <cstring>mCbxSubdirectory</cstring>
             </property>
@@ -27,7 +27,7 @@
                 <string>&amp;Include images from sub-folders</string>
             </property>
         </widget>
-        <widget class="QCheckBox" row="1" column="0" rowspan="1" colspan="3">
+        <widget class="TQCheckBox" row="1" column="0" rowspan="1" colspan="3">
             <property name="name">
                 <cstring>mCbxRandom</cstring>
             </property>
@@ -40,7 +40,7 @@
                 <cstring>mDirChooser</cstring>
             </property>
         </widget>
-        <widget class="QCheckBox" row="0" column="0" rowspan="1" colspan="3">
+        <widget class="TQCheckBox" row="0" column="0" rowspan="1" colspan="3">
             <property name="name">
                 <cstring>mCbxZoom</cstring>
             </property>
@@ -58,14 +58,14 @@
             <property name="sizeType">
                 <enum>Expanding</enum>
             </property>
-            <property name="sizeHint">
+            <property name="tqsizeHint">
                 <size>
                     <width>161</width>
                     <height>20</height>
                 </size>
             </property>
         </spacer>
-        <widget class="QLabel" row="6" column="0" rowspan="1" colspan="2">
+        <widget class="TQLabel" row="6" column="0" rowspan="1" colspan="2">
             <property name="name">
                 <cstring>textLabel1</cstring>
             </property>
@@ -76,7 +76,7 @@
                 <cstring>mDirChooser</cstring>
             </property>
         </widget>
-        <widget class="QCheckBox" row="2" column="0" rowspan="1" colspan="3">
+        <widget class="TQCheckBox" row="2" column="0" rowspan="1" colspan="3">
             <property name="name">
                 <cstring>mCbxShowName</cstring>
             </property>
@@ -94,14 +94,14 @@
             <property name="sizeType">
                 <enum>Expanding</enum>
             </property>
-            <property name="sizeHint">
+            <property name="tqsizeHint">
                 <size>
                     <width>20</width>
                     <height>19</height>
                 </size>
             </property>
         </spacer>
-        <widget class="QSpinBox" row="4" column="1" rowspan="1" colspan="2">
+        <widget class="TQSpinBox" row="4" column="1" rowspan="1" colspan="2">
             <property name="name">
                 <cstring>mDelay</cstring>
             </property>
@@ -118,7 +118,7 @@
                 <number>1</number>
             </property>
         </widget>
-        <widget class="QLabel" row="4" column="0">
+        <widget class="TQLabel" row="4" column="0">
             <property name="name">
                 <cstring>textLabel1_2</cstring>
             </property>
@@ -129,7 +129,7 @@
                 <cstring>mDelay</cstring>
             </property>
         </widget>
-        <widget class="QCheckBox" row="3" column="0" rowspan="1" colspan="3">
+        <widget class="TQCheckBox" row="3" column="0" rowspan="1" colspan="3">
             <property name="name">
                 <cstring>mCbxRandomPosition</cstring>
             </property>
@@ -137,7 +137,7 @@
                 <string>Random &amp;position</string>
             </property>
         </widget>
-        <widget class="QFrame" row="0" column="3" rowspan="6" colspan="2">
+        <widget class="TQFrame" row="0" column="3" rowspan="6" colspan="2">
             <property name="name">
                 <cstring>mPreview</cstring>
             </property>

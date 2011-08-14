@@ -92,11 +92,11 @@ KXSConfigDialog::KXSConfigDialog(const TQString &filename, const TQString &name)
 bool KXSConfigDialog::create()
 {
     TQVBoxLayout *topLayout = new TQVBoxLayout(plainPage(), spacingHint());
-    TQHBoxLayout *layout = new TQHBoxLayout(topLayout, spacingHint());
+    TQHBoxLayout *tqlayout = new TQHBoxLayout(topLayout, spacingHint());
     TQVBox *controlLayout = new TQVBox(plainPage());
     controlLayout->setSpacing(spacingHint());
-    layout->addWidget(controlLayout);
-    ((TQBoxLayout*)controlLayout->layout())->addStrut(120);
+    tqlayout->addWidget(controlLayout);
+    ((TQBoxLayout*)controlLayout->tqlayout())->addStrut(120);
 
     KConfig config(mConfigFile);
 
@@ -118,14 +118,14 @@ bool KXSConfigDialog::create()
 	    descr.replace('\n',' ');
 	    descr = descr.simplifyWhiteSpace();
 	    TQLabel *l = new TQLabel( i18n( descr.utf8() ), plainPage() );
-	    l->setAlignment ( WordBreak );
+	    l->tqsetAlignment ( WordBreak );
  	    topLayout->addWidget( l );
  	}
     } else {
         // fall back to KDE's old config files.
 	int idx = 0;
 	while (true) {
-	    TQString group = TQString("Arg%1").arg(idx);
+	    TQString group = TQString("Arg%1").tqarg(idx);
 	    if (config.hasGroup(group)) {
 		config.setGroup(group);
 		TQString type = config.readEntry("Type");
@@ -175,9 +175,9 @@ bool KXSConfigDialog::create()
     mPreview = new TQWidget(plainPage());
     mPreview->setFixedSize(250, 200);
     //  mPreview->setBackgroundMode(TQWidget::NoBackground);
-    mPreview->setBackgroundColor(Qt::black);
+    mPreview->setBackgroundColor(TQt::black);
 
-    layout->add(mPreview);
+    tqlayout->add(mPreview);
     show();
 
     // So that hacks can XSelectInput ButtonPressMask
@@ -229,7 +229,7 @@ void KXSConfigDialog::slotPreviewExited(KProcess *)
 	while ( !saver[i].isSpace() ) word += saver[i++];
 	//work around a KStandarDirs::findExe() "feature" where it looks in $KDEDIR/bin first no matter what and sometimes finds the wrong executable
 	TQFileInfo checkExe;
-	TQString saverdir = TQString("%1/%2").arg(XSCREENSAVER_HACKS_DIR).arg(word);
+	TQString saverdir = TQString("%1/%2").tqarg(XSCREENSAVER_HACKS_DIR).tqarg(word);
 	TQString path;
 	checkExe.setFile(saverdir);
 	if (checkExe.exists() && checkExe.isExecutable() && checkExe.isFile())
@@ -354,7 +354,7 @@ int main(int argc, char *argv[])
   int dummyargc = 1;
   progname = dummyargs[0];
 
-  // Teach Xt to use the Display that Qt has already opened.
+  // Teach Xt to use the Display that TQt has already opened.
   XtToolkitInitialize ();
   XtAppContext xtApp = XtCreateApplicationContext ();
   Display *dpy = qt_xdisplay();
@@ -378,7 +378,7 @@ int main(int argc, char *argv[])
       app.exec();
   } else {
       KMessageBox::sorry(0,
-	      i18n("No configuration available for %1").arg(name),
+	      i18n("No configuration available for %1").tqarg(name),
 	      name );
   }
 

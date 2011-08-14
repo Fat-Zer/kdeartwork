@@ -4,7 +4,7 @@
 //
 // Copyright (c)  Martin R. Jones 1996
 //
-// layout management added 1998/04/19 by Mario Weilguni <mweilguni@kde.org>
+// tqlayout management added 1998/04/19 by Mario Weilguni <mweilguni@kde.org>
 // clock function and color cycling added 2000/01/09 by Alexander Neundorf <alexander.neundorf@rz.tu-ilmenau.de>
 // 2001/03/04 Converted to use libkscreensaver by Martin R. Jones
 // 2002/04/07 Added random vertical position of text,
@@ -74,13 +74,13 @@ KBannerSetup::KBannerSetup( TQWidget *parent, const char *name )
 	TQVBoxLayout *tl11 = new TQVBoxLayout( 0, 0, spacingHint() );
 	tl1->addLayout(tl11);
 
-	TQGroupBox *group = new TQGroupBox( 0, Vertical, i18n("Font"), main );
-	TQGridLayout *gl = new TQGridLayout(group->layout(), 6, 2, spacingHint() );
+	TQGroupBox *group = new TQGroupBox( 0,Qt::Vertical, i18n("Font"), main );
+	TQGridLayout *gl = new TQGridLayout(group->tqlayout(), 6, 2, spacingHint() );
 
 	label = new TQLabel( i18n("Family:"), group );
 	gl->addWidget(label, 1, 0);
 
-	KFontCombo* comboFonts = new KFontCombo( TQFontDatabase().families(), group );
+	KFontCombo* comboFonts = new KFontCombo( TQFontDatabase().tqfamilies(), group );
 	comboFonts->setCurrentFont( fontFamily );
 	gl->addWidget(comboFonts, 1, 1);
 	connect( comboFonts, TQT_SIGNAL( activated( const TQString& ) ),
@@ -116,7 +116,7 @@ KBannerSetup::KBannerSetup( TQWidget *parent, const char *name )
 		 TQT_SLOT( slotColor(const TQColor &) ) );
 
    TQCheckBox *cyclingColorCb=new TQCheckBox(i18n("Cycling color"),group);
-   cyclingColorCb->setMinimumSize(cyclingColorCb->sizeHint());
+   cyclingColorCb->setMinimumSize(cyclingColorCb->tqsizeHint());
    gl->addMultiCellWidget(cyclingColorCb,5,5,0,1);
    connect(cyclingColorCb,TQT_SIGNAL(toggled(bool)),this,TQT_SLOT(slotCyclingColor(bool)));
    cyclingColorCb->setChecked(cyclingColor);
@@ -134,7 +134,7 @@ KBannerSetup::KBannerSetup( TQWidget *parent, const char *name )
 	tl11->addStretch(1);
 	tl11->addWidget(label);
 
-	TQSlider *sb = new TQSlider(0, 100, 10, speed, TQSlider::Horizontal, main );
+	TQSlider *sb = new TQSlider(0, 100, 10, speed, Qt::Horizontal, main );
 	sb->setMinimumWidth( 180);
 	sb->setFixedHeight(20);
     sb->setTickmarks(TQSlider::Below);
@@ -155,8 +155,8 @@ KBannerSetup::KBannerSetup( TQWidget *parent, const char *name )
 			TQT_SLOT( slotMessage( const TQString &  ) ) );
 
    TQCheckBox *timeCb=new TQCheckBox( i18n("Show current time"), main);
-   timeCb->setFixedSize(timeCb->sizeHint());
-   tl->addWidget(timeCb,0,Qt::AlignLeft);
+   timeCb->setFixedSize(timeCb->tqsizeHint());
+   tl->addWidget(timeCb,0,TQt::AlignLeft);
    connect(timeCb,TQT_SIGNAL(toggled(bool)),this,TQT_SLOT(slotTimeToggled(bool)));
    timeCb->setChecked(showTime);
 
@@ -191,7 +191,7 @@ void KBannerSetup::fillFontSizes()
     comboSizes->blockSignals( true );
     comboSizes->clear();
     int i = 0;
-    sizes = TQFontDatabase().pointSizes( fontFamily );
+    sizes = TQFontDatabase().tqpointSizes( fontFamily );
     sizes << 96 << 128 << 156 << 0;
     int current = 0;
     while ( sizes[i] )

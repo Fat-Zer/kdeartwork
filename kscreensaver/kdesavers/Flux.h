@@ -20,9 +20,10 @@ class flux;
 class particle;
 class TQTimer;
 
-class FluxWidget : public QGLWidget
+class FluxWidget : public TQGLWidget
 {
     Q_OBJECT
+  TQ_OBJECT
 
 public:
 
@@ -99,6 +100,7 @@ private:
 class KFluxScreenSaver : public KScreenSaver
 {
     Q_OBJECT
+  TQ_OBJECT
 
 public:
 
@@ -125,6 +127,7 @@ class TQComboBox;
 class KFluxSetup : public KDialogBase
 {
     Q_OBJECT
+  TQ_OBJECT
 
 public:
 

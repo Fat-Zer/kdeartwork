@@ -30,6 +30,7 @@ enum ButtonType {
 class SystemClient : public KDecoration
 {
    Q_OBJECT
+  TQ_OBJECT
    public:
       SystemClient(KDecorationBridge* bridge, KDecorationFactory* factory);
       ~SystemClient();
@@ -44,7 +45,7 @@ class SystemClient : public KDecoration
       virtual void iconChange();
       virtual void desktopChange();
       virtual void activeChange();
-      virtual TQSize minimumSize() const;
+      virtual TQSize tqminimumSize() const;
       virtual void borders(int&, int&, int&, int&) const;
       virtual void reset( unsigned long changed );
       void drawRoundFrame(TQPainter &p, int x, int y, int w, int h);
@@ -67,14 +68,14 @@ class SystemClient : public KDecoration
       TQString oldTitle;
 };
 
-class SystemButton : public QButton
+class SystemButton : public TQButton
 {
    public:
       SystemButton(SystemClient *parent=0, const char *name=0,
                    const unsigned char *bitmap=NULL, const TQString& tip=NULL);
       void setBitmap(const unsigned char *bitmap);
       void reset();
-      TQSize sizeHint() const;
+      TQSize tqsizeHint() const;
       void setTipText(const TQString &tip);
       ButtonState last_button;
    protected:
@@ -93,6 +94,7 @@ class SystemButton : public QButton
 class SystemDecoFactory : public TQObject, public KDecorationFactory
 {
    Q_OBJECT
+  TQ_OBJECT
    public:
       SystemDecoFactory();
       virtual ~SystemDecoFactory();

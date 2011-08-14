@@ -19,7 +19,7 @@
 #include <kglobal.h>
 #include "fountain.h"
 #include "fountain.moc"
-#ifdef Q_WS_MACX
+#ifdef TQ_WS_MACX
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #else
@@ -218,8 +218,8 @@ Fountain::~Fountain()
 /** load the particle file */
 bool Fountain::loadParticle()
 {
-    /* Status indicator */
-    bool Status = TRUE;
+    /* tqStatus indicator */
+    bool tqStatus = TRUE;
 	TQImage buf;
 
     kdDebug() << "Loading: " << locate("data", "kscreensaver/particle.png") << endl;
@@ -232,13 +232,13 @@ bool Fountain::loadParticle()
 	else
 	{
 		TQImage dummy( 32, 32, 32 );
-  		dummy.fill( Qt::white.rgb() );
+  		dummy.fill( TQt::white.rgb() );
         	buf = dummy;
 		tex = convertToGLFormat( buf );
 	}
 
             /* Set the status to true */
-            //Status = TRUE;
+            //tqStatus = TRUE;
 	glGenTextures(1, &texture[0]);   /* create three textures */
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
 	/* use linear filtering */
@@ -250,7 +250,7 @@ bool Fountain::loadParticle()
 
 
 
-    return Status;
+    return tqStatus;
 }
 /** setup the GL enviroment */
 void Fountain::initializeGL ()
@@ -303,8 +303,8 @@ void Fountain::initializeGL ()
 			particle[loop].xi=float((KApplication::random()%50)-26.0f)*10.0f;	// Random Speed On X Axis
 			particle[loop].yi=float((KApplication::random()%50)-25.0f)*10.0f;	// Random Speed On Y Axis
 			particle[loop].zi=float((KApplication::random()%50)-25.0f)*10.0f;	// Random Speed On Z Axis
-			particle[loop].xg=0.0f;					// Set Horizontal Pull To Zero
-			particle[loop].yg=-0.8f;				// Set Vertical Pull Downward
+			particle[loop].xg=0.0f;					// SetQt::Horizontal Pull To Zero
+			particle[loop].yg=-0.8f;				// SetQt::Vertical Pull Downward
 			particle[loop].zg=0.0f;					// Set Pull On Z Axis To Zero
 			particle[loop].size=size;				// Set particle size.
 		}
@@ -424,8 +424,8 @@ void Fountain::paintGL ()
 					particle[loop].xi=float((KApplication::random()%50)-26.0f)*10.0f;	// Random Speed On X Axis
 					particle[loop].yi=float((KApplication::random()%50)-25.0f)*10.0f;	// Random Speed On Y Axis
 					particle[loop].zi=float((KApplication::random()%50)-25.0f)*10.0f;	// Random Speed On Z Axis
-					particle[loop].xg=0.0f;					// Set Horizontal Pull To Zero
-					particle[loop].yg=-0.8f;				// Set Vertical Pull Downward
+					particle[loop].xg=0.0f;					// SetQt::Horizontal Pull To Zero
+					particle[loop].yg=-0.8f;				// SetQt::Vertical Pull Downward
 					particle[loop].zg=0.0f;					// Set Pull On Z Axis To Zero
 					particle[loop].size=size;				// Set particle size.
 				}

@@ -25,13 +25,14 @@
  * function calls the reimplemented TQGLWidget::resizeGL() method of the GL
  * widgets (PendulumGLWidget::resizeGL(), RotationGLWidget::resizeGL()) which
  * really resizes the GL scenery. */
-class SsPreviewArea : public QWidget
+class SsPreviewArea : public TQWidget
 {
    Q_OBJECT
+  TQ_OBJECT
 
   public:
    /** @brief Constructor for SsPreviewArea
-    * @param parent Pointer tp parent widget, forwarded to the QWidget
+    * @param parent Pointer tp parent widget, forwarded to the TQWidget
     * constructor
     * @param name Pointer to widget name, forwarded to the TQWidget constructor
     *

@@ -19,9 +19,10 @@
 class wind;
 class TQTimer;
 
-class SWindsWidget : public QGLWidget
+class SWindsWidget : public TQGLWidget
 {
     Q_OBJECT
+  TQ_OBJECT
 
 public:
 
@@ -90,6 +91,7 @@ private:
 class KSWindsScreenSaver : public KScreenSaver
 {
     Q_OBJECT
+  TQ_OBJECT
 
 public:
 
@@ -116,6 +118,7 @@ class TQComboBox;
 class KSWindsSetup : public KDialogBase
 {
     Q_OBJECT
+  TQ_OBJECT
 
 public:
 

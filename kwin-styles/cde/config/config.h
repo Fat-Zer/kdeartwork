@@ -15,9 +15,10 @@ class TQVBox;
 class TQLabel;
 class TQRadioButton;
 
-class CdeConfig: public QObject
+class CdeConfig: public TQObject
 {
 	Q_OBJECT
+  TQ_OBJECT
 
 	public:
 		CdeConfig( KConfig* conf, TQWidget* parent );

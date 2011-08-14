@@ -16,7 +16,7 @@
 
 #include <tqdialog.h>
 #include <tqgl.h>
-#ifdef Q_WS_MACX
+#ifdef TQ_WS_MACX
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #else
@@ -34,9 +34,10 @@
 #define	MAX_PARTICLES	1000
 
 
-class Fountain : public QGLWidget
+class Fountain : public TQGLWidget
 {
 Q_OBJECT
+  TQ_OBJECT
 	class particles						// Create A Structure For Particle
 	{
 	public:
@@ -103,6 +104,7 @@ private:
 class KFountainSaver : public KScreenSaver
 {
 Q_OBJECT
+  TQ_OBJECT
 public:
 	KFountainSaver( WId drawable );
 	virtual ~KFountainSaver();
@@ -120,6 +122,7 @@ private:
 class KFountainSetup : public SetupUi
 {
 	Q_OBJECT
+  TQ_OBJECT
 public:
 	KFountainSetup( TQWidget *parent = NULL, const char *name = NULL );
 

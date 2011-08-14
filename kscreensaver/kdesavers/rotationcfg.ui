@@ -1,6 +1,6 @@
 <!DOCTYPE UI><UI version="3.2" stdsetdef="1">
 <class>KRotationSetupUi</class>
-<widget class="QDialog">
+<widget class="TQDialog">
     <property name="name">
         <cstring>KRotationSetupUi</cstring>
     </property>
@@ -20,13 +20,13 @@
             <verstretch>0</verstretch>
         </sizepolicy>
     </property>
-    <property name="minimumSize">
+    <property name="tqminimumSize">
         <size>
             <width>0</width>
             <height>0</height>
         </size>
     </property>
-    <property name="maximumSize">
+    <property name="tqmaximumSize">
         <size>
             <width>1200</width>
             <height>900</height>
@@ -48,23 +48,23 @@
         <property name="resizeMode">
             <enum>Minimum</enum>
         </property>
-        <widget class="QLayoutWidget">
+        <widget class="TQLayoutWidget">
             <property name="name">
-                <cstring>layout17</cstring>
+                <cstring>tqlayout17</cstring>
             </property>
             <hbox>
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
-                <widget class="QLayoutWidget">
+                <widget class="TQLayoutWidget">
                     <property name="name">
-                        <cstring>layout6</cstring>
+                        <cstring>tqlayout6</cstring>
                     </property>
                     <vbox>
                         <property name="name">
                             <cstring>unnamed</cstring>
                         </property>
-                        <widget class="QButtonGroup">
+                        <widget class="TQButtonGroup">
                             <property name="name">
                                 <cstring>buttonGroup1</cstring>
                             </property>
@@ -83,15 +83,15 @@
                                 <property name="name">
                                     <cstring>unnamed</cstring>
                                 </property>
-                                <widget class="QLayoutWidget" row="0" column="0" rowspan="1" colspan="2">
+                                <widget class="TQLayoutWidget" row="0" column="0" rowspan="1" colspan="2">
                                     <property name="name">
-                                        <cstring>layout5</cstring>
+                                        <cstring>tqlayout5</cstring>
                                     </property>
                                     <grid>
                                         <property name="name">
                                             <cstring>unnamed</cstring>
                                         </property>
-                                        <widget class="QCheckBox" row="0" column="0">
+                                        <widget class="TQCheckBox" row="0" column="0">
                                             <property name="name">
                                                 <cstring>xTrace</cstring>
                                             </property>
@@ -102,7 +102,7 @@
                                                 <string>x</string>
                                             </property>
                                         </widget>
-                                        <widget class="QCheckBox" row="1" column="0" rowspan="1" colspan="3">
+                                        <widget class="TQCheckBox" row="1" column="0" rowspan="1" colspan="3">
                                             <property name="name">
                                                 <cstring>randTraces</cstring>
                                             </property>
@@ -110,7 +110,7 @@
                                                 <string>Random</string>
                                             </property>
                                         </widget>
-                                        <widget class="QCheckBox" row="0" column="1">
+                                        <widget class="TQCheckBox" row="0" column="1">
                                             <property name="name">
                                                 <cstring>yTrace</cstring>
                                             </property>
@@ -118,7 +118,7 @@
                                                 <string>y</string>
                                             </property>
                                         </widget>
-                                        <widget class="QCheckBox" row="0" column="2">
+                                        <widget class="TQCheckBox" row="0" column="2">
                                             <property name="name">
                                                 <cstring>zTrace</cstring>
                                             </property>
@@ -128,7 +128,7 @@
                                         </widget>
                                     </grid>
                                 </widget>
-                                <widget class="QLabel" row="1" column="0">
+                                <widget class="TQLabel" row="1" column="0">
                                     <property name="name">
                                         <cstring>textLabel1</cstring>
                                     </property>
@@ -136,7 +136,7 @@
                                         <string>Length:</string>
                                     </property>
                                 </widget>
-                                <widget class="QLineEdit" row="1" column="1">
+                                <widget class="TQLineEdit" row="1" column="1">
                                     <property name="name">
                                         <cstring>lengthEdit</cstring>
                                     </property>
@@ -148,7 +148,7 @@
                                             <verstretch>0</verstretch>
                                         </sizepolicy>
                                     </property>
-                                    <property name="maximumSize">
+                                    <property name="tqmaximumSize">
                                         <size>
                                             <width>40</width>
                                             <height>32767</height>
@@ -166,15 +166,15 @@
                                 </widget>
                             </grid>
                         </widget>
-                        <widget class="QLayoutWidget">
+                        <widget class="TQLayoutWidget">
                             <property name="name">
-                                <cstring>layout10</cstring>
+                                <cstring>tqlayout10</cstring>
                             </property>
                             <grid>
                                 <property name="name">
                                     <cstring>unnamed</cstring>
                                 </property>
-                                <widget class="QLineEdit" row="0" column="1">
+                                <widget class="TQLineEdit" row="0" column="1">
                                     <property name="name">
                                         <cstring>LzEdit</cstring>
                                     </property>
@@ -186,7 +186,7 @@
                                             <verstretch>0</verstretch>
                                         </sizepolicy>
                                     </property>
-                                    <property name="maximumSize">
+                                    <property name="tqmaximumSize">
                                         <size>
                                             <width>50</width>
                                             <height>32767</height>
@@ -196,7 +196,7 @@
                                         <number>5</number>
                                     </property>
                                 </widget>
-                                <widget class="QLabel" row="1" column="0">
+                                <widget class="TQLabel" row="1" column="0">
                                     <property name="name">
                                         <cstring>textLabel3</cstring>
                                     </property>
@@ -212,7 +212,7 @@
                                         <string>Theta:</string>
                                     </property>
                                 </widget>
-                                <widget class="QLabel" row="0" column="0">
+                                <widget class="TQLabel" row="0" column="0">
                                     <property name="name">
                                         <cstring>textLabel2</cstring>
                                     </property>
@@ -228,7 +228,7 @@
                                         <string>Lz:</string>
                                     </property>
                                 </widget>
-                                <widget class="QLineEdit" row="1" column="1">
+                                <widget class="TQLineEdit" row="1" column="1">
                                     <property name="name">
                                         <cstring>thetaEdit</cstring>
                                     </property>
@@ -240,7 +240,7 @@
                                             <verstretch>0</verstretch>
                                         </sizepolicy>
                                     </property>
-                                    <property name="maximumSize">
+                                    <property name="tqmaximumSize">
                                         <size>
                                             <width>50</width>
                                             <height>32767</height>
@@ -262,7 +262,7 @@
                             <property name="sizeType">
                                 <enum>Expanding</enum>
                             </property>
-                            <property name="sizeHint">
+                            <property name="tqsizeHint">
                                 <size>
                                     <width>31</width>
                                     <height>51</height>
@@ -275,7 +275,7 @@
                     <property name="name">
                         <cstring>preview</cstring>
                     </property>
-                    <property name="minimumSize">
+                    <property name="tqminimumSize">
                         <size>
                             <width>200</width>
                             <height>150</height>
@@ -284,9 +284,9 @@
                 </widget>
             </hbox>
         </widget>
-        <widget class="QLayoutWidget">
+        <widget class="TQLayoutWidget">
             <property name="name">
-                <cstring>layout9</cstring>
+                <cstring>tqlayout9</cstring>
             </property>
             <hbox>
                 <property name="name">
@@ -302,22 +302,22 @@
                     <property name="sizeType">
                         <enum>Expanding</enum>
                     </property>
-                    <property name="sizeHint">
+                    <property name="tqsizeHint">
                         <size>
                             <width>51</width>
                             <height>31</height>
                         </size>
                     </property>
                 </spacer>
-                <widget class="QLayoutWidget">
+                <widget class="TQLayoutWidget">
                     <property name="name">
-                        <cstring>layout4</cstring>
+                        <cstring>tqlayout4</cstring>
                     </property>
                     <hbox>
                         <property name="name">
                             <cstring>unnamed</cstring>
                         </property>
-                        <widget class="QPushButton">
+                        <widget class="TQPushButton">
                             <property name="name">
                                 <cstring>OkButton</cstring>
                             </property>
@@ -328,7 +328,7 @@
                                 <bool>true</bool>
                             </property>
                         </widget>
-                        <widget class="QPushButton">
+                        <widget class="TQPushButton">
                             <property name="name">
                                 <cstring>CancelButton</cstring>
                             </property>
@@ -336,7 +336,7 @@
                                 <string>&amp;Cancel</string>
                             </property>
                         </widget>
-                        <widget class="QPushButton">
+                        <widget class="TQPushButton">
                             <property name="name">
                                 <cstring>AboutButton</cstring>
                             </property>
@@ -356,7 +356,7 @@
                     <property name="sizeType">
                         <enum>Expanding</enum>
                     </property>
-                    <property name="sizeHint">
+                    <property name="tqsizeHint">
                         <size>
                             <width>61</width>
                             <height>31</height>
@@ -470,7 +470,7 @@
         <slot>thetaEnteredSlot(const QString&amp;)</slot>
     </connection>
 </connections>
-<slots>
+<Q_SLOTS>
     <slot>okButtonClickedSlot()</slot>
     <slot>aboutButtonClickedSlot()</slot>
     <slot>randomTracesToggled(bool)</slot>
@@ -480,7 +480,7 @@
     <slot>lengthEnteredSlot(const QString&amp;)</slot>
     <slot>LzEnteredSlot(const QString&amp;)</slot>
     <slot>thetaEnteredSlot(const QString&amp;)</slot>
-</slots>
+</Q_SLOTS>
 <layoutdefaults spacing="6" margin="11"/>
 <includehints>
     <includehint>sspreviewarea.h</includehint>

@@ -22,9 +22,10 @@ typedef signed int T32bit;
 
 class KScienceSaver;
 
-class KPreviewWidget : public QWidget
+class KPreviewWidget : public TQWidget
 {
 	Q_OBJECT
+  TQ_OBJECT
 public:
 	KPreviewWidget( TQWidget *parent );
 	void paintEvent( TQPaintEvent *event );
@@ -38,6 +39,7 @@ struct KScienceData;
 class KScienceSaver : public KScreenSaver
 {
 	Q_OBJECT
+  TQ_OBJECT
 public:
 	KScienceSaver( WId id, bool setup=false, bool gP=false);
 	virtual ~KScienceSaver();
@@ -106,6 +108,7 @@ protected:
 class KScienceSetup : public KDialogBase
 {
 	Q_OBJECT
+  TQ_OBJECT
 public:
 	KScienceSetup(TQWidget *parent=0, const char *name=0);
 	~KScienceSetup();

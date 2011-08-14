@@ -218,7 +218,7 @@ void ThemeHandler::convertButtons( TQString& s )
 }
 
 
-// Reverses all characters in a QString
+// Reverses all characters in a TQString
 TQString ThemeHandler::reverseString( TQString s )
 {
 	if (s.length() <= 1)
@@ -385,8 +385,8 @@ void ThemeHandler::initTheme()
 	setPixmap( frameTR, "frame", "TR.xpm" );
 
 	// Sides
-	setPixmap( frameL, "frame", "L.xpm", true, Vertical );
-	setPixmap( frameR, "frame", "R.xpm", true, Vertical );
+	setPixmap( frameL, "frame", "L.xpm", true,Qt::Vertical );
+	setPixmap( frameR, "frame", "R.xpm", true,Qt::Vertical );
 
 	// Bottom
 	setPixmap( frameBL, "frame", "BL.xpm" );
@@ -500,7 +500,7 @@ void ThemeHandler::freePixmapGroup( TQPixmap* p[] )
 }
 
 
-// Converts icewm colors #C0C0C0 or rgb:C0/C0/C0 to QColors
+// Converts icewm colors #C0C0C0 or rgb:C0/C0/C0 to TQColors
 TQColor ThemeHandler::decodeColor( TQString& s )
 {
 	// Make rgb:C0/C0/C0, or #C0/C0/C0  -> C0C0C0
@@ -517,7 +517,7 @@ TQColor ThemeHandler::decodeColor( TQString& s )
 	if (s.length() != 6)
 		return TQColor( 0xC0, 0xC0, 0xC0 );
 
-	// Qt makes this conversion very easy
+	// TQt makes this conversion very easy
 	return TQColor( TQString("#") + s );
 }
 
@@ -772,7 +772,7 @@ IceWMButton::IceWMButton(IceWMClient *parent, const char *name, TQPixmap* (*p)[2
 	setBackgroundMode( TQWidget::NoBackground );
 	client = parent;
 	usePixmap( p );
-	setFixedSize( sizeHint() );
+	setFixedSize( tqsizeHint() );
 	setToggleButton( isToggle );
 }
 
@@ -785,7 +785,7 @@ void IceWMButton::setTipText(const TQString &tip) {
 }
 
 
-TQSize IceWMButton::sizeHint() const
+TQSize IceWMButton::tqsizeHint() const
 {
 	// Check for invalid data
 	if ( validPixmaps( (TQPixmap**) (*pix) ) )  // Cast to avoid dumb warning
@@ -802,7 +802,7 @@ void IceWMButton::usePixmap( TQPixmap* (*p)[2] )
 	if (validPixmaps( *p )) {
 		pix = p;
 		setFixedSize( (*pix)[Active]->width(), titleBarHeight );
-		repaint( false );
+		tqrepaint( false );
 	} else
 		pix = NULL;
 }
@@ -840,7 +840,7 @@ void IceWMButton::mousePressEvent( TQMouseEvent* e )
 {
 	last_button = e->button();
 	TQMouseEvent me ( e->type(), e->pos(), e->globalPos(),
-					 (e->button()&m_realizeButtons)?LeftButton:NoButton, e->state() );
+					 (e->button()&m_realizeButtons)?Qt::LeftButton:Qt::NoButton, e->state() );
 	TQButton::mousePressEvent( &me );
 }
 
@@ -849,7 +849,7 @@ void IceWMButton::mouseReleaseEvent( TQMouseEvent* e )
 {
 	last_button = e->button();
 	TQMouseEvent me ( e->type(), e->pos(), e->globalPos(),
-					 (e->button()&m_realizeButtons)?LeftButton:NoButton, e->state() );
+					 (e->button()&m_realizeButtons)?Qt::LeftButton:Qt::NoButton, e->state() );
 	TQButton::mouseReleaseEvent( &me );
 }
 
@@ -892,7 +892,7 @@ void IceWMClient::init()
 	// No flicker thanks
 	widget()->setBackgroundMode( NoBackground );
 
-	// Pack the windowWrapper() window within a grid layout
+	// Pack the windowWrapper() window within a grid tqlayout
 	grid = new TQGridLayout(widget(), 0, 0, 0);
 	grid->setResizeMode(TQLayout::FreeResize);
 	grid->addRowSpacing(0, borderSizeY);	// Top grab bar
@@ -956,7 +956,7 @@ void IceWMClient::init()
 }
 
 
-// Adds the buttons to the hbox layout as per the buttons specified
+// Adds the buttons to the hbox tqlayout as per the buttons specified
 // in the button string 's'
 void IceWMClient::addClientButtons( const TQString& s )
 {
@@ -973,7 +973,7 @@ void IceWMClient::addClientButtons( const TQString& s )
 						if (showMenuButtonIcon) {
 							renderMenuIcons();
 							button[BtnSysMenu] = new IceWMButton(this, "menu",
-								&menuButtonWithIconPix, false, i18n("Menu"), LeftButton|RightButton);
+								&menuButtonWithIconPix, false, i18n("Menu"), Qt::LeftButton|Qt::RightButton);
 						}
 						else
 							button[BtnSysMenu] = new IceWMButton(this, "menu",
@@ -1002,7 +1002,7 @@ void IceWMClient::addClientButtons( const TQString& s )
 					if ( validPixmaps(maximizePix) && !button[BtnMaximize] && isMaximizable() )
 					{
 						button[BtnMaximize] = new IceWMButton(this, "maximize",
-								&maximizePix, false, i18n("Maximize"), LeftButton|MidButton|RightButton);
+								&maximizePix, false, i18n("Maximize"), Qt::LeftButton|Qt::MidButton|Qt::RightButton);
 						hb->addWidget( button[BtnMaximize] );
 						connect( button[BtnMaximize], TQT_SIGNAL(clicked()),
 								 this, TQT_SLOT(slotMaximize()));
@@ -1057,7 +1057,7 @@ void IceWMClient::addClientButtons( const TQString& s )
 }
 
 
-// Adds a pixmap to the titlebar layout via the use of a nice QSpacerItem
+// Adds a pixmap to the titlebar tqlayout via the use of a nice TQSpacerItem
 TQSpacerItem* IceWMClient::addPixmapSpacer( TQPixmap* p[], TQSizePolicy::SizeType s, int hsize )
 {
 	TQSpacerItem* sp;
@@ -1157,9 +1157,9 @@ void IceWMClient::resize( const TQSize& s )
 }
 
 
-TQSize IceWMClient::minimumSize() const
+TQSize IceWMClient::tqminimumSize() const
 {
-	return widget()->minimumSize();
+	return widget()->tqminimumSize();
 }
 
 
@@ -1175,10 +1175,10 @@ void IceWMClient::resizeEvent( TQResizeEvent* e )
 		int dy = 0;
 
 		if ( e->oldSize().width() != widget()->width() )
-			dx = 32 + QABS( e->oldSize().width() -  width() );
+			dx = 32 + TQABS( e->oldSize().width() -  width() );
 
 		if ( e->oldSize().height() != height() )
-			dy = 8 + QABS( e->oldSize().height() -  height() );
+			dy = 8 + TQABS( e->oldSize().height() -  height() );
 
 		if ( dy )
 			widget()->update( 0, height() - dy + 1, width(), dy );
@@ -1186,9 +1186,9 @@ void IceWMClient::resizeEvent( TQResizeEvent* e )
 		if ( dx )
 		{
 			widget()->update( width() - dx + 1, 0, dx, height() );
-			widget()->update( TQRect( TQPoint(4,4), titlebar->geometry().bottomLeft() - TQPoint(1,0) ) );
-			widget()->update( TQRect( titlebar->geometry().topRight(), TQPoint( width() - 4, titlebar->geometry().bottom() ) ) );
-			widget()->repaint(titlebar->geometry(), false);
+			widget()->update( TQRect( TQPoint(4,4), titlebar->tqgeometry().bottomLeft() - TQPoint(1,0) ) );
+			widget()->update( TQRect( titlebar->tqgeometry().topRight(), TQPoint( width() - 4, titlebar->tqgeometry().bottom() ) ) );
+			widget()->tqrepaint(titlebar->tqgeometry(), false);
 		}
 	}
 }
@@ -1297,7 +1297,7 @@ void IceWMClient::paintEvent( TQPaintEvent* )
 			p.drawLine(1, h-2, w-2, h-2);
 			p.drawLine(w-2, 1, w-2, h-2);
 
-			p.setPen( Qt::black );
+			p.setPen( TQt::black );
 			p.drawLine(w-1, 0, w-1, h-1);
 			p.drawLine(0, h-1, w-1, h-1);
 		}
@@ -1306,7 +1306,7 @@ void IceWMClient::paintEvent( TQPaintEvent* )
 		// Fill frame border if required
 		if (borderSizeX > 2)
 		{
-			// Fill Vertical sizes
+			// FillQt::Vertical sizes
 			p.fillRect( x+2, y+2, borderSizeX-2, h-4, c1);
 			p.fillRect( w-borderSizeX, y+2, borderSizeX-2, h-4, c1);
 		}
@@ -1377,46 +1377,46 @@ void IceWMClient::paintEvent( TQPaintEvent* )
 		TQPainter p2( titleBuffer, this );
 		titleBuffer->fill( act ? *colorActiveTitleBar : *colorInActiveTitleBar );
 
-		r = titleSpacerJ->geometry();
+		r = titleSpacerJ->tqgeometry();
 		if (!r.isEmpty() && titleJ[ act ])
 			p2.drawPixmap( r.x()-borderSizeX, 0, *titleJ[ act ]);
 
-		r = titleSpacerL->geometry();
+		r = titleSpacerL->tqgeometry();
 		if (!r.isEmpty() && titleL[ act ])
 			p2.drawPixmap( r.x()-borderSizeX, 0, *titleL[ act ]);
 
-		r = titleSpacerS->geometry();
+		r = titleSpacerS->tqgeometry();
 		if (!r.isEmpty() && titleS[ act ])
 			p2.drawTiledPixmap( r.x()-borderSizeX, 0, r.width(), titleBarHeight, *titleS[ act ]);
 
-		r = titleSpacerP->geometry();
+		r = titleSpacerP->tqgeometry();
 		if (!r.isEmpty() && titleP[ act ])
 			p2.drawPixmap( r.x()-borderSizeX, 0, *titleP[ act ]);
 
-		r = titlebar->geometry();
+		r = titlebar->tqgeometry();
 		if (!r.isEmpty() && titleT[ act ] )
 			p2.drawTiledPixmap( r.x()-borderSizeX, 0, r.width(), titleBarHeight, *titleT[ act ]);
 
-		r = titleSpacerM->geometry();
+		r = titleSpacerM->tqgeometry();
 		if (!r.isEmpty() && titleM[ act ])
 			p2.drawPixmap( r.x()-borderSizeX, 0, *titleM[ act ], 0, 0, r.width(), r.height());
 
-		r = titleSpacerB->geometry();
+		r = titleSpacerB->tqgeometry();
 		if (!r.isEmpty() && titleB[ act ])
 			p2.drawTiledPixmap( r.x()-borderSizeX, 0, r.width(), titleBarHeight, *titleB[ act ]);
 
-		r = titleSpacerR->geometry();
+		r = titleSpacerR->tqgeometry();
 		if (!r.isEmpty() && titleR[ act ])
 			p2.drawPixmap( r.x()-borderSizeX, 0, *titleR[ act ], 0, 0, r.width(), r.height());
 
-		r = titleSpacerQ->geometry();
+		r = titleSpacerQ->tqgeometry();
 		if (!r.isEmpty() && titleQ[ act ])
 			p2.drawPixmap( r.x()-borderSizeX, 0, *titleQ[ act ], 0, 0, r.width(), r.height());
 
 		p2.setFont( options()->font(true) );
 
 		// Pre-compute as much as possible
-		r = titlebar->geometry();
+		r = titlebar->tqgeometry();
 		rx = r.x() - borderSizeX;
 		rw = width()-(2*borderSizeX)-r.x();
 
@@ -1432,7 +1432,7 @@ void IceWMClient::paintEvent( TQPaintEvent* )
 		p2.drawText(rx, 0, rw, titleBarHeight, AlignLeft|AlignVCenter, caption());
 		p2.end();
 
-		bitBlt( widget(), borderSizeX, hb->geometry().y(), titleBuffer );
+		bitBlt( widget(), borderSizeX, hb->tqgeometry().y(), titleBuffer );
 
 		delete titleBuffer;
 	}
@@ -1453,7 +1453,7 @@ void IceWMClient::showEvent(TQShowEvent *ev)
 
 void IceWMClient::mouseDoubleClickEvent( TQMouseEvent * e )
 {
-	if( e->button() != LeftButton )
+	if( e->button() != Qt::LeftButton )
 		return;
 
 	TQRect r;
@@ -1486,7 +1486,7 @@ void IceWMClient::iconChange()
 			renderMenuIcons();
 			button[BtnSysMenu]->usePixmap( &menuButtonWithIconPix );
 			if (button[BtnSysMenu]->isVisible())
-				button[BtnSysMenu]->repaint(false);
+				button[BtnSysMenu]->tqrepaint(false);
 		}
 	}
 }
@@ -1497,13 +1497,13 @@ void IceWMClient::desktopChange()
 	if (button[BtnDepth])
 	{
 		button[BtnDepth]->turnOn( isOnAllDesktops() );
-		button[BtnDepth]->repaint(false);
+		button[BtnDepth]->tqrepaint(false);
 		button[BtnDepth]->setTipText(isOnAllDesktops() ? i18n("Not on all desktops") : i18n("On all desktops"));
 	}
 }
 
 
-// Please don't modify the following unless you want layout problems
+// Please don't modify the following unless you want tqlayout problems
 void IceWMClient::captionChange()
 {
 	TQRect r( 0, borderSizeY, geometry().width(), titleBarHeight);
@@ -1512,7 +1512,7 @@ void IceWMClient::captionChange()
 						  TQSizePolicy::Preferred, TQSizePolicy::Fixed );
 	titlebar->invalidate();
     grid->activate();
-    widget()->repaint( r, false );
+    widget()->tqrepaint( r, false );
 }
 
 
@@ -1541,12 +1541,12 @@ void IceWMClient::shadeChange()
 
 void IceWMClient::activeChange()
 {
-	widget()->repaint(false);
+	widget()->tqrepaint(false);
 
     // Reset the button pixmaps.
 	for(int i= IceWMClient::BtnSysMenu; i < IceWMClient::BtnCount; i++)
 		if(button[i])
-			button[i]->repaint( false );
+			button[i]->tqrepaint( false );
 }
 
 
@@ -1661,24 +1661,24 @@ void IceWMClient::menuButtonReleased()
 
 bool IceWMClient::eventFilter( TQObject* o, TQEvent* e )
 {
-	if( o != widget())
+	if( TQT_BASE_OBJECT(o) != TQT_BASE_OBJECT(widget()))
 	return false;
 	switch( e->type())
 	{
 	case TQEvent::Resize:
-		resizeEvent(static_cast< TQResizeEvent* >( e ) );
+		resizeEvent(TQT_TQRESIZEEVENT( e ) );
 		return true;
 	case TQEvent::Paint:
-		paintEvent(static_cast< TQPaintEvent* >( e ) );
+		paintEvent(TQT_TQPAINTEVENT( e ) );
 		return true;
 	case TQEvent::MouseButtonDblClick:
-		mouseDoubleClickEvent(static_cast< TQMouseEvent* >( e ) );
+		mouseDoubleClickEvent(TQT_TQMOUSEEVENT( e ) );
 		return true;
 	case TQEvent::MouseButtonPress:
-		processMousePressEvent(static_cast< TQMouseEvent* >( e ) );
+		processMousePressEvent(TQT_TQMOUSEEVENT( e ) );
 		return true;
 	case TQEvent::Wheel:
-		wheelEvent( static_cast< TQWheelEvent* >( e ));
+		wheelEvent( TQT_TQWHEELEVENT( e ));
 		return true;
 	default:
 		break;

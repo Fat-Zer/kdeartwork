@@ -82,7 +82,7 @@ KLorenzSetup::KLorenzSetup( TQWidget *parent, const char *name )
     TQLabel *label = new TQLabel( i18n("Speed:"), main );
     tl1->addWidget(label);
 
-    sps = new TQSlider(MINSPEED, MAXSPEED, 10, speed, TQSlider::Horizontal, main);
+    sps = new TQSlider(MINSPEED, MAXSPEED, 10, speed, Qt::Horizontal, main);
     sps->setMinimumSize( 120, 20 );
     sps->setTickmarks(TQSlider::Below);
     sps->setTickInterval(150);
@@ -92,7 +92,7 @@ KLorenzSetup::KLorenzSetup( TQWidget *parent, const char *name )
     label = new TQLabel( i18n("Epoch:"), main );
     tl1->addWidget(label);
 
-    eps = new TQSlider(MINEPOCH, MAXEPOCH, 100, epoch, TQSlider::Horizontal, main);
+    eps = new TQSlider(MINEPOCH, MAXEPOCH, 100, epoch, Qt::Horizontal, main);
     eps->setMinimumSize( 120, 20 );
     eps->setTickmarks(TQSlider::Below);
     eps->setTickInterval(3000);
@@ -102,7 +102,7 @@ KLorenzSetup::KLorenzSetup( TQWidget *parent, const char *name )
     label = new TQLabel( i18n("Color rate:"), main );
     tl1->addWidget(label);
 
-    crs = new TQSlider(MINCOLOR, MAXCOLOR, 5, crate, TQSlider::Horizontal, main);
+    crs = new TQSlider(MINCOLOR, MAXCOLOR, 5, crate, Qt::Horizontal, main);
     crs->setMinimumSize( 120, 20 );
     crs->setTickmarks(TQSlider::Below);
     crs->setTickInterval(10);
@@ -112,7 +112,7 @@ KLorenzSetup::KLorenzSetup( TQWidget *parent, const char *name )
     label = new TQLabel( i18n("Rotation Z:"), main );
     tl1->addWidget(label);
 
-    zrs = new TQSlider(MINZROT, MAXZROT, 18, zrot, TQSlider::Horizontal, main);
+    zrs = new TQSlider(MINZROT, MAXZROT, 18, zrot, Qt::Horizontal, main);
     zrs->setMinimumSize( 120, 20 );
     zrs->setTickmarks(TQSlider::Below);
     zrs->setTickInterval(36);
@@ -122,7 +122,7 @@ KLorenzSetup::KLorenzSetup( TQWidget *parent, const char *name )
     label = new TQLabel( i18n("Rotation Y:"), main );
     tl1->addWidget(label);
 
-    yrs = new TQSlider(MINYROT, MAXYROT, 18, yrot, TQSlider::Horizontal, main);
+    yrs = new TQSlider(MINYROT, MAXYROT, 18, yrot, Qt::Horizontal, main);
     yrs->setMinimumSize( 120, 20 );
     yrs->setTickmarks(TQSlider::Below);
     yrs->setTickInterval(36);
@@ -132,7 +132,7 @@ KLorenzSetup::KLorenzSetup( TQWidget *parent, const char *name )
     label = new TQLabel( i18n("Rotation X:"), main );
     tl1->addWidget(label);
 
-    xrs = new TQSlider(MINXROT, MAXXROT, 18, xrot, TQSlider::Horizontal, main);
+    xrs = new TQSlider(MINXROT, MAXXROT, 18, xrot, Qt::Horizontal, main);
     xrs->setMinimumSize( 120, 20 );
     xrs->setTickmarks(TQSlider::Below);
     xrs->setTickInterval(36);

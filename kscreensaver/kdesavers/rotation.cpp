@@ -31,7 +31,7 @@
 #include <cstdlib>
 // STL
 #include <deque>
-// Qt headers
+// TQt headers
 #include <tqcheckbox.h>
 #include <tqlineedit.h>
 #include <tqvalidator.h>
@@ -44,7 +44,7 @@
 
 #include "sspreviewarea.h"
 
-// rotation.moc includes rotation.h
+// rotation.tqmoc includes rotation.h
 #include "rotation.moc"
 
 /** Version number of this screen saver */
@@ -716,18 +716,18 @@ KRotationSetup::KRotationSetup(TQWidget* parent, const char* name)
    TQToolTip::add(
       lengthEdit,
       i18n("Length of traces in seconds of visibility.\nValid values from %1 to %2.")
-      .arg(KRotationSaver::traceLengthSecondsLimitLower, 0, 'f', 2)
-      .arg(KRotationSaver::traceLengthSecondsLimitUpper, 0, 'f', 2));
+      .tqarg(KRotationSaver::traceLengthSecondsLimitLower, 0, 'f', 2)
+      .tqarg(KRotationSaver::traceLengthSecondsLimitUpper, 0, 'f', 2));
    TQToolTip::add(
       LzEdit,
       i18n("Angular momentum in z direction in arbitrary units.\nValid values from %1 to %2.")
-      .arg(KRotationSaver::LzLimitLower, 0, 'f', 2)
-      .arg(KRotationSaver::LzLimitUpper, 0, 'f', 2));
+      .tqarg(KRotationSaver::LzLimitLower, 0, 'f', 2)
+      .tqarg(KRotationSaver::LzLimitUpper, 0, 'f', 2));
    TQToolTip::add(
       thetaEdit,
       i18n("Gravitational constant in arbitrary units.\nValid values from %1 to %2.")
-      .arg(KRotationSaver::initEulerThetaLimitLower, 0, 'f', 2)
-      .arg(KRotationSaver::initEulerThetaLimitUpper, 0, 'f', 2));
+      .tqarg(KRotationSaver::initEulerThetaLimitLower, 0, 'f', 2)
+      .tqarg(KRotationSaver::initEulerThetaLimitUpper, 0, 'f', 2));
 
    // init preview area
    preview->setBackgroundColor(black);

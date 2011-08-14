@@ -6,7 +6,7 @@ SUBDIRS = . config
 kde_module_LTLIBRARIES = kwin3_cde.la
 
 kwin3_cde_la_SOURCES = cdeclient.cpp
-kwin3_cde_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN) -module
+kwin3_cde_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN) -module $(LIB_QT) $(LIB_KDECORE) $(LIB_KDEUI) -lkdefx
 kwin3_cde_la_LIBADD = -lkdecorations
 
 METASOURCES = AUTO

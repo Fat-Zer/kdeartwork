@@ -84,8 +84,8 @@ KClockSetup::KClockSetup(TQWidget *parent, const char *name)
 	top->addLayout( hbox );
 
 	TQGroupBox *colgroup = new TQGroupBox(i18n("Colors"), main);
-	colgroup->setColumnLayout( 0, Horizontal );
-	TQGridLayout *grid = new TQGridLayout( colgroup->layout(),
+	colgroup->setColumnLayout( 0,Qt::Horizontal );
+	TQGridLayout *grid = new TQGridLayout( colgroup->tqlayout(),
 		5, 2, spacingHint() );
 
 	TQLabel *label = new TQLabel(i18n("&Hour-hand:"), colgroup);
@@ -143,7 +143,7 @@ KClockSetup::KClockSetup(TQWidget *parent, const char *name)
 
 	label = new TQLabel( i18n( "Si&ze:" ), main );
 	top->addWidget( label );
-	TQSlider *qs = new TQSlider(0, MAX_CLOCK_SIZE, 1, m_size, Horizontal, main);
+	TQSlider *qs = new TQSlider(0, MAX_CLOCK_SIZE, 1, m_size,Qt::Horizontal, main);
 	label->setBuddy( qs );
 	qs->setTickInterval(1);
 	qs->setTickmarks(TQSlider::Below);
@@ -153,11 +153,11 @@ KClockSetup::KClockSetup(TQWidget *parent, const char *name)
 	bool rtl = kapp->reverseLayout();
 	TQHBox *qsscale = new TQHBox(main);
 	label = new TQLabel(i18n("Small"), qsscale);
-	label->setAlignment(rtl ? AlignRight : AlignLeft);
+	label->tqsetAlignment(rtl ? AlignRight : AlignLeft);
 	label = new TQLabel(i18n("Medium"), qsscale);
-	label->setAlignment(AlignHCenter);
+	label->tqsetAlignment(AlignHCenter);
 	label = new TQLabel(i18n("Big"), qsscale);
-	label->setAlignment(rtl ? AlignLeft : AlignRight);
+	label->tqsetAlignment(rtl ? AlignLeft : AlignRight);
 	top->addWidget(qsscale);
 
 	TQCheckBox *keepCentered = new TQCheckBox(i18n("&Keep clock centered"), main);
@@ -183,15 +183,15 @@ void KClockSetup::readSettings()
 		m_size = MAX_CLOCK_SIZE;
 
 	config->setGroup("Colors");
-	TQColor c = Qt::black;
+	TQColor c = TQt::black;
 	m_bgndColor = config->readColorEntry("Background", &c);
 
-	c = Qt::white;
+	c = TQt::white;
 	m_scaleColor = config->readColorEntry("Scale", &c);
 	m_hourColor = config->readColorEntry("HourHand", &c);
 	m_minColor = config->readColorEntry("MinuteHand", &c);
 
-	c = Qt::red;
+	c = TQt::red;
 	m_secColor = config->readColorEntry("SecondHand", &c);
 
 	if (m_saver) {
@@ -229,7 +229,7 @@ void KClockSetup::slotHelp()
 			"Version 1.0<br>"
 			"<nobr>Melchior FRANZ (c) 2003</nobr>") +
 			"<br><a href=\"mailto:mfranz@kde.org\">mfranz@kde.org</a>"
-			"</qt>", TQString::null, KMessageBox::AllowLink);
+			"</qt>", TQString(), KMessageBox::AllowLink);
 }
 
 
@@ -296,7 +296,7 @@ KClockPainter::KClockPainter(int width, int height)
       : m_width(width),
 	m_height(height)
 {
-	m_buf = new Q_UINT8[m_width * m_height * 3];
+	m_buf = new TQ_UINT8[m_width * m_height * 3];
 	// build Cartesian coordinate system ranging from -1000 to +1000;
 	// points with positive x and y are in the top right quarter
 	m_matrix[0] = m_width / 2000.0;
@@ -324,9 +324,9 @@ void KClockPainter::drawToImage(TQImage *q, int xoffs = 0, int yoffs = 0)
 {
 	unsigned char *src = (unsigned char *)image();
 	for (int y = 0; y < m_height; y++) {
-		QRgb *dest = reinterpret_cast<QRgb *>(q->scanLine(y + yoffs)) + xoffs;
+		TQRgb *dest = reinterpret_cast<TQRgb *>(q->scanLine(y + yoffs)) + xoffs;
 		for (int x = 0; x < m_width; x++, src += 3)
-			*dest++ = qRgba(src[0], src[1], src[2], 255);
+			*dest++ = tqRgba(src[0], src[1], src[2], 255);
 	}
 }
 
@@ -441,7 +441,7 @@ KClockSaver::~KClockSaver()
 
 void KClockSaver::start(int size)
 {
-	m_diameter = int(QMIN(width(), height()) * (size + 4) / 14.0);
+	m_diameter = int(TQMIN(width(), height()) * (size + 4) / 14.0);
 	m_x = (width() - m_diameter) / 2;
 	m_y = (height() - m_diameter) / 2;
 
@@ -449,7 +449,7 @@ void KClockSaver::start(int size)
 	m_scale = new KClockPainter(m_diameter, m_diameter);
 	m_clock = new KClockPainter(m_diameter, m_diameter);
 
-	m_clock->setShadowColor(qRgb((m_bgndColor.red() + m_scaleColor.red()) / 2,
+	m_clock->setShadowColor(tqRgb((m_bgndColor.red() + m_scaleColor.red()) / 2,
 			(m_bgndColor.green() + m_scaleColor.green()) / 2,
 			(m_bgndColor.blue() + m_scaleColor.blue()) / 2));
 	drawScale();
@@ -497,15 +497,15 @@ void KClockSaver::readSettings()
 		m_size = MAX_CLOCK_SIZE;
 
 	config->setGroup("Colors");
-	TQColor c = Qt::black;
+	TQColor c = TQt::black;
 	m_bgndColor = config->readColorEntry("Background", &c);
 
-	c = Qt::white;
+	c = TQt::white;
 	m_scaleColor = config->readColorEntry("Scale", &c);
 	m_hourColor = config->readColorEntry("HourHand", &c);
 	m_minColor = config->readColorEntry("MinuteHand", &c);
 
-	c = Qt::red;
+	c = TQt::red;
 	m_secColor = config->readColorEntry("SecondHand", &c);
 }
 
@@ -557,7 +557,7 @@ void KClockSaver::slotTimeout()
 	if (width() < 256) {
 		// intended for the control module preview: always fill the whole area
 		TQImage *img = new TQImage(width(), height(), 32);
-		img->fill(qRgb(m_bgndColor.red(), m_bgndColor.green(), m_bgndColor.blue()));
+		img->fill(tqRgb(m_bgndColor.red(), m_bgndColor.green(), m_bgndColor.blue()));
 		m_clock->drawToImage(img, m_x, m_y);
 		p.drawImage(0, 0, *img);
 		delete img;

@@ -17,9 +17,10 @@
 class wisp;
 class TQTimer;
 
-class EuphoriaWidget : public QGLWidget
+class EuphoriaWidget : public TQGLWidget
 {
     Q_OBJECT
+  TQ_OBJECT
 
 public:
 
@@ -111,6 +112,7 @@ private:
 class KEuphoriaScreenSaver : public KScreenSaver
 {
     Q_OBJECT
+  TQ_OBJECT
 
 public:
 
@@ -137,6 +139,7 @@ class TQComboBox;
 class KEuphoriaSetup : public KDialogBase
 {
     Q_OBJECT
+  TQ_OBJECT
 
 public:
     KEuphoriaSetup( TQWidget* parent = 0, const char* name = 0 );

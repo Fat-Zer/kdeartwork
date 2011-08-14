@@ -15,7 +15,7 @@
  * Changes of David Bagley <bagleyd@source.asset.com>
  * 12-May-95: Added defines for SunOS's Adjunct password file
  *            Dale A. Harris <rodmur@ecst.csuchico.edu>
- * 18-Nov-94: Modified for QNX 4.2 w/ Metrolink X server from Brian Campbell
+ * 18-Nov-94: Modified for TQNX 4.2 w/ Metrolink X server from Brian Campbell
  *            <brianc@qnx.com>.
  * 11-Jul-94: added Bool flag: inwindow, which tells xlock to run in a
  *            window from Greg Bowering <greg@cs.adelaide.edu.au>
@@ -62,7 +62,7 @@ void initXLock( GC gc );
 #define ICONW             64
 #define ICONH             64
 
-#if defined VMS || defined __QNX__
+#if defined VMS || defined __TQNX__
 #ifdef VMS
 /*#define VMS_PLAY*/
 #include <unixlib.h>
@@ -139,7 +139,7 @@ extern char  *text_pass;
 extern char  *text_info;
 extern char  *text_valid;
 extern char  *text_invalid;
-extern char  *geometry;
+extern char  *tqgeometry;
 extern float saturation;
 extern int   nicelevel;
 extern int   delay;

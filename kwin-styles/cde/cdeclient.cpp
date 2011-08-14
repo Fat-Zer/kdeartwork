@@ -7,7 +7,7 @@
  *	Copyright (c) 2000-2001, 2002
  *		Chris Lee       <lee@azsites.com>
  *		Lennart Kudling <kudling@kde.org>
- *      	Fredrik Höglund <fredrik@kde.org>
+ *      	Fredrik Hï¿½glund <fredrik@kde.org>
  *
  *	Copyright (c) 2003,2004
  *		Luciano Montanaro <mikelima@cirulla.net>
@@ -41,7 +41,7 @@ static int s_frameWidth = 5;
 static int s_buttonSize = 19;
 static bool titlebarButtonMode = true;
 static bool coloredFrame = true;
-static Qt::AlignmentFlags textAlignment = Qt::AlignHCenter;
+static TQt::AlignmentFlags textAlignment = TQt::AlignHCenter;
 
 // Precomputed border sizes for accessibility
 // The sizes are applied for tiny -> normal -> large -> very large -> huge ->
@@ -57,54 +57,54 @@ static int s_w2 = 5;
 // These are the line segments for the X on the close button
 
 static const int NUM_CLOSEL_COORDS = 2 * 14;
-static const QCOORD closeLLinesTemplate[NUM_CLOSEL_COORDS] =
+static const TQCOORD closeLLinesTemplate[NUM_CLOSEL_COORDS] =
     { 14,3, 12,3,  12,3, 9,6,  5,3, 3,3,  3,3, 3,5,
       3,5, 6,8, 6,9, 3,12,  3,12, 3,14 };
 
 static const int NUM_CLOSED_COORDS = 2 * 18;
-static const QCOORD closeDLinesTemplate[NUM_CLOSED_COORDS] =
+static const TQCOORD closeDLinesTemplate[NUM_CLOSED_COORDS] =
     { 5,3, 8,6,  14,4, 14,5,  14,5, 11,8,  11,9, 14,12,  14,12, 14,14,
       14,14, 12,14,  12,14, 9,11,  8,11, 5,14,  5,14, 4,14 };
 
-static QCOORD closeLLines[NUM_CLOSEL_COORDS];
+static TQCOORD closeLLines[NUM_CLOSEL_COORDS];
 
-static QCOORD closeDLines[NUM_CLOSED_COORDS];
+static TQCOORD closeDLines[NUM_CLOSED_COORDS];
 
 // These are the line segments for the ? on the help button
 static const int NUM_HELPL_COORDS = 2 * 16;
-static const QCOORD helpLLinesTemplate[NUM_HELPL_COORDS] =
+static const TQCOORD helpLLinesTemplate[NUM_HELPL_COORDS] =
     { 4,6, 4,5,  4,5, 6,3,  6,3, 9,3,  10,3, 11,4,
       9,7, 7,9,  7,9, 7,10,  7,14, 7,13,  8,12, 9,12  };
 
 static const int NUM_HELPD_COORDS = 2 * 14;
-static const QCOORD helpDLinesTemplate[NUM_HELPD_COORDS] =
+static const TQCOORD helpDLinesTemplate[NUM_HELPD_COORDS] =
     {  5,7, 8,6,  12,5, 12,8,  12,8, 10,10,  10,10, 10,11,
        10,11, 8,11,  10,14, 10,13,  9,15, 8,15 };
 
-static QCOORD helpLLines[NUM_HELPL_COORDS];
+static TQCOORD helpLLines[NUM_HELPL_COORDS];
 
-static QCOORD helpDLines[NUM_HELPD_COORDS];
+static TQCOORD helpDLines[NUM_HELPD_COORDS];
 
 
 // This question mark is taller than the one above and
 // is positioned one pixel higher on the button
 /*
-static const QCOORD helpLLines[] =
+static const TQCOORD helpLLines[] =
     { 4,5, 4,4,  4,4, 6,2,  6,2, 9,2,  10,2, 11,3,
       9,6, 7,8,  7,9, 7,10,  7,13, 8,12,  8,12, 9,12  };
 
-static const QCOORD helpDLines[] =
+static const TQCOORD helpDLines[] =
     {  5,6, 8,5,  12,4, 12,7,  12,7, 10,9,  10,10, 10,11,
        10,11, 8,11,  10,13, 9,14,  9,14, 8,14 };
 */
 // Same as the one above but with a larger dot under
 // the question mark
 /*
-static const QCOORD helpLLines[] =
+static const TQCOORD helpLLines[] =
     { 4,5, 4,4,  4,4, 6,2,  6,2, 9,2,  10,2, 11,3,
       9,6, 7,8,  7,9, 7,10,  7,14, 7,13,  8,12, 9,12  };
 
-static const QCOORD helpDLines[] =
+static const TQCOORD helpDLines[] =
     {  5,6, 8,5,  12,4, 12,7,  12,7, 10,9,  10,10, 10,11,
        10,11, 8,11,  10,13, 10,14,  9,15, 8,15 };
 */
@@ -114,9 +114,9 @@ static inline const KDecorationOptions* options()
     return KDecoration::options();
 }
 
-static void fixColorGroup(TQColorGroup & colorGroup)
+static void fixColorGroup(TQColorGroup & tqcolorGroup)
 {
-    TQColor light = colorGroup.light();
+    TQColor light = tqcolorGroup.light();
 
     int hue, saturation, value;
 
@@ -125,17 +125,17 @@ static void fixColorGroup(TQColorGroup & colorGroup)
     if (value < 128)
     {
       light.setHsv(hue, saturation, 128);
-      colorGroup.setColor(TQColorGroup::Light, light);
+      tqcolorGroup.setColor(TQColorGroup::Light, light);
     }
 
-    TQColor dark = colorGroup.dark();
+    TQColor dark = tqcolorGroup.dark();
 
     dark.hsv(&hue, &saturation, &value);
 
     if (value < 84)
     {
       dark.setHsv(hue, saturation, 84);
-      colorGroup.setColor(TQColorGroup::Dark, dark);
+      tqcolorGroup.setColor(TQColorGroup::Dark, dark);
     }
 }
 
@@ -158,11 +158,11 @@ static void readConfig(CdeClientFactory *f)
 
     TQString value = conf.readEntry( "TextAlignment", "AlignHCenter" );
     if ( value == "AlignLeft" )
-	textAlignment = Qt::AlignLeft;
+	textAlignment = TQt::AlignLeft;
     else if ( value == "AlignHCenter" )
-	textAlignment = Qt::AlignHCenter;
+	textAlignment = TQt::AlignHCenter;
     else if ( value == "AlignRight" )
-	textAlignment = Qt::AlignRight;
+	textAlignment = TQt::AlignRight;
 
 
     // find preferred border size
@@ -325,7 +325,7 @@ void CdeClient::addClientButtons( const TQString& s )
                 case 'M':
                     if ( ! button[BtnMenu] )
                     {
-                        button[BtnMenu] = new CdeButton( this, "menu", BtnMenu, i18n("Menu"), LeftButton|RightButton );
+                        button[BtnMenu] = new CdeButton( this, "menu", BtnMenu, i18n("Menu"), Qt::LeftButton|Qt::RightButton );
                         connect( button[BtnMenu], TQT_SIGNAL(pressed()), TQT_SLOT(menuButtonPressed()) );
                         connect( button[BtnMenu], TQT_SIGNAL(released()), TQT_SLOT(menuButtonReleased()) );
                         titleLayout->addWidget( button[BtnMenu] );
@@ -358,7 +358,7 @@ void CdeClient::addClientButtons( const TQString& s )
                 case 'A':
                     if ( (! button[BtnMax] ) && isMaximizable() )
                     {
-                        button[BtnMax] = new CdeButton(this, "maximize", BtnMax, i18n("Maximize"), LeftButton|MidButton|RightButton);
+                        button[BtnMax] = new CdeButton(this, "maximize", BtnMax, i18n("Maximize"), Qt::LeftButton|Qt::MidButton|Qt::RightButton);
                         connect(button[BtnMax], TQT_SIGNAL(clicked()),
 				TQT_SLOT(maximizeButtonClicked()));
                         titleLayout->addWidget( button[BtnMax] );
@@ -381,7 +381,7 @@ void CdeClient::addClientButtons( const TQString& s )
 
 void CdeClient::captionChange()
 {
-    widget()->repaint(titlebar->geometry(), false);
+    widget()->tqrepaint(titlebar->tqgeometry(), false);
 }
 
 void CdeClient::activeChange()
@@ -389,7 +389,7 @@ void CdeClient::activeChange()
     for ( int i=0; i < BtnCount; i++ )
 	if ( button[i] ) button[i]->reset();
 
-    widget()->repaint(false);
+    widget()->tqrepaint(false);
 }
 
 void CdeClient::maximizeChange()
@@ -398,7 +398,7 @@ void CdeClient::maximizeChange()
 	bool m = maximizeMode() == MaximizeFull;
 	TQToolTip::remove(button[BtnMax]);
 	TQToolTip::add(button[BtnMax], m ? i18n("Restore") : i18n("Maximize"));
-	button[BtnMax]->repaint();
+	button[BtnMax]->tqrepaint();
     }
 }
 
@@ -412,7 +412,7 @@ void CdeClient::shadeChange()
 
 void CdeClient::showEvent(TQShowEvent *)
 {
-    widget()->repaint();
+    widget()->tqrepaint();
 }
 
 void CdeClient::desktopChange()
@@ -420,7 +420,7 @@ void CdeClient::desktopChange()
     // Nothing to do yet
 }
 
-TQSize CdeClient::minimumSize() const
+TQSize CdeClient::tqminimumSize() const
 {
     return TQSize(2 * (s_buttonSize + s_frameWidth),
 	         2 * s_frameWidth + s_buttonSize);
@@ -477,10 +477,10 @@ void CdeClient::resizeEvent( TQResizeEvent* e)
         int dy = 0;
 
 	    if ( e->oldSize().width() != width() )
-	       dx = 32 + QABS( e->oldSize().width() -  width() );
+	       dx = 32 + TQABS( e->oldSize().width() -  width() );
 
 	    if ( e->oldSize().height() != height() )
-	       dy = 8 + QABS( e->oldSize().height() -  height() );
+	       dy = 8 + TQABS( e->oldSize().height() -  height() );
 
 	    if ( dy )
 	       widget()->update( 0, height() - dy + 1, width(), dy );
@@ -489,12 +489,12 @@ void CdeClient::resizeEvent( TQResizeEvent* e)
         {
 	    widget()->update( width() - dx + 1, 0, dx, height() );
 	    widget()->update( TQRect( TQPoint(4,4),
-	    titlebar->geometry().bottomLeft() - TQPoint(1,0) ) );
-	    widget()->update(TQRect(titlebar->geometry().topRight(),
-			TQPoint(width() - 4, titlebar->geometry().bottom())));
+	    titlebar->tqgeometry().bottomLeft() - TQPoint(1,0) ) );
+	    widget()->update(TQRect(titlebar->tqgeometry().topRight(),
+			TQPoint(width() - 4, titlebar->tqgeometry().bottom())));
 
 	    // Titlebar needs no paint event
-	    TQApplication::postEvent( this, new TQPaintEvent( titlebar->geometry(), false ) );
+	    TQApplication::postEvent( this, new TQPaintEvent( titlebar->tqgeometry(), false ) );
 	}
     }
 }
@@ -503,27 +503,27 @@ void CdeClient::paintEvent( TQPaintEvent* )
 {
     TQPainter p(widget());
 
-    TQColorGroup colorGroup;
+    TQColorGroup tqcolorGroup;
 
     if ( coloredFrame )
-	colorGroup = options()->colorGroup( KDecoration::ColorTitleBar, isActive() );
+	tqcolorGroup = options()->tqcolorGroup( KDecoration::ColorTitleBar, isActive() );
     else
-	colorGroup = options()->colorGroup( KDecoration::ColorFrame, isActive() );
+	tqcolorGroup = options()->tqcolorGroup( KDecoration::ColorFrame, isActive() );
 
-    fixColorGroup( colorGroup );
+    fixColorGroup( tqcolorGroup );
 
-    TQRect trect = titlebar->geometry();
+    TQRect trect = titlebar->tqgeometry();
     TQRect mrect = widget()->rect();
 
     if ( s_frameWidth > 0 )
     {
 	// draw black frame:
-	p.setPen( Qt::black );
+	p.setPen( TQt::black );
 	p.drawRect( mrect );
     }
 
-    p.setPen( Qt::NoPen );
-    p.setBrush( colorGroup.background() );
+    p.setPen( TQt::NoPen );
+    p.setBrush( tqcolorGroup.background() );
 
 
     if ( s_frameWidth > 1 )
@@ -546,24 +546,24 @@ void CdeClient::paintEvent( TQPaintEvent* )
 	    // draw left  and right frames:
 	    qDrawShadePanel( &p, 1, longSide + 1,
 		s_frameWidth, mrect.height() - 2 * (longSide + 1),
-		colorGroup );
+		tqcolorGroup );
 
 	    qDrawShadePanel( &p, mrect.width() - s_frameWidth - 1, longSide + 1,
 		s_frameWidth, mrect.height() - 2 * (longSide + 1),
-		colorGroup );
+		tqcolorGroup );
 	}
 
 	// draw top and bottom frames:
 	qDrawShadePanel( &p, longSide + 1, 1,
 	    mrect.width() - 2 * (longSide + 1), s_frameWidth,
-	    colorGroup );
+	    tqcolorGroup );
 
 	qDrawShadePanel( &p, longSide + 1, mrect.height() - s_frameWidth - 1,
 	    mrect.width() - 2 * (longSide + 1), s_frameWidth,
-	    colorGroup );
+	    tqcolorGroup );
 
 	// draw light corner parts:
-	p.setPen( colorGroup.light() );
+	p.setPen( tqcolorGroup.light() );
 
 	// tl corner:
 	p.drawLine( 1, 1, longSide - 1, 1 );
@@ -601,7 +601,7 @@ void CdeClient::paintEvent( TQPaintEvent* )
 	    s_frameWidth + 1, mrect.height() - s_frameWidth - 1 );
 
 	// draw dark corner parts:
-	p.setPen( colorGroup.dark() );
+	p.setPen( tqcolorGroup.dark() );
 
 	// tl corner:
 	if ( !shaded )
@@ -636,18 +636,18 @@ void CdeClient::paintEvent( TQPaintEvent* )
     }
 
 
-    p.setPen( Qt::NoPen );
+    p.setPen( TQt::NoPen );
 
     if ( !coloredFrame )
     {
-	colorGroup = options()->colorGroup( KDecoration::ColorTitleBar, isActive() );
-	fixColorGroup( colorGroup );
-	p.setBrush( colorGroup.background() );
+	tqcolorGroup = options()->tqcolorGroup( KDecoration::ColorTitleBar, isActive() );
+	fixColorGroup( tqcolorGroup );
+	p.setBrush( tqcolorGroup.background() );
     }
 
     // draw titlebar:
     p.drawRect( trect );
-    qDrawShadePanel( &p, trect, colorGroup, titlebarPressed );
+    qDrawShadePanel( &p, trect, tqcolorGroup, titlebarPressed );
 
     // draw caption:
     if ( titlebarPressed ) // move the caption right and down if the titlebar is pressed
@@ -672,7 +672,7 @@ void CdeClient::paintEvent( TQPaintEvent* )
 
     // Draw a line behind the wrapped window to prevent having
     // unpainted areas when we're shaded.
-    p.setPen( colorGroup.dark() );
+    p.setPen( tqcolorGroup.dark() );
     p.drawLine(s_frameWidth + 1, mrect.height() - s_frameWidth - 2,
                mrect.width() - s_frameWidth - 2, mrect.height() - s_frameWidth - 2);
 
@@ -712,24 +712,24 @@ KDecoration::Position CdeClient::mousePosition( const TQPoint& p ) const
 
 void CdeClient::mouseDoubleClickEvent( TQMouseEvent * e )
 {
-    if ( e->button() == LeftButton && titlebar->geometry().contains( e->pos() ) )
+    if ( e->button() == Qt::LeftButton && titlebar->tqgeometry().contains( e->pos() ) )
 	titlebarDblClickOperation();
 }
 
 void CdeClient::wheelEvent( TQWheelEvent * e )
 {
-    if (isSetShade() || titleLayout->geometry().contains( e->pos() ) )
+    if (isSetShade() || titleLayout->tqgeometry().contains( e->pos() ) )
         titlebarMouseWheelOperation( e->delta());
 }
 
 void CdeClient::mousePressEvent( TQMouseEvent * e )
 {
-    if ( e->button() == LeftButton && titlebar->geometry().contains( e->pos() ) )
+    if ( e->button() == Qt::LeftButton && titlebar->tqgeometry().contains( e->pos() ) )
     {
 	if ( titlebarButtonMode )
 	{
 	    titlebarPressed = true;
-	    widget()->repaint(titlebar->geometry(), false);
+	    widget()->tqrepaint(titlebar->tqgeometry(), false);
 	}
     }
 }
@@ -742,35 +742,35 @@ void CdeClient::borders(int &left, int &right, int &top, int &bottom) const
 
 void CdeClient::mouseReleaseEvent( TQMouseEvent * e )
 {
-    if ( e->button() == LeftButton && titlebarPressed )
+    if ( e->button() == Qt::LeftButton && titlebarPressed )
     {
 	titlebarPressed = false;
-	widget()->repaint(titlebar->geometry(), false);
+	widget()->tqrepaint(titlebar->tqgeometry(), false);
     }
 }
 
 bool CdeClient::eventFilter(TQObject *o, TQEvent *e)
 {
-    if (o != widget())
+    if (TQT_BASE_OBJECT(o) != TQT_BASE_OBJECT(widget()))
 	return false;
     switch (e->type()) {
     case TQEvent::Resize:
-	resizeEvent(static_cast< TQResizeEvent* >(e));
+	resizeEvent(TQT_TQRESIZEEVENT(e));
 	return true;
     case TQEvent::Paint:
-	paintEvent(static_cast< TQPaintEvent* >(e));
+	paintEvent(TQT_TQPAINTEVENT(e));
 	return true;
     case TQEvent::MouseButtonDblClick:
-	mouseDoubleClickEvent(static_cast< TQMouseEvent* >(e));
+	mouseDoubleClickEvent(TQT_TQMOUSEEVENT(e));
 	return true;
     case TQEvent::MouseButtonPress:
-	processMousePressEvent(static_cast< TQMouseEvent* >(e));
+	processMousePressEvent(TQT_TQMOUSEEVENT(e));
 	return true;
     case TQEvent::Show:
-	showEvent(static_cast< TQShowEvent* >(e));
+	showEvent(TQT_TQSHOWEVENT(e));
 	return true;
     case TQEvent::Wheel:
-	wheelEvent( static_cast< TQWheelEvent* >( e ));
+	wheelEvent( TQT_TQWHEELEVENT( e ));
 	return true;
     default:
 	break;
@@ -782,7 +782,7 @@ bool CdeClient::eventFilter(TQObject *o, TQEvent *e)
 
 CdeButton::CdeButton(CdeClient* parent,
 	const char* name, int btnType, const TQString& tip, int realize_btns)
-    : TQButton(parent->widget(), name), m_btnType(btnType), last_button(NoButton)
+    : TQButton(parent->widget(), name), m_btnType(btnType), last_button(Qt::NoButton)
 {
     setBackgroundMode( TQWidget::NoBackground );
     setFixedSize( s_buttonSize, s_buttonSize );
@@ -797,7 +797,7 @@ CdeButton::CdeButton(CdeClient* parent,
 
 void CdeButton::reset()
 {
-    repaint( false );
+    tqrepaint( false );
 }
 
 void CdeButton::drawButton( TQPainter* p )
@@ -805,36 +805,36 @@ void CdeButton::drawButton( TQPainter* p )
     p->setBrush( options()->color( KDecoration::ColorTitleBar, m_parent->isActive() ) );
     p->drawRect( 0, 0, s_buttonSize, s_buttonSize );
 
-    TQColorGroup colorGroup =
-      options()->colorGroup( KDecoration::ColorTitleBar, m_parent->isActive() );
+    TQColorGroup tqcolorGroup =
+      options()->tqcolorGroup( KDecoration::ColorTitleBar, m_parent->isActive() );
 
-    fixColorGroup(colorGroup);
+    fixColorGroup(tqcolorGroup);
 
     qDrawShadePanel( p, 0, 0, s_buttonSize, s_buttonSize,
-		    colorGroup, isDown() );
+		    tqcolorGroup, isDown() );
 
     switch ( m_btnType )
     {
         case (BtnMenu):
-            qDrawShadePanel( p, s_o1, s_o2, s_w1, s_w2, colorGroup );
+            qDrawShadePanel( p, s_o1, s_o2, s_w1, s_w2, tqcolorGroup );
 	break;
 	case (BtnHelp):
-	    p->setPen( colorGroup.light() );
+	    p->setPen( tqcolorGroup.light() );
 	    p->drawLineSegments( TQPointArray(16, helpLLines) );
-	    p->setPen( colorGroup.dark() );
+	    p->setPen( tqcolorGroup.dark() );
 	    p->drawLineSegments( TQPointArray(14, helpDLines) );
 	break;
 	case (BtnIconify):
-	    qDrawShadePanel( p, s_o2, s_o2, s_w2, s_w2, colorGroup );
+	    qDrawShadePanel( p, s_o2, s_o2, s_w2, s_w2, tqcolorGroup );
 	break;
 	case (BtnMax):
-	    qDrawShadePanel( p, s_o1, s_o1, s_w1, s_w1, colorGroup,
+	    qDrawShadePanel( p, s_o1, s_o1, s_w1, s_w1, tqcolorGroup,
 		    m_parent->maximizeMode() == KDecoration::MaximizeFull );
 	break;
 	case (BtnClose):
-	    p->setPen( colorGroup.dark() );
+	    p->setPen( tqcolorGroup.dark() );
 	    p->drawLineSegments( TQPointArray(18, closeDLines) );
-	    p->setPen( colorGroup.light() );
+	    p->setPen( tqcolorGroup.light() );
 	    p->drawLineSegments( TQPointArray(15, closeLLines) );
 	break;
     }
@@ -844,7 +844,7 @@ void CdeButton::mousePressEvent(TQMouseEvent *e)
 {
     last_button = e->button();
     TQMouseEvent me(e->type(), e->pos(),
-	    e->globalPos(), (e->button()&m_realize_buttons)?LeftButton:NoButton, e->state());
+	    e->globalPos(), (e->button()&m_realize_buttons)?Qt::LeftButton:Qt::NoButton, e->state());
     TQButton::mousePressEvent(&me);
 }
 
@@ -852,7 +852,7 @@ void CdeButton::mouseReleaseEvent(TQMouseEvent * e)
 {
     last_button = e->button();
     TQMouseEvent me(e->type(), e->pos(),
-	    e->globalPos(), (e->button()&m_realize_buttons)?LeftButton:NoButton, e->state());
+	    e->globalPos(), (e->button()&m_realize_buttons)?Qt::LeftButton:Qt::NoButton, e->state());
     TQButton::mouseReleaseEvent(&me);
 }
 

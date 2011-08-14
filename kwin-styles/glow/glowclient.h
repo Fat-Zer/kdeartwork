@@ -144,6 +144,7 @@ private:
 class GlowClient : public KDecoration
 {
 	Q_OBJECT
+  TQ_OBJECT
 public:
 	GlowClient( KDecorationBridge* b, KDecorationFactory* f );
 	~GlowClient();
@@ -151,7 +152,7 @@ public:
 	virtual void init();
 	virtual void borders( int&, int&, int&, int& ) const;
 	virtual void resize( const TQSize& );
-	virtual TQSize minimumSize() const;
+	virtual TQSize tqminimumSize() const;
 
 protected:
 	virtual void resizeEvent( TQResizeEvent * );

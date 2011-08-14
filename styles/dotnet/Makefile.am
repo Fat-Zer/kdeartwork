@@ -24,7 +24,7 @@ METASOURCES = AUTO
 INCLUDES = $(all_includes)
 noinst_HEADERS = dotnet.h 
 kde_style_LTLIBRARIES = dotnet.la
-dotnet_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN) -module
+dotnet_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN) -module $(LIB_QT) $(LIB_KDECORE) $(LIB_KDEUI) -lkdefx
 dotnet_la_LIBADD = -lkdefx
 dotnet_la_SOURCES = dotnet.cpp
 

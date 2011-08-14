@@ -77,7 +77,7 @@ void StickyButton::setOn(bool on)
    on_ = on;
    setPixmap(on_ ? TQPixmap((const char **)unsticky_xpm) :
                    TQPixmap((const char **)sticky_xpm));
-   repaint();
+   tqrepaint();
    TQToolTip::remove(this);
    TQToolTip::add(this, on_ ? i18n("Not on all desktops")
                            : i18n("On all desktops"));

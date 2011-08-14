@@ -44,9 +44,10 @@ private:
 
 //-----------------------------------------------------------------------------
 
-class GlowButton : public QButton
+class GlowButton : public TQButton
 {
 	Q_OBJECT
+  TQ_OBJECT
 
 public:
 	GlowButton(TQWidget *parent, const char* name, const TQString& tip, const int realizeBtns);
@@ -58,7 +59,7 @@ public:
 	ButtonState lastButton() const;
 
 	/** Sets the name of the pixmap in the pixmap cache.
-	 * If no background pixmap is wanted use TQString::null as name. */
+	 * If no background pixmap is wanted use TQString() as name. */
 	void setPixmapName(const TQString& pixmapName);
 
 protected:
@@ -72,7 +73,7 @@ protected slots:
 	void slotTimeout();
 
 private:
-	enum TimerStatus { Run, Stop };
+	enum TimertqStatus { Run, Stop };
 
 	int m_updateTime;
 	int _steps;
@@ -80,7 +81,7 @@ private:
 
 	TQTimer *m_timer;
 	int m_pos;
-	TimerStatus m_timerStatus;
+	TimertqStatus m_timertqStatus;
 
 	int m_realizeButtons;
 	ButtonState _last_button;

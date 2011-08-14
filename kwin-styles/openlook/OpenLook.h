@@ -40,6 +40,7 @@ namespace OpenLook
   class OpenLook : public KDecoration
   {
     Q_OBJECT
+  TQ_OBJECT
     public:
 
       OpenLook(KDecorationBridge *b, KDecorationFactory *f);
@@ -59,7 +60,7 @@ namespace OpenLook
       void iconChange();
       void maximizeChange();
       void borders(int &left, int &right, int &top, int &bottom) const;
-      TQSize minimumSize() const;
+      TQSize tqminimumSize() const;
       void resize( const TQSize& );
       virtual void mouseDoubleClickEvent(TQMouseEvent *);
       virtual void wheelEvent(TQWheelEvent *e);

@@ -31,13 +31,13 @@ Button::Button(TQWidget *parent, const TQString& tip,
                const ButtonState realizeButtons)
   : TQWidget(parent, "Button", 0),
     realizeButtons_(realizeButtons),
-    lastButton_(NoButton),
+    lastButton_(Qt::NoButton),
     alignment_(Left),
     down_     (false),
     active_   (false)
 {
    TQToolTip::add(this, tip);
-   setBackgroundColor(Qt::black);
+   setBackgroundColor(TQt::black);
 
    setFixedSize(Static::instance()->titleHeight() - 1,
                 Static::instance()->titleHeight());
@@ -48,19 +48,19 @@ Button::~Button()
   // Empty.
 }
 
-void Button::setAlignment(Alignment a)
+void Button::tqsetAlignment(Alignment a)
 {
    alignment_ = a;
-   repaint();
+   tqrepaint();
 }
 
 void Button::setActive(bool b)
 {
    active_ = b;
-   repaint();
+   tqrepaint();
 }
 
-Button::Alignment Button::alignment() const
+Button::Alignment Button::tqalignment() const
 {
    return alignment_;
 }
@@ -69,10 +69,10 @@ void Button::mousePressEvent(TQMouseEvent *e)
 {
    down_ = true;
    lastButton_ = e->button();
-   repaint();
+   tqrepaint();
 
    TQMouseEvent me(e->type(), e->pos(), e->globalPos(),
-                  (e->button()&realizeButtons_) ? LeftButton : NoButton,
+                  (e->button()&realizeButtons_) ? Qt::LeftButton : Qt::NoButton,
                   e->state());
    TQWidget::mousePressEvent(&me);
 }
@@ -81,9 +81,9 @@ void Button::mouseReleaseEvent(TQMouseEvent *e)
 {
    down_ = false;
    lastButton_ = e->button();
-   repaint();
+   tqrepaint();
    TQMouseEvent me(e->type(), e->pos(), e->globalPos(),
-                  (e->button()&realizeButtons_) ? LeftButton : NoButton,
+                  (e->button()&realizeButtons_) ? Qt::LeftButton : Qt::NoButton,
                   e->state());
    TQWidget::mouseReleaseEvent(&me);
 }
@@ -94,9 +94,9 @@ void Button::setPixmap(const TQPixmap &p)
       aPixmap_ = iPixmap_ = p;
    else
    {
-      QRgb light;
-      QRgb* data = NULL;
-      QRgb w = qRgb(255, 255, 255);
+      TQRgb light;
+      TQRgb* data = NULL;
+      TQRgb w = tqRgb(255, 255, 255);
 
       TQImage aTx(p.convertToImage());
       TQImage iTx(aTx.copy());
@@ -104,10 +104,10 @@ void Button::setPixmap(const TQPixmap &p)
       const KDecorationOptions* options = KDecoration::options();
       light = options->color(KDecoration::ColorButtonBg, true).light(150).rgb();
 
-      if (light == qRgb(0, 0, 0))
-         light = qRgb(228, 228, 228);
+      if (light == tqRgb(0, 0, 0))
+         light = tqRgb(228, 228, 228);
 
-      data = (QRgb *)aTx.bits();
+      data = (TQRgb *)aTx.bits();
 
       for (int x = 0; x < 144; x++)
          if (data[x] == w)
@@ -115,10 +115,10 @@ void Button::setPixmap(const TQPixmap &p)
 
       light = options->color(KDecoration::ColorButtonBg, false).light(150).rgb();
 
-      if (light == qRgb(0, 0, 0))
-         light = qRgb(228, 228, 228);
+      if (light == tqRgb(0, 0, 0))
+         light = tqRgb(228, 228, 228);
 
-      data = (QRgb *)iTx.bits();
+      data = (TQRgb *)iTx.bits();
 
       for (int x = 0; x < 144; x++)
          if (data[x] == w)
@@ -133,7 +133,7 @@ void Button::setPixmap(const TQPixmap &p)
          iPixmap_.setMask(*p.mask());
       }
    }
-   repaint();
+   tqrepaint();
 }
 
 void Button::paintEvent(TQPaintEvent *)

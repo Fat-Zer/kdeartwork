@@ -255,13 +255,13 @@ static void create_pixmaps(NextClientFactory *f)
                             KPixmapEffect::DiagonalGradient);
     KPixmapEffect::gradient(internal, c.dark(120), c.light(120),
                             KPixmapEffect::DiagonalGradient);
-    bitBlt(iBtn, 3, 3, &internal, 0, 0, internalHeight, internalHeight, Qt::CopyROP, true);
+    bitBlt(TQT_TQPAINTDEVICE(iBtn), 3, 3, TQT_TQPAINTDEVICE(&internal), 0, 0, internalHeight, internalHeight, TQt::CopyROP, true);
 
     KPixmapEffect::gradient(*iBtnDown, c.dark(120), c.light(120),
                             KPixmapEffect::DiagonalGradient);
     KPixmapEffect::gradient(internal, c.light(120), c.dark(120),
                             KPixmapEffect::DiagonalGradient);
-    bitBlt(iBtnDown, 3, 3, &internal, 0, 0, internalHeight, internalHeight, Qt::CopyROP, true);
+    bitBlt(TQT_TQPAINTDEVICE(iBtnDown), 3, 3, TQT_TQPAINTDEVICE(&internal), 0, 0, internalHeight, internalHeight, TQt::CopyROP, true);
 
     // active buttons
     c = options()->color(KDecoration::ColorButtonBg, true);
@@ -269,36 +269,36 @@ static void create_pixmaps(NextClientFactory *f)
                             KPixmapEffect::DiagonalGradient);
     KPixmapEffect::gradient(internal, c.dark(120), c.light(120),
                             KPixmapEffect::DiagonalGradient);
-    bitBlt(aBtn, 3, 3, &internal, 0, 0, internalHeight, internalHeight, Qt::CopyROP, true);
+    bitBlt(TQT_TQPAINTDEVICE(aBtn), 3, 3, TQT_TQPAINTDEVICE(&internal), 0, 0, internalHeight, internalHeight, TQt::CopyROP, true);
 
     KPixmapEffect::gradient(*aBtnDown, c.dark(120), c.light(120),
                             KPixmapEffect::DiagonalGradient);
     KPixmapEffect::gradient(internal, c.light(120), c.dark(120),
                             KPixmapEffect::DiagonalGradient);
-    bitBlt(aBtnDown, 3, 3, &internal, 0, 0, internalHeight, internalHeight, Qt::CopyROP, true);
+    bitBlt(TQT_TQPAINTDEVICE(aBtnDown), 3, 3, TQT_TQPAINTDEVICE(&internal), 0, 0, internalHeight, internalHeight, TQt::CopyROP, true);
 
     TQPainter p;
     p.begin(aBtn);
-    p.setPen(Qt::black);
+    p.setPen(TQt::black);
     p.drawRect(0, 0, btnWidth, btnWidth);
     p.end();
     p.begin(iBtn);
-    p.setPen(Qt::black);
+    p.setPen(TQt::black);
     p.drawRect(0, 0, btnWidth, btnWidth);
     p.end();
     p.begin(aBtnDown);
-    p.setPen(Qt::black);
+    p.setPen(TQt::black);
     p.drawRect(0, 0, btnWidth, btnWidth);
     p.end();
     p.begin(iBtnDown);
-    p.setPen(Qt::black);
+    p.setPen(TQt::black);
     p.drawRect(0, 0, btnWidth, btnWidth);
     p.end();
 
-    if(qGray(options()->color(KDecoration::ColorButtonBg, true).rgb()) > 128)
-        btnForeground = new TQColor(Qt::black);
+    if(tqGray(options()->color(KDecoration::ColorButtonBg, true).rgb()) > 128)
+        btnForeground = new TQColor(TQt::black);
     else
-        btnForeground = new TQColor(Qt::white);
+        btnForeground = new TQColor(TQt::white);
 }
 
 static void delete_pixmaps()
@@ -324,7 +324,7 @@ NextButton::NextButton(NextClient *parent, const char *name,
                        const unsigned char *bitmap, int bw, int bh,
                        const TQString& tip, const int realizeBtns)
     : TQButton(parent->widget(), name),
-      deco(NULL), client(parent), last_button(NoButton)
+      deco(NULL), client(parent), last_button(Qt::NoButton)
 {
     realizeButtons = realizeBtns;
 
@@ -340,14 +340,14 @@ NextButton::NextButton(NextClient *parent, const char *name,
 
 void NextButton::reset()
 {
-    repaint(false);
+    tqrepaint(false);
 }
 
 void NextButton::setBitmap(const unsigned char *bitmap, int w, int h)
 {
     deco = new TQBitmap(w, h, bitmap, true);
     deco->setMask(*deco);
-    repaint();
+    tqrepaint();
 }
 
 void NextButton::drawButton(TQPainter *p)
@@ -376,7 +376,7 @@ void NextButton::mousePressEvent( TQMouseEvent* e )
 {
     last_button = e->button();
     TQMouseEvent me( e->type(), e->pos(), e->globalPos(),
-                    (e->button()&realizeButtons)?LeftButton:NoButton, e->state() );
+                    (e->button()&realizeButtons)?Qt::LeftButton:Qt::NoButton, e->state() );
     TQButton::mousePressEvent( &me );
 }
 
@@ -384,7 +384,7 @@ void NextButton::mouseReleaseEvent( TQMouseEvent* e )
 {
     last_button = e->button();
     TQMouseEvent me( e->type(), e->pos(), e->globalPos(),
-                    (e->button()&realizeButtons)?LeftButton:NoButton, e->state() );
+                    (e->button()&realizeButtons)?Qt::LeftButton:Qt::NoButton, e->state() );
     TQButton::mouseReleaseEvent( &me );
 }
 
@@ -478,7 +478,7 @@ void NextClient::addButtons(TQBoxLayout* titleLayout, const TQString& spec)
             if (isMaximizable()) {
                 button[MAXIMIZE_IDX] =
                     new NextButton(this, "maximize", maximize_bits, 10, 10,
-                                   i18n("Maximize"), LeftButton|MidButton|RightButton);
+                                   i18n("Maximize"), Qt::LeftButton|Qt::MidButton|Qt::RightButton);
                 titleLayout->addWidget( button[MAXIMIZE_IDX] );
                 connect( button[MAXIMIZE_IDX], TQT_SIGNAL(clicked()),
                          this, TQT_SLOT(maximizeButtonClicked()) );
@@ -508,7 +508,7 @@ void NextClient::addButtons(TQBoxLayout* titleLayout, const TQString& spec)
 
         case 'M':
             button[MENU_IDX] =
-                new NextButton(this, "menu", NULL, 10, 10, i18n("Menu"), LeftButton|RightButton);
+                new NextButton(this, "menu", NULL, 10, 10, i18n("Menu"), Qt::LeftButton|Qt::RightButton);
             titleLayout->addWidget( button[MENU_IDX] );
             // NOTE DIFFERENCE: capture pressed(), not clicked()
             connect( button[MENU_IDX], TQT_SIGNAL(pressed()),
@@ -602,7 +602,7 @@ bool NextClient::mustDrawHandle() const
 void NextClient::iconChange()
 {
     if (button[MENU_IDX] && button[MENU_IDX]->isVisible())
-	button[MENU_IDX]->repaint(false);
+	button[MENU_IDX]->tqrepaint(false);
 }
 
 void NextClient::menuButtonPressed()
@@ -658,9 +658,9 @@ void NextClient::resizeEvent(TQResizeEvent *)
 	// TODO ? update border area only?
         widget()->update();
 #if 0
-        widget()->update(titlebar->geometry());
+        widget()->update(titlebar->tqgeometry());
         TQPainter p(widget());
-	TQRect t = titlebar->geometry();
+	TQRect t = titlebar->tqgeometry();
 	t.setTop( 0 );
 	TQRegion r = widget()->rect();
 	r = r.subtract( t );
@@ -672,7 +672,7 @@ void NextClient::resizeEvent(TQResizeEvent *)
 
 void NextClient::captionChange()
 {
-    widget()->repaint(titlebar->geometry(), false);
+    widget()->tqrepaint(titlebar->tqgeometry(), false);
 }
 
 
@@ -682,16 +682,16 @@ void NextClient::paintEvent( TQPaintEvent* )
 
     // Draw black frame
     TQRect fr = widget()->rect();
-    p.setPen(Qt::black);
+    p.setPen(TQt::black);
     p.drawRect(fr);
 
     // Draw title bar
-    TQRect t = titlebar->geometry();
+    TQRect t = titlebar->tqgeometry();
     t.setTop(1);
     p.drawTiledPixmap(t.x()+1, t.y()+1, t.width()-2, t.height()-2,
                       isActive() ? *aTitlePix : *iTitlePix);
     qDrawShadePanel(&p, t.x(), t.y(), t.width(), t.height()-1,
-                   options()->colorGroup(KDecoration::ColorTitleBar, isActive()));
+                   options()->tqcolorGroup(KDecoration::ColorTitleBar, isActive()));
     p.drawLine(t.x(), t.bottom(), t.right(), t.bottom());
 
 #if 0
@@ -716,7 +716,7 @@ void NextClient::paintEvent( TQPaintEvent* )
         int corner = 16 + 3*handleSize/2;
 	qDrawShadePanel(&p,
 		fr.x() + 1, fr.bottom() - handleSize, corner-1, handleSize,
-		options()->colorGroup(KDecoration::ColorHandle, isActive()),
+		options()->tqcolorGroup(KDecoration::ColorHandle, isActive()),
 		false);
 	p.drawTiledPixmap(fr.x() + 2, fr.bottom() - handleSize + 1,
 		corner - 3, handleSize - 2, isActive() ? *aHandlePix : *iHandlePix);
@@ -724,7 +724,7 @@ void NextClient::paintEvent( TQPaintEvent* )
 	qDrawShadePanel(&p,
 		fr.x() + corner, fr.bottom() - handleSize,
 		fr.width() - 2*corner, handleSize,
-		options()->colorGroup(KDecoration::ColorFrame, isActive()),
+		options()->tqcolorGroup(KDecoration::ColorFrame, isActive()),
 		false);
 	p.drawTiledPixmap(fr.x() + corner + 1, fr.bottom() - handleSize + 1,
 		fr.width() - 2*corner - 2, handleSize - 2,
@@ -732,7 +732,7 @@ void NextClient::paintEvent( TQPaintEvent* )
 
 	qDrawShadePanel(&p,
 		fr.right() - corner + 1, fr.bottom() - handleSize, corner - 1, handleSize,
-		options()->colorGroup(KDecoration::ColorHandle, isActive()),
+		options()->tqcolorGroup(KDecoration::ColorHandle, isActive()),
 		false);
 	p.drawTiledPixmap(fr.right() - corner + 2, fr.bottom() - handleSize + 1,
 		corner - 3, handleSize - 2, isActive() ? *aHandlePix : *iHandlePix);
@@ -741,7 +741,7 @@ void NextClient::paintEvent( TQPaintEvent* )
 
 void NextClient::mouseDoubleClickEvent( TQMouseEvent * e )
 {
-    if (e->button() == LeftButton && titlebar->geometry().contains( e->pos() ) )
+    if (e->button() == Qt::LeftButton && titlebar->tqgeometry().contains( e->pos() ) )
 	titlebarDblClickOperation();
 }
 
@@ -753,7 +753,7 @@ void NextClient::wheelEvent( TQWheelEvent * e )
 
 void NextClient::showEvent(TQShowEvent *)
 {
-    widget()->repaint();
+    widget()->tqrepaint();
 }
 
 void NextClient::desktopChange()
@@ -782,7 +782,7 @@ void NextClient::maximizeChange()
 
 void NextClient::activeChange()
 {
-    widget()->repaint(false);
+    widget()->tqrepaint(false);
     slotReset();
 }
 
@@ -839,7 +839,7 @@ void NextClient::keepAboveChange(bool above)
 	TQToolTip::remove(b);
 	TQToolTip::add(b, above ? 
 		i18n("Do not keep above others") : i18n("Keep above others"));
-	b->repaint(false);
+	b->tqrepaint(false);
     }
 }
 
@@ -850,11 +850,11 @@ void NextClient::keepBelowChange(bool below)
 	TQToolTip::remove(b);
 	TQToolTip::add(b, below ? 
 		i18n("Do not keep below others") : i18n("Keep below others"));
-	b->repaint(false);
+	b->tqrepaint(false);
     }
 }
 
-TQSize NextClient::minimumSize() const
+TQSize NextClient::tqminimumSize() const
 {
     return TQSize(titleHeight * 6 + 2, titleHeight + handleSize + 2);
 }
@@ -870,31 +870,31 @@ void NextClient::reset(unsigned long)
         if (button[i])
             button[i]->reset();
     }
-    widget()->repaint();
+    widget()->tqrepaint();
 }
 
 bool NextClient::eventFilter(TQObject *o, TQEvent *e)
 {
-    if (o != widget())
+    if (TQT_BASE_OBJECT(o) != TQT_BASE_OBJECT(widget()))
 	return false;
     switch (e->type()) {
     case TQEvent::Resize:
-	resizeEvent(static_cast< TQResizeEvent* >( e ));
+	resizeEvent(TQT_TQRESIZEEVENT( e ));
 	return true;
     case TQEvent::Paint:
-	paintEvent(static_cast< TQPaintEvent* >( e ));
+	paintEvent(TQT_TQPAINTEVENT( e ));
 	return true;
     case TQEvent::MouseButtonDblClick:
-	mouseDoubleClickEvent(static_cast< TQMouseEvent* >( e ));
+	mouseDoubleClickEvent(TQT_TQMOUSEEVENT( e ));
 	return true;
     case TQEvent::Wheel:
-	wheelEvent( static_cast< TQWheelEvent* >( e ));
+	wheelEvent( TQT_TQWHEELEVENT( e ));
 	return true;
     case TQEvent::MouseButtonPress:
-	processMousePressEvent(static_cast< TQMouseEvent* >( e ));
+	processMousePressEvent(TQT_TQMOUSEEVENT( e ));
 	return true;
     case TQEvent::Show:
-	showEvent(static_cast< TQShowEvent* >( e ));
+	showEvent(TQT_TQSHOWEVENT( e ));
 	return true;
     default:
 	break;
@@ -905,15 +905,15 @@ bool NextClient::eventFilter(TQObject *o, TQEvent *e)
 bool NextClient::drawbound(const TQRect& geom, bool /* clear */)
 {
     TQPainter p(workspaceWidget());
-    p.setPen(TQPen(Qt::white, 3));
-    p.setRasterOp(Qt::XorROP);
+    p.setPen(TQPen(TQt::white, 3));
+    p.setRasterOp(TQt::XorROP);
     p.drawRect(geom);
     int leftMargin = geom.left() + 2;
     p.fillRect(leftMargin, geom.top() + titleHeight - 1,
-	    geom.width() - 4, 3, Qt::white);
+	    geom.width() - 4, 3, TQt::white);
     if (mustDrawHandle()) {
 	p.fillRect(leftMargin, geom.bottom() - handleSize - 1,
-		geom.width() - 4, 3, Qt::white);
+		geom.width() - 4, 3, TQt::white);
     }	    
     return true;
 }

@@ -638,15 +638,15 @@ void EuphoriaWidget::initializeGL()
 #ifdef UNIT_TEST
 void EuphoriaWidget::keyPressEvent( TQKeyEvent* e )
 {
-    if( e->key() == Qt::Key_0 ) { setDefaults( 0 ); updateParameters(); }
-    if( e->key() == Qt::Key_1 ) { setDefaults( 1 ); updateParameters(); }
-    if( e->key() == Qt::Key_2 ) { setDefaults( 2 ); updateParameters(); }
-    if( e->key() == Qt::Key_3 ) { setDefaults( 3 ); updateParameters(); }
-    if( e->key() == Qt::Key_4 ) { setDefaults( 4 ); updateParameters(); }
-    if( e->key() == Qt::Key_5 ) { setDefaults( 5 ); updateParameters(); }
-    if( e->key() == Qt::Key_6 ) { setDefaults( 6 ); updateParameters(); }
-    if( e->key() == Qt::Key_7 ) { setDefaults( 7 ); updateParameters(); }
-    if( e->key() == Qt::Key_8 ) { setDefaults( 8 ); updateParameters(); }
+    if( e->key() == TQt::Key_0 ) { setDefaults( 0 ); updateParameters(); }
+    if( e->key() == TQt::Key_1 ) { setDefaults( 1 ); updateParameters(); }
+    if( e->key() == TQt::Key_2 ) { setDefaults( 2 ); updateParameters(); }
+    if( e->key() == TQt::Key_3 ) { setDefaults( 3 ); updateParameters(); }
+    if( e->key() == TQt::Key_4 ) { setDefaults( 4 ); updateParameters(); }
+    if( e->key() == TQt::Key_5 ) { setDefaults( 5 ); updateParameters(); }
+    if( e->key() == TQt::Key_6 ) { setDefaults( 6 ); updateParameters(); }
+    if( e->key() == TQt::Key_7 ) { setDefaults( 7 ); updateParameters(); }
+    if( e->key() == TQt::Key_8 ) { setDefaults( 8 ); updateParameters(); }
 }
 #endif
 
@@ -1024,7 +1024,7 @@ KEuphoriaSetup::KEuphoriaSetup( TQWidget* parent, const char* name )
     modeW->setCurrentItem( _saver->mode() );    // set before we connect
     connect( modeW, TQT_SIGNAL(activated(int)), _saver, TQT_SLOT(setMode(int)) );
 
-    setMinimumSize( sizeHint() );
+    setMinimumSize( tqsizeHint() );
 }
 
 
@@ -1038,7 +1038,7 @@ void KEuphoriaSetup::slotHelp()
 {
     KMessageBox::about(this,
         i18n("<h3>Euphoria 1.0</h3>\n<p>Copyright (c) 2002 Terence M. Welsh<br>\n<a href=\"http://www.reallyslick.com/\">http://www.reallyslick.com/</a></p>\n\n<p>Ported to KDE by Karl Robillard</p>"),
-        TQString::null, KMessageBox::AllowLink);
+        TQString(), KMessageBox::AllowLink);
 }
 
 
@@ -1062,7 +1062,7 @@ void KEuphoriaSetup::slotOk()
 
 
 #ifdef UNIT_TEST
-// moc Euphoria.h -o Euphoria.moc
+// tqmoc Euphoria.h -o Euphoria.tqmoc
 // g++ -g -DUNIT_TEST Euphoria.cpp -I/usr/lib/qt3/include -lqt -L/usr/lib/qt3/lib -lGLU -lGL
 
 #include <tqapplication.h>

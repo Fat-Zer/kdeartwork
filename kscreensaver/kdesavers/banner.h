@@ -23,6 +23,7 @@ class KRandomSequence;
 class KBannerSaver : public KScreenSaver
 {
     Q_OBJECT
+  TQ_OBJECT
 public:
     KBannerSaver( WId id );
     virtual ~KBannerSaver();
@@ -44,30 +45,31 @@ protected slots:
 
 protected:
     TQFont   font;
-    QTimer	timer;
-    QString	fontFamily;
+    TQTimer	timer;
+    TQString	fontFamily;
     int		fontSize;
     bool	bold;
     bool	italic;
-    QColor	fontColor;
+    TQColor	fontColor;
     bool	cyclingColor;
     int		currentHue;
     bool	needUpdate;
     bool	needBlank;
-    QString	message;
+    TQString	message;
     bool	showTime;
     int		xpos, ypos, step, fsize;
     KRandomSequence *krnd;
     int		speed;
     int		colorContext;
-    QPixmap	pixmap;
-    QSize	pixmapSize;
+    TQPixmap	pixmap;
+    TQSize	pixmapSize;
 };
 
 
 class KBannerSetup : public KDialogBase
 {
     Q_OBJECT
+  TQ_OBJECT
 public:
     KBannerSetup( TQWidget *parent = NULL, const char *name = NULL );
 

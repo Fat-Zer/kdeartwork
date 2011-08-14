@@ -95,7 +95,7 @@ kSlideShowSaver::kSlideShowSaver( WId id ): KScreenSaver(id)
   connect(&mTimer, TQT_SIGNAL(timeout()), TQT_SLOT(slotTimeout()));
 
   TQDesktopWidget *d = TQApplication::desktop();
-  if( geometry() == d->geometry() && d->numScreens() > 1)
+  if( tqgeometry() == d->tqgeometry() && d->numScreens() > 1)
   {
 	for(int i = 0; i < d->numScreens(); ++i)
 	{
@@ -285,7 +285,7 @@ int kSlideShowSaver::effectSpiralIn(bool aInit)
     my0 += miy;
   }
 
-  bitBlt(this, mx, my, &mNextScreen, mx, my, mix, miy, CopyROP, true);
+  bitBlt(TQT_TQPAINTDEVICE(this), mx, my, TQT_TQPAINTDEVICE(&mNextScreen), mx, my, mix, miy, CopyROP, true);
 
   mx += mdx;
   my += mdy;
@@ -321,8 +321,8 @@ int kSlideShowSaver::effectMeltdown(bool aInit)
     if (y >= mh) continue;
     done = false;
     if ((KApplication::random()&15) < 6) continue;
-    bitBlt(this, x, y+mdy, this, x, y, mdx, mh-y-mdy, CopyROP, true);
-    bitBlt(this, x, y, &mNextScreen, x, y, mdx, mdy, CopyROP, true);
+    bitBlt(TQT_TQPAINTDEVICE(this), x, y+mdy, TQT_TQPAINTDEVICE(this), x, y, mdx, mh-y-mdy, CopyROP, true);
+    bitBlt(TQT_TQPAINTDEVICE(this), x, y, TQT_TQPAINTDEVICE(&mNextScreen), x, y, mdx, mdy, CopyROP, true);
     mIntArray[i] += mdy;
   }
 
@@ -407,7 +407,7 @@ int kSlideShowSaver::effectSweep(bool aInit)
     }
     for (w=2,i=4,x=mx; i>0; i--, w<<=1, x-=mdx)
     {
-      bitBlt(this, x, 0, &mNextScreen, x, 0, w, mh, CopyROP, true);
+      bitBlt(TQT_TQPAINTDEVICE(this), x, 0, TQT_TQPAINTDEVICE(&mNextScreen), x, 0, w, mh, CopyROP, true);
     }
     mx += mdx;
   }
@@ -421,7 +421,7 @@ int kSlideShowSaver::effectSweep(bool aInit)
     }
     for (h=2,i=4,y=my; i>0; i--, h<<=1, y-=mdy)
     {
-      bitBlt(this, 0, y, &mNextScreen, 0, y, mw, h, CopyROP, true);
+      bitBlt(TQT_TQPAINTDEVICE(this), 0, y, TQT_TQPAINTDEVICE(&mNextScreen), 0, y, mw, h, CopyROP, true);
     }
     my += mdy;
   }
@@ -477,7 +477,7 @@ int kSlideShowSaver::effectRandom(bool /*aInit*/)
   {
     x = (KApplication::random() % w) << fact;
     y = (KApplication::random() % h) << fact;
-    bitBlt(this, x, y, &mNextScreen, x, y, sz, sz, CopyROP, true);
+    bitBlt(TQT_TQPAINTDEVICE(this), x, y, TQT_TQPAINTDEVICE(&mNextScreen), x, y, sz, sz, CopyROP, true);
   }
   showNextScreen();
 
@@ -509,7 +509,7 @@ int kSlideShowSaver::effectGrowing(bool aInit)
     return -1;
   }
 
-  bitBlt(this, mx, my, &mNextScreen, mx, my,
+  bitBlt(TQT_TQPAINTDEVICE(this), mx, my, TQT_TQPAINTDEVICE(&mNextScreen), mx, my,
 	 mw - (mx<<1), mh - (my<<1), CopyROP, true);
 
   return 20;
@@ -548,9 +548,9 @@ int kSlideShowSaver::effectChessboard(bool aInit)
 
   for (y=0; y<mw; y+=(mdy<<1))
   {
-    bitBlt(this, mix, y+miy, &mNextScreen, mix, y+miy,
+    bitBlt(TQT_TQPAINTDEVICE(this), mix, y+miy, TQT_TQPAINTDEVICE(&mNextScreen), mix, y+miy,
 	   mdx, mdy, CopyROP, true);
-    bitBlt(this, mx, y+my, &mNextScreen, mx, y+my,
+    bitBlt(TQT_TQPAINTDEVICE(this), mx, y+my, TQT_TQPAINTDEVICE(&mNextScreen), mx, y+my,
 	   mdx, mdy, CopyROP, true);
   }
 
@@ -591,18 +591,18 @@ int kSlideShowSaver::effectIncomingEdges(bool aInit)
   if (mSubType)
   {
     // moving image edges
-    bitBlt(this,  0,  0, &mNextScreen, mix-mx, miy-my, mx, my, CopyROP, true);
-    bitBlt(this, x1,  0, &mNextScreen, mix, miy-my, mx, my, CopyROP, true);
-    bitBlt(this,  0, y1, &mNextScreen, mix-mx, miy, mx, my, CopyROP, true);
-    bitBlt(this, x1, y1, &mNextScreen, mix, miy, mx, my, CopyROP, true);
+    bitBlt(TQT_TQPAINTDEVICE(this),  0,  0, TQT_TQPAINTDEVICE(&mNextScreen), mix-mx, miy-my, mx, my, CopyROP, true);
+    bitBlt(TQT_TQPAINTDEVICE(this), x1,  0, TQT_TQPAINTDEVICE(&mNextScreen), mix, miy-my, mx, my, CopyROP, true);
+    bitBlt(TQT_TQPAINTDEVICE(this),  0, y1, TQT_TQPAINTDEVICE(&mNextScreen), mix-mx, miy, mx, my, CopyROP, true);
+    bitBlt(TQT_TQPAINTDEVICE(this), x1, y1, TQT_TQPAINTDEVICE(&mNextScreen), mix, miy, mx, my, CopyROP, true);
   }
   else
   {
     // fixed image edges
-    bitBlt(this,  0,  0, &mNextScreen,  0,  0, mx, my, CopyROP, true);
-    bitBlt(this, x1,  0, &mNextScreen, x1,  0, mx, my, CopyROP, true);
-    bitBlt(this,  0, y1, &mNextScreen,  0, y1, mx, my, CopyROP, true);
-    bitBlt(this, x1, y1, &mNextScreen, x1, y1, mx, my, CopyROP, true);
+    bitBlt(TQT_TQPAINTDEVICE(this),  0,  0, TQT_TQPAINTDEVICE(&mNextScreen),  0,  0, mx, my, CopyROP, true);
+    bitBlt(TQT_TQPAINTDEVICE(this), x1,  0, TQT_TQPAINTDEVICE(&mNextScreen), x1,  0, mx, my, CopyROP, true);
+    bitBlt(TQT_TQPAINTDEVICE(this),  0, y1, TQT_TQPAINTDEVICE(&mNextScreen),  0, y1, mx, my, CopyROP, true);
+    bitBlt(TQT_TQPAINTDEVICE(this), x1, y1, TQT_TQPAINTDEVICE(&mNextScreen), x1, y1, mx, my, CopyROP, true);
   }
   return 20;
 }
@@ -625,7 +625,7 @@ int kSlideShowSaver::effectHorizLines(bool aInit)
 
   for (y=iyPos[mi]; y<mh; y+=8)
   {
-    bitBlt(this, 0, y, &mNextScreen, 0, y, mw, 1, CopyROP, true);
+    bitBlt(TQT_TQPAINTDEVICE(this), 0, y, TQT_TQPAINTDEVICE(&mNextScreen), 0, y, mw, 1, CopyROP, true);
   }
 
   mi++;
@@ -651,7 +651,7 @@ int kSlideShowSaver::effectVertLines(bool aInit)
 
   for (x=ixPos[mi]; x<mw; x+=8)
   {
-    bitBlt(this, x, 0, &mNextScreen, x, 0, 1, mh, CopyROP, true);
+    bitBlt(TQT_TQPAINTDEVICE(this), x, 0, TQT_TQPAINTDEVICE(&mNextScreen), x, 0, 1, mh, CopyROP, true);
   }
 
   mi++;
@@ -661,7 +661,7 @@ int kSlideShowSaver::effectVertLines(bool aInit)
 
 
 //-----------------------------------------------------------------------------
-void kSlideShowSaver::startPainter(Qt::PenStyle aPen)
+void kSlideShowSaver::startPainter(TQt::PenStyle aPen)
 {
   TQBrush brush;
   brush.setPixmap(mNextScreen);
@@ -716,7 +716,7 @@ void kSlideShowSaver::slotTimeout()
 //----------------------------------------------------------------------------
 void kSlideShowSaver::showNextScreen()
 {
-  bitBlt(this, 0, 0, &mNextScreen, 0, 0,
+  bitBlt(TQT_TQPAINTDEVICE(this), 0, 0, TQT_TQPAINTDEVICE(&mNextScreen), 0, 0,
 	 mNextScreen.width(), mNextScreen.height(), CopyROP, true);
 }
 
@@ -798,7 +798,7 @@ void kSlideShowSaver::createNextScreen()
             y = ((wh - ih) >> 1) + geoptr->mYorg;
         }
 
-        // bitBlt(&mNextScreen, x, y, &mImage, 0, 0, iw, ih, CopyROP, false);
+        // bitBlt(TQT_TQPAINTDEVICE(&mNextScreen), x, y, TQT_TQPAINTDEVICE(&mImage), 0, 0, iw, ih, CopyROP, false);
         p.drawImage(x, y, mImage);
       }
     }
@@ -884,8 +884,8 @@ void kSlideShowSaver::traverseDirectory(const TQString &dirName)
   }
   dir.setFilter(TQDir::Dirs | TQDir::Files);
 
-  const QFileInfoList *fileinfolist = dir.entryInfoList();
-  QFileInfoListIterator it(*fileinfolist);
+  const TQFileInfoList *fileinfolist = dir.entryInfoList();
+  TQFileInfoListIterator it(*fileinfolist);
   TQFileInfo *fi;
   while ((fi = it.current()))
   {

@@ -284,7 +284,7 @@ const TQString GlowClientGlobals::getPixmapTypeName(PixmapType type)
 		case(Close):
 			return "Close";
 		default:
-			return TQString::null;
+			return TQString();
 	}
 }
 
@@ -404,20 +404,20 @@ GlowClient::~GlowClient()
 void GlowClient::resizeEvent( TQResizeEvent * )
 {
 	doShape();
-	widget()->repaint(false);
+	widget()->tqrepaint(false);
 }
 
 void GlowClient::paintEvent( TQPaintEvent * )
 {
 	GlowClientConfig *conf = GlowClientGlobals::instance()->config();
 	TQRect r_this = widget()->rect();
-	TQRect r_title = _title_spacer->geometry();
-	TQColorGroup titleCg = options()->colorGroup(ColorTitleBar, isActive());
-	TQColorGroup titleBlendCg=options()->colorGroup(ColorTitleBlend, isActive());
-	TQColorGroup cg = widget()->colorGroup();
+	TQRect r_title = _title_spacer->tqgeometry();
+	TQColorGroup titleCg = options()->tqcolorGroup(ColorTitleBar, isActive());
+	TQColorGroup titleBlendCg=options()->tqcolorGroup(ColorTitleBlend, isActive());
+	TQColorGroup cg = widget()->tqcolorGroup();
 	TQColor titleColor = options()->color(ColorTitleBar, isActive());
 	TQColor titleBlendColor = options()->color(ColorTitleBlend, isActive());
-	TQColor bgColor = widget()->colorGroup().background();
+	TQColor bgColor = widget()->tqcolorGroup().background();
 	TQPainter p;
 	TQPointArray pArray, pArray2, pArray3, pArray4;
 
@@ -443,7 +443,7 @@ void GlowClient::paintEvent( TQPaintEvent * )
 		p.setPen(options()->color(ColorFont, isActive()));
 		p.drawText(r_title.x(), 0,
 			r_title.width(), r_title.height(),
-			Qt::AlignLeft | Qt::AlignVCenter | Qt::SingleLine, caption());
+			TQt::AlignLeft | TQt::AlignVCenter | TQt::SingleLine, caption());
 	
 		// draw split color beneath buttons top right
 		pArray4 = TQPointArray(4);
@@ -452,7 +452,7 @@ void GlowClient::paintEvent( TQPaintEvent * )
 			tBSize.height()/2-1);
 		pArray4.setPoint(2, r_title.x()+r_title.width()-1, tBSize.height());
 		pArray4.setPoint(3, tBSize.width()-1, tBSize.height());
-		p.setPen(Qt::NoPen);
+		p.setPen(TQt::NoPen);
 		p.setBrush(bgColor);
 		p.drawPolygon(pArray4);
 				
@@ -479,7 +479,7 @@ void GlowClient::paintEvent( TQPaintEvent * )
 	pArray3.setPoint(1, 0, 0);
 	pArray3.setPoint(2, tBSize.width()-1, 0);
 	pArray3.setPoint(3, tBSize.width()-1, tBSize.height()-1);
-	p.setPen(Qt::black);
+	p.setPen(TQt::black);
 	p.drawPolyline(pArray3);
 	p.end();
 
@@ -489,10 +489,10 @@ void GlowClient::paintEvent( TQPaintEvent * )
 
 	bitBlt(widget(), 0, 0, title_buffer);
 	for (unsigned int i=0; i<m_buttonList.size(); ++i)
-		m_buttonList[i]->repaint(false);
+		m_buttonList[i]->tqrepaint(false);
 
 	p.begin(widget());
-	p.setPen(Qt::black);
+	p.setPen(TQt::black);
 	//-----
 	// draw borders
 	p.drawLine(0,tBSize.height(),0,r_this.height()-1);
@@ -503,7 +503,7 @@ void GlowClient::paintEvent( TQPaintEvent * )
 	// fill content widget
 	p.fillRect(1, tBSize.height(),
 		r_this.width()-2, r_this.height()-tBSize.height()-1,
-		options()->colorGroup(ColorFrame, isActive()).background());
+		options()->tqcolorGroup(ColorFrame, isActive()).background());
 	p.end();
 
 	// paint resize handle if necessary
@@ -511,7 +511,7 @@ void GlowClient::paintEvent( TQPaintEvent * )
 			&& width()>=2 && height() >= RESIZE_HANDLE_HEIGHT)
 	{
 		p.begin(widget());
-		p.setPen (Qt::black);
+		p.setPen (TQt::black);
 		p.drawLine (1, height() - RESIZE_HANDLE_HEIGHT,
 			width()-2, height() - RESIZE_HANDLE_HEIGHT);
 		p.end();
@@ -521,12 +521,12 @@ void GlowClient::paintEvent( TQPaintEvent * )
 void GlowClient::showEvent( TQShowEvent * )
 {
 	doShape();
-	widget()->repaint(false);
+	widget()->tqrepaint(false);
 }
 
 void GlowClient::mouseDoubleClickEvent( TQMouseEvent *e )
 {
-	if(e->button() == LeftButton && _title_spacer->geometry().contains(e->pos()))
+	if(e->button() == Qt::LeftButton && _title_spacer->tqgeometry().contains(e->pos()))
 		titlebarDblClickOperation();
 }
 
@@ -539,7 +539,7 @@ void GlowClient::wheelEvent( TQWheelEvent *e )
 void GlowClient::activeChange()
 {
 	updateButtonPixmaps();
-	widget()->repaint(false);
+	widget()->tqrepaint(false);
 }
 
 void GlowClient::iconChange()
@@ -553,12 +553,12 @@ void GlowClient::shadeChange()
 
 void GlowClient::captionChange()
 {
-    widget()->update(_title_spacer->geometry());
+    widget()->update(_title_spacer->tqgeometry());
 }
 
-TQSize GlowClient::minimumSize() const
+TQSize GlowClient::tqminimumSize() const
 {
-    return widget()->minimumSize();
+    return widget()->tqminimumSize();
 }
 
 void GlowClient::resize( const TQSize& s )
@@ -649,7 +649,7 @@ void GlowClient::createButtons()
 	TQSize size = globals->theme()->buttonSize;
 
 	m_stickyButton = factory->createGlowButton(widget(),
-					"StickyButton", isOnAllDesktops()?i18n("Not on all desktops"):i18n("On all desktops"), LeftButton|RightButton);
+					"StickyButton", isOnAllDesktops()?i18n("Not on all desktops"):i18n("On all desktops"), Qt::LeftButton|Qt::RightButton);
 	m_stickyButton->setFixedSize(size);
 	connect(m_stickyButton, TQT_SIGNAL(clicked()), this, TQT_SLOT(toggleOnAllDesktops()));
 	m_buttonList.insert(m_buttonList.end(), m_stickyButton);
@@ -667,7 +667,7 @@ void GlowClient::createButtons()
 	m_buttonList.insert(m_buttonList.end(), m_minimizeButton);
 
 	m_maximizeButton=factory->createGlowButton(widget(),
-					"MaximizeButton", i18n("Maximize"), LeftButton|MidButton|RightButton);
+					"MaximizeButton", i18n("Maximize"), Qt::LeftButton|Qt::MidButton|Qt::RightButton);
 	m_maximizeButton->setFixedSize(size);
 	connect(m_maximizeButton, TQT_SIGNAL(clicked()), this, TQT_SLOT(slotMaximize()));
 	m_buttonList.insert(m_buttonList.end(), m_maximizeButton);
@@ -746,7 +746,7 @@ void GlowClient::updateButtonPositions()
 	m_leftButtonList.clear();
 	m_rightButtonList.clear();
 
-	// reset left and right button layout
+	// reset left and right button tqlayout
 	if(m_leftButtonLayout)
 		delete m_leftButtonLayout;
 	m_leftButtonLayout = new TQBoxLayout(0, TQBoxLayout::LeftToRight, 0, 0, 0);
@@ -857,27 +857,27 @@ void GlowClient::slotMaximize()
 
 bool GlowClient::eventFilter( TQObject* o, TQEvent* e )
 {
-	if( o != widget())
+	if( TQT_BASE_OBJECT(o) != TQT_BASE_OBJECT(widget()))
 		return false;
 	switch( e->type())
 	{
 	case TQEvent::Resize:
-	    resizeEvent( static_cast< TQResizeEvent* >( e ));
+	    resizeEvent( TQT_TQRESIZEEVENT( e ));
 	    return true;
 	case TQEvent::Paint:
-	    paintEvent( static_cast< TQPaintEvent* >( e ));
+	    paintEvent( TQT_TQPAINTEVENT( e ));
 	    return true;
 	case TQEvent::MouseButtonDblClick:
-	    mouseDoubleClickEvent( static_cast< TQMouseEvent* >( e ));
+	    mouseDoubleClickEvent( TQT_TQMOUSEEVENT( e ));
 	    return true;
 	case TQEvent::MouseButtonPress:
-	    processMousePressEvent( static_cast< TQMouseEvent* >( e ));
+	    processMousePressEvent( TQT_TQMOUSEEVENT( e ));
 	    return true;
 	case TQEvent::Show:
-	    showEvent( static_cast< TQShowEvent* >( e ));
+	    showEvent( TQT_TQSHOWEVENT( e ));
 	    return true;
 	case TQEvent::Wheel:
-	    wheelEvent( static_cast< TQWheelEvent* >( e ));
+	    wheelEvent( TQT_TQWHEELEVENT( e ));
 	    return true;
 	default:
 	    break;

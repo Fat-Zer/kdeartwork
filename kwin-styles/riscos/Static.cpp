@@ -245,16 +245,16 @@ void Static::updatePixmaps()
 void Static::_createTexture(TQPixmap &px, int t, bool active)
 {
    const TQImage texture(TQPixmap((const char **)texture_xpm).convertToImage());
-   const QRgb w(qRgb(255, 255, 255));
-   const QRgb b(qRgb(0, 0, 0));
+   const TQRgb w(tqRgb(255, 255, 255));
+   const TQRgb b(tqRgb(0, 0, 0));
 
    TQColor c(KDecoration::options()->color(KDecoration::ColorType(t), active));
 
-   QRgb mid    (c.rgb());
-   QRgb light  (c.light(110).rgb());
-   QRgb dark   (c.dark(110).rgb());
+   TQRgb mid    (c.rgb());
+   TQRgb light  (c.light(110).rgb());
+   TQRgb dark   (c.dark(110).rgb());
 
-   QRgb* data(reinterpret_cast<QRgb *>(texture.bits()));
+   TQRgb* data(reinterpret_cast<TQRgb *>(const_cast<TQImage&>(texture).bits()));
 
    for (int x = 0; x < 64*12; x++)
       if (data[x] == w)
@@ -318,24 +318,24 @@ void Static::_resizeAllPixmaps()
 
 void Static::_blankAllPixmaps()
 {
-   aResize_        .fill(Qt::black);
-   iResize_        .fill(Qt::black);
-   aTitleTextLeft_ .fill(Qt::black);
-   aTitleTextRight_.fill(Qt::black);
-   iTitleTextLeft_ .fill(Qt::black);
-   iTitleTextRight_.fill(Qt::black);
-   aTitleTextMid_  .fill(Qt::black);
-   iTitleTextMid_  .fill(Qt::black);
-   aResizeMidLeft_ .fill(Qt::black);
-   aResizeMidRight_.fill(Qt::black);
-   iResizeMidLeft_ .fill(Qt::black);
-   iResizeMidRight_.fill(Qt::black);
-   aResizeMid_     .fill(Qt::black);
-   iResizeMid_     .fill(Qt::black);
-   aButtonUp_      .fill(Qt::black);
-   iButtonUp_      .fill(Qt::black);
-   aButtonDown_    .fill(Qt::black);
-   iButtonDown_    .fill(Qt::black);
+   aResize_        .fill(TQt::black);
+   iResize_        .fill(TQt::black);
+   aTitleTextLeft_ .fill(TQt::black);
+   aTitleTextRight_.fill(TQt::black);
+   iTitleTextLeft_ .fill(TQt::black);
+   iTitleTextRight_.fill(TQt::black);
+   aTitleTextMid_  .fill(TQt::black);
+   iTitleTextMid_  .fill(TQt::black);
+   aResizeMidLeft_ .fill(TQt::black);
+   aResizeMidRight_.fill(TQt::black);
+   iResizeMidLeft_ .fill(TQt::black);
+   iResizeMidRight_.fill(TQt::black);
+   aResizeMid_     .fill(TQt::black);
+   iResizeMid_     .fill(TQt::black);
+   aButtonUp_      .fill(TQt::black);
+   iButtonUp_      .fill(TQt::black);
+   aButtonDown_    .fill(TQt::black);
+   iButtonDown_    .fill(TQt::black);
 }
 
 void Static::_initPalettes()
@@ -362,7 +362,7 @@ void Static::_initTextures()
 void Static::_drawTitleTextAreaSides()
 {
    TQPixmap temp(4, titleHeight_);
-   temp.fill(Qt::black);
+   temp.fill(TQt::black);
 
    transx = transy = 0.0;
 
@@ -372,29 +372,29 @@ void Static::_drawTitleTextAreaSides()
    _drawBorder(temp, 4, titleHeight_ - 2);
 
    painter_.begin(&aTitleTextLeft_);
-   painter_.drawPixmap(1, 1, temp, 0, 1);
+   painter_.tqdrawPixmap(1, 1, temp, 0, 1);
    painter_.end();
 
    painter_.begin(&aTitleTextRight_);
-   painter_.drawPixmap(0, 1, temp, 2, 1);
+   painter_.tqdrawPixmap(0, 1, temp, 2, 1);
    painter_.end();
 
    palette_ = iTitlePal_;
    _drawBorder(temp, 4, titleHeight_ - 2);
 
    painter_.begin(&iTitleTextLeft_);
-   painter_.drawPixmap(1, 1, temp, 0, 1);
+   painter_.tqdrawPixmap(1, 1, temp, 0, 1);
    painter_.end();
 
    painter_.begin(&iTitleTextRight_);
-   painter_.drawPixmap(0, 1, temp, 2, 1);
+   painter_.tqdrawPixmap(0, 1, temp, 2, 1);
    painter_.end();
 }
 
 void Static::_drawResizeCentralAreaSides()
 {
    TQPixmap temp(4, resizeHeight_);
-   temp.fill(Qt::black);
+   temp.fill(TQt::black);
 
    transy = 1.0;
 
@@ -403,29 +403,29 @@ void Static::_drawResizeCentralAreaSides()
    _drawBorder(temp, 4, resizeHeight_ - 3);
 
    painter_.begin(&aResizeMidLeft_);
-   painter_.drawPixmap(0, 1, temp, 0, 1);
+   painter_.tqdrawPixmap(0, 1, temp, 0, 1);
    painter_.end();
 
    painter_.begin(&aResizeMidRight_);
-   painter_.drawPixmap(0, 1, temp, 2, 1);
+   painter_.tqdrawPixmap(0, 1, temp, 2, 1);
    painter_.end();
 
    palette_ = iResizePal_;
    _drawBorder(temp, 4, resizeHeight_ - 3);
 
    painter_.begin(&iResizeMidLeft_);
-   painter_.drawPixmap(0, 1, temp, 0, 1);
+   painter_.tqdrawPixmap(0, 1, temp, 0, 1);
    painter_.end();
 
    painter_.begin(&iResizeMidRight_);
-   painter_.drawPixmap(0, 1, temp, 2, 1);
+   painter_.tqdrawPixmap(0, 1, temp, 2, 1);
    painter_.end();
 }
 
 void Static::_drawTitleTextAreaBackground()
 {
    TQPixmap temp(70, titleHeight_);
-   temp.fill(Qt::black);
+   temp.fill(TQt::black);
 
    transx = transy = 0.0;
 
@@ -433,7 +433,7 @@ void Static::_drawTitleTextAreaBackground()
    _drawBorder(temp, 70, titleHeight_ - 3);
 
    painter_.begin(&aTitleTextMid_);
-   painter_.drawPixmap(0, 1, temp, 2, 0);
+   painter_.tqdrawPixmap(0, 1, temp, 2, 0);
    if (hicolour_)
       painter_.drawTiledPixmap(0, 4, 64, titleHeight_ - 8, aTexture_);
    painter_.end();
@@ -442,7 +442,7 @@ void Static::_drawTitleTextAreaBackground()
    _drawBorder(temp, 70, titleHeight_ - 3);
 
    painter_.begin(&iTitleTextMid_);
-   painter_.drawPixmap(0, 1, temp, 2, 0);
+   painter_.tqdrawPixmap(0, 1, temp, 2, 0);
    if (hicolour_)
       painter_.drawTiledPixmap(0, 4, 64, titleHeight_ - 8, iTexture_);
    painter_.end();
@@ -451,7 +451,7 @@ void Static::_drawTitleTextAreaBackground()
 void Static::_drawResizeCentralAreaBackground()
 {
    TQPixmap temp(70, titleHeight_);
-   temp.fill(Qt::black);
+   temp.fill(TQt::black);
 
    transy = 1.0;
 
@@ -459,7 +459,7 @@ void Static::_drawResizeCentralAreaBackground()
    _drawBorder(temp, 70, resizeHeight_ - 3);
 
    painter_.begin(&aResizeMid_);
-   painter_.drawPixmap(0, 0, temp, 2, 0);
+   painter_.tqdrawPixmap(0, 0, temp, 2, 0);
    if (hicolour_)
       painter_.drawTiledPixmap(0, 4, 64, resizeHeight_ - 8, aTexture_);
    painter_.end();
@@ -468,7 +468,7 @@ void Static::_drawResizeCentralAreaBackground()
    _drawBorder(temp, 70, 7);
 
    painter_.begin(&iResizeMid_);
-   painter_.drawPixmap(0, 0, temp, 2, 0);
+   painter_.tqdrawPixmap(0, 0, temp, 2, 0);
    if (hicolour_)
       painter_.drawTiledPixmap(0, 4, 64, resizeHeight_ - 8, iTexture_);
    painter_.end();

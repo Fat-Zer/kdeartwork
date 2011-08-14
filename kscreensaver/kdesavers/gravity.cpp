@@ -18,7 +18,7 @@
 #include <kcolorbutton.h>
 #include "gravity.h"
 #include "gravity.moc"
-#ifdef Q_WS_MACX
+#ifdef TQ_WS_MACX
 #include <OpenGL/glu.h>
 #include <OpenGL/gl.h>
 #else
@@ -61,7 +61,7 @@ KGravitySetup::KGravitySetup( TQWidget *parent, const char *name )
 
 	preview->setFixedSize( 220, 170 );
 	preview->setBackgroundColor( black );
-#ifdef Q_WS_X11
+#ifdef TQ_WS_X11
 	preview->show();    // otherwise saver does not get correct size
 #endif
 	saver = new KGravitySaver( preview->winId() );
@@ -143,7 +143,7 @@ KGravitySaver::KGravitySaver( WId id ) : KScreenSaver( id )
         erase();
 	gravity = new Gravity();
 	embed(gravity);
-#ifdef Q_WS_X11
+#ifdef TQ_WS_X11
 	gravity->show();
 #endif
 	connect( timer, TQT_SIGNAL(timeout()), this, TQT_SLOT(blank()) );
@@ -206,8 +206,8 @@ Gravity::~Gravity()
 /** load the particle file */
 bool Gravity::loadParticle()
 {
-    /* Status indicator */
-    bool Status = TRUE;
+    /* tqStatus indicator */
+    bool tqStatus = TRUE;
 	TQImage buf;
 
     kdDebug() << "Loading: " << locate("data", "kscreensaver/particle.png") << endl;
@@ -220,13 +220,13 @@ bool Gravity::loadParticle()
 	else
 	{
 		TQImage dummy( 32, 32, 32 );
-  		dummy.fill( Qt::white.rgb() );
+  		dummy.fill( TQt::white.rgb() );
         	buf = dummy;
 		tex = convertToGLFormat( buf );
 	}
 
             /* Set the status to true */
-            //Status = TRUE;
+            //tqStatus = TRUE;
 	glGenTextures(1, &texture[0]);   /* create three textures */
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
 	/* use linear filtering */
@@ -238,7 +238,7 @@ bool Gravity::loadParticle()
 
 
 
-    return Status;
+    return tqStatus;
 }
 /** setup the GL enviroment */
 void Gravity::initializeGL ()

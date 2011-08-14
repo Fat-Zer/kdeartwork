@@ -104,7 +104,7 @@ void PhaseStyleConfig::defaults()
 extern "C"
 {
     KDE_EXPORT TQObject* allocate_kstyle_config(TQWidget* parent) {
-        return(new PhaseStyleConfig(parent));
+        return(TQT_TQOBJECT(new PhaseStyleConfig(parent)));
     }
 }
 

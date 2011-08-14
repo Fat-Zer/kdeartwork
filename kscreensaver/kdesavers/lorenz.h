@@ -22,6 +22,7 @@ class Matrix3D;
 class KLorenzSaver : public KScreenSaver
 {
     Q_OBJECT
+  TQ_OBJECT
 public:
     KLorenzSaver( WId id );
     virtual ~KLorenzSaver();
@@ -56,6 +57,7 @@ class TQSlider;
 class KLorenzSetup : public KDialogBase
 {
     Q_OBJECT
+  TQ_OBJECT
 public:
     KLorenzSetup(TQWidget *parent = 0, const char *name = 0 );
     ~KLorenzSetup();

@@ -65,7 +65,7 @@ public:
     virtual KDecoration *createDecoration(KDecorationBridge *b);
     virtual bool reset(unsigned long changed);
     static bool initialized();
-    static Qt::AlignmentFlags titleAlign();
+    static TQt::AlignmentFlags titleAlign();
     static bool roundedCorners();
     static int titleSize();
     static int buttonSize();
@@ -82,7 +82,7 @@ private:
 
 private:
     static bool initialized_;
-    static Qt::AlignmentFlags titlealign_;
+    static TQt::AlignmentFlags titlealign_;
     static bool cornerflags_;
     static int titlesize_;
     static int buttonsize_;
@@ -98,7 +98,7 @@ private:
 inline bool smoothblendFactory::initialized() {
     return initialized_;
 }
-inline Qt::AlignmentFlags smoothblendFactory::titleAlign() {
+inline TQt::AlignmentFlags smoothblendFactory::titleAlign() {
     return titlealign_;
 }
 inline bool smoothblendFactory::roundedCorners() {
@@ -124,6 +124,7 @@ inline bool smoothblendFactory::titleShadow() {
 
 class smoothblendButton : public TQButton {
     Q_OBJECT
+  TQ_OBJECT
 public:
     smoothblendButton(smoothblendClient *parent=0, const char *name=0,
                   const TQString &tip=NULL,
@@ -134,7 +135,7 @@ public:
     ~smoothblendButton();
 
     void setBitmap(const unsigned char *bitmap);
-    TQSize sizeHint() const;
+    TQSize tqsizeHint() const;
     ButtonState lastMousePress() const;
     void reset();
     TQImage getButtonImage(ButtonType type);
@@ -166,17 +167,18 @@ private:
     uint animProgress;
 };
 
-inline Qt::ButtonState smoothblendButton::lastMousePress() const {
+inline TQt::ButtonState smoothblendButton::lastMousePress() const {
     return lastmouse_;
 }
 inline void smoothblendButton::reset() {
-    repaint(false);
+    tqrepaint(false);
 }
 
 // smoothblendClient //////////////////////////////////////////////////////////
 
 class smoothblendClient : public KDecoration {
     Q_OBJECT
+  TQ_OBJECT
 public:
     smoothblendClient(KDecorationBridge *b, KDecorationFactory *f);
     virtual ~smoothblendClient();
@@ -193,7 +195,7 @@ public:
 
     virtual void borders(int &l, int &r, int &t, int &b) const;
     virtual void resize(const TQSize &size);
-    virtual TQSize minimumSize() const;
+    virtual TQSize tqminimumSize() const;
     virtual Position mousePosition(const TQPoint &point) const;
 
     TQPixmap getTitleBarTile(bool active) const
@@ -202,7 +204,7 @@ public:
     }
 
 private:
-    void addButtons(TQBoxLayout* layout, const TQString& buttons, int buttonSize = 18);
+    void addButtons(TQBoxLayout* tqlayout, const TQString& buttons, int buttonSize = 18);
     bool eventFilter(TQObject *obj, TQEvent *e);
     void mouseDoubleClickEvent(TQMouseEvent *e);
     void wheelEvent(TQWheelEvent *e);

@@ -37,6 +37,7 @@ class TQLineEdit;
 class KXSRangeControl : public TQWidget, public KXSRangeItem
 {
   Q_OBJECT
+  TQ_OBJECT
 public:
   KXSRangeControl(TQWidget *parent, const TQString &name, KConfig &config);
   KXSRangeControl(TQWidget *parent, const TQString &name, const TQXmlAttributes &attr );
@@ -58,6 +59,7 @@ protected:
 class KXSDoubleRangeControl : public TQWidget, public KXSDoubleRangeItem
 {
   Q_OBJECT
+  TQ_OBJECT
 public:
   KXSDoubleRangeControl(TQWidget *parent, const TQString &name, KConfig &config);
   KXSDoubleRangeControl(TQWidget *parent, const TQString &name, const TQXmlAttributes &attr );
@@ -79,6 +81,7 @@ protected:
 class KXSCheckBoxControl : public TQCheckBox, public KXSBoolItem
 {
   Q_OBJECT
+  TQ_OBJECT
 public:
   KXSCheckBoxControl(TQWidget *parent, const TQString &name, KConfig &config);
   KXSCheckBoxControl(TQWidget *parent, const TQString &name, const TQXmlAttributes &attr );
@@ -96,6 +99,7 @@ protected slots:
 class KXSDropListControl : public TQWidget, public KXSSelectItem
 {
   Q_OBJECT
+  TQ_OBJECT
 public:
   KXSDropListControl(TQWidget *parent, const TQString &name, KConfig &config);
   KXSDropListControl(TQWidget *parent, const TQString &name, const TQXmlAttributes &attr );
@@ -118,6 +122,7 @@ protected:
 class KXSLineEditControl : public TQWidget, public KXSStringItem
 {
   Q_OBJECT
+  TQ_OBJECT
 public:
   KXSLineEditControl(TQWidget *parent, const TQString &name, KConfig &config);
   KXSLineEditControl(TQWidget *parent, const TQString &name, const TQXmlAttributes &attr );
@@ -138,6 +143,7 @@ protected:
 class KXSFileControl : public TQWidget, public KXSStringItem
 {
   Q_OBJECT
+  TQ_OBJECT
 public:
   KXSFileControl(TQWidget *parent, const TQString &name, KConfig &config);
   KXSFileControl(TQWidget *parent, const TQString &name, const TQXmlAttributes &attr );

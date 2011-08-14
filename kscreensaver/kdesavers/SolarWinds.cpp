@@ -399,12 +399,12 @@ void SWindsWidget::initializeGL()
 #ifdef UNIT_TEST
 void SWindsWidget::keyPressEvent( TQKeyEvent* e )
 {
-    if( e->key() == Qt::Key_0 ) { setDefaults( 0 ); updateParameters(); }
-    if( e->key() == Qt::Key_1 ) { setDefaults( 1 ); updateParameters(); }
-    if( e->key() == Qt::Key_2 ) { setDefaults( 2 ); updateParameters(); }
-    if( e->key() == Qt::Key_3 ) { setDefaults( 3 ); updateParameters(); }
-    if( e->key() == Qt::Key_4 ) { setDefaults( 4 ); updateParameters(); }
-    if( e->key() == Qt::Key_5 ) { setDefaults( 5 ); updateParameters(); }
+    if( e->key() == TQt::Key_0 ) { setDefaults( 0 ); updateParameters(); }
+    if( e->key() == TQt::Key_1 ) { setDefaults( 1 ); updateParameters(); }
+    if( e->key() == TQt::Key_2 ) { setDefaults( 2 ); updateParameters(); }
+    if( e->key() == TQt::Key_3 ) { setDefaults( 3 ); updateParameters(); }
+    if( e->key() == TQt::Key_4 ) { setDefaults( 4 ); updateParameters(); }
+    if( e->key() == TQt::Key_5 ) { setDefaults( 5 ); updateParameters(); }
 }
 #endif
 
@@ -731,7 +731,7 @@ void KSWindsSetup::slotHelp()
 {
     KMessageBox::about(this,
         i18n("<h3>Solar Winds 1.0</h3>\n<p>Copyright (c) 2002 Terence M. Welsh<br>\n<a href=\"http://www.reallyslick.com/\">http://www.reallyslick.com/</a></p>\n\n<p>Ported to KDE by Karl Robillard</p>"),
-        TQString::null, KMessageBox::AllowLink);
+        TQString(), KMessageBox::AllowLink);
 }
 
 
@@ -757,7 +757,7 @@ void KSWindsSetup::slotOk()
 
 
 #ifdef UNIT_TEST
-// moc SolarWinds.h -o SolarWinds.moc
+// tqmoc SolarWinds.h -o SolarWinds.tqmoc
 // g++ -g -DUNIT_TEST SolarWinds.cpp -I/usr/lib/qt3/include -lqt -L/usr/lib/qt3/lib -lGLU -lGL
 
 #include <tqapplication.h>

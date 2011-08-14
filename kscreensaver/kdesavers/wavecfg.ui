@@ -1,6 +1,6 @@
 <!DOCTYPE UI><UI version="3.0" stdsetdef="1">
 <class>SetupUi</class>
-<widget class="QDialog">
+<widget class="TQDialog">
     <property name="name">
         <cstring>SetupUi</cstring>
     </property>
@@ -20,7 +20,7 @@
             <verstretch>0</verstretch>
         </sizepolicy>
     </property>
-    <property name="minimumSize">
+    <property name="tqminimumSize">
         <size>
             <width>400</width>
             <height>209</height>
@@ -35,7 +35,7 @@
     <property name="caption">
         <string>Bitmap Flag Setup</string>
     </property>
-    <widget class="QLayoutWidget">
+    <widget class="TQLayoutWidget">
         <property name="name">
             <cstring>Layout4</cstring>
         </property>
@@ -57,7 +57,7 @@
             <property name="spacing">
                 <number>6</number>
             </property>
-            <widget class="QCheckBox" row="3" column="0">
+            <widget class="TQCheckBox" row="3" column="0">
                 <property name="name">
                     <cstring>CheckBox1</cstring>
                 </property>
@@ -65,7 +65,7 @@
                     <string>Use textures</string>
                 </property>
             </widget>
-            <widget class="QPushButton" row="4" column="2">
+            <widget class="TQPushButton" row="4" column="2">
                 <property name="name">
                     <cstring>PushButton3</cstring>
                 </property>
@@ -73,7 +73,7 @@
                     <string>&amp;About</string>
                 </property>
             </widget>
-            <widget class="QSpinBox" row="1" column="0">
+            <widget class="TQSpinBox" row="1" column="0">
                 <property name="name">
                     <cstring>SpinBox1</cstring>
                 </property>
@@ -87,7 +87,7 @@
                     <number>10</number>
                 </property>
             </widget>
-            <widget class="QPushButton" row="4" column="1">
+            <widget class="TQPushButton" row="4" column="1">
                 <property name="name">
                     <cstring>PushButton2</cstring>
                 </property>
@@ -95,7 +95,7 @@
                     <string>&amp;Cancel</string>
                 </property>
             </widget>
-            <widget class="QPushButton" row="4" column="0">
+            <widget class="TQPushButton" row="4" column="0">
                 <property name="name">
                     <cstring>PushButton1</cstring>
                 </property>
@@ -106,14 +106,14 @@
                     <bool>true</bool>
                 </property>
             </widget>
-            <widget class="QGroupBox" row="2" column="0">
+            <widget class="TQGroupBox" row="2" column="0">
                 <property name="name">
                     <cstring>GroupBox1</cstring>
                 </property>
                 <property name="title">
                     <string>Shapes</string>
                 </property>
-                <widget class="QLayoutWidget">
+                <widget class="TQLayoutWidget">
                     <property name="name">
                         <cstring>Layout3</cstring>
                     </property>
@@ -135,7 +135,7 @@
                         <property name="spacing">
                             <number>6</number>
                         </property>
-                        <widget class="QRadioButton">
+                        <widget class="TQRadioButton">
                             <property name="name">
                                 <cstring>RadioButton1</cstring>
                             </property>
@@ -146,7 +146,7 @@
                                 <bool>true</bool>
                             </property>
                         </widget>
-                        <widget class="QRadioButton">
+                        <widget class="TQRadioButton">
                             <property name="name">
                                 <cstring>RadioButton1_2</cstring>
                             </property>
@@ -157,12 +157,12 @@
                     </vbox>
                 </widget>
             </widget>
-            <widget class="QWidget" row="0" column="1" rowspan="4" colspan="2">
+            <widget class="TQWidget" row="0" column="1" rowspan="4" colspan="2">
                 <property name="name">
                     <cstring>preview</cstring>
                 </property>
             </widget>
-            <widget class="QLabel" row="0" column="0">
+            <widget class="TQLabel" row="0" column="0">
                 <property name="name">
                     <cstring>TextLabel1</cstring>
                 </property>

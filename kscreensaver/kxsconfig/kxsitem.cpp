@@ -65,7 +65,7 @@ KXSRangeItem::KXSRangeItem(const TQString &name, const TQXmlAttributes &attr )
 
 TQString KXSRangeItem::command()
 {
-  return mSwitch.arg(mInvert?mMaximum-(mValue-mMinimum):mValue);
+  return mSwitch.tqarg(mInvert?mMaximum-(mValue-mMinimum):mValue);
 }
 
 void KXSRangeItem::read(KConfig &config)
@@ -109,7 +109,7 @@ KXSDoubleRangeItem::KXSDoubleRangeItem(const TQString &name, const TQXmlAttribut
 
 TQString KXSDoubleRangeItem::command()
 {
-  return mSwitch.arg(mInvert?mMaximum-(mValue-mMinimum):mValue);
+  return mSwitch.tqarg(mInvert?mMaximum-(mValue-mMinimum):mValue);
 }
 
 void KXSDoubleRangeItem::read(KConfig &config)
@@ -232,7 +232,7 @@ KXSStringItem::KXSStringItem(const TQString &name, const TQXmlAttributes &attr )
 TQString KXSStringItem::command()
 {
   if (!mValue.isEmpty())
-      return mSwitch.arg(mValue);
+      return mSwitch.tqarg(mValue);
   return "";
 }
 

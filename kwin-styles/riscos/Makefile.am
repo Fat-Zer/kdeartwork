@@ -31,7 +31,7 @@ kwin3_riscos_la_SOURCES = AboveButton.cpp \
                           Static.cpp \
                           StickyButton.cpp
 
-kwin3_riscos_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN) -module
+kwin3_riscos_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN) -module $(LIB_QT) $(LIB_KDECORE) $(LIB_KDEUI) -lkdefx
 kwin3_riscos_la_LIBADD = $(LIB_KDEUI) -lkdecorations
 kwin3_riscos_la_METASOURCES = AUTO
 

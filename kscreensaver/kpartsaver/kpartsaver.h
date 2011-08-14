@@ -50,6 +50,7 @@
 
 class SaverConfig : public ConfigWidget {
 Q_OBJECT
+  TQ_OBJECT
 
  public:
     SaverConfig( TQWidget* parent = 0, const char* name = 0 );
@@ -67,6 +68,7 @@ Q_OBJECT
 
 class KPartSaver : public KScreenSaver {
 Q_OBJECT
+  TQ_OBJECT
 
  public:
     KPartSaver( WId id=0 );

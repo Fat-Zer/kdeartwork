@@ -34,6 +34,7 @@ class KConfig;
 class PhaseStyleConfig : public StyleDialog
 {
     Q_OBJECT
+  TQ_OBJECT
 public:
     PhaseStyleConfig(TQWidget* parent);
     ~PhaseStyleConfig();

@@ -32,6 +32,7 @@ class ConfigDialog;
 
 class smoothblendConfig : public TQObject {
     Q_OBJECT
+  TQ_OBJECT
 public:
     smoothblendConfig(KConfig* config, TQWidget* parent);
     ~smoothblendConfig();

@@ -59,7 +59,7 @@ GlowConfigDialog::GlowConfigDialog( KConfig * conf, TQWidget * parent )
 
 	_main_group_box = new TQWidget(parent);
 	TQVBoxLayout *main_group_boxLayout = new TQVBoxLayout(_main_group_box);
-	main_group_boxLayout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
+	main_group_boxLayout->tqsetAlignment(TQt::AlignTop | TQt::AlignLeft);
 	main_group_boxLayout->setSpacing(6);
 
 	//-------------------------------------------------------------------------
@@ -79,12 +79,12 @@ GlowConfigDialog::GlowConfigDialog( KConfig * conf, TQWidget * parent )
 	_button_glow_color_group_box = new TQGroupBox(
 		0, Qt::Horizontal, i18n("Button Glow Colors"), _main_group_box);
 	TQHBoxLayout *colorHBoxLayout =
-		new TQHBoxLayout(_button_glow_color_group_box->layout());
+		new TQHBoxLayout(_button_glow_color_group_box->tqlayout());
 
 	// create buttons
 	TQSize buttonSize(BITMAP_SIZE, BITMAP_SIZE);
 	TQPixmap pm(buttonSize);
-	pm.fill(Qt::black);
+	pm.fill(TQt::black);
 
 	_stickyButton = new TQPushButton(_button_glow_color_group_box);
 	pm.setMask(TQBitmap(buttonSize, stickyoff_bits, true));
@@ -119,7 +119,7 @@ GlowConfigDialog::GlowConfigDialog( KConfig * conf, TQWidget * parent )
 	// create signal mapper
 	_titleButtonMapper = new TQSignalMapper(this);
 	for( uint i=0; i<_titleButtonList.size(); i++ ) {
-		_titleButtonMapper->setMapping(_titleButtonList[i], i);
+		_titleButtonMapper->setMapping(TQT_TQOBJECT(_titleButtonList[i]), i);
 		connect(_titleButtonList[i], TQT_SIGNAL(clicked()),_titleButtonMapper, TQT_SLOT(map()));
 	}
 	connect(_titleButtonMapper, TQT_SIGNAL(mapped(int)),this, TQT_SLOT(slotTitleButtonClicked(int)));
@@ -139,7 +139,7 @@ GlowConfigDialog::GlowConfigDialog( KConfig * conf, TQWidget * parent )
 	_titlebarGradientTypeComboBox = new TQComboBox(_main_group_box);
 
     KConfig *c = KGlobal::config();
-    KConfigGroupSaver cgs( c, TQString::fromLatin1("WM") );
+    KConfigGroupSaver cgs( c, TQString::tqfromLatin1("WM") );
     TQColor activeBackground = c->readColorEntry("activeBackground");
     TQColor activeBlend = c->readColorEntry("activeBlend");
 
@@ -159,7 +159,7 @@ GlowConfigDialog::GlowConfigDialog( KConfig * conf, TQWidget * parent )
 		this, TQT_SLOT(slotTitlebarGradientTypeChanged(int)));
 	titlebarGradientTypeLayout->addWidget(
 		new TQLabel(i18n("Titlebar gradient:"), _main_group_box));
-	titlebarGradientTypeLayout->addWidget(_titlebarGradientTypeComboBox, 0, Qt::AlignLeft);
+	titlebarGradientTypeLayout->addWidget(_titlebarGradientTypeComboBox, 0, TQt::AlignLeft);
         titlebarGradientTypeLayout->addStretch(10);
 	main_group_boxLayout->addLayout(titlebarGradientTypeLayout);
 
@@ -194,7 +194,7 @@ void GlowConfigDialog::load( KConfig* /* conf */ )
 
 	_glowConfig->setGroup("General");
 
-	_buttonConfigMap = new QColor[NUMBER_OF_BUTTONS];
+	_buttonConfigMap = new TQColor[NUMBER_OF_BUTTONS];
 	color = _glowConfig->readColorEntry("stickyButtonGlowColor",
 			&defaultStickyButtonColor);
 	_buttonConfigMap[stickyButton] = color;
@@ -286,7 +286,7 @@ void GlowConfigDialog::slotLoadThemeList ()
 				TQDir::Dirs | TQDir::Readable);
 		if (dir.exists())
 		{
-			QFileInfoListIterator it2(*dir.entryInfoList());
+			TQFileInfoListIterator it2(*dir.entryInfoList());
 			TQFileInfo * finfo;
 
 			while ((finfo=it2.current()))

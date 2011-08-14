@@ -108,7 +108,7 @@ int main(int argc, char *argv[])
 	int idx = 0;
 	while (true)
 	{
-	    TQString group = TQString("Arg%1").arg(idx);
+	    TQString group = TQString("Arg%1").tqarg(idx);
 	    if (config.hasGroup(group)) {
 		config.setGroup(group);
 		TQString type = config.readEntry("Type");
@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
     // find the xscreensaver executable
     //work around a KStandarDirs::findExe() "feature" where it looks in $KDEDIR/bin first no matter what and sometimes finds the wrong executable
     TQFileInfo checkExe;
-    TQString saverdir = TQString("%1/%2").arg(XSCREENSAVER_HACKS_DIR).arg(filename);
+    TQString saverdir = TQString("%1/%2").tqarg(XSCREENSAVER_HACKS_DIR).tqarg(filename);
     kdDebug() << "saverdir is" << saverdir << endl;
     TQString exeFile;
     checkExe.setFile(saverdir);

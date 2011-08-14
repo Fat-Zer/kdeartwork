@@ -10,9 +10,10 @@ extern void stopScreenSaver();
 extern int setupScreenSaver();
 
 //-----------------------------------------------------------------------------
-class kScreenSaver : public QObject
+class kScreenSaver : public TQObject
 {
 	Q_OBJECT
+  TQ_OBJECT
 public:
 	kScreenSaver( Drawable drawable );
 	virtual ~kScreenSaver();

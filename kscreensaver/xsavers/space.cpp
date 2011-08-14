@@ -47,7 +47,7 @@
  */
 
 #define LONG64
-//#define QT_CLEAN_NAMESPACE
+//#define TQT_CLEAN_NAMESPACE
 
 #include <tqslider.h>
 #include <tqlayout.h>
@@ -275,7 +275,7 @@ static void Init(void)
     glDisable(GL_DITHER);
 }
 
-void reshape(int width, int height)
+void retqshape(int width, int height)
 {
 
     windW = (GLint)width;
@@ -444,7 +444,7 @@ initSpace(Window window)
 	  glClearIndex(BlackPixel(display, screen));
 	}
 
-	reshape(xwa.width, xwa.height);
+	retqshape(xwa.width, xwa.height);
 	Init();
 }
 
@@ -593,7 +593,7 @@ kSpaceSetup::kSpaceSetup( TQWidget *parent, const char *name )
     label = new TQLabel( i18n("Speed:"), page );
     vb->addWidget( label );
 
-    slider = new TQSlider(MINSPEED, MAXSPEED, 10, speed, TQSlider::Horizontal,
+    slider = new TQSlider(MINSPEED, MAXSPEED, 10, speed, Qt::Horizontal,
 		    page );
     vb->addWidget( slider );
     slider->setTickmarks(TQSlider::Below);
@@ -603,7 +603,7 @@ kSpaceSetup::kSpaceSetup( TQWidget *parent, const char *name )
     label = new TQLabel( i18n("Warp interval:"), page );
     vb->addWidget( label );
 
-    slider = new TQSlider(MINWARP, MAXWARP, 3, warpinterval, Horizontal, page );
+    slider = new TQSlider(MINWARP, MAXWARP, 3, warpinterval,Qt::Horizontal, page );
     vb->addWidget( slider );
     slider->setTickmarks(TQSlider::Below);
     slider->setTickInterval(3);
@@ -725,8 +725,8 @@ void main(int argc, char **argv)
 
     Init();
 
-    tkExposeFunc(Reshape);
-    tkReshapeFunc(Reshape);
+    tkExposeFunc(Retqshape);
+    tkRetqshapeFunc(Retqshape);
     tkKeyDownFunc(Key);
     tkIdleFunc(Idle);
     tkExec();

@@ -96,15 +96,15 @@ class ThemeHandler: public KDecorationFactory
 };
 
 
-class IceWMButton : public QButton
+class IceWMButton : public TQButton
 {
 	public:
 		IceWMButton( IceWMClient *parent=0, const char *name=0,
 					 TQPixmap* (*p)[2]=0L, bool isToggle=false,
-					 const TQString& tip=NULL, const int realizeBtns = LeftButton );
+					 const TQString& tip=NULL, const int realizeBtns = Qt::LeftButton );
 		void setTipText(const TQString &tip);
 		void  usePixmap( TQPixmap* (*p)[2] );
-		TQSize sizeHint() const;
+		TQSize tqsizeHint() const;
 		void  turnOn( bool isOn );
 		ButtonState   last_button;
 
@@ -125,6 +125,7 @@ class IceWMButton : public QButton
 class IceWMClient : public KDecoration
 {
     Q_OBJECT
+  TQ_OBJECT
 	public:
 	    IceWMClient( KDecorationBridge* bridge, KDecorationFactory* factory );
 	    ~IceWMClient();
@@ -149,7 +150,7 @@ class IceWMClient : public KDecoration
 		void iconChange();
 		virtual void desktopChange( );
 		virtual void borders(int&, int&, int&, int&) const;
-		virtual TQSize minimumSize() const;
+		virtual TQSize tqminimumSize() const;
 
 	protected slots:
 	    void slotMaximize();

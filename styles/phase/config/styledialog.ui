@@ -1,6 +1,6 @@
 <!DOCTYPE UI><UI version="3.2" stdsetdef="1">
 <class>StyleDialog</class>
-<widget class="QWidget">
+<widget class="TQWidget">
     <property name="name">
         <cstring>StyleDialog</cstring>
     </property>
@@ -19,7 +19,7 @@
         <property name="name">
             <cstring>unnamed</cstring>
         </property>
-        <widget class="QGroupBox">
+        <widget class="TQGroupBox">
             <property name="name">
                 <cstring>stylebox</cstring>
             </property>
@@ -36,7 +36,7 @@
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
-                <widget class="QCheckBox">
+                <widget class="TQCheckBox">
                     <property name="name">
                         <cstring>gradients</cstring>
                     </property>
@@ -47,7 +47,7 @@
                         <string>This option will draw buttons and several other widgets using a gradient texture</string>
                     </property>
                 </widget>
-                <widget class="QCheckBox">
+                <widget class="TQCheckBox">
                     <property name="name">
                         <cstring>highlights</cstring>
                     </property>

@@ -546,12 +546,12 @@ void FluxWidget::initializeGL()
 #ifdef UNIT_TEST
 void FluxWidget::keyPressEvent( TQKeyEvent* e )
 {
-    if( e->key() == Qt::Key_0 ) { setDefaults( 0 ); updateParameters(); }
-    if( e->key() == Qt::Key_1 ) { setDefaults( 1 ); updateParameters(); }
-    if( e->key() == Qt::Key_2 ) { setDefaults( 2 ); updateParameters(); }
-    if( e->key() == Qt::Key_3 ) { setDefaults( 3 ); updateParameters(); }
-    if( e->key() == Qt::Key_4 ) { setDefaults( 4 ); updateParameters(); }
-    if( e->key() == Qt::Key_5 ) { setDefaults( 5 ); updateParameters(); }
+    if( e->key() == TQt::Key_0 ) { setDefaults( 0 ); updateParameters(); }
+    if( e->key() == TQt::Key_1 ) { setDefaults( 1 ); updateParameters(); }
+    if( e->key() == TQt::Key_2 ) { setDefaults( 2 ); updateParameters(); }
+    if( e->key() == TQt::Key_3 ) { setDefaults( 3 ); updateParameters(); }
+    if( e->key() == TQt::Key_4 ) { setDefaults( 4 ); updateParameters(); }
+    if( e->key() == TQt::Key_5 ) { setDefaults( 5 ); updateParameters(); }
 }
 #endif
 
@@ -919,7 +919,7 @@ void KFluxSetup::slotHelp()
 {
     KMessageBox::about(this,
         i18n("<h3>Flux 1.0</h3>\n<p>Copyright (c) 2002 Terence M. Welsh<br>\n<a href=\"http://www.reallyslick.com/\">http://www.reallyslick.com/</a></p>\n\n<p>Ported to KDE by Karl Robillard</p>"),
-        TQString::null, KMessageBox::AllowLink);
+        TQString(), KMessageBox::AllowLink);
 }
 
 
@@ -945,7 +945,7 @@ void KFluxSetup::slotOk()
 
 
 #ifdef UNIT_TEST
-// moc Flux.h -o Flux.moc
+// tqmoc Flux.h -o Flux.tqmoc
 // g++ -g -DUNIT_TEST Flux.cpp -I/usr/lib/qt3/include -lqt -L/usr/lib/qt3/lib -lGLU -lGL
 
 #include <tqapplication.h>

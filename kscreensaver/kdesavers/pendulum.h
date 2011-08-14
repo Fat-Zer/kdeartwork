@@ -15,7 +15,7 @@
 
 // STL headers
 #include <valarray>
-// Qt headers
+// TQt headers
 #include <tqwidget.h>
 #include <tqtimer.h>
 #include <tqgl.h>
@@ -79,14 +79,15 @@ class PendulumOdeSolver : public RkOdeSolver<double>
 /** @brief GL widget class for the KPendulum screen saver
  *
  * Class implements TQGLWidget to display the KPendulum screen saver. */
-class PendulumGLWidget : public QGLWidget
+class PendulumGLWidget : public TQGLWidget
 {
    Q_OBJECT
+  TQ_OBJECT
 
   public:
    /** @brief Constructor of KPendulum's GL widget
-    * @param parent parent widget, passed to QGLWidget's constructor
-    * @param name name of widget, passed to QGLWidget's constructor */
+    * @param parent parent widget, passed to TQGLWidget's constructor
+    * @param name name of widget, passed to TQGLWidget's constructor */
    PendulumGLWidget(TQWidget* parent=0, const char* name=0);
    /** @brief Destructor of KPendulum's GL widget */
    ~PendulumGLWidget(void);
@@ -184,6 +185,7 @@ class PendulumGLWidget : public QGLWidget
 class KPendulumSaver : public KScreenSaver
 {
    Q_OBJECT
+  TQ_OBJECT
 
   public:
    /** @brief Constructor of the KPendulum screen saver object
@@ -332,6 +334,7 @@ class KPendulumSaver : public KScreenSaver
 class KPendulumSetup : public KPendulumSetupUi
 {
    Q_OBJECT
+  TQ_OBJECT
 
   public:
    /** @brief Constructor for the KPendulum screen saver setup dialog

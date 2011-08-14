@@ -11,6 +11,7 @@
 class kSpaceSaver : public kScreenSaver
 {
 	Q_OBJECT
+  TQ_OBJECT
 public:
 	kSpaceSaver( Drawable drawable );
 	virtual ~kSpaceSaver();
@@ -38,6 +39,7 @@ protected:
 class kSpaceSetup : public KDialogBase
 {
 	Q_OBJECT
+  TQ_OBJECT
 public:
 	kSpaceSetup( TQWidget *parent = NULL, const char *name = NULL );
 

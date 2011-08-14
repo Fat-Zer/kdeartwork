@@ -16,7 +16,7 @@
 
 #include <tqdialog.h>
 #include <tqgl.h>
-#ifdef Q_WS_MACX
+#ifdef TQ_WS_MACX
 #include <OpenGL/glu.h>
 #include <OpenGL/gl.h>
 #else
@@ -29,9 +29,10 @@
 #include "wavecfg.h"
 
 
-class Wave : public QGLWidget
+class Wave : public TQGLWidget
 {
 Q_OBJECT
+  TQ_OBJECT
 
 public:
 	Wave( TQWidget * parent=0, const char * name=0 );
@@ -62,6 +63,7 @@ private:
 class KWaveSaver : public KScreenSaver
 {
 Q_OBJECT
+  TQ_OBJECT
 public:
 	KWaveSaver( WId drawable );
 	virtual ~KWaveSaver();
@@ -77,6 +79,7 @@ private:
 class KWaveSetup : public SetupUi
 {
 	Q_OBJECT
+  TQ_OBJECT
 public:
 	KWaveSetup( TQWidget *parent = NULL, const char *name = NULL );
     ~KWaveSetup( );

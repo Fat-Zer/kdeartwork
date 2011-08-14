@@ -12,7 +12,7 @@
    Contact me in case of problems, not the original author!
    Last revised: 10-Jul-97
 */
-// layout management added 1998/04/19 by Mario Weilguni <mweilguni@kde.org>
+// tqlayout management added 1998/04/19 by Mario Weilguni <mweilguni@kde.org>
 
 #define MAXSPEED 100
 #define MINSPEED 0
@@ -330,7 +330,7 @@ kSwarmSetup::kSwarmSetup( TQWidget *parent, const char *name )
 	left->addWidget(label);
 
 	TQSlider *slider = new TQSlider(MINSPEED, MAXSPEED, 10, speed,
-			Horizontal, main );
+			Qt::Horizontal, main );
 	slider->setMinimumSize( 120, 20 );
     slider->setTickmarks(TQSlider::Below);
     slider->setTickInterval(10);
@@ -342,7 +342,7 @@ kSwarmSetup::kSwarmSetup( TQWidget *parent, const char *name )
 	min_size(label);
 	left->addWidget(label);
 
-	slider = new TQSlider(MINBATCH, MAXBATCH, 20, maxLevels, Horizontal, main );
+	slider = new TQSlider(MINBATCH, MAXBATCH, 20, maxLevels,Qt::Horizontal, main );
 	slider->setMinimumSize( 120, 20 );
     slider->setTickmarks(TQSlider::Below);
     slider->setTickInterval(20);
