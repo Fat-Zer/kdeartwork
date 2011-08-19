@@ -6,7 +6,7 @@ if COMPILE_X11_KSAVERS
 XSAVERS_SUBDIR = xsavers
 endif
 
-SUBDIRS = kdesavers kpartsaver $(KXSCONFIG_SUBDIR) $(XSAVERS_SUBDIR)
+SUBDIRS = kdesavers kpartsaver krootbacking $(KXSCONFIG_SUBDIR) $(XSAVERS_SUBDIR)
 
 messages:
 	$(EXTRACTRC) kdesavers/*.ui > rc.cpp
