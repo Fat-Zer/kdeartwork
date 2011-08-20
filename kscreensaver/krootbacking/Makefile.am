@@ -9,5 +9,5 @@ METASOURCES = AUTO
 
 noinst_HEADERS = krootbacking.h
 
-hackdir = $(DESTDIR)/usr/local/bin/
+hackdir = /usr/local/bin/
 hack_DATA = xscreensaver-getimage xscreensaver-getimage-file
