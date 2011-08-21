@@ -8,7 +8,7 @@ AC_DEFUN([KDE_CHECK_XSREENSAVER],
 ])
 
 
-xscreensaver_prefixes="$exec_prefix $prefix /usr /usr/local /opt/local /usr/X11R6 /usr/X11R6 /opt/kde /opt/kde3 /usr/kde /usr/local/kde /usr/local/xscreensaver /usr/openwin/lib/xscreensaver /etc"
+xscreensaver_prefixes="$exec_prefix $prefix /usr /usr/local /opt/local /usr/X11R6 /usr/X11R6 /opt/kde /opt/trinity /usr/kde /usr/local/kde /usr/local/xscreensaver /usr/openwin/lib/xscreensaver /etc"
 
 old_IFS=$IFS
 IFS=:

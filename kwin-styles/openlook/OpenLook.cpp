@@ -1,7 +1,7 @@
 /*
   'OpenLook' kwin client
 
-  Porting to kde3.2 API
+  Porting to trinity.2 API
     Copyright 2003 Luciano Montanaro <mikelima@cirulla.net>
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
