@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# Yes, this is quite fragile
-# Yes, it should be fixed
-# But for this non-critical function it should be good enough...
-REAL_BINARY=$(whereis -b xscreensaver-getimage | awk '{print $2}')
-if [[ "$0" != "$REAL_BINARY" ]]; then
-	$REAL_BINARY -no-video -no-desktop -images "$@"
-fi
