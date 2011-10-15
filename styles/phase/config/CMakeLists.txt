@@ -9,34 +9,26 @@
 #
 #################################################
 
-add_definitions(
-  -DQT_PLUGIN
-)
-
 include_directories(
-  ${TQT_INCLUDE_DIRS}
-  ${TDE_INCLUDE_DIR}
+  ${TQT_INCLUDE_DIR}
+  ${TDE_INCLUDE_DIRS}
   ${CMAKE_CURRENT_BINARY_DIR}
 #   ${CMAKE_BINARY_DIR}/kdecore
 #   ${CMAKE_SOURCE_DIR}/kdefx
 #   ${CMAKE_SOURCE_DIR}/kdecore
 )
 
-##### other data ################################
+##### kstyle_phase_config ########################
 
-install( FILES dotnet.themerc DESTINATION ${DATA_INSTALL_DIR}/kstyle/themes )
-
-
-##### dotnet #####################################
-
-set( target dotnet )
+set( target kstyle_phase_config )
 
 set( ${target}_SRCS
-  dotnet.cpp
+  phasestyleconfig.cpp
+  styledialog.ui
 )
 
 tde_add_kpart( ${target} AUTOMOC
   SOURCES ${${target}_SRCS}
-  LINK kdefx-shared
-  DESTINATION ${PLUGIN_INSTALL_DIR}/plugins/styles
+  LINK kdeui-shared
+  DESTINATION ${PLUGIN_INSTALL_DIR}
 )

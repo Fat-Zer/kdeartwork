@@ -14,25 +14,27 @@ add_definitions(
 )
 
 include_directories(
-  ${TQT_INCLUDE_DIRS}
-  ${TDE_INCLUDE_DIR}
+  ${TQT_INCLUDE_DIR}
+  ${TDE_INCLUDE_DIRS}
   ${CMAKE_CURRENT_BINARY_DIR}
 #   ${CMAKE_BINARY_DIR}/kdecore
 #   ${CMAKE_SOURCE_DIR}/kdefx
 #   ${CMAKE_SOURCE_DIR}/kdecore
 )
 
+add_subdirectory( config )
+
 ##### other data ################################
 
-install( FILES dotnet.themerc DESTINATION ${DATA_INSTALL_DIR}/kstyle/themes )
+install( FILES phase.themerc DESTINATION ${DATA_INSTALL_DIR}/kstyle/themes )
 
 
-##### dotnet #####################################
+##### phasestyle #################################
 
-set( target dotnet )
+set( target phasestyle )
 
 set( ${target}_SRCS
-  dotnet.cpp
+  phasestyle.cpp
 )
 
 tde_add_kpart( ${target} AUTOMOC
