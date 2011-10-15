@@ -30,8 +30,8 @@ install( FILES cde.desktop DESTINATION ${DATA_INSTALL_DIR}/kwin )
 
 ##### kwin_cde ###################################
 
-tde_add_kpart( ${target} AUTOMOC
-  SOURCES ${${target}_SRCS}
-  LINK kdeui-shared
-  DESTINATION ${PLUGIN_INSTALL_DIR}/plugins/styles
+tde_add_kpart( kwin3_cde AUTOMOC
+  SOURCES cdeclient.cpp
+  LINK kdecorations-shared kdecore-shared
+  DESTINATION ${PLUGIN_INSTALL_DIR}
 )
