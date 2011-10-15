@@ -22,11 +22,11 @@ set( VERSION "3.5.13" )
 
 ##### include essential cmake modules ###########
 
-# include( FindPkgConfig )
+include( FindPkgConfig )
 # include( CheckFunctionExists )
 # include( CheckIncludeFile )
 # include( CheckIncludeFileCXX )
-# include( CheckCXXSourceCompiles )
+include( CheckCXXSourceCompiles )
 # include( CheckLibraryExists )
 
 
