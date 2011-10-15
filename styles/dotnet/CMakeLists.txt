@@ -22,6 +22,10 @@ include_directories(
 #   ${CMAKE_SOURCE_DIR}/kdecore
 )
 
+link_directories(
+  ${TQT_LIBRARY_DIRS}
+)
+
 ##### other data ################################
 
 install( FILES dotnet.themerc DESTINATION ${DATA_INSTALL_DIR}/kstyle/themes )
@@ -37,6 +41,6 @@ set( ${target}_SRCS
 
 tde_add_kpart( ${target} AUTOMOC
   SOURCES ${${target}_SRCS}
-  LINK kdefx-shared
+  LINK kdeui-shared
   DESTINATION ${PLUGIN_INSTALL_DIR}/plugins/styles
 )

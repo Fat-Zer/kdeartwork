@@ -18,6 +18,10 @@ include_directories(
 #   ${CMAKE_SOURCE_DIR}/kdecore
 )
 
+link_directories(
+  ${TQT_LIBRARY_DIRS}
+)
+
 ##### kstyle_phase_config ########################
 
 set( target kstyle_phase_config )

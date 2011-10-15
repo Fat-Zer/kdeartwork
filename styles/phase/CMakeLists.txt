@@ -22,6 +22,11 @@ include_directories(
 #   ${CMAKE_SOURCE_DIR}/kdecore
 )
 
+
+link_directories(
+  ${TQT_LIBRARY_DIRS}
+)
+
 add_subdirectory( config )
 
 ##### other data ################################
