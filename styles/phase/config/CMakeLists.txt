@@ -10,12 +10,9 @@
 #################################################
 
 include_directories(
-  ${TQT_INCLUDE_DIR}
-  ${TDE_INCLUDE_DIRS}
+  ${TQT_INCLUDE_DIRS}
+  ${TDE_INCLUDE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}
-#   ${CMAKE_BINARY_DIR}/kdecore
-#   ${CMAKE_SOURCE_DIR}/kdefx
-#   ${CMAKE_SOURCE_DIR}/kdecore
 )
 
 link_directories(
