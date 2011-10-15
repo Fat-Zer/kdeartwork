@@ -82,7 +82,8 @@ option( WITH_ARTS "Enable aRts support" OFF )
 
 option( BUILD_ALL "Build all" OFF )
 option( BUILD_KSCREENSAVER "Build kscreensaver" ${BUILD_ALL} )
-option( BUILD_WALLPAPERS "Build kscreensaver" ${BUILD_ALL} )
+option( BUILD_STYLES "Build styles" ${BUILD_ALL} )
+option( BUILD_WALLPAPERS "Build wallpapers" ${BUILD_ALL} )
 
 # option( BUILD_DCOPRSS "Build dcoprss" ${BUILD_ALL} )
 # option( BUILD_DOC "Build doc" ${BUILD_ALL} )
@@ -123,6 +124,7 @@ set( CMAKE_MODULE_LINKER_FLAGS "-Wl,--no-undefined" )
 ##### kdenetwork directories ####################
 
 # tde_conditional_add_subdirectory( BUILD_KSCREENSAVER kscreensaver )
+tde_conditional_add_subdirectory( BUILD_STYLES styles )
 tde_conditional_add_subdirectory( BUILD_WALLPAPERS wallpapers )
 # tde_conditional_add_subdirectory( BUILD_DCOPRSS dcoprss )
 # tde_conditional_add_subdirectory( BUILD_DOC doc )
