@@ -9,13 +9,11 @@
 #
 #################################################
 
-add_definitions(
-  -DQT_PLUGIN
-)
+add_subdirectory( config )
+add_subdirectory( icewm-themes )
 
 include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}
-  ${CMAKE_BINARY_DIR}
   ${TDE_INCLUDE_DIR}
   ${TQT_INCLUDE_DIRS}
 )
@@ -27,27 +25,12 @@ link_directories(
 
 ##### other data ################################
 
-install( FILES riscos.desktop DESTINATION ${DATA_INSTALL_DIR}/kwin )
+install( FILES icewm.desktop DESTINATION ${DATA_INSTALL_DIR}/kwin )
 
-##### kwin3_riscos ###############################
+##### kwin3_icewm ###############################
 
-
-set( target kwin3_riscos )
-
-set( ${target}_SRCS
-  AboveButton.cpp Button.cpp
-  CloseButton.cpp
-  HelpButton.cpp
-  IconifyButton.cpp
-  LowerButton.cpp
-  Manager.cpp
-  MaximiseButton.cpp
-  Static.cpp
-  StickyButton.cpp
-)
-
-tde_add_kpart( ${target} AUTOMOC
-  SOURCES ${${target}_SRCS}
+tde_add_kpart( kwin3_icewm AUTOMOC
+  SOURCES icewm.cpp
   LINK kparts-shared kdecorations
   DESTINATION ${PLUGIN_INSTALL_DIR}
 )

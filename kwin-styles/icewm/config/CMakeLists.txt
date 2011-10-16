@@ -9,8 +9,6 @@
 #
 #################################################
 
-add_subdirectory( config )
-
 include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}
   ${TDE_INCLUDE_DIR}
@@ -19,17 +17,12 @@ include_directories(
 
 link_directories(
   ${TQT_LIBRARY_DIRS}
-  ${TDE_LIB_DIR}
 )
 
-##### other data ################################
+##### kwin_icewm_config (module) ################
 
-install( FILES cde.desktop DESTINATION ${DATA_INSTALL_DIR}/kwin )
-
-##### kwin3_cde ##################################
-
-tde_add_kpart( kwin3_cde AUTOMOC
-  SOURCES cdeclient.cpp
-  LINK kparts-shared kdecorations
+tde_add_kpart( kwin_icewm_config AUTOMOC
+  SOURCES config.cpp
+  LINK kdeui-shared
   DESTINATION ${PLUGIN_INSTALL_DIR}
 )
