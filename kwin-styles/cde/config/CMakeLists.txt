@@ -19,8 +19,7 @@ link_directories(
   ${TQT_LIBRARY_DIRS}
 )
 
-
-##### kwin_b2_config (module) ###################
+##### kwin_cde_config (module) ###################
 
 tde_add_kpart( kwin_cde_config AUTOMOC
   SOURCES config.cpp
