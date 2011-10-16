@@ -9,6 +9,10 @@
 #
 #################################################
 
+add_definitions(
+  -DQT_PLUGIN
+)
+
 include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}
   ${TDE_INCLUDE_DIR}
