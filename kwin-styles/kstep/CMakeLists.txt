@@ -9,8 +9,6 @@
 #
 #################################################
 
-add_subdirectory( config )
-
 include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}
   ${TDE_INCLUDE_DIR}
@@ -24,12 +22,12 @@ link_directories(
 
 ##### other data ################################
 
-install( FILES smoothblend.desktop DESTINATION ${DATA_INSTALL_DIR}/kwin )
+install( FILES kstep.desktop DESTINATION ${DATA_INSTALL_DIR}/kwin )
 
-##### kwin3_smoothblend ##########################
+##### kwin3_kstep ###############################
 
-tde_add_kpart( kwin3_smoothblend AUTOMOC
-  SOURCES smoothblend.cc
+tde_add_kpart( kwin3_kstep AUTOMOC
+  SOURCES nextclient.cpp
   LINK kparts-shared kdecorations
   DESTINATION ${PLUGIN_INSTALL_DIR}
 )

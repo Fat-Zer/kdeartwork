@@ -9,8 +9,6 @@
 #
 #################################################
 
-add_subdirectory( config )
-
 include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}
   ${TDE_INCLUDE_DIR}
@@ -24,12 +22,27 @@ link_directories(
 
 ##### other data ################################
 
-install( FILES smoothblend.desktop DESTINATION ${DATA_INSTALL_DIR}/kwin )
+install( FILES riscos.desktop DESTINATION ${DATA_INSTALL_DIR}/kwin )
 
-##### kwin3_smoothblend ##########################
+##### kwin3_riscos ###############################
 
-tde_add_kpart( kwin3_smoothblend AUTOMOC
-  SOURCES smoothblend.cc
+
+set( target kwin3_riscos )
+
+set( ${target}_SRCS
+  AboveButton.cpp Button.cpp
+  CloseButton.cpp
+  HelpButton.cpp
+  IconifyButton.cpp
+  LowerButton.cpp
+  Manager.cpp
+  MaximiseButton.cpp
+  Static.cpp
+  StickyButton.cpp
+)
+
+tde_add_kpart( ${target} AUTOMOC
+  SOURCES ${${target}_SRCS}
   LINK kparts-shared kdecorations
   DESTINATION ${PLUGIN_INSTALL_DIR}
 )
