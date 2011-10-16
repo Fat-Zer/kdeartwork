@@ -27,8 +27,14 @@ install( FILES cde.desktop DESTINATION ${DATA_INSTALL_DIR}/kwin )
 
 ##### kwin_cde ###################################
 
-tde_add_kpart( kwin3_cde AUTOMOC
-  SOURCES cdeclient.cpp
+set( kwin3_cde dotnet )
+
+set( ${target}_SRCS
+  cdeclient.cpp
+)
+
+tde_add_kpart( ${target} AUTOMOC
+  SOURCES ${${target}_SRCS}
   LINK kdecorations kdecore
   DESTINATION ${PLUGIN_INSTALL_DIR}
 )
