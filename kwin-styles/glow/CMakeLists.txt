@@ -25,7 +25,7 @@ link_directories(
 
 ##### other data ################################
 
-install( FILES icewm.desktop DESTINATION ${DATA_INSTALL_DIR}/kwin )
+install( FILES glow.desktop DESTINATION ${DATA_INSTALL_DIR}/kwin )
 
 ##### kwin3_glow ################################
 
