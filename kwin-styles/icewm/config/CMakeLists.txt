@@ -23,6 +23,6 @@ link_directories(
 
 tde_add_kpart( kwin_icewm_config AUTOMOC
   SOURCES config.cpp
-  LINK kdeui-shared
+  LINK kdeui-shared kio-shared
   DESTINATION ${PLUGIN_INSTALL_DIR}
 )
