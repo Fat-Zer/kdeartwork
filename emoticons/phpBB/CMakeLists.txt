@@ -14,4 +14,4 @@ install( FILES
     biggrin.png confused.png cry.png devil.png
 	oh.png smile.png sunglasses.png tongue.png
 	unhappy.png wink.png 
-  DESTINATION ${SHARE_INSTALL_PREFIX}/emoticons/Plain )
+  DESTINATION ${SHARE_INSTALL_PREFIX}/emoticons/phpBB )

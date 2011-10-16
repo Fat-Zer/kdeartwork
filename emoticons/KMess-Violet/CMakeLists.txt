@@ -15,4 +15,4 @@ install( FILES
     embarassed.png omg.png sad.png
     shade.png smile.png teeth.png
     tongue.png wink.png 
-  DESTINATION ${SHARE_INSTALL_PREFIX}/emoticons/phpBB )
+  DESTINATION ${SHARE_INSTALL_PREFIX}/emoticons/KMess-Violet )
