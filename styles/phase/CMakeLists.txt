@@ -30,7 +30,6 @@ add_subdirectory( config )
 
 install( FILES phase.themerc DESTINATION ${DATA_INSTALL_DIR}/kstyle/themes )
 
-
 ##### phasestyle #################################
 
 set( target phasestyle )
