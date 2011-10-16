@@ -1,7 +1,7 @@
 #################################################
 #
-#  (C) 2010-2011 Serghei Amelian
-#  serghei (DOT) amelian (AT) gmail.com
+#  (C) 2011 Golubev Alexander
+#  fatzer2 (AT) gmail.com
 #
 #  Improvements and feedback are welcome
 #
@@ -16,5 +16,5 @@ add_subdirectory( cde )
 # add_subdirectory( kstep )
 # add_subdirectory( openlook )
 # add_subdirectory( riscos )
-# add_subdirectory( smooth-blend )
-# add_subdirectory( system )
+add_subdirectory( smooth-blend )
+add_subdirectory( system )
