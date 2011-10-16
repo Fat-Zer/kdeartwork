@@ -17,5 +17,5 @@ install( FILES
     maximizeA.xpm maximizeI.xpm menuButtonA.xpm menuButtonI.xpm
     minimizeA.xpm minimizeI.xpm restoreA.xpm restoreI.xpm
     rolldownA.xpm rolldownI.xpm rollupA.xpm rollupI.xpm
-    default.theme KDE_Logout_new.wav
+    default.theme
   DESTINATION ${DATA_INSTALL_DIR}/kwin/icewm-themes )

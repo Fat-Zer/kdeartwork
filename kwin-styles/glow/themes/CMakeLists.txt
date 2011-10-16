@@ -9,12 +9,9 @@
 #
 #################################################
 
-add_subdirectory( cde )
-add_subdirectory( glow )
-add_subdirectory( icewm )
-add_subdirectory( kde1 )
-add_subdirectory( kstep )
-add_subdirectory( openlook )
-add_subdirectory( riscos )
-add_subdirectory( smooth-blend )
-add_subdirectory( system )
+add_subdirectory( default )
+add_subdirectory( glass )
+add_subdirectory( glass_huge )
+add_subdirectory( glass_large )
+add_subdirectory( glass_verylarge )
+add_subdirectory( square )
