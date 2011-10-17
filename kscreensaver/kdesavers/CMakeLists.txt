@@ -21,12 +21,21 @@ set( klorenz_SOURCES	lorenz.cpp )
 set( kslideshow_SOURCES slideshow.cpp slideshowcfg.ui )
 set( kblob_SOURCES		blob.cpp )
 set( kvm_SOURCES		kvm.cpp vm.c vm_random.c )
-set( kslideshow_LDADD	-lkio -lm )
-set( klorenz_LDADD		-lm )
-set( kblob_LDADD 		-lm )
+set( kslideshow_LINK	kio-shared )
+# set( klorenz_LINK		-lm )
+# set( kblob_LINK 		-lm )
 
 set( NORMAL_SCREENSAVERS 
 	kbanner kpolygon kslideshow	klines klorenz kblob kvm )
+
+foreach( saver ${NORMAL_SCREENSAVERS} )
+  tde_add_kpart( ${saver} AUTOMOC
+    SOURCES ${${saver}_SOURCES}
+    LINK kparts-shared ${${saver}_LINK}
+    DESTINATION ${PLUGIN_INSTALL_DIR}
+  )
+endforeach( saver ${NORMAL_SCREENSAVERS} )
+
 
 # X11 screen savers
 set( kscience_SOURCES	science.cpp )	
