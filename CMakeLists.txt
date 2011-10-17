@@ -25,7 +25,7 @@ set( VERSION "3.5.13" )
 include( FindPkgConfig )
 # include( CheckFunctionExists )
 # include( CheckIncludeFile )
-# include( CheckIncludeFileCXX )
+include( CheckIncludeFileCXX )
 include( CheckCXXSourceCompiles )
 # include( CheckLibraryExists )
 
