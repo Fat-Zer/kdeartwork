@@ -46,7 +46,7 @@ tde_setup_paths( )
 
 option( WITH_XSCREENSAVER "Enable xscreensavers support" ON )
 option( WITH_LIBART "Enable libart support" ON )
-option( WITH_GL "Enable 3D GL modes" ON )
+option( WITH_OPENGL "Enable 3D GL modes" ON )
 option( WITH_ARTS "Enable aRts support" OFF )
 
 #  --enable-profile        creates profiling infos [default=no]

@@ -9,9 +9,12 @@
 #
 #################################################
 
-#if( BUILD_KOPETE OR BUILD_KPPP )
-#  check_include_file( string.h HAVE_STRING_H )
-#endif( )
+if( WITH_OPENGL )
+  pkg_search_module( OPENGL opengl )
+  if( NOT OPENGL_FOUND )
+    tde_message_fatal( "opengl is required, but was not found on your system" )
+  endif( )
+endif( )
 
 # required stuff
 find_package( TQt )

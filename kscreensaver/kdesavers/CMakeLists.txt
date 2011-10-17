@@ -9,37 +9,38 @@
 #
 #################################################
 
+include_directories(
+  ${CMAKE_CURRENT_BINARY_DIR}
+  ${CMAKE_BINARY_DIR}
+  ${TDE_INCLUDE_DIR}
+  ${TQT_INCLUDE_DIRS}
+)
+
+link_directories(
+  ${TQT_LIBRARY_DIRS}
+)
+
+
 #	$(X11_KSAVERS) $(LIBART_KSAVERS) $(ARTS_GL_KSAVERS) $(GL_KSAVERS) )
 
 
-
 # The "normal" screensavers
-set( kbanner_SOURCES	banner.cpp )
-set( kpolygon_SOURCES	polygon.cpp )
-set( klines_SOURCES	lines.cpp )
-set( klorenz_SOURCES	lorenz.cpp )
+set( kbanner_SOURCES    banner.cpp )
+set( kpolygon_SOURCES   polygon.cpp )
+set( klines_SOURCES     lines.cpp )
+set( klorenz_SOURCES    lorenz.cpp )
 set( kslideshow_SOURCES slideshow.cpp slideshowcfg.ui )
-set( kblob_SOURCES		blob.cpp )
-set( kvm_SOURCES		kvm.cpp vm.c vm_random.c )
+set( kblob_SOURCES      blob.cpp )
+set( kvm_SOURCES        kvm.cpp vm.c vm_random.c )
+
 set( kslideshow_LINK	kio-shared )
-# set( klorenz_LINK		-lm )
-# set( kblob_LINK 		-lm )
 
 set( NORMAL_SCREENSAVERS 
 	kbanner kpolygon kslideshow	klines klorenz kblob kvm )
 
-foreach( saver ${NORMAL_SCREENSAVERS} )
-  tde_add_kpart( ${saver} AUTOMOC
-    SOURCES ${${saver}_SOURCES}
-    LINK kparts-shared ${${saver}_LINK}
-    DESTINATION ${PLUGIN_INSTALL_DIR}
-  )
-endforeach( saver ${NORMAL_SCREENSAVERS} )
-
-
 # X11 screen savers
-set( kscience_SOURCES	science.cpp )	
-set( kscience_LDADD 	-lm )
+set( kscience_SOURCES   science.cpp )	
+set( X11_SCREENSAVERS kscience)
 
 # The GL screensavers
 set( kfountain_SOURCES	fountain.cpp fountaincfg.ui )
@@ -83,6 +84,14 @@ endif( WITH_GL )
 # link_directories(
 #   ${TQT_LIBRARY_DIRS}
 # )
+
+foreach( saver ${NORMAL_SCREENSAVERS} )
+  tde_add_kpart( ${saver} AUTOMOC
+    SOURCES ${${saver}_SOURCES}
+    LINK kscreensaver-shared kdeui-shared ${${saver}_LINK}
+    DESTINATION ${PLUGIN_INSTALL_DIR}
+  )
+endforeach( saver ${NORMAL_SCREENSAVERS} )
 
 
 # ##### other data ################################

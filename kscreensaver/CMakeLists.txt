@@ -12,11 +12,11 @@
 # include( ConfigureChecks.cmake )
 
 add_subdirectory( kdesavers )
-add_subdirectory( kpartsaver)
-if( WITH_XSCREENSAVER )
-	add_subdirectory( kxsconfig )
-	add_subdirectory( xsavers )
-endif( WITH_XSCREENSAVER )
+# add_subdirectory( kpartsaver)
+# if( WITH_XSCREENSAVER )
+# 	add_subdirectory( kxsconfig )
+# 	add_subdirectory( xsavers )
+# endif( WITH_XSCREENSAVER )
 
 
 
