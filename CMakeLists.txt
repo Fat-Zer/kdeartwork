@@ -83,7 +83,7 @@ option( WITH_ARTS "Enable aRts support" OFF )
 option( BUILD_ALL "Build all" OFF )
 option( BUILD_EMOTICONS "Build emoticons" ${BUILD_ALL} )
 option( BUILD_ICEWM_THEMES "Build icewm-themes" ${BUILD_ALL} )
-
+option( BUILD_ICON_THEMES "Build icon themes" ${BUILD_ALL} )
 option( BUILD_KSCREENSAVER "Build kscreensaver" ${BUILD_ALL} )
 option( BUILD_KWIN_STYLES "Build kwin styles" ${BUILD_ALL} )
 option( BUILD_KWORLDCLOCK "Build kworldclock" ${BUILD_ALL} )
@@ -131,7 +131,7 @@ set( CMAKE_MODULE_LINKER_FLAGS "-Wl,--no-undefined" )
 
 tde_conditional_add_subdirectory( BUILD_EMOTICONS emoticons )
 tde_conditional_add_subdirectory( BUILD_ICEWM_THEMES icewm-themes )
-
+tde_conditional_add_subdirectory( BUILD_ICON_THEMES IconThemes )
 tde_conditional_add_subdirectory( BUILD_KSCREENSAVER kscreensaver )
 tde_conditional_add_subdirectory( BUILD_KWIN_STYLES kwin-styles )
 tde_conditional_add_subdirectory( BUILD_KWORLDCLOCK kworldclock )
