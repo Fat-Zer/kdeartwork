@@ -17,6 +17,7 @@ include_directories(
 
 link_directories(
   ${TQT_LIBRARY_DIRS}
+  ${TDE_LIB_DIR}
 )
 
 ##### other data ################################
@@ -27,6 +28,6 @@ install( FILES kstep.desktop DESTINATION ${DATA_INSTALL_DIR}/kwin )
 
 tde_add_kpart( kwin3_kstep AUTOMOC
   SOURCES nextclient.cpp
-  LINK kdecorations-shared
+  LINK kparts-shared kdecorations
   DESTINATION ${PLUGIN_INSTALL_DIR}
 )

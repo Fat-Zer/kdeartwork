@@ -20,7 +20,6 @@ include_directories(
 
 link_directories(
   ${TQT_LIBRARY_DIRS}
-  ${TDE_LIB_DIR}
 )
 
 ##### other data ################################
@@ -31,6 +30,6 @@ install( FILES glow.desktop DESTINATION ${DATA_INSTALL_DIR}/kwin )
 
 tde_add_kpart( kwin3_glow AUTOMOC
   SOURCES glowbutton.cpp glowclient.cpp
-  LINK kparts-shared kdecorations
+  LINK kdecorations-shared
   DESTINATION ${PLUGIN_INSTALL_DIR}
 )

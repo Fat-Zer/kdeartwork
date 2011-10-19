@@ -19,14 +19,10 @@ link_directories(
   ${TQT_LIBRARY_DIRS}
 )
 
-##### other data ################################
+##### kwin_glow_config (module) ##################
 
-install( FILES kstep.desktop DESTINATION ${DATA_INSTALL_DIR}/kwin )
-
-##### kwin3_kstep ###############################
-
-tde_add_kpart( kwin3_kstep AUTOMOC
-  SOURCES nextclient.cpp
-  LINK kdecorations-shared
+tde_add_kpart( kwin_glow_config AUTOMOC
+  SOURCES glowconfigdialog.cpp
+  LINK kdeui-shared
   DESTINATION ${PLUGIN_INSTALL_DIR}
 )

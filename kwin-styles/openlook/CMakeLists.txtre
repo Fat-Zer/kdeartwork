@@ -11,22 +11,24 @@
 
 include_directories(
   ${CMAKE_CURRENT_BINARY_DIR}
+  ${CMAKE_BINARY_DIR}
   ${TDE_INCLUDE_DIR}
   ${TQT_INCLUDE_DIRS}
 )
 
 link_directories(
   ${TQT_LIBRARY_DIRS}
+  ${TDE_LIB_DIR}
 )
 
 ##### other data ################################
 
-install( FILES kstep.desktop DESTINATION ${DATA_INSTALL_DIR}/kwin )
+install( FILES openlook.desktop DESTINATION ${DATA_INSTALL_DIR}/kwin )
 
-##### kwin3_kstep ###############################
+##### kwin3_openlook ############################
 
-tde_add_kpart( kwin3_kstep AUTOMOC
-  SOURCES nextclient.cpp
+tde_add_kpart( kwin3_openlook AUTOMOC
+  SOURCES OpenLook.cpp
   LINK kdecorations-shared
   DESTINATION ${PLUGIN_INSTALL_DIR}
 )

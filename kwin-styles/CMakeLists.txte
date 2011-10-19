@@ -9,8 +9,6 @@
 #
 #################################################
 
-include( "${TDE_CMAKE_DIR}/kwin.cmake" )
-
 add_subdirectory( cde )
 add_subdirectory( glow )
 add_subdirectory( icewm )

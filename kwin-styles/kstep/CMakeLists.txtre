@@ -17,6 +17,7 @@ include_directories(
 
 link_directories(
   ${TQT_LIBRARY_DIRS}
+  ${TDE_LIB_DIR}
 )
 
 ##### other data ################################
