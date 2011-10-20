@@ -31,7 +31,7 @@ set( ${target}_SRCS
 tde_add_executable( ${target} AUTOMOC
   SOURCES ${${target}_SRCS}
   LINK kio-shared ${X11_Xt_LIB}
-  DESTINATION ${PLUGIN_INSTALL_DIR}
+  DESTINATION ${BIN_INSTALL_DIR}
 )
 
 ##### kxsrun ####################################
@@ -43,7 +43,7 @@ set( ${target}_SRCS
 tde_add_executable( ${target} AUTOMOC
   SOURCES ${${target}_SRCS}
   LINK kio-shared
-  DESTINATION ${PLUGIN_INSTALL_DIR}
+  DESTINATION ${BIN_INSTALL_DIR}
 )
 
 ##### install desktops ##########################
@@ -57,7 +57,7 @@ foreach(_currentdesktopfile ${_desktopfiles})
   find_file(XSCREENSAVER_FILE_FOUND ${_screensaverName}.xml PATHS ${XSCREENSAVER_CONFIG_DIR} )
   if(XSCREENSAVER_FILE_FOUND)
     MESSAGE(STATUS "xscreensaver name ${_screensaverName} found")
-    install(FILES ${_currentdesktopfile} DESTINATION  ${SERVICES_INSTALL_DIR}/ScreenSavers )
+    install(FILES ${_currentdesktopfile} DESTINATION  ${APPS_INSTALL_DIR}/System/ScreenSavers )
   else(XSCREENSAVER_FILE_FOUND)
     MESSAGE(STATUS "xscreensaver name ${_screensaverName} not found")
   endif(XSCREENSAVER_FILE_FOUND)

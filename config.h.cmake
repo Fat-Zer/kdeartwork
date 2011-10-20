@@ -3,10 +3,10 @@
 #cmakedefine HAVE_NUMERIC_LIMITS 1
 
 /* Defines where xscreensaver stores it's config files */
-#define XSCREENSAVER_CONFIG_DIR "${XSCREENSAVER_CONFIG_DIR}"
+#define XSCREENSAVER_CONFIG_DIR "@XSCREENSAVER_CONFIG_DIR@"
 
 /* Defines where xscreensaver stores its graphic hacks */
-#define XSCREENSAVER_HACKS_DIR "${XSCREENSAVER_DIR}"
+#define XSCREENSAVER_HACKS_DIR "@XSCREENSAVER_DIR@"
 
 /* Defines if you have GL (Mesa, OpenGL, ...) */
 #cmakedefine HAVE_GL 1
