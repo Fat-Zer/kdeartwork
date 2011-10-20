@@ -24,19 +24,19 @@ link_directories(
 
 # ##### The "normal" screensavers ###############
 
-set( kbanner_SOURCES    banner.cpp )
+set( kbanner_SRCS    banner.cpp )
 set( kbanner_DESKTOP    KBanner.desktop )
-set( kpolygon_SOURCES   polygon.cpp )
+set( kpolygon_SRCS   polygon.cpp )
 set( kpolygon_DESKTOP   KPolygon.desktop )
-set( klines_SOURCES     lines.cpp )
+set( klines_SRCS     lines.cpp )
 set( klines_DESKTOP     KLines-saver.desktop )
-set( klorenz_SOURCES    lorenz.cpp )
+set( klorenz_SRCS    lorenz.cpp )
 set( klorenz_DESKTOP    KLorenz.desktop )
-set( kslideshow_SOURCES slideshow.cpp slideshowcfg.ui )
+set( kslideshow_SRCS slideshow.cpp slideshowcfg.ui )
 set( kslideshow_DESKTOP KSlideshow.desktop )
-set( kblob_SOURCES      blob.cpp )
+set( kblob_SRCS      blob.cpp )
 set( kblob_DESKTOP      KBlob.desktop )
-set( kvm_SOURCES        kvm.cpp vm.c vm_random.c )
+set( kvm_SRCS        kvm.cpp vm.c vm_random.c )
 set( kvm_DESKTOP        KVm.desktop )
 
 set( kslideshow_LINK	kio-shared )
@@ -46,29 +46,29 @@ set( NORMAL_SCREENSAVERS
 
 ##### X11 screensavers ##########################
 
-set( kscience_SOURCES   science.cpp )	
+set( kscience_SRCS   science.cpp )	
 set( kscience_DESKTOP   KScience.desktop )
 
 set( X11_SCREENSAVERS kscience)
 
 ##### The GL screensavers #######################
 
-set( kfountain_SOURCES  fountain.cpp fountaincfg.ui )
+set( kfountain_SRCS  fountain.cpp fountaincfg.ui )
 set( kfountain_DESKTOP  KFountain.desktop )
-set( kwave_SOURCES      wave.cpp wavecfg.ui )
+set( kwave_SRCS      wave.cpp wavecfg.ui )
 set( kwave_DESKTOP      KWave.desktop )
-set( kgravity_SOURCES   gravity.cpp gravitycfg.ui )
+set( kgravity_SRCS   gravity.cpp gravitycfg.ui )
 set( kgravity_DESKTOP   KGravity.desktop )
-set( kflux_SOURCES      Flux.cpp )
+set( kflux_SRCS      Flux.cpp )
 set( kflux_DESKTOP      KFlux.desktop )
-set( keuphoria_SOURCES  Euphoria.cpp )
+set( keuphoria_SRCS  Euphoria.cpp )
 set( keuphoria_DESKTOP  KEuphoria.desktop )
-set( ksolarwinds_SOURCES SolarWinds.cpp )
+set( ksolarwinds_SRCS SolarWinds.cpp )
 set( ksolarwinds_DESKTOP KSolarWinds.desktop )
-set( krotation_SOURCES  rotation.cpp rotationcfg.ui sspreviewarea.cpp
+set( krotation_SRCS  rotation.cpp rotationcfg.ui sspreviewarea.cpp
    	rkodesolver.cpp vec3.cpp )
 set( krotation_DESKTOP  KRotation.desktop )
-set( kpendulum_SOURCES  pendulum.cpp pendulumcfg.ui sspreviewarea.cpp
+set( kpendulum_SRCS  pendulum.cpp pendulumcfg.ui sspreviewarea.cpp
    	rkodesolver.cpp )
 set( kpendulum_DESKTOP  KPendulum.desktop )
 set( OPENGL_SCREENSAVERS kfountain kwave kgravity kflux keuphoria ksolarwinds
@@ -76,7 +76,7 @@ set( OPENGL_SCREENSAVERS kfountain kwave kgravity kflux keuphoria ksolarwinds
 
 ##### The GL-Arts screensavers ##################
 
-set( kfiresaver_SOURCES firesaversetup.ui firesaverparticle.cpp
+set( kfiresaver_SRCS firesaversetup.ui firesaverparticle.cpp
    	firesaverwriter.cpp	firesaver.cpp )
 set( kfiresaver_DESKTOP KFiresaver.desktop )
 set( kfiresaver_LINK artskde-shared )
@@ -84,7 +84,7 @@ set( GL_ARTS_SCREENSAVERS kfiresaver )
 
 ##### The LIBART screensavers ###################
 
-set( kclock_SOURCES	kclock.cpp )
+set( kclock_SRCS	kclock.cpp )
 set( kclock_DESKTOP	KClock.desktop )
 
 set( LIBART_SCREENSAVERS kclock )
@@ -128,7 +128,7 @@ list( APPEND SCREENSAVERS ${NORMAL_SCREENSAVERS} )
 ##### create install/compile rules ##############
 foreach( saver ${SCREENSAVERS} )
   tde_add_executable( ${saver}.kss AUTOMOC
-    SOURCES ${${saver}_SOURCES}
+    SOURCES ${${saver}_SRCS}
     LINK kscreensaver-shared kdeui-shared ${${saver}_LINK}
     DESTINATION ${BIN_INSTALL_DIR}
   )
